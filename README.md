@@ -14,19 +14,8 @@ La plateforme a été conçue au format responsive pour être utilisée tant sur
 
 
 # Licence 
-Le code est disponible sous licence AGPL (Affero General Public License)
+Le code est disponible sous licence AGPL (Affero General Public License). Voir les détails sur [cette page](/LICENSE).
 
-Permissions : 
-- utilisation commerciale
-- utilisation privée
-- distribution
-- modification
-
-Conditions d’utilisation : 
-- Afficher la source
-- Afficher la licence et copyright
-- Conserver la même licence
-- 
 
 # Fonctionnalités 
 
