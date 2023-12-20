@@ -1,0 +1,11 @@
+<div class="pt-4 border-top">
+    <h5>{{ 'product.form.images'|trans }}</h5>
+    <p class="text-dark fs-7">{{ 'product.form.images_default'|trans }}</p>
+    {{ form_row(form, {
+        attr: {
+            "data-productupload-target": "input",
+            "data-action": "productupload#checkUpload"
+        }}) }}
+    <p class="fs-7 text-gray m-0">{{ 'product.form.upload_multiple'|trans }}</p>
+    <div class="invalid-feedback d-block" data-productupload-target="feedback"></div>
+</div>

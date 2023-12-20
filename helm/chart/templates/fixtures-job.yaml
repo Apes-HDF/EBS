@@ -1,0 +1,210 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "plateformcoop-ebs" . }}-fixtures
+  labels:
+    {{- include "plateformcoop-ebs.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "post-install,post-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation"
+spec:
+  template:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+      labels:
+        {{- include "plateformcoop-ebs.selectorLabelsFixtures" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "plateformcoop-ebs.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      restartPolicy: Never
+      containers:
+        - name: {{ .Chart.Name }}-fixtures
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.php.image.pullPolicy }}
+          command: ['/bin/sh', '-c']
+          args: ['
+            set -ex;
+            echo no fixtures job at the moment
+          ']
+          # if [ "$APP_ENV" != "prod" ]; then
+          #   composer install --prefer-dist --no-progress --no-suggest --no-interaction;
+          # fi;
+          # bin/console doctrine:database:drop --if-exists --force;
+          # bin/console doctrine:database:create --if-not-exists;
+          # bin/console doctrine:schema:create;
+          # bin/console doctrine:schema:validate;
+          # bin/console messenger:setup-transports;
+          # bin/console hautelook:fixtures:load --no-interaction -vv --no-bundles;
+          # bin/console app:index-products;
+          env:
+            - name: API_ENTRYPOINT_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-host
+            - name: JWT_PASSPHRASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-jwt-passphrase
+            - name: JWT_PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-jwt-public-key
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-jwt-secret-key
+            - name: TRUSTED_HOSTS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-trusted-hosts
+            - name: TRUSTED_PROXIES
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-trusted-proxies
+            - name: APP_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-app-env
+            - name: APP_DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-app-debug
+            - name: APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-app-secret
+            - name: CORS_ALLOW_ORIGIN
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-cors-allow-origin
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: database-url
+            - name: MERCURE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: mercure-url
+            - name: MERCURE_PUBLIC_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: mercure-public-url
+            - name: MERCURE_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: mercure-jwt-secret
+            {{- if .Values.meilisearch.enabled }}
+            - name: MEILISEARCH_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ printf "%s-%s" (include "meilisearch.fullname" .Subcharts.meilisearch ) "master-key" }}
+                  key: MEILI_MASTER_KEY
+            - name: MEILISEARCH_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: meilisearch-url
+            {{- end }}
+            {{- if .Values.redis.enabled }}
+            - name: REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: redis-url
+            {{- end }}
+            - name: PAYUM_APIKEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: payum-apikey
+            - name: PAYUM_GATEWAY
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: payum-gateway
+            - name: STORAGE_BUCKET
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-storage-bucket
+            - name: STORAGE_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-storage-endpoint
+            - name: STORAGE_REGION
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-storage-region
+            - name: STORAGE_USE_PATH_STYLE_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-storage-use-path-style-endpoint
+            - name: STORAGE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-storage-key
+            - name: STORAGE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plateformcoop-ebs" . }}
+                  key: php-storage-secret
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "/bin/sleep 1; kill -QUIT 1"]
+          startupProbe:
+            exec:
+              command:
+                - docker-healthcheck
+            failureThreshold: 40
+            periodSeconds: 3
+          readinessProbe:
+            exec:
+              command:
+                - docker-healthcheck
+            periodSeconds: 3
+          livenessProbe:
+            exec:
+              command:
+                - docker-healthcheck
+            periodSeconds: 3
+          resources:
+            {{- toYaml .Values.resources.fixtures | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

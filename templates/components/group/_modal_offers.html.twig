@@ -1,0 +1,49 @@
+<div class="modal fade"
+     id="offersModal"
+     tabindex="-1"
+     aria-labelledby="offersModal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    {{ (i18n_prefix ~ '.choose_offer')|trans }}
+                </h1>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    {% for offer in offers %}
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col col-lg-7 d-flex flex-column">
+                                    <p class="text-dark text-center fs-6 fw-bolder m-0">{{ offer.name }}</p>
+                                    <span class="text-gray fs-6 text-center">
+                                        {{ offer.actualPrice|format_currency(offer.currency) }} /
+                                        {{ (i18n_prefix ~ '.type.' ~ offer.type.value)|trans }}
+                                    </span>
+                                </div>
+                                <div class="col col-lg-5 d-flex align-items-center justify-content-center mt-3 mt-lg-0">
+                                    <form action="{{ path('app_payment_prepare', {id: offer.id}) }}" method="post">
+                                        <input type="hidden" name="token" value="{{ csrf_token('payment_prepare') }}"/>
+                                        <input class="btn btn-primary" type="submit"
+                                               value="{{ (i18n_prefix ~ '.payment_prepare.form.submit')|trans }}">
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">{{ (i18n_prefix ~ '.close')|trans }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,190 @@
+App\Entity\Product:
+    product (template):
+        status: !php/enum App\Enum\Product\ProductStatus::ACTIVE
+        visibility: !php/enum App\Enum\Product\ProductVisibility::PUBLIC
+
+    object (template, extends product):
+        type: !php/enum App\Enum\Product\ProductType::OBJECT
+
+    service (template, extends product):
+        type: !php/enum App\Enum\Product\ProductType::SERVICE
+
+    # Loic —————————————————————————————————————————————————————————————————————
+    loic_object_1 (extends object):
+        id: <uuid('1ed7a2a8-0a77-6dbc-a34f-f3a729006754')>
+        owner: '@admin_loic'
+        category: '@category_object_18'
+        name: Vélo Fuji Jari 2.5 
+        description: >
+            Très beau vélo Fuji Jari 2.5.
+            
+            Taille Cadre 54.
+        age: Acheté neuf en septembre 2022.
+        deposit: 3000
+        images: ["4437be7d-ce40-43f0-99b4-4adddcc3316f.jpg"]
+        
+    # Paused object
+    loic_object_2 (extends object):
+        id: <uuid('1ed9e294-7b0b-63f2-984c-61feb91f1a99')>
+        status: !php/enum App\Enum\Product\ProductStatus::PAUSED
+        owner: '@admin_loic'
+        category: '@category_object_8'
+        name: Carte vidéo externe AMD Radeon Pro 380 
+        description: >
+            Pour pouvoir jouer dans de bonnes conditions (Pour Mac Mini).
+            Prété à mon frère en ce moment (sans le site). 
+        age: Acheté début 2019.
+        deposit: 1000
+        preferredLoanDuration: 1 mois mininum svp.
+        
+    user_16_object_3 (extends object):
+        owner: '@admin_loic'
+        category: '@category_service_4_0'
+        name: Guitare électrique
+        description: >
+            Guitare en bon état.
+        age: 2010    
+        
+    loic_service_1 (extends service):
+        id: <uuid('1ed7a2a8-0a78-605a-a8e0-f3a729006754')>
+        owner: '@admin_loic'
+        category: '@category_service_2_1'
+        name: Cours d'échecs initiation
+        description: >
+            Initiation aux échecs pour débutants (1 heure). 
+        duration: >
+            Une ou deux heures si besoin. 
+
+    # Kevin ———————————————————————————————————————————————————————————————————
+    kevin_object_1 (extends object):
+        id: <uuid('1edc4bdc-c352-64fe-960a-a90b81c8da31')>
+        owner: '@admin_kevin'
+        category: '@category_object_17'
+        name: Diable
+        description: >
+            Très bien pour les déménagements, même proches.
+        age: Acheté en 2012.
+
+    kevin_object_2 (extends object):
+        owner: '@admin_kevin'
+        category: '@category_object_17'
+        name: Perceuse
+        description: >
+            Très bien pour percer des trous dans la maison.
+        age: Acheté en 2015.
+
+    # Camille —————————————————————————————————————————————————————————————————————
+    camille_object_1 (extends object):
+        owner: '@admin_camille'
+        category: '@category_object_9'
+        name: Tondeuse à pelouse
+        description: >
+            Très belle Tondeuse pour avoir de l'herbe bien courte.
+        age: 2016
+        deposit: 5000
+    
+    camille_object_2 (extends object):
+        owner: '@admin_camille'
+        category: '@category_object_11'
+        name: Une paire de jumelles
+        description: >
+            Très belle paire de jumelles pour bien voir au loin.
+        age: 2017
+        deposit: 1000
+    
+    camille_object_3 (extends object):
+        owner: '@admin_camille'
+        category: '@category_object_18'
+        name: Vélo électrique
+        description: >
+            Plus facile pour les longues distances.
+        age: 2022
+        deposit: 2000
+    
+    camille_object_4 (extends object):
+        owner: '@admin_camille'
+        category: '@category_object_18'
+        name: Remorque à vélo
+        description: >
+            Pour transporter son enfant ou son chat.
+        age: 2022
+        deposit: 5000
+    
+    # user 16 —————————————————————————————————————————————————————————————————————
+    user_16_service_1 (extends service):        
+        id: <uuid('1edae186-1b1e-6da8-8b71-e114a7d26c2e')>
+        owner: '@user_16'
+        category: '@category_service_1'
+        name: Aide bricolage
+        description: >
+             Petits travaux de peinture et bricolage diverses. 
+        duration: Une journée.
+            
+    user_16_object_1 (extends object):
+        id: <uuid('1edae1d3-f66a-6f68-8057-41b63a425612')>
+        owner: '@user_16'
+        category: '@category_object_4'
+        name: Guitare électrique
+        description: >
+            Très belle guitare électrique en bon état.
+        age: 2013
+        deposit: 2000
+            
+    user_16_object_2 (extends object):
+        owner: '@user_16'
+        category: '@category_object_4'
+        name: Piano
+        description: >
+            Piano en bon état.
+        age: 2010    
+    
+    # place apes —————————————————————————————————————————————————————————————————————
+    place_apes_service_1 (extends service):
+        owner: '@place_apes'
+        category: '@category_service_2'
+        name: Cours de chant
+        description: >
+            Pour débutants, amateurs ou artistes professionnels. 
+        duration: Une journée.  
+    
+    # Sarah —————————————————————————————————————————————————————————————————————        
+    place_sarah_service_1 (extends service):
+        owner: '@admin_sarah'
+        category: '@category_service_2_0'
+        name: Cours de piano
+        description: >
+            Pour débutants, amateurs ou artistes professionnels. 
+        duration: Une heure.
+
+    place_sarah_service_2 (extends service):
+        owner: '@admin_sarah'
+        category: '@category_service_2_2'
+        name: Cours d'histoire
+        description: >
+             Cours de rattrapage en histoire, aide aux devoirs, remise à niveau. 
+        duration: >
+            Une journée.        
+
+    # Place 6 ———————————————————————————————————————————————————————————————————        
+    place_6_object_1 (extends object):
+        owner: '@place_6'
+        category: '@category_object_1'
+        name: Machine à coudre
+        description: >
+            Machine à coudre ( pas fournie avec les bobines de fil).
+        duration: Une journée.
+        age: De 2 à 10 ans
+        deposit: 0
+
+    place_6_object_2 (extends object):
+        id: <uuid('1edf938b-7344-6684-87d5-d36fc869cf92')>
+        owner: '@place_6'
+        category: '@category_object_11'
+        name: Boule à Facette
+        description: >
+            Boule à facette avec moteur rotation et spot directionnel
+        duration: Une journée.
+        age: Moins de 2 ans
+        visibility: !php/enum App\Enum\Product\ProductVisibility::RESTRICTED
+        groups:
+            - '@group_1'

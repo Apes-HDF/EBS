@@ -1,0 +1,19 @@
+{% trans_default_domain 'email' %}
+
+{% set url = url('app_user_conversation_list', {id: service_request.id}) %}
+
+<p>Bonjour !</p>
+
+<p>
+    Un nouveau message concernant la demande de service du
+    {{ service_request.endAt|date('format.date'|trans({}, 'date')) }} ({{ service_request.product.name }})
+    a été envoyé par {{ message.sender.displayName }}.
+</p>
+
+<p>
+    Message : {{ message.message }}
+</p>
+
+<p><a href="{{ url }}">Accéder à la conversation</a></p>
+
+<p>{{ brand }}</p>

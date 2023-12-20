@@ -1,0 +1,49 @@
+App\Entity\Address:
+    address_template (template):
+        country:     'FR'
+        providedBy:  'nominatim'
+        attribution: 'Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright'        
+        osmType: 'node'
+        
+    address_apes (template, extends address_template):
+        address: "235 boulevard Paul Painlevé"
+        addressSupplement: "Maison de l’Economie Sociale et Solidaire"
+        displayName: "APES, 235, Boulevard Paul Painlevé, Lille-Centre, Lille, Nord, Hauts-de-France, France métropolitaine, 59000, France"
+        latitude: 50.6241657
+        longitude: 3.0809541
+        streetNumber: "235"
+        streetName: "boulevard Paul Painlevé"
+        locality: "Lille"
+        postalCode: "59000"
+        osmId: 4401366511
+
+    address_region_hauts_de_france (extends address_template):
+        address: '151 Avenue du président Hoover'
+        displayName: 'Région Hauts-de-France, 151, Avenue du président Hoover, Lille, Nord, Hauts-de-France, France métropolitaine, 59555, France'
+        streetNumber: '151'
+        streetName: 'Avenue du président Hoover'
+        locality: 'Lille'
+        postalCode: '59555'
+        latitude: 50.6297225
+        longitude: 3.0777683
+        osmId: 6576374057
+    
+    address_loic (extends address_apes):
+        id: <uuid('1ed8c1e9-5ffb-694e-a6a7-ff12b1458989')>
+        addressSupplement: '3ème étage'
+
+    address_camille (extends address_apes):
+
+    address_user_17 (extends address_apes):
+        
+    address_prefecture_hauts_de_france (extends address_template):
+        address: "12 rue Jean-Sans-Peur"
+        displayName: "Préfecture de région - Hauts-de-France, 12, Rue Jean-Sans-Peur, Lille, Nord, Hauts-de-France, France métropolitaine, 59800, France"
+        latitude: 50.6326446
+        longitude: 3.0585815
+        streetNumber: "12"
+        streetName: "Rue Jean-Sans-Peur"
+        subLocality: "Fives"
+        locality: "Lille"
+        postalCode: "59800"
+        osmId: 2694662910       

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <trans-unit id="nNj4Kfd" resname="message.type.system">
+            <source>message.type.system</source>
+            <target>Message automatique</target>
+        </trans-unit>
+
+        <trans-unit id="3W5mKPD" resname="message.type.from_owner">
+            <source>message.type.from_owner</source>
+            <target>Message du propriétaire</target>
+        </trans-unit>
+
+        <trans-unit id="RgqFe53" resname="message.type.from_recipient">
+            <source>message.type.from_recipient</source>
+            <target>Message du bénéficiaire</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

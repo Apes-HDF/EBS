@@ -1,0 +1,102 @@
+App\Entity\Category:
+    # —— Templates —————————————————————————————————————————————————————————————
+    category_template (template):
+        enabled: true
+
+    category_object (template, extends category_template):
+        type: !php/enum App\Enum\Product\ProductType::OBJECT
+
+    category_service (template, extends category_template):
+        type: !php/enum App\Enum\Product\ProductType::SERVICE
+        
+    # —— Objects ———————————————————————————————————————————————————————————————
+    category_object_1 (extends category_object):
+        id: <uuid('1ed7b92a-cc6b-6eda-a656-07f15205faab')>
+        name: Activités manuelles et créatives 
+
+    category_object_2 (extends category_object):
+        name: Cartes & Guides de voyage 
+
+    category_object_3 (extends category_object):
+        name: Cuisine & accessoires
+
+    category_object_4 (extends category_object):
+        name: Culture - jeux & instruments de musique
+        
+    category_service_4_0 (extends category_object):
+        parent: '@category_object_4'
+        name: Guitare
+
+    category_object_5 (extends category_object):
+        name: Entretien de la maison
+
+    category_object_6 (extends category_object):
+        name: Equipements pour véhicules
+
+    category_object_7 (extends category_object):
+        name: Images & son
+
+    category_object_8 (extends category_object):
+        name: Informatique - téléphonie consoles et jeux vidéos
+
+    category_object_9 (extends category_object):
+        name: Jardinage
+
+    category_object_10 (extends category_object):
+        name: Livres
+
+    category_object_11 (extends category_object):
+        name: Loisirs divers
+
+    category_object_12 (extends category_object):
+        name: Matériel de sports
+
+    category_object_13 (extends category_object):
+        name: Matériel de vacances et weekend
+
+    category_object_14 (extends category_object):
+        name: Matériel médical
+
+    category_object_15 (extends category_object):
+        name: Puériculture 
+
+    category_object_16 (extends category_object):
+        name: Réception & fêtes
+
+    category_object_17 (extends category_object):
+        name: Travaux & outillage
+
+    category_object_18 (extends category_object):
+        id: <uuid('1edbea38-a8fe-6568-8e68-117f36d0bc19')>
+        name: Vélos & accessoires
+
+    category_object_19 (extends category_object):
+        name: Vêtements - accessoires - Beauté
+
+    category_object_not_visible (extends category_object):
+        name: Pas visible sur le front
+        enabled: false
+        
+    # —— Services ——————————————————————————————————————————————————————————————            
+    category_service_1 (extends category_service):
+        id: <uuid('1ed7b9af-b515-6dbe-a2e8-1338dbc1e4f2')>
+        name: Aide bricolage
+
+    category_service_2 (extends category_service):
+        name: Cours
+
+    category_service_2_0 (extends category_service):
+        id: <uuid('1edceee2-8b52-603c-95c8-1b2191c003a1')>
+        parent: '@category_service_2'
+        name: Cours de musique
+
+    category_service_2_1 (extends category_service):
+        parent: '@category_service_2'
+        name: Cours d'échecs
+
+    category_service_2_2 (extends category_service):
+        parent: '@category_service_2'
+        name: Autres cours
+
+    category_service_3 (extends category_service):
+        name: Soutien scolaire

@@ -1,0 +1,24 @@
+<div class="row align-items-center p-3 bg-secondary-subtle mt-lg-2">
+    <div class="col">
+        <p class="m-0 text-black fw-bolder">
+            {% if start_at == end_at %}
+                {{ 'templates.pages.account.conversation.date'|trans({
+                    '%date%': start_at,
+                }) }}
+            {% else %}
+                {{ 'templates.pages.account.conversation.dates'|trans({
+                    '%startAt%': start_at,
+                    '%endAt%': end_at,
+                }) }}
+            {% endif %}
+        </p>
+    </div>
+
+    {% if workflowCanModifyOwner or workflowCanModifyRecipient %}
+        <div class="col-auto">
+            <button class="btn text-primary" data-bs-toggle="modal" data-bs-target="#editModal">
+                <i class="bi bi-pencil-fill"></i>
+            </button>
+        </div>
+    {% endif %}
+</div>

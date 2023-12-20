@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="zWNdQkM" resname="templates.pages.account.index.my_account">
+            <source>templates.pages.account.index.my_account</source>
+            <target>Mon compte</target>
+        </trans-unit>
+        <trans-unit id="nayfsSL" resname="templates.pages.account.index.vacation_mode_activate">
+            <source>templates.pages.account.index.vacation_mode_activate</source>
+            <target>Activer le mode vacances</target>
+        </trans-unit>
+        <trans-unit id="XpZZQea" resname="templates.pages.account.index.disconnect">
+            <source>templates.pages.account.index.disconnect</source>
+            <target>Me déconnecter</target>
+        </trans-unit>
+        <trans-unit id="9XQqDCH" resname="templates.pages.account.index.vacation_mode_desactivate">
+            <source>templates.pages.account.index.vacation_mode_desactivate</source>
+            <target>Désactiver le mode vacances</target>
+        </trans-unit>
+
+        <trans-unit id="hke4Jag" resname="templates.pages.account.index.disconnect">
+            <source>templates.pages.account.index.disconnect</source>
+            <target>Me déconnecter</target>
+        </trans-unit>
+
+        <trans-unit id="xqtUN1G" resname="templates.pages.account.index.create_group">
+            <source>templates.pages.account.index.create_group</source>
+            <target>Créer un groupe</target>
+        </trans-unit>
+
+        <trans-unit id="imFuVEK" resname="templates.pages.account.index.creation_request">
+            <source>templates.pages.account.index.creation_reques</source>
+            <target>Demande de création de groupe</target>
+        </trans-unit>
+
+        <!-- translations for admin email -->
+        <trans-unit id="ZKTDVd5" resname="templates.pages.account.index.mail.subject">
+            <source>templates.pages.account.index.mail.subject</source>
+            <target>PlatformCoop : demande de création de groupe</target>
+        </trans-unit>
+
+        <trans-unit id="nd7Cu7v" resname="templates.pages.account.index.mail.mail_adress">
+            <source>templates.pages.account.index.mail.mail_adress</source>
+            <target>Adresse e-mail du·de la gérant·e:</target>
+        </trans-unit>
+
+        <trans-unit id="vGJvmkW" resname="templates.pages.account.index.mail.group">
+            <source>templates.pages.account.index.mail.group</source>
+            <target>Nom du groupe:</target>
+        </trans-unit>
+
+        <trans-unit id="uxPPEoD" resname="templates.pages.account.index.mail.type">
+            <source>templates.pages.account.index.mail.type</source>
+            <target>Type : public ou privé</target>
+        </trans-unit>
+
+        <trans-unit id="yWCxeVQ" resname="templates.pages.account.index.mail.membership">
+            <source>templates.pages.account.index.mail.membership</source>
+            <target>Tarif : gratuit ou payant</target>
+        </trans-unit>
+
+        <trans-unit id="AWnQKwn" resname="templates.pages.account.index.mail.info">
+            <source>templates.pages.account.index.mail.info</source>
+            <target>Informations complémentaires:</target>
+        </trans-unit>
+         <trans-unit id="hLXWvHm" resname="templates.pages.account.index.no-address-title">
+             <source>templates.pages.account.index.no-address-title</source>
+             <target>Ajoutez une adresse</target>
+         </trans-unit>
+
+          <trans-unit id="ftBMsiP" resname="templates.pages.account.index.no-address-message">
+             <source>templates.pages.account.index.no-address-message</source>
+             <target>Pour pouvoir créer un %product%, commencez par remplir votre adresse.</target>
+         </trans-unit>
+
+         <trans-unit id="e8xvcp6" resname="templates.pages.account.index.no-address-cancel">
+             <source>templates.pages.account.index.no-address-cancel</source>
+             <target>Annuler</target>
+         </trans-unit>
+
+         <trans-unit id="2h8C3ix" resname="templates.pages.account.index.no-address-add">
+             <source>templates.pages.account.index.no-address-add</source>
+             <target>Ajoutez une adresse</target>
+         </trans-unit>
+    </body>
+  </file>
+</xliff>

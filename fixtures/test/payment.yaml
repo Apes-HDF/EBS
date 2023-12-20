@@ -1,0 +1,27 @@
+App\Entity\Payment:
+    payment_template (template):
+        currencyCode: 'EUR'
+
+    payment_user_16 (extends payment_template):
+        id: <uuid('1edcefc9-45b3-6a3e-b4a6-db137f56da56')>
+        user: '@user_16'
+        number: 'payum_64258ad56b1754.38811238'
+        description: >
+            Groupe 1 / Lorem ipsum
+        clientEmail: 'user8@example.com'
+        clientid: '1ed8d15a-fa38-6f54-9188-f15f4a44bdf2'
+        totalAmount: 1000
+        details:
+            method: creditcard
+            paid: true
+            status: captured
+            metadata:
+                groupId: '1ed4bcca-336e-6732-a08c-a15bb85fa24a'
+                groupOfferId: '1edcf019-786a-6ba8-a77d-598378ee78e4'
+                amount: 1000
+                currency: 'EUR'
+                number: 'payum_64259610892935.12964644'
+                description: >
+                    Groupe 1 / Lorem ipsum 
+                client_email: 'user16@example.com'
+                client_id: '1edae1d3-f66a-6f68-8057-41b63a425612'

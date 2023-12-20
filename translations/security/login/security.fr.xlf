@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <trans-unit id="Ttqj5Gj" resname="login_action.title">
+            <source>login_action.title</source>
+            <target>Connexion</target>
+        </trans-unit>
+
+        <trans-unit id="a8Bcz14" resname="login_action.info">
+            <source>login_action.info</source>
+            <target>Lorem ipsum dolor sit amet. Est voluptatibus voluptas ut quia quidem ea ducimus.</target>
+        </trans-unit>
+
+        <trans-unit id="eZd1P1H" resname="login_action.login.button">
+            <source>login_action.login.button</source>
+            <target>Connexion</target>
+        </trans-unit>
+
+        <trans-unit id="ThYqoMP" resname="login_action.create_account.button">
+            <source>login_action.create_account.button</source>
+            <target>Créer un compte</target>
+        </trans-unit>
+
+        <trans-unit id="bMJWoS6" resname="login_action.lost_password.button">
+            <source>login_action.create_account.button</source>
+            <target>Mot de passe oublié</target>
+        </trans-unit>
+
+        <trans-unit id="SPZtCva" resname="login_action.fom.username.label">
+            <source>login_action.fom.username.label</source>
+            <target>Adresse e-mail</target>
+        </trans-unit>
+
+        <trans-unit id="ndmwgBc" resname="login_action.fom.password.label">
+            <source>login_action.fom.password.label</source>
+            <target>Mot de passe</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

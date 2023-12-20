@@ -1,0 +1,40 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block body %}
+    <div class="px-4 px-lg-0">
+        {% block page_title %}
+            {% include 'components/layout/_title_3.html.twig' with {
+                name
+            } %}
+        {% endblock %}
+
+        {% block text %}
+            <div class="row mt-3 justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <p class="fs-6 fw-lighter text-center">{{ info|raw }}</p>
+                </div>
+            </div>
+        {% endblock %}
+
+        {% block form %}
+            <div class="row mt-3 justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    {% block form_element %}{% endblock %}
+                    {% block error %}
+                        {% if error %}
+                            <div class="alert alert-danger text-center mt-4"
+                                 role="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+                    {% endblock %}
+                </div>
+            </div>
+        {% endblock %}
+        {% block alert %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block link %}
+    <div class="d-flex justify-content-center my-5">
+        <a href="{{ link }}" class="text-primary">{{ name }}</a>
+    </div>
+{% endblock %}

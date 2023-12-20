@@ -1,0 +1,36 @@
+{% if links|length > 3 %}
+    {% for item in links|batch(3) %}
+        <div
+            class="d-none d-md-block col-6 col-md-3 order-2 order-sm-2 py-2 d-flex justify-content-center align-items-center">
+            <ul class="p-0">
+                {% for l in item %}
+                    <li class="text-center list-group-item">
+                        <a class="fs-7 fw-lighter text-gray text-decoration-none"
+                           href={{ l.link }}> {{ l.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="col-6 order-1 order-sm-2 py-2 d-flex justify-content-center align-items-center">
+        <ul class="p-0">
+            {% for item in links %}
+                <li class="text-center list-group-item">
+                    <a class="fs-7 fw-lighter text-gray text-decoration-none"
+                       href={{ item.link }}> {{ item.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+<div class="d-md-none col-6 order-1 order-sm-2 py-2 d-flex justify-content-center align-items-center">
+    <ul class="p-0">
+        {% for item in links %}
+            <li class="text-center list-group-item">
+                <a class="fs-7 fw-lighter text-gray text-decoration-none"
+                   href={{ item.link }}> {{ item.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="spqlLAB" resname="app.mailer.email.admin.new.new_admin_email.subject">
+            <source>app.mailer.email.admin.new.new_admin_email.subject</source>
+            <target>Confirmation de votre compte Administrateur %brand% : échanges de bien et services</target>
+        </trans-unit>
+
+        <trans-unit id="w0mPS5h" resname="templates.email.admin.new.new_admin.p1">
+            <source>templates.email.admin.new.new_admin.p1</source>
+            <target>Bonjour !</target>
+        </trans-unit>
+
+        <trans-unit id="w2mxS5P" resname="templates.email.admin.new.new_admin.p2">
+            <source>templates.email.admin.new.new_admin.p2</source>
+            <target>Votre compte administrateur·rice sur Plateforme EBS a été créé.</target>
+        </trans-unit>
+
+        <trans-unit id="2omkVl9" resname="templates.email.admin.new.new_admin.p3">
+            <source>templates.email.admin.new.new_admin.p3</source>
+            <target>La personne qui vous a créé votre compte vous a mis un mot de passe temporaire, pensez à le changer</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="CPRvB8a" resname="templates.pages.account.loans.list.title">
+            <source>templates.pages.account.loans.list.title</source>
+            <target>Mes emprunts</target>
+        </trans-unit>
+
+        <trans-unit id="Mbk6sm8" resname="templates.pages.account.loans.list.filterBy">
+            <source>templates.pages.account.loans.list.filterBy</source>
+            <target>Filtrer par produits:</target>
+        </trans-unit>
+
+        <trans-unit id="ct2Bkd9" resname="templates.pages.account.loans.list.no_result">
+            <source>templates.pages.account.loans.list.no_result</source>
+            <target>Vous n'avez aucun emprunt pour le moment</target>
+        </trans-unit>
+
+        <trans-unit id="hrUjaTw" resname="templates.pages.account.loans.list.link">
+            <source>templates.pages.account.loans.list.link</source>
+            <target>Accéder à la conversation</target>
+        </trans-unit>
+
+        <trans-unit id="ZucyDs3" resname="templates.pages.account.loans.list.new_messages">
+            <source>templates.pages.account.loans.list.new_messages</source>
+            <target>Nouveaux messages</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

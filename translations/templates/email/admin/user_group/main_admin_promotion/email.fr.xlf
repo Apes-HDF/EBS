@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="mgXc5Ph" resname="templates.email.admin.user_group.admin_promotion.h1">
+            <source>templates.email.admin.user_group.change_role_to_admin.h1</source>
+            <target>Bonjour !</target>
+        </trans-unit>
+
+        <trans-unit id="iReu1ru" resname="templates.email.admin.user_group.admin_promotion.p1">
+            <source>templates.email.admin.user_group.admin_promotion.p1</source>
+            <target>Vous êtes maintenant administrateur·rice du groupe %group%</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

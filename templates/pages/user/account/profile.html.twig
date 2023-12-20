@@ -1,0 +1,64 @@
+{% extends 'layout/base.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% block body %}
+    <div class="px-3 px-lg-0">
+        <div class="d-flex justify-content-center w-100 mt-4">
+            {% if user.avatar is null %}
+                <img src="{{ asset('svg/product.svg') }}"
+                     alt="{{ user.displayName }}"
+                     width="163"
+                     height="163"
+                     class="img-avatar"
+                >
+            {% else %}
+                <div class="img-avatar"
+                     style="background-image: url({{ user|public_url }});
+                         width: 163px;
+                         height: 163px">
+                </div>
+            {% endif %}
+        </div>
+
+        {% include 'components/layout/_title_3.html.twig' with {
+            name: user.getDisplayName,
+            rowClass: 'mt-3'
+        } %}
+
+        {% if user.category is not null %}
+            {% if user.category.parent is not null %}
+                {% set category = user.category.parent ~ ' / ' ~ user.category %}
+            {% else %}
+                {% set category = user.category %}
+            {% endif %}
+            {% include 'components/layout/_text.html.twig' with {
+                text: category,
+                textAlign: 'text-center'
+            } %}
+        {% endif %}
+        {% if user.address is not null %}
+            <div class="d-flex justify-content-center mt-3">
+                <span class="badge d-inline-flex align-items-center rounded-pill text-primary text-bg-blue-custom">
+                    {{ user.address.subAndlocality }}
+                </span>
+            </div>
+        {% endif %}
+        {% if user.description is not null %}
+            {% include 'components/layout/_text.html.twig' with {
+                margin: 'mt-3',
+                text: user.description,
+            } %}
+        {% endif %}
+
+        {% if objects_pagination is empty and services_pagination is empty %}
+            <div class="d-flex justify-content-center mt-4">
+                <span>{{ (i18n_prefix ~ '.no_result')|trans }}</span>
+            </div>
+        {% else %}
+            {% include 'components/product/_section.html.twig' %}
+            {% include 'components/product/_tab_content.html.twig' with {objects_pagination, services_pagination} %}
+        {% endif %}
+    </div>
+{% endblock %}
+{% block link %}{% endblock %}

@@ -1,0 +1,14 @@
+{% trans_default_domain 'admin' %}
+    <dt class="data-row pt-1">{{ 'Product'|trans }}</dt>
+    <dd class="data-row pt-1 ps-0">
+        <a
+            href="{{ ea_url().setController('App\\Controller\\Admin\\ServiceCrudController').setAction('detail').setEntityId(field.value.id) }}"
+            alt="{{ 'Product Link'|trans }}">{{ field.value }}
+        </a>
+    </dd>
+
+    <dt class="data-row">{{ 'Category'|trans }}</dt>
+    <dd class="data-row ps-0">{{ field.value.category }}</dd>
+
+    <dt class="border-0 pt-2 ps-2">{{ 'Status'|trans }}</dt>
+    <dd class="border-0 pt-2">{{ field.value.status.value }}</dd>

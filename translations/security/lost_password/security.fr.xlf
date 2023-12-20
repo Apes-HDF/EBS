@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <trans-unit id="Ttqj5Gj" resname="lost_password_action.title">
+            <source>login_action.title</source>
+            <target>Mot de passe oublié</target>
+        </trans-unit>
+
+        <trans-unit id="a8Bcz14" resname="lost_password_action.info">
+            <source>login_action.info</source>
+            <target>Entrer votre email pour recevoir un lien permettant de réinitialiser le mot de passe associé à votre compte.</target>
+        </trans-unit>
+
+        <trans-unit id="EgjJhFp" resname="lost_password_action.create_account.button">
+            <source>lost_password_action.create_account.button</source>
+            <target>Créer un compte</target>
+        </trans-unit>
+
+        <trans-unit id="X3imeE2" resname="lost_password_action.login.link">
+            <source>lost_password_action.login.link</source>
+            <target>Retour à connexion</target>
+        </trans-unit>
+
+        <trans-unit id="ZMqubKg" resname="lost_password.form.email.placeholder">
+            <source>lost_password.form.email.placeholder</source>
+            <target>monemail@domain.com</target>
+        </trans-unit>
+
+        <trans-unit id="csndPog" resname="lost_password.form.submit">
+            <source>lost_password.form.submit</source>
+            <target>Réinitialiser mon mot de passe</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

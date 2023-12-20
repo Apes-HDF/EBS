@@ -1,0 +1,18 @@
+.address-card {
+    display: flex;
+    align-items: center;
+
+    &-checkbox {
+        width: fit-content;
+    }
+
+    &-info {
+        display: flex;
+        flex-direction: column;
+
+        > p {
+            margin: 0;
+            color: $heading-color;
+        }
+    }
+}

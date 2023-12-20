@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="VaTLLWP" resname="templates.pages.register.step2.group_invitations">
+            <source>templates.pages.register.step2.group_invitations</source>
+            <target>Vous avez été invité·e aux groupes : %groups%</target>
+        </trans-unit>
+
+         <trans-unit id="qUD56BB" resname="templates.pages.register.step2.info">
+            <source>templates.pages.register.step2.info</source>
+            <target>Veuillez choisir votre type de compte et compléter vos informations.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

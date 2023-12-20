@@ -1,0 +1,94 @@
+App\Entity\Page:
+    # —— Templates —————————————————————————————————————————————————————————————
+    page_template (template):
+        enabled: true
+        home: false
+
+    page_1 (extends page_template):
+        id: <uuid('1ed92636-39fe-651e-821f-91f56e56ac44')>
+        name: Qui sommes-nous ?
+        content: |
+            \<h2><strong>Nulla pulvinar purus vel metus varius, nec dictum enim faucibus</strong></h2>
+            
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Vestibulum vel ultrices enim. Cras maximus eget mauris eget elementum. 
+            Nam id justo feugiat ipsum egestas imperdiet in eget erat. Phasellus felis mauris, ultricies eget felis eget, malesuada auctor nisl. 
+            Aliquam aliquam lectus at tincidunt tristique. Nulla facilisis, ante vel egestas facilisis, ex odio accumsan urna, eu eleifend nisi dolor in erat. 
+            Morbi orci augue, interdum eu faucibus non, vestibulum nec urna. Donec tristique lectus ligula, ac volutpat nisl commodo at.
+            </p>
+            
+            <p>Pellentesque id facilisis dolor. Praesent libero enim, blandit non ipsum et, dapibus egestas dolor. 
+            Etiam a dictum enim. Phasellus feugiat fringilla sollicitudin.
+            </p>
+            
+            <p>Nullam eget ullamcorper arcu. Praesent in felis justo. Pellentesque feugiat at nisl et ornare. Integer nec imperdiet odio. 
+            Fusce interdum scelerisque facilisis. Nulla rutrum mauris orci, at auctor elit laoreet eu. Mauris ut nulla lacus.
+            In quis commodo lacus, at accumsan libero. Duis at porta felis, a accumsan nibh. Donec non lorem non neque lacinia commodo nec eu tortor. 
+            Fusce eu velit quis elit dignissim lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque sit amet justo quam.
+            Aliquam nec tortor facilisis, tristique massa non, ullamcorper justo.
+            </p>
+            
+            <p>Sed tincidunt ut nunc lobortis bibendum. Suspendisse fermentum tincidunt quam vel vulputate. 
+            Etiam nunc felis, sagittis nec ultrices sed, bibendum nec libero. Ut blandit nibh quam, vel ornare nisl blandit quis. 
+            Curabitur malesuada quis mauris a sollicitudin. Sed vel nulla efficitur, commodo orci et, porttitor justo. 
+            Cras semper magna scelerisque purus semper lacinia. Nam laoreet auctor eros ut porttitor.
+            Nunc id lacinia sem, eget vestibulum leo. Quisque pulvinar suscipit finibus. Morbi fringilla lobortis enim, et consectetur neque rutrum quis.
+            </p>
+            
+            <p>Donec ut scelerisque mauris.</p>
+            
+            <br/>
+            
+            <h2><strong>Lorem ipsum dolor sit amet.</strong></h2>
+            
+            <p>Mauris augue velit, sollicitudin vel placerat vitae, tincidunt sed mauris. In scelerisque tempus quam at malesuada. 
+            Proin sit amet erat ornare ante laoreet iaculis eu et magna. Quisque mi est, laoreet eu orci id, porta pulvinar elit. 
+            Duis eu sagittis nisl, ut tempus orci. Phasellus tristique non sapien eu sodales.Vivamus id lectus leo. Nulla facilisi. 
+            Nunc eleifend dui vitae augue consequat imperdiet. Mauris nec erat at metus ultricies finibus. Praesent fermentum, turpis pulvinar pulvinar euismod, 
+            ligula tortor aliquam metus, a consequat neque ante a magna. Etiam luctus porta augue id pharetra. Maecenas sollicitudin vehicula dui, 
+            nec bibendum libero euismod a. Mauris eu elementum nisi. In metus purus, consectetur luctus viverra sed, aliquet a libero. 
+            Aenean vulputate elit quis urna molestie rhoncus.
+            </p>         
+            
+            <br/><br/>
+            
+    home:
+        id: <uuid('1edca1e0-027c-64d2-a531-ef336443a548')>
+        name: Accueil
+        home: true
+        content: |
+           \<h2><strong>Nulla fermentum justo sed magna rutrum, eget fermentum dolor accumsan.</strong></h2> 
+    
+    cgu:
+        id: <uuid('1edca5ff-338d-6fa8-a99b-cf5fb5b2f7a5')>
+        name: CGU
+        content: |            
+            \<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nulla non mauris pharetra rhoncus ac non libero. Sed convallis mauris a blandit vehicula. </p>
+            
+            <p>Nulla facilisi. In nunc metus, pretium eu fermentum in, scelerisque non tortor. Ut cursus risus ut nulla porta, eget mollis tellus accumsan.
+            Cras euismod est a dui fringilla, eget suscipit sapien lobortis. Sed erat purus, iaculis et libero vitae, interdum sollicitudin magna. Mauris vel feugiat dui.</p>
+                        
+            <p>Phasellus facilisis sit amet lectus a efficitur. Praesent auctor commodo libero vel scelerisque. Suspendisse commodo consectetur magna ut vestibulum.
+            Mauris quis turpis eget est lobortis ullamcorper. Duis sem arcu, posuere et consectetur ut, maximus ut urna.
+            Nam vitae eleifend dolor. Quisque tempor eleifend tortor id eleifend. Pellentesque varius dolor scelerisque risus posuere euismod.</p>
+        
+            
+            <p>Etiam eleifend pretium ex, vel euismod lorem ornare vel. Sed sit amet sodales ipsum. Vestibulum eget orci condimentum, commodo augue a, congue metus.
+            Aliquam nisi mi, malesuada quis justo sodales, sodales pellentesque nisi.</p>
+            
+            <p>In hac habitasse platea dictumst. Aenean urna arcu, dignissim ut risus in, dignissim gravida mauris. Pellentesque luctus condimentum purus in finibus. Duis suscipit neque in augue mattis facilisis.
+            Phasellus sed euismod neque. In lacus lacus, interdum eget leo vitae, auctor egestas lectus. Nulla in nulla euismod, suscipit nulla ut, cursus nisl.</p>
+            
+            <p>Vivamus malesuada a ante eget fermentum. Aliquam euismod vestibulum ipsum, pretium imperdiet risus lobortis et. Integer augue lacus, egestas at ultrices quis, eleifend in risus.
+            Proin suscipit a quam tempor imperdiet. In nisi sem, sodales sed commodo eget, ultrices vel felis.</p>
+            
+            <p>Maecenas iaculis risus sed elit semper tempus. Curabitur maximus dapibus rhoncus. Suspendisse nec metus eros. Etiam maximus leo ut sem tempus laoreet.</p>
+            
+            <p>Le Site permet aux Adhérents de diffuser leurs offres de Prêts d’objets. 
+            L’Adhérent s’engage à ne proposer en Prêt que des objets dont il est propriétaire et en bon état, 
+            et à fournir tous renseignements utiles facilitant son usage par l’Adhérent emprunteur tel que mode d’emploi, 
+            date de disponibilité, lieu choisi pour le retrait et sa restitution, nombre de Points attendus.</p>
+            
+            <p>Vivamus rutrum varius erat. Donec porttitor a purus quis tincidunt. Duis porttitor sodales lobortis. Maecenas tincidunt elit velit. Maecenas consequat urna diam, non porta est consequat vitae. Cras lobortis eu risus at facilisis. 
+            Cras tempus vehicula sapien, at vulputate dolor porttitor eu. Fusce et urna non sem laoreet condimentum.</p>
+            

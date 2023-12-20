@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <trans-unit id="VqZEf1M" resname="loans">
+            <source>loans</source>
+            <target>Emprunts</target>
+        </trans-unit>
+
+        <trans-unit id="P6z3G33" resname="Loan">
+            <source>Loan</source>
+            <target>Emprunt</target>
+        </trans-unit>
+
+        <trans-unit id="1A1xWyV" resname="Lender">
+            <source>Lender</source>
+            <target>Loueur·euse</target>
+        </trans-unit>
+
+        <trans-unit id="f4TFtzg" resname="Recipient">
+            <source>Recipient</source>
+            <target>Bénéficiaire</target>
+        </trans-unit>
+
+        <trans-unit id="dhuC8ZD" resname="Borrower">
+            <source>Borrower</source>
+            <target>Emprunteur·euse</target>
+        </trans-unit>
+
+        <trans-unit id="gQyM56T" resname="Start At">
+            <source>Start At</source>
+            <target>Début</target>
+        </trans-unit>
+
+        <trans-unit id="AtqrqrK" resname="End At">
+            <source>Start At</source>
+            <target>Fin</target>
+        </trans-unit>
+
+        <trans-unit id="iGR7gaK" resname="Messages Count">
+            <source>Messages Count</source>
+            <target>Message(s)</target>
+        </trans-unit>
+
+        <trans-unit id="hToBQZx" resname="NEW">
+            <source>NEW</source>
+            <target>à confirmer propriétaire</target>
+        </trans-unit>
+
+        <trans-unit id="ZzBQjrM" resname="TO_CONFIRM">
+            <source>TO_CONFIRM</source>
+            <target>à confirmer emprunteur·euse</target>
+        </trans-unit>
+
+        <trans-unit id="Ycd6Hx5" resname="CONFIRMED">
+            <source>CONFIRMED</source>
+            <target>confirmé</target>
+        </trans-unit>
+
+        <trans-unit id="jT3wtJj" resname="REFUSED">
+            <source>REFUSED</source>
+            <target>annulé</target>
+        </trans-unit>
+
+        <trans-unit id="pTJRiZP" resname="FINISHED">
+            <source>FINISHED</source>
+            <target>terminé</target>
+        </trans-unit>
+
+        <!-- detail loan page -->
+        <trans-unit id="PLJKDD8" resname="loan.title">
+            <source>loan.title</source>
+            <target>Prêt du %date% entre %lender% et %borrower%</target>
+        </trans-unit>
+
+        <trans-unit id="FBusqTc" resname="panel.lender">
+            <source>panel.lender</source>
+            <target>Prêteur·euse</target>
+        </trans-unit>
+
+        <trans-unit id="46FWQ75" resname="panel.borrower">
+            <source>panel.borrower</source>
+            <target>Emprunteur·euse</target>
+        </trans-unit>
+
+        <trans-unit id="hKDsjwq" resname="panel.service">
+            <source>panel.service</source>
+            <target>Service</target>
+        </trans-unit>
+
+        <trans-unit id="LxeRQi3" resname="panel.loan_information">
+            <source>panel.loan_information</source>
+            <target>Emprunt</target>
+        </trans-unit>
+
+        <trans-unit id="mNeoabh" resname="Conversation">
+            <source>Conversation</source>
+            <target>Conversation</target>
+        </trans-unit>
+
+        <!-- conversation page -->
+        <trans-unit id="ziyFAHu" resname="conversation.title">
+            <source>conversation.title</source>
+            <target>Conversation de l'emprunt %product%</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

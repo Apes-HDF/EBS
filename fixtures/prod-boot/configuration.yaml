@@ -1,0 +1,18 @@
+App\Entity\Configuration:
+    configuration_template (template):
+        type: !php/enum App\Enum\ConfigurationType::INSTANCE
+
+    features (extends configuration_template):
+        configuration:
+            notificationsSender:
+                notificationsSenderEmail: info@example.com 
+                notificationsSenderName: Contact
+            contact:
+                contactFormEnabled: false
+                contactFormEmail: info@example.com
+            groups:
+                groupsEnabled: false
+                groupsCreationMode: !php/const App\Message\Command\Admin\ParametersFormCommand::ONLY_ADMIN
+                groupsPaying: false
+            confidentiality:
+                confidentialityConversationAdminAccess: false

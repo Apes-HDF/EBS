@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="SAHchex" resname="templates.pages.account.loans.new.back_to_article">
+            <source>templates.pages.account.loans.new.back_to_article</source>
+            <target>Retour à l'article</target>
+        </trans-unit>
+        <trans-unit id="nw8ebHr" resname="templates.pages.account.loans.new.title">
+            <source>templates.pages.account.loans.new.title</source>
+            <target>Demande d'emprunt</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,56 @@
+# https://symfony.com/doc/current/workflow.html#configuration
+# Get the generated services :
+#   $ php bin/console debug:autowiring workflow
+# Generate the graphs in "/docs":
+#   $ make workflows
+framework:
+    workflows:
+        service_request_status:
+            type: 'state_machine'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'method'
+                # for now workflow uses strings not enums
+                # @see https://github.com/symfony/symfony/issues/44211
+                property: 'statusRaw'
+            supports:
+                - App\Entity\ServiceRequest
+            initial_marking: new
+            # @see ServiceRequestStatus
+            places:
+                - new
+                - to_confirm
+                - confirmed
+                - refused
+                - finished
+            # @see ServiceRequestStatusWorkflow
+            transitions:
+                # owner confirmation
+                accept:
+                    from: new
+                    to:   to_confirm
+                # the owner modifies the dates and accept the request
+                modifyOwner:
+                    from: new
+                    to:   to_confirm
+                # the recipient modifies the dates and ask the owner to validate again
+                modifyRecipient:
+                    from: to_confirm
+                    to:   new            
+                # recipient confirmation 
+                confirm:
+                    from: to_confirm
+                    to:   confirmed
+                # transaction manually finalized by the owner
+                finalize:
+                    from: confirmed
+                    to:   finished
+                # transaction auto-finalized by the system
+                autoFinalize:
+                    from: confirmed
+                    to:   finished
+                # refusal from the owner or recipient
+                refuse:
+                    from: [new, to_confirm, confirmed]
+                    to:   refused

@@ -1,0 +1,32 @@
+{% extends 'layout/base.html.twig' %}
+
+{% form_theme form 'components/form/_address_form_theme.html.twig' %}
+
+{% block body %}
+    <div class="px-3 px-lg-0 mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                <h1 class="text-center">{{ 'address.step2_action.title'|trans }}</h1>
+
+                <h2 class="text-center">{{ 'address.step2_action.user_input'|trans }}</h2>
+
+                <pre class="text-center">{{ address.fullAddress }}</pre>
+                <div class="d-grid col-12 my-5">
+                    <a class="btn btn-sm btn-outline-primary" href="javascript:history.go(-1)">{{ 'address.step2_action.from.back'|trans }}</a>
+
+                </div>
+                <h2 class="text-center">{{ 'address.step2_action.confirm_title'|trans }}</h2>
+
+                <p class="text-center">{{ 'address.step2_action.confirm_intro'|trans }}</p>
+                {{ form_start(form) }}
+                {{ form_row(form.addresses) }}
+                <div class="d-grid col-12 my-5">
+                    {{ form_widget(form.submit) }}
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block link %}{% endblock %}

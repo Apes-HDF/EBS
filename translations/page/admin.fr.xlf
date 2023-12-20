@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="8uDEjeM" resname="Pages">
+            <source>Pages</source>
+            <target>Pages</target>
+        </trans-unit>
+
+        <trans-unit id="pnGtHJP" resname="pages">
+            <source>pages</source>
+            <target>pages</target>
+        </trans-unit>
+
+        <trans-unit id="E8DniJd" resname="Page">
+            <source>Page</source>
+            <target>Page</target>
+        </trans-unit>
+
+        <trans-unit id="AUCDhRP" resname="Slug">
+            <source>Slug</source>
+            <target>Slug</target>
+        </trans-unit>
+
+        <trans-unit id="D4gdB2E" resname="Content">
+            <source>Content</source>
+            <target>Contenu</target>
+        </trans-unit>
+
+        <trans-unit id="ohgqG3D" resname="page.action.link">
+            <source>page.action.link</source>
+            <target>Accéder à la page</target>
+        </trans-unit>
+
+        <trans-unit id="WGTuFyG" resname="Home">
+            <source>Home</source>
+            <target>Page d'accueil ?</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

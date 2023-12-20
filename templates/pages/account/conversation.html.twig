@@ -1,0 +1,204 @@
+{% extends 'layout/base.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+{% set product = service_request.getProduct() %}
+{% set category = product.getCategory() %}
+{% set is_owner = service_request.owner == app.user %}
+{% set contact = is_owner ? service_request.recipient : service_request.owner %}
+{% set csrf_token = csrf_token('transition') %}
+{% set start_at = service_request.startAt|date('d/m/Y') %}
+{% set end_at = service_request.endAt|date('d/m/Y') %}
+{% set service_request_id = service_request.id %}
+
+{% block container %}container-fluid{% endblock %}
+
+{% block body %}
+    {% if app.environment == 'dev' %}
+        <div class="row mt-5">
+            <details>
+                <summary>debug</summary>
+                <pre>
+                i18n_prefix: {{ i18n_prefix }}
+
+                Current service request status: {{ service_request.status.value }}
+
+                canAccept : {{ workflow_can(service_request, 'accept') ? '✅' : '❌' }}
+                canConfirm : {{ workflow_can(service_request, 'confirm') ? '✅' : '❌' }}
+                canRefuse : {{ workflow_can(service_request, 'refuse') ? '✅' : '❌' }}
+
+                service_request.isOwner(app.user): {{ service_request.isOwner(app.user) ? '✅' : '❌' }}
+                service_request.isRecipient(app.user): {{ service_request.isRecipient(app.user) ? '✅' : '❌' }}
+
+                status.isNew : {{ service_request.status.isNew ? '✅' : '❌' }}
+                status.isToConfirm : {{ service_request.status.isToConfirm ? '✅' : '❌' }}
+                status.isConfirmed : {{ service_request.status.isConfirmed ? '✅' : '❌' }}
+                status.isRefused : {{ service_request.status.isRefused ? '✅' : '❌' }}
+                status.isFinished : {{ service_request.status.isFinished ? '✅' : '❌' }}
+
+                csrf_token: {{ csrf_token }}
+                </pre>
+            </details>
+        </div>
+    {% endif %}
+    {# Edit dates modal #}
+    {% if workflow_can(service_request, 'modifyOwner') or workflow_can(service_request, 'modifyRecipient') %}
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="editModalLabel">
+                            {{ 'templates.pages.account.conversation.modal.edit.title'|trans }}
+                        </h6>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div
+                        class="modal-body"
+                        data-controller="calendar"
+                        data-calendar-unavailabilities-value="{{ product.getUnavailabilities(service_request)|join(',') }}"
+                    >
+                        {% set transition = workflow_can(service_request, 'modifyOwner') ? 'modifyOwner' : 'modifyRecipient' %}
+                        <form
+                            name="{{ modify_form.vars.name }}"
+                            id="{{ modify_form.vars.id }}"
+                            action="{{ path('app_user_service_request_transition_modify', {id: service_request.id, transition: transition}) }}"
+                            method="post"
+                        >
+                            <div class="d-flex flex-column mt-2">
+                                {{ form_label(modify_form.startAt, null, {label_attr: {class: 'order-2 mt-2 label-modal-width'}}) }}
+                                {{ form_errors(modify_form.startAt) }}
+                                {{ form_widget(modify_form.startAt, {id: 'calendar-start-day', attr: {class: 'order-3'}}) }}
+                            </div>
+                            <div class="d-flex flex-column">
+                                {{ form_label(modify_form.endAt, null, {label_attr: {class: 'mt-1 label-modal-width'}}) }}
+                                {{ form_errors(modify_form.endAt) }}
+                                {{ form_widget(modify_form.endAt, {id: 'calendar-end-day', type: 'text'}) }}
+                            </div>
+                            {{ form_rest(modify_form) }}
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            {{ 'templates.pages.account.conversation.modal.edit.cancel'|trans }}
+                        </button>
+                        <button type="submit" form="{{ modify_form.vars.id }}" class="btn btn-primary">
+                            {{ workflow_can(service_request, 'modifyOwner') ? (i18n_prefix ~ '.modal.edit.save')|trans : (i18n_prefix ~ '.modal.edit.save_owner')|trans }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row mt-lg-5 justify-content-lg-between">
+        <div class="col-12 col-lg-4 col-xl-3 px-lg-5 order-lg-2">
+            <div class="row p-3 bg-secondary-subtle">
+                <div class="col position-relative d-flex justify-content-center align-items-center">
+                    <a class="link position-absolute start-0 top-50 translate-middle-y text-primary p-2"
+                       href="{{ path('app_user_my_lendings') }}">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+                    {% include 'components/conversation/_avatar.html.twig' with {
+                        contact,
+                        name: is_owner ? contact.displayName : service_request.owner.displayName
+                    } %}
+                </div>
+            </div>
+
+            {% include 'components/conversation/_product-info.html.twig' with {
+                product,
+                category,
+                rowClass: 'p-3 bg-secondary-subtle mt-lg-2'
+            } %}
+
+            {% include 'components/conversation/_calendar.html.twig' with {
+                start_at,
+                end_at,
+                workflowCanModifyOwner: workflow_can(service_request, 'modifyOwner'),
+                workflowCanModifyRecipient: workflow_can(service_request, 'modifyRecipient'),
+            } %}
+            <div class="row p-3 bg-secondary-subtle">
+                <div class="col">
+                    {% include 'components/conversation/_badge.html.twig' with {
+                        status: service_request.status
+                    } %}
+                </div>
+            </div>
+            {% if service_request.status.name != 'FINISHED' %}
+                <div class="d-none d-lg-block mt-lg-2">
+                    {% include 'components/conversation/_action.html.twig' with {
+                        accept: workflow_can(service_request, 'accept'),
+                        confirm: workflow_can(service_request, 'confirm'),
+                        finalize: workflow_can(service_request, 'finalize'),
+                        refuse: workflow_can(service_request, 'refuse')
+                    } %}
+                </div>
+                <div class="d-grid col mt-4">
+                    <a type="button"
+                       class="btn btn-primary"
+                       href="{{ url('app_user_conversation_list', {id: service_request_id}) }}"
+                    >
+                        {{ (i18n_prefix ~ '.link.refresh')|trans }}
+                    </a>
+                </div>
+            {% else %}
+                <div class="d-grid col mt-4">
+                    <a type="button"
+                       class="btn btn-primary"
+                       href="{{ url('app_user_conversation_list', {id: service_request_id}) }}"
+                    >
+                        {{ (i18n_prefix ~ '.link.refresh')|trans }}
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col col-lg-8 col-xl-9 px-lg-5 order-lg-1 border-end">
+            {% include 'components/conversation/_chat.html.twig' with {
+                messages: service_request.messages
+            } %}
+        </div>
+    </div>
+
+    <div class="position-fixed bottom-0 start-0 end-0 chat-action pe-lg-3">
+        <div class="row">
+            <div class="col">
+                {{ form_start(form) }}
+                <div class="row align-items-center p-3 bg-secondary-subtle">
+                    <div class="col pe-0">
+                        {{ form_widget(form.message, {
+                            attr: {
+                                placeholder: 'templates.pages.account.conversation.textarea.placeholder'|trans,
+                                class: 'conversation-textarea',
+                            }}) }}
+                    </div>
+                    <div class="col-auto ps-2">
+                        {{ form_widget(form.submit) }}
+                    </div>
+                    {{ form_widget(form._token) }}
+                </div>
+                {{ form_end(form) }}
+                <div class="d-lg-none">
+                    {% include 'components/conversation/_action.html.twig' with {
+                        accept: workflow_can(service_request, 'accept'),
+                        confirm: workflow_can(service_request, 'confirm'),
+                        finalize: workflow_can(service_request, 'finalize'),
+                        refuse: workflow_can(service_request, 'refuse')
+                    } %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'components/conversation/_modal-confirmation.html.twig' with {
+        start_at,
+        end_at,
+        product,
+        category,
+        contact,
+        name: is_owner ? contact.displayName : service_request.owner.displayName
+    } %}
+
+{% endblock %}
+
+{% block link %}{% endblock %}
+
+{% block footer %}{% endblock %}

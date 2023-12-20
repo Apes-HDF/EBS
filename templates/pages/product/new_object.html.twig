@@ -1,0 +1,37 @@
+{% extends 'layout/base.html.twig' %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% block body %}
+    <div class="px-3 px-lg-0">
+        {% include 'components/layout/_title_3.html.twig' with {
+            name: (i18n_prefix ~ '.title')|trans
+        } %}
+        {% if info is defined and not null %}
+            {% include 'components/layout/_text.html.twig' with {
+                text: info
+            } %}
+        {% endif %}
+
+        {% include 'components/layout/_title_5.html.twig' with {
+            title: 'new_product.available'|trans,
+            centerRow: true,
+            colClass: 'col-md-8 col-lg-6 col-xl-5'
+        } %}
+
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                {{ form_start(form) }}
+                {% include 'components/product/_object_fields.html.twig' %}
+                {% include 'components/product/_address_form.html.twig' %}
+                {% include 'components/product/service_request/_submit.html.twig' with {
+                    submit: form.submit
+                } %}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block link %}{% endblock %}

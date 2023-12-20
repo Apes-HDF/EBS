@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+        <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="WeGnZ6t" resname="templates.admin.group.invite.h1">
+            <source>templates.admin.group.invite.h1</source>
+            <target>Envoyer une invitation pour le groupe %group%</target>
+        </trans-unit>
+
+        <trans-unit id="a" resname="templates.admin.group.invite.p1">
+            <source>templates.admin.group.invite.p1</source>
+            <target>
+                Veuillez entrer l'email de la personne ou des personnes à inviter. Ils recevront
+                un lien afin d'accepter l'invitation et de compléter les informatons
+                de leur compte.
+            </target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,79 @@
+{% extends 'layout/base.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% block body %}
+    <div class="px-3 px-lg-0">
+        {% include 'components/layout/_title_3.html.twig' with {
+            name: (i18n_prefix ~ '.title')|trans
+        } %}
+
+        {# include 'components/layout/_searchbar.html.twig' with {
+            col: 'col col-lg-5',
+        } #}
+
+        <div class="row flex-column">
+            {% if app.user.userGroups is not empty %}
+                {% if not app.user.getMyUserGroupsAsInvited.empty  %}
+                    <div class="col col-lg-5 mx-lg-auto mt-lg-5">
+                        {# user invitations to groups #}
+                        {% include 'components/layout/_title_5.html.twig' with {
+                            title: (i18n_prefix ~ '.user_invitations')|trans,
+                            rowClass: 'justify-content-center mt-4'
+                        } %}
+                        <div class="card mt-5">
+                            <ul class="list-group list-group-flush">
+                                {% for item in app.user.getMyUserGroupsAsInvited %}
+                                    <li class="list-group-item invitation-test">
+                                        {% include 'components/group/_list-content.html.twig' with {
+                                            item,
+                                            needAction: true,
+                                            isAdmin: item.membership.isAdmin()
+                                        } %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if not app.user.getMyUserGroupsAsConfirmed.empty %}
+                    <div class="col col-lg-5 mx-lg-auto mt-5">
+                        {# user groups #}
+                        {% include 'components/layout/_title_5.html.twig' with {
+                            title: (i18n_prefix ~ '.user_groups')|trans,
+                            rowClass: 'justify-content-center'
+                        } %}
+                        <div class="card mt-5">
+                            <ul class="list-group list-group-flush">
+                                {% for item in app.user.getMyUserGroupsAsConfirmed %}
+                                    <li class="list-group-item group-test">
+                                        {% include 'components/group/_list-content.html.twig' with {
+                                            item,
+                                            needAction: item.membership.isAdmin() ? true : false,
+                                            isAdmin: item.membership.isAdmin()
+                                        } %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+
+            {% else %}
+                <div class="col col-lg-5 mx-lg-auto text-center mt-5">
+                     <span class="fs-6 fw-bolder text-dark text-break">
+                        {{ (i18n_prefix ~ '.no_group')|trans }}
+                    </span>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="d-grid col-12 col-md-5 mx-auto mt-5">
+            <a href="{{ path('app_group_list') }}" class="btn btn-primary btn-sm">
+                {{ (i18n_prefix ~ '.all_group')|trans }}
+            </a>
+        </div>
+    </div>
+{% endblock %}
+{% block link %}{% endblock %}

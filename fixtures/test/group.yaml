@@ -1,0 +1,81 @@
+App\Entity\Group:
+    group_template (template):
+
+    group_1 (extends group_template):
+        id: <uuid('1ed4bcca-336e-6732-a08c-a15bb85fa24a')>
+        name: Groupe 1
+        description: >
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean velit erat, 
+            fringilla sit amet dui in, vehicula ultrices dui.
+        url: https://example.com/
+        membership: !php/enum App\Enum\Group\GroupMembership::CHARGED
+        invitation_by_admin: true
+        
+    group_2 (extends group_template):
+        name: Groupe 2
+        description: >
+            Mauris varius vitae nunc ac maximus. Aliquam quis placerat nisi. 
+            Pellentesque aliquam magna sed elit interdum, sed elementum erat posuere.
+        url: https://example.com/
+        membership: !php/enum App\Enum\Group\GroupMembership::FREE
+    
+    group_3 (extends group_template):
+        name: Groupe 3
+        description: Sed aliquet mauris egestas vehicula consequat.
+        url: https://example.com/
+        membership: !php/enum App\Enum\Group\GroupMembership::CHARGED
+
+    group_4 (extends group_template):
+        name: Groupe 4
+        description: Fusce ut ante ut libero dictum varius quis vel ante. Nulla facilisi.
+        url: https://example.com/
+        membership: !php/enum App\Enum\Group\GroupMembership::CHARGED
+
+    group_5 (extends group_template):
+        id: <uuid('1edc897c-6113-6878-833e-856b0722c68f')>
+        name: Groupe 5
+        description: > 
+            Integer consectetur semper est, eu euismod dolor laoreet eget. 
+            Aliquam a convallis turpis. Aliquam ultricies lectus ut fringilla consequat.
+        url: https://example.com/
+    
+    group_6 (extends group_template):
+        name: Groupe 6
+        description: Phasellus scelerisque eleifend lobortis. Mauris et diam sit amet nisl hendrerit convallis vel ac tellus.
+        url: https://example.com/ 
+
+    group_7 (extends group_template):
+        id: <uuid('1ed658d5-8f6c-663a-9bf0-9154f3e29146')>
+        name: Groupe 7
+        description: >
+            Nullam id lacus libero. Integer luctus, dui in tempus mattis, justo tellus aliquam eros, id facilisis dolor mi id tellus. 
+            Sed lobortis sapien felis, vel ultricies lorem consectetur commodo.
+        url: https://example.com/
+        membership: !php/enum App\Enum\Group\GroupMembership::CHARGED
+        invitation_by_admin: true
+
+    # —— End of real groups ————————————————————————————————————————————————————
+    
+    # private group
+    group_private (extends group_template):
+        id: <uuid('1ed4bcf1-264e-6aa8-8897-3dc24d8aa063')>
+        name: Groupe privé
+        type: !php/enum App\Enum\Group\GroupType::PRIVATE
+        description: Aliquam interdum viverra sem et cursus.
+        invitation_by_admin: true
+
+    # group with children
+    group_parent:
+        id: <uuid('1ed7184b-3fee-66f4-9ed6-9df6576c32d3')>
+        name: Groupe parent
+        description: >
+            Duis gravida sapien et nunc sollicitudin, ac tempor erat ullamcorper.
+        membership: !php/enum App\Enum\Group\GroupMembership::FREE
+
+    # group with a parent
+    group_child:
+        name: Groupe enfant
+        parent: '@group_parent'
+        description: >
+            Aenean mattis arcu nec arcu tempor mattis.
+        membership: !php/enum App\Enum\Group\GroupMembership::FREE

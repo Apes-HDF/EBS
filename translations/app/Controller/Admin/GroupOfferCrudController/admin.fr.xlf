@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="V1a8Se9" resname="group_offers">
+            <source>group_offers</source>
+            <target>Tarifs d'adhésion</target>
+        </trans-unit>
+
+        <trans-unit id="HBhTXmi" resname="GroupOffer">
+            <source>GroupOffer</source>
+            <target>Tarif d'adhésion</target>
+        </trans-unit>
+
+        <trans-unit id="we5Ar3c" resname="ONESHOT">
+            <source>ONESHOT</source>
+            <target>unique</target>
+        </trans-unit>
+
+        <trans-unit id="RBt4Wqg" resname="YEARLY">
+            <source>YEARLY</source>
+            <target>annuel</target>
+        </trans-unit>
+
+        <trans-unit id="YicCBSu" resname="MONTHLY">
+            <source>MONTHLY</source>
+            <target>mensuel</target>
+        </trans-unit>
+
+        <trans-unit id="YrHRhWk" resname="Active">
+            <source>Active</source>
+            <target>Actif ?</target>
+        </trans-unit>
+
+        <trans-unit id="asn37yh" resname="Price">
+            <source>Price</source>
+            <target>prix</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

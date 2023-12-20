@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="qF5FNKp" resname="app.controller.user.group.user_group_controller.flash.success">
+            <source>app.controller.user.group.user_group_controller.flash.success</source>
+            <target>Vous avez bien rejoint le groupe.</target>
+        </trans-unit>
+
+        <trans-unit id="aWzHify" resname="app.controller.user.group.user_group_controller.accept_invitation.flash.success">
+            <source>app.controller.user.group.user_group_controller.accept_invitation.flash.success</source>
+            <target>L'invitation a bien été acceptée.</target>
+        </trans-unit>
+
+        <trans-unit id="ZQTQkGb" resname="app.controller.user.group.user_group_controller.quit_group.flash.success">
+            <source>app.controller.user.group.user_group_controller.quit_group.flash.success</source>
+            <target>Vous avez bien quitté·e le groupe.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

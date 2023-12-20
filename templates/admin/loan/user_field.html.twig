@@ -1,0 +1,19 @@
+{% trans_default_domain 'admin' %}
+    {% if not field.value.isPLace() %}
+        <dt class="data-row pt-1">{{ 'Firstname'|trans }}</dt>
+        <dd class="data-row pt-1 ps-0">{{ field.value.firstname }}</dd>
+
+        <dt class="data-row">{{ 'Lastname'|trans }}</dt>
+        <dd class="data-row ps-0">{{ field.value.lastname }}</dd>
+    {% else %}
+        <dt class="data-row">{{ 'Name'|trans }}</dt>
+        <dd class="data-row ps-0">{{ field.value.name }}</dd>
+    {% endif %}
+
+    <dt class="border-0 pt-2 ps-2">{{ 'Email'|trans }}</dt>
+    <dd class="border-0 pt-2">
+        <a
+            href="{{ ea_url().setController('App\\Controller\\Admin\\UserCrudController').setAction('detail').setEntityId(field.value.id) }}"
+            alt="{{ 'User Link'|trans }}">{{ field.value.email }}
+        </a>
+    </dd>

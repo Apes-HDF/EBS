@@ -1,0 +1,19 @@
+{% trans_default_domain 'email' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% set url = url('app_group_show_logged', {id: group.id, slug: group.slug}) %}
+
+<p>{{ (i18n_prefix ~ '.hi')|trans }}</p>
+
+<p>{{ (i18n_prefix ~ '.p1')|trans({'%group%': group.name}) }}</p>
+
+<p>{{ (i18n_prefix ~ '.p2')|trans }}</p>
+
+<p><a href="{{ url }}">{{ (i18n_prefix ~ '.cta')|trans }}</a></p>
+
+<p>{{ (i18n_prefix ~ '.cta2')|trans }}</p>
+
+<p>{{ url }}</p>
+
+<p>{{ brand }}</p>

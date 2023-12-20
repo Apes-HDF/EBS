@@ -1,0 +1,29 @@
+{# https://symfony.com/bundles/EasyAdminBundle/current/dashboards.html#content-page-template #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% trans_default_domain 'admin' %}
+
+{% block content_title %}Dashboard{% endblock %}
+
+{% block page_actions %}
+    {#
+    <a class="btn btn-primary" href="...">Some Action</a>
+    #}
+{% endblock %}
+
+{% block main %}
+    <h2>{{ 'dashboard.statistics'|trans }}</h2>
+
+    <table class="datagrid">
+        <thead>
+        <tr>
+            <td><b>Nombre de groupes</b></td>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ group_count }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

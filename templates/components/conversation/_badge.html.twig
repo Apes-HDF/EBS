@@ -1,0 +1,16 @@
+{% if status.value == "to_confirm" %}
+    {% set type = "secondary" %}
+{% elseif status.value == "confirmed" %}
+    {% set type = "primary" %}
+{% elseif status.value == "refused" %}
+    {% set type = "danger" %}
+{% elseif status.value == "finished" %}
+    {% set type = "success" %}
+{% else %}
+    {% set type = "warning" %}
+{% endif %}
+
+{% include 'components/utils/_badge.html.twig' with {
+    type,
+    name: status.name|trans({}, 'admin')|capitalize
+} %}

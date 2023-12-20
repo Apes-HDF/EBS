@@ -1,0 +1,88 @@
+<div class="modal fade"
+     id="modalConfirmation"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title"
+                    id="editModalLabel">
+                    {{ 'templates.pages.account.conversation.modal.edit.title'|trans }}
+                </h6>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                {% include 'components/layout/_text.html.twig' with {
+                    colClass: 'col',
+                    text: service_request.isOwner(app.user) ? (i18n_prefix ~ '.modal.confirm.owner')|trans : (i18n_prefix ~ '.modal.confirm.recipient')|trans
+                } %}
+
+                {# DATE #}
+                {% include 'components/layout/_text.html.twig' with {
+                    margin: 'mt-0',
+                    colClass: 'col',
+                    font: 'text-black fw-bolder',
+                    text: start_at == end_at ? (i18n_prefix ~ '.date')|trans({
+                        '%date%': start_at,
+                    }) : (i18n_prefix ~ '.dates')|trans({
+                        '%startAt%': start_at,
+                        '%endAt%': end_at,
+                    })
+                } %}
+
+                {# PRODUCT #}
+                {% include 'components/conversation/_product-info.html.twig' with {
+                    product,
+                    category
+                } %}
+            </div>
+            <div class="modal-footer">
+                {# tansition "accept":  "new" -> "to_confirm" #}
+                {% if workflow_can(service_request, 'accept') %}
+                    <form
+                        action="{{ path('app_user_service_request_transition', {id: service_request.id, transition: 'accept'}) }}"
+                        method="post">
+                        <input type="hidden" name="token" value="{{ csrf_token }}"/>
+                        <button type="submit"
+                                class="btn  btn-success">
+                            <i class="bi bi-check"></i>
+                            {{ (i18n_prefix ~ '.link.confirm')|trans }}</button>
+                    </form>
+                {% elseif service_request.status.isNew %}
+                    <p>{{ (i18n_prefix ~ '.accept_text')|trans }}</p>
+                {% endif %}
+
+                {# tansition "confirm":  "to_confirm" -> "confirmed" #}
+                {% if workflow_can(service_request, 'confirm') %}
+                    <form
+                        action="{{ path('app_user_service_request_transition', {id: service_request.id, transition: 'confirm'}) }}"
+                        method="post">
+                        <input type="hidden" name="token" value="{{ csrf_token }}"/>
+                        <button type="submit"
+                                class="btn btn-success">
+                            <i class="bi bi-check"></i>
+                            {{ (i18n_prefix ~ '.link.confirm')|trans }}</button>
+                    </form>
+                {% elseif service_request.status.isToConfirm %}
+                    <p>{{ (i18n_prefix ~ '.to_confirm_text')|trans }}</p>
+                {% endif %}
+
+                {# tansition "finalize":  "confirmed" -> "finished" #}
+                {% if service_request.status.isConfirmed %}
+                    <p>{{ (i18n_prefix ~ '.confirmed_text')|trans({
+                            '%startAt%': service_request.startAt|date('format.date'|trans({}, 'date'))
+                        }) }}</p>
+                {% endif %}
+
+                {% if service_request.status.isRefused %}
+                    <p>{{ (i18n_prefix ~ '.refused_text')|trans }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

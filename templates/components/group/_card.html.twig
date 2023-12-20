@@ -1,0 +1,20 @@
+{% set pill_bg = group.type.isPublic() ? 'text-primary text-bg-blue-custom' : 'text-bg-secondary' %}
+
+<div class="card-group row align-items-center py-2">
+    <div class="col-6 d-flex flex-column">
+        <span class="fs-6 fw-bolder text-dark">
+            {{ group.name }}
+        </span>
+        <span class="badge rounded-pill {{ pill_bg }} mt-2">
+            {{ (i18n_prefix ~ '.pill_' ~ group.type.value)|trans }}
+        </span>
+    </div>
+    <div class="col-6">
+        <a href="{{ link }}"
+           class="btn btn-primary w-100">
+            <i class="bi bi-person-fill-add"></i>
+            {{ (i18n_prefix ~ '.join')|trans }}
+        </a>
+    </div>
+</div>
+

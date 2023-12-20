@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="SCb5FRG" resname="app.mailer.email.command.end_membership_email.subject">
+            <source>app.mailer.email.command.end_membership_email.subject</source>
+            <target>%brand% : adhésion au groupe %group% terminée.</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

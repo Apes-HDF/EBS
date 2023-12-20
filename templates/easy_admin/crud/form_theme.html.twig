@@ -1,0 +1,77 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @see src/Resources/views/crud/form_theme.html.twig #}
+{# @see vendor/easycorp/easyadmin-bundle/src/Resources/views/crud/form_theme.html.twig #}
+
+{# ## Modifictions are only in the include of /easy_admin/* custom templates #}
+{# ## All modifictions should be in partial only #}
+
+{% block ea_fileupload_widget %}
+
+    {# We don't use the existing EA currentFiles variable as it doesn't contains correct values with the cloud storage (prod env) #}
+    {# because EA tries to create UploadedFile instances from the local path, and it doesn't find anything.  #}
+    {# Instead, we can just get the images path from our entities and use the custom flysystem path helpers #}
+
+    {% set entity = ea.entity.instance %}
+    {% set current_files = is_images_entity(entity) ? entity.images : [entity.image] %}
+    {% set current_files = (current_files ?? [])|filter(v => v is not null) %} {# no error with new image #}
+
+    <div class="ea-fileupload">
+        <div class="input-group">
+            {% set placeholder = t('action.choose_file', {}, 'EasyAdminBundle') %}
+            {% set title = '' %}
+            {% set files_label = 'files'|trans({}, 'EasyAdminBundle') %}
+            {% set placeholder = (current_files|length) > 0 ? current_files|length ~ ' ' ~ files_label : placeholder %}
+            <div class="custom-file">
+                {{ form_widget(form.file, {attr: form.file.vars.attr|merge({placeholder: placeholder, title: title, 'data-files-label': files_label, style: 'display: none'})}) }}
+                {{ form_label(form.file, placeholder, {label_attr: {class: 'custom-file-label'}}) }}
+            </div>
+            <div class="input-group-text">
+                {% if allow_delete %}
+                    <label class="btn ea-fileupload-delete-btn" {% if current_files is empty %}style="display: none"{% endif %} for="{{ form.delete.vars.id }}">
+                        <i class="fa fa-trash-o"></i>
+                    </label>
+                {% endif %}
+                <label class="btn" for="{{ form.file.vars.id }}">
+                    <i class="fa fa-folder-open-o"></i>
+                </label>
+            </div>
+        </div>
+        {% if current_files is not empty and form.vars.valid %}
+            <div class="form-control fileupload-list">
+                <table class="fileupload-table">
+                    <tbody>
+                    {# If multiple file is not acticated we just have one file #}
+                    {% for file in current_files %}
+                        {# get public URL of resource depending on if it has multiple images associated or not #}
+                        {% set public_url = is_images_entity(entity) ? entity|public_url_image(file) : entity|public_url %}
+                        <tr>
+                            <td>
+                                {% set html_id = 'ea-lightbox-' ~ loop.index %}
+                                <a href="#" onclick="return false;" class="ea-lightbox-thumbnail" data-ea-lightbox-content-selector="#{{ html_id }}">
+                                    <span>
+                                        <i class="fa fa-file-o"></i> {{ file }}
+                                    </span>
+                                </a>
+
+                                <div id="{{ html_id }}" class="ea-lightbox">
+                                    <img src="{{ public_url }}" alt="{{ entity.name ?? '' }}">
+                                </div>
+
+                            </td>
+                            <td>
+                                <img src="{{ public_url }}" style="height: 30px" class="img-fluid" alt="{{ entity.name ?? '' }}"/>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+        {% if allow_delete %}
+            <div style="display: none">{{ form_widget(form.delete, {label: false}) }}</div>
+        {% endif %}
+    </div>
+    {{ form_errors(form.file) }}
+
+    {% include 'easy_admin/crud/_js_upload_size_validation.html.twig' %}
+{% endblock %}

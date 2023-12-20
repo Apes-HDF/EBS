@@ -1,0 +1,84 @@
+App\Entity\GroupOffer:
+    group_offer_template (template):
+    
+    # Templates
+    group_offer_group_1_template (template, extends group_offer_template):
+        group: '@group_1'
+        type: !php/enum App\Enum\Group\GroupOfferType::YEARLY
+    
+    group_offer_group_7_template (template, extends group_offer_template):
+        group: '@group_7'
+        type: !php/enum App\Enum\Group\GroupOfferType::YEARLY    
+    
+    # Group 1    
+    group_offer_group_1_10 (extends group_offer_group_1_template):
+        id: <uuid('1edc7128-0bd1-69f8-9c49-5362a3c8c763')>
+        name: Lorem ipsum
+        price: 1000
+        
+    group_offer_group_1_20 (extends group_offer_group_1_template):
+        name: Dolor sit amet
+        price: 2000
+        
+    group_offer_group_1_30 (extends group_offer_group_1_template):
+        name: Consectetur adipiscing 
+        price: 3000
+        
+    group_offer_group_1_40 (extends group_offer_group_1_template):
+        name: Suspendisse
+        price: 4000
+
+    group_offer_group_1_50 (extends group_offer_group_1_template):
+        name: Vivamus
+        price: 10000
+        active: false
+        
+    # Group 7    
+    group_offer_group_7_min (extends group_offer_group_7_template):
+        name: Luctus viverra
+        price: 100
+
+    # error cases with magic amounts (https://docs.mollie.com/overview/testing)
+    group_offer_group_2_error1 (extends group_offer_group_7_template):
+        name: invalid_card_number
+        price: 100100
+
+    group_offer_group_2_error2 (extends group_offer_group_7_template):
+        name: invalid_cvv
+        price: 100200
+
+    group_offer_group_2_error3 (extends group_offer_group_7_template):
+        name: invalid_card_holder_name
+        price: 100300
+
+    group_offer_group_2_error4 (extends group_offer_group_7_template):
+        name: card_expired
+        price: 100400
+
+    group_offer_group_2_error5 (extends group_offer_group_7_template):
+        name: invalid_card_type
+        price: 100500
+
+    group_offer_group_2_error6 (extends group_offer_group_7_template):
+        name: refused_by_issuer
+        price: 100600
+
+    group_offer_group_2_error7 (extends group_offer_group_7_template):
+        name: insufficient_funds
+        price: 100700
+
+    group_offer_group_2_error8 (extends group_offer_group_7_template):
+        name: inactive_card
+        price: 100800
+
+    group_offer_group_2_error9 (extends group_offer_group_7_template):
+        name: possible_fraud
+        price: 100900
+
+    group_offer_group_2_error10 (extends group_offer_group_7_template):
+        name: authentication_failed
+        price: 101000
+
+    group_offer_group_2_error11 (extends group_offer_group_7_template):
+        name: card_declined
+        price: 101100

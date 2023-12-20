@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="MbHiB1p" resname="templates.components.product.object_fields.feedback_message">
+            <source>templates.components.product.object_fields.feedback_message</source>
+            <target>Fichier "%file%" trop gros.</target>
+        </trans-unit>
+
+        <trans-unit id="YUczTxA" resname="templates.components.product.object_fields.max_images_error">
+            <source>templates.components.product.object_fields.max_images_error</source>
+            <target>Vous ne pouvez déposer que %count% images au maximum.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

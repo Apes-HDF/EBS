@@ -1,0 +1,5 @@
+<label for="{{ form.vars.name }}" class="text-black pb-1">{{ label }}</label>
+{{ form_start(form) }}
+    {{ form_widget(form.product, {'attr': {'onChange': 'submit()'}}) }}
+    {{ form_widget(form.submit, {'attr': {'class': 'hidden'}}) }}
+{{ form_end(form) }}

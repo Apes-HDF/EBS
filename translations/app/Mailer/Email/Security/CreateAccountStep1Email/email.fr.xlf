@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="k65sszJ" resname="app.mailer.email.security.create_account_step1_email.subject">
+            <source>app.mailer.email.security.create_account_step1_email.subject</source>
+            <target>Confirmation de votre compte %brand% : échanges de bien et services</target>
+        </trans-unit>
+
+        <trans-unit id="ptJpXa7" resname="app.mailer.email.security.create_account_step1_email.subject.invitation">
+            <source>app.mailer.email.security.create_account_step1_email.invitation.subject.invitation</source>
+            <target>%brand% : invitation dans le groupe %group%.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

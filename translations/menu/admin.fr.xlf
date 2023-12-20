@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <!-- Menu translations -->
+        <trans-unit id="9xeHcAx" resname="Logo">
+            <source>Logo</source>
+            <target>Logo</target>
+        </trans-unit>
+
+        <trans-unit id="2tWnBYz" resname="Code">
+            <source>Code</source>
+            <target>Code</target>
+        </trans-unit>
+
+        <!-- MenuItems translations -->
+        <trans-unit id="8eDTmk7" resname="menu.fields">
+            <source>menu.fields</source>
+            <target>Liens du menu</target>
+        </trans-unit>
+
+        <trans-unit id="8exvL8E" resname="menu.field">
+            <source>menu.field</source>
+            <target>Lien du menu</target>
+        </trans-unit>
+
+        <trans-unit id="AqfbeNt" resname="LINK">
+            <source>LINK</source>
+            <target>Lien texte</target>
+        </trans-unit>
+
+        <trans-unit id="mYWdiYJ" resname="Link Type">
+            <source>Link Type</source>
+            <target>Type de lien</target>
+        </trans-unit>
+
+        <trans-unit id="vEbky71" resname="SOCIAL_NETWORK">
+            <source>SOCIAL_NETWORK</source>
+            <target>Lien icône</target>
+        </trans-unit>
+
+        <trans-unit id="BSmyZfT" resname="Media Type">
+            <source>Media Type</source>
+            <target>Réseau social</target>
+        </trans-unit>
+
+        <trans-unit id="YfbtHYR" resname="Menu">
+            <source>Menu</source>
+            <target>Menu</target>
+        </trans-unit>
+
+        <trans-unit id="KZcvqnu" resname="FACEBOOK">
+            <source>FACEBOOK</source>
+            <target>Facebook</target>
+        </trans-unit>
+
+        <trans-unit id="aTN9UGx" resname="TWITTER">
+            <source>TWITTER</source>
+            <target>Twitter</target>
+        </trans-unit>
+
+        <trans-unit id="MASTODON" resname="MASTODON">
+            <source>MASTODON</source>
+            <target>Mastodon</target>
+        </trans-unit>
+
+        <trans-unit id="oAbMtLL" resname="INSTAGRAM">
+            <source>INSTAGRAM</source>
+            <target>Instagram</target>
+        </trans-unit>
+
+        <trans-unit id="ykhcrfC" resname="YOUTUBE">
+            <source>YOUTUBE</source>
+            <target>Youtube</target>
+        </trans-unit>
+
+        <trans-unit id="AgmGKco" resname="LINKEDIN">
+            <source>LINKEDIN</source>
+            <target>Linkedin</target>
+        </trans-unit>
+
+        <trans-unit id="EumACzz" resname="WEB">
+            <source>WEB</source>
+            <target>Web</target>
+        </trans-unit>
+
+        <trans-unit id="3XdtVnB" resname="Items Count">
+            <source>Items Count</source>
+            <target>Nombre de liens</target>
+        </trans-unit>
+
+        <trans-unit id="mGPyPTn" resname="Items">
+            <source>Items</source>
+            <target>Liens</target>
+        </trans-unit>
+
+        <trans-unit id="8LuCUd8" resname="menu.page_title">
+            <source>menu.page_title</source>
+            <target>Personnalisation du menu</target>
+        </trans-unit>
+
+        <trans-unit id="BCYnTFj" resname="footer.page_title">
+            <source>footer.page_title</source>
+            <target>Personnalisation du pied de page</target>
+        </trans-unit>
+
+        <trans-unit id="jwzSfsY" resname="menu.action.edit_logo">
+            <source>menu.action.edit_logo</source>
+            <target>Modifier le logo</target>
+        </trans-unit>
+
+        <trans-unit id="E1JSgjQ" resname="menu.action.items_list">
+            <source>menu.action.edit_logo</source>
+            <target>Retour aux liens</target>
+        </trans-unit>
+
+        <trans-unit id="pP6om24" resname="menu.action.up_item">
+            <source>menu.action.up_item</source>
+            <target>Monter</target>
+        </trans-unit>
+
+        <trans-unit id="xPik52Z" resname="menu.action.down_item">
+            <source>menu.action.down_item</source>
+            <target>Descendre</target>
+        </trans-unit>
+
+        <trans-unit id="qiZnY55" resname="menu.action.delete">
+            <source>menu.action.delete</source>
+            <target>Supprimer</target>
+        </trans-unit>
+
+        <trans-unit id="Lk1xXf6" resname="menu_items.title">
+            <source>menu_items.title</source>
+            <target>Liens du menu</target>
+        </trans-unit>
+
+        <trans-unit id="hRVbr2n" resname="footer_items.title">
+            <source>footer_items.title</source>
+            <target>Liens du pied de page</target>
+        </trans-unit>
+
+        <trans-unit id="eZ4BGwU" resname="menu_item.entitylabelinsingular">
+            <source>menu_item.entitylabelinsingular</source>
+            <target>lien</target>
+        </trans-unit>
+
+        <trans-unit id="PV9RsPB" resname="menu_item.update_successful">
+            <source>menu_item.update_successful</source>
+            <target>L'ordre des liens a bien été modifié.</target>
+        </trans-unit>
+
+        <trans-unit id="fudyfNQ" resname="Position">
+            <source>Position</source>
+            <target>Position</target>
+        </trans-unit>
+
+        <trans-unit id="n6rsKDM" resname="Position Human">
+            <source>Position Human</source>
+            <target>Position</target>
+        </trans-unit>
+
+        <trans-unit id="UKSYoQ4" resname="icon.menu">
+            <source>icon.menu</source>
+            <target>Créer lien icône</target>
+        </trans-unit>
+
+        <trans-unit id="VYnWRZE" resname="icon.text">
+            <source>icon.menu</source>
+            <target>Créer lien texte</target>
+        </trans-unit>
+
+        <!-- front menu -->
+        <trans-unit id="BBcWJa5" resname="menu.contact">
+            <source>menu.contact</source>
+            <target>Contactez-nous</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

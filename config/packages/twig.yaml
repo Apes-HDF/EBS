@@ -1,0 +1,16 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    form_themes: ['bootstrap_5_horizontal_layout.html.twig'] # bootstrap_5_layout.html.twig
+    globals:
+        app_version: '%app_version%' 
+        upload_images_allowed_extensions: '%upload_maxsize_by_file%'
+        upload_maxsize_by_file: '%upload_maxsize_by_file%'
+        upload_maxsize_total: '%upload_maxsize_total%' 
+        upload_max_images: '%upload_max_images%'
+        brand: '%brand%' 
+        role_user: !php/const App\Entity\User::ROLE_USER 
+        role_admin: !php/const App\Entity\User::ROLE_ADMIN 
+ 
+when@test:
+    twig:
+        strict_variables: true

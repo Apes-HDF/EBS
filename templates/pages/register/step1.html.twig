@@ -1,0 +1,50 @@
+{% extends 'layout/connection.html.twig' %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% trans_default_domain 'security' %}
+
+{% block error %}
+    {{ form_errors(form) }}
+{% endblock %}
+
+{% block icon %}
+    {{ parent() }}
+{% endblock %}
+
+{% block page_title %}
+    {% with {name: 'account_create_action.title'|trans} %}
+        {{ parent() }}
+    {% endwith %}
+{% endblock %}
+
+{% block text %}
+    {% with {info: 'account_create_action.info'|trans} %}
+        {{ parent() }}
+    {% endwith %}
+{% endblock %}
+
+{% block form_element %}
+    {#
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        {{ 'account_create_action.already-logged'|trans }}
+    {% else %}
+    #}
+    {{ form_start(form, {
+        attr: {
+            novalidate: true
+        }
+    }) }}
+    {{ form_widget(form.email) }}
+    {{ form_errors(form.email) }}
+    <div class="d-grid col-12 mt-3">
+        {{ form_widget(form.submit) }}
+    </div>
+    {{ form_end(form) }}
+
+    {#
+    {% endif %}
+    #}
+{% endblock %}
+
+{% block link %}{% endblock %}

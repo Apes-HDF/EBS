@@ -1,0 +1,44 @@
+{% if menu_action is defined and menu_action == true %}
+    <span class="text-decoration-none text-primary ms-2 position-relative pe-1 cursor-pointer"
+        data-bs-toggle="modal"
+        data-bs-target="#modalAddAddress">{{ button }}</span>
+{% else %}
+    <div class="d-grid col-12 col-lg-4 mx-auto my-3 order-last">
+        <button type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#modalAddAddress">
+            {{ button }}
+        </button>
+    </div>
+{% endif %}
+<!-- Modal -->
+<div class="modal fade"
+     id="modalAddAddress"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">{{ title }}</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ message }}
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">
+                    {{ (i18n_prefix ~ '.no-address-cancel')|trans }}
+                </button>
+                <a href="{{ path('user_address_step1') }}"
+                   class="btn btn-secondary">
+                    {{ action }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

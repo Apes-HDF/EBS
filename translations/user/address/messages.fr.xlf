@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <!-- Step 1 -->
+        <trans-unit id="wnZsaxJ" resname="address.step1_action.title">
+            <source>address.step1_action.title</source>
+            <target>Mon adresse</target>
+        </trans-unit>
+
+        <trans-unit id="Kr15zHF" resname="address.step1_action.plaintext">
+            <source>address.step1_action.plaintext</source>
+            <target>Cette adresse sera valable pour tous vos objets et services. Saisissez votre adresse puis cliquez sur vérifier mon adresse</target>
+        </trans-unit>
+
+        <trans-unit id="PNAFeQj" resname="address.step1_action.form.address">
+            <source>address.step1_action.form.address</source>
+            <target>Adresse</target>
+        </trans-unit>
+
+        <trans-unit id="RA61k8p" resname="address.step1_action.form.address_supplement">
+            <source>address.step1_action.form.address_supplement</source>
+            <target>Complément d'adresse</target>
+        </trans-unit>
+
+        <trans-unit id="cdPE9Ni" resname="address.step1_action.form.postal_code">
+            <source>address.step1_action.form.postal_code</source>
+            <target>Code postal</target>
+        </trans-unit>
+
+        <trans-unit id="S3QWXWG" resname="address.step1_action.form.locality">
+            <source>address.step1_action.form.locality</source>
+            <target>Ville</target>
+        </trans-unit>
+
+        <trans-unit id="9pkf8q5" resname="address.step1_action.form.country">
+            <source>address.step1_action.form.country</source>
+            <target>Pays</target>
+        </trans-unit>
+
+        <trans-unit id="YCfRdso" resname="address.step1_action.form.submit">
+            <source>address.step1_action.form.submit</source>
+            <target>Vérifier l'adresse</target>
+        </trans-unit>
+
+        <trans-unit id="jt5BCMp" resname="address.step1_action.no_address.warning">
+            <source>address.step1_action.no_address.warning</source>
+            <target>Aucune adresse trouvée correspondant à ces informations, veuillez modifier votre saisie.</target>
+        </trans-unit>
+
+        <!-- Step 2 -->
+        <trans-unit id="xGenfHs" resname="address.step2_action.title">
+            <source>address.step2_action.title</source>
+            <target>Mon adresse</target>
+        </trans-unit>
+
+        <trans-unit id="FxwHY9R" resname="address.step2_action.user_input">
+            <source>address.step2_action.user_input</source>
+            <target>Adresse que vous avez renseignée</target>
+        </trans-unit>
+
+        <trans-unit id="xkdbm9a" resname="address.step2_action.confirm_title">
+            <source>address.step2_action.confirm_title</source>
+            <target>Veuillez confirmer votre adresse</target>
+        </trans-unit>
+
+        <trans-unit id="mwuvvuZ" resname="address.step2_action.confirm_intro">
+            <source>address.step2_action.confirm_intro</source>
+            <target>Sélectionnez l’adresse la plus proche</target>
+        </trans-unit>
+
+        <trans-unit id="BvZVjAR" resname="address.step2_action.from.back">
+            <source>address.step2_action.from.back</source>
+            <target>Modifier l'adresse</target>
+        </trans-unit>
+
+        <trans-unit id="fVTYPRh" resname="address.step2_action.form.success">
+            <source>address.step2_action.form.success</source>
+            <target>Votre adresse a bien été enregistrée</target>
+        </trans-unit>
+
+        <trans-unit id="9sBnYJQ" resname="address.step2_action.form.check_map">
+            <source>address.step2_action.form.check_map</source>
+            <target>Vérifier sur la carte</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,15 @@
+.upload {
+    width: fit-content;
+    .upload-input {
+        padding: 62px;
+        border: 1px solid $blue-200;
+        background-color: $blue-100;
+
+    }
+
+    input[type=file] {
+        visibility: hidden;
+        width: 0;
+        height: 0
+    }
+}

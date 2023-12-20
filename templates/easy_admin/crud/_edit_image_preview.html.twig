@@ -1,0 +1,14 @@
+{# ## Custom preview ################################################ #}
+{% if attribute(ea.entity.instance, form.vars.name) is not empty and form.vars.valid %}
+    <div id="logo-preview">
+        {% set html_id = 'ea-lightbox-menu' %}
+        <a href="#" class="ea-lightbox-thumbnail" data-ea-lightbox-content-selector="#{{ html_id }}">
+            <img width="100" src="{{ ea.entity.instance|public_url }}" class="img-fluid" alt="{{ ea.entity.instance.name ?? '' }}">
+        </a>
+
+        <div id="{{ html_id }}" class="ea-lightbox">
+            <img src="{{ ea.entity.instance|public_url }}" alt="{{ ea.entity.instance.name ?? '' }}">
+        </div>
+    </div>
+{% endif %}
+{# ## Custom preview END ############################################# #}

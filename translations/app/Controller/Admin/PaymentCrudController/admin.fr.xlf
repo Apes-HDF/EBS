@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="x2VeLtT" resname="ID">
+            <source>ID</source>
+            <target>ID</target>
+        </trans-unit>
+
+        <trans-unit id="gQDuaW1" resname="payments">
+            <source>payments</source>
+            <target>Paiements</target>
+        </trans-unit>
+
+        <trans-unit id="zfMcNW2" resname="Payments">
+            <source>Payments</source>
+            <target>Paiements</target>
+        </trans-unit>
+
+        <trans-unit id="YJZQuSb" resname="Payment">
+            <source>Payment</source>
+            <target>Paiement</target>
+        </trans-unit>
+
+        <trans-unit id="6qNyco8" resname="Method">
+            <source>Method</source>
+            <target>Méthode de prélèvement</target>
+        </trans-unit>
+
+        <trans-unit id="CndttVf" resname="Total Amount">
+            <source>Total Amount</source>
+            <target>Montant total</target>
+        </trans-unit>
+
+        <trans-unit id="YK64TS7" resname="Paid">
+            <source>Paid</source>
+            <target>Payé ?</target>
+        </trans-unit>
+
+        <trans-unit id="s4xWQGF" resname="Client Email">
+            <source>Client Email</source>
+            <target>Email associé au compte au moment du paiement</target>
+        </trans-unit>
+
+        <trans-unit id="PqCv2KF" resname="Number">
+            <source>Number</source>
+            <target>Identifiant Payum</target>
+        </trans-unit>
+
+        <trans-unit id="WAr2Ava" resname="Client Id">
+            <source>Client Id</source>
+            <target>ID compte client</target>
+        </trans-unit>
+
+        <trans-unit id="AjwE8Wh" resname="Details">
+            <source>Details</source>
+            <target>Détails</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

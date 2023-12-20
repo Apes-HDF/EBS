@@ -1,0 +1,63 @@
+{% extends 'layout/base.html.twig' %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+    {% include 'components/layout/_back_to_link.html.twig' with {
+        name: 'templates.pages.account.loans.new.back_to_article'|trans,
+        link: {
+            name: 'app_product_show',
+            params: {
+                'slug': product.slug,
+                'id': product.id
+            }
+        }
+    } %}
+
+    {% include 'components/layout/_title_3.html.twig' with {
+        name: 'templates.pages.account.loans.new.title'|trans
+    } %}
+
+    {{ form_start(form, {
+        attr: {
+            novalidate: true,
+        }
+    }) }}
+    <div class="grid-template-loans mt-lg-4">
+        <div class="grid-product col-lg-6 d-flex align-items-center align-self-start px-3 py-4 p-lg-0">
+            {% if product.images is not empty %}
+                <img alt="{{ product.name }}" src="{{ product|public_url_image(product.firstImage) }}"
+                     class="featured-image"/>
+            {% elseif product.category.image is not empty %}
+                <img alt="{{ product.category.name }}" src="{{ product.category|public_url }}" class="featured-image"/>
+            {% else %}
+                <img src="{{ asset('svg/product.svg') }}" alt="{{ product.category.name }}" class="featured-image"/>
+            {% endif %}
+            <div class="position-relative d-flex flex-column ps-3">
+                <span class="fs-6 fw-bolder text-black">{{ product.name }}</span>
+                <span class="fs-7 text-gray">
+                        {% if product.category.parent is not null %}
+                            {{ product.category.parent }} / {{ product.category }}
+                        {% else %}
+                            {{ product.category }}
+                        {% endif %}
+                    </span>
+            </div>
+        </div>
+        <div class="grid-calendar">
+            {% include 'components/product/_calendar.html.twig' with {
+                title: 'product.new.calendar_title'|trans,
+                form: form,
+                actionNeeded: false
+            } %}
+        </div>
+        <div class="grid-message">
+            {% include 'components/product/_write_message.html.twig' with {
+                form: form
+            } %}
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block link %}{% endblock %}

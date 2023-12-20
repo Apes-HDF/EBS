@@ -1,0 +1,96 @@
+{% set is_product_owner = product.owner == app.user %}
+
+<div class="bg-light rounded-2 p-3" data-controller="calendar" data-calendar-unavailabilities-value="{{ product.getUnavailabilities()|join(',') }}">
+    <div class="row">
+        <div class="col">
+            <h5>{{ title }}</h5>
+        </div>
+        <div>
+            <p>{{ 'templates.components.product.calendar.clarifying_sentence'|trans }}</p>
+        </div>
+    </div>
+    {% if is_product_owner and form is not defined %}
+        {# user product page #}
+        <div class="d-flex flex-column">
+            <div id="product-owner-calendar" class="owner-calendar"></div>
+        </div>
+        <div class="row mt-4">
+            <div class="col">
+                <a
+                    class="btn btn-secondary w-100"
+                    href="{{ path(product.type.isObject ? 'app_object_edit' : 'app_service_edit', {id}) }}"
+                >
+                    {% if product.type.isObject %}
+                        {{ 'templates.components.product.calendar.object.edit'|trans }}
+                    {% else %}
+                        {{ 'templates.components.product.calendar.service.edit'|trans }}
+                    {% endif %}
+                </a>
+                <a
+                    class="mt-4 col-12 btn btn-primary"
+                    href="{{ path('app_user_product_availabilities', {id: product.id}) }}"
+                >
+                    {{ 'product.show.unavailability'|trans }}
+                </a>
+            </div>
+        </div>
+    {% else %}
+        {% if form is defined %}
+            {# new service request and product availabilities page #}
+            <div class="d-flex flex-column mt-4">
+                {{ form_label(form.startAt, null, {label_attr: {class: 'order-2 mt-4'}}) }}
+                {{ form_errors(form.startAt) }}
+                {{ form_widget(form.startAt, {id: 'calendar-start-day', attr: {class: 'order-3'}}) }}
+            </div>
+            <div class="d-flex flex-column">
+                {{ form_label(form.endAt, null, {label_attr: {class: 'mt-3'}}) }}
+                {{ form_errors(form.endAt) }}
+                {{ form_widget(form.endAt, {id: 'calendar-end-day', type: 'text'}) }}
+            </div>
+        {% else %}
+            {# product page #}
+            <div class="form-group mt-3">
+                <div class="row">
+                    <div class="col">
+                        <div class="d-flex flex-column">
+                            <label for="calendar-start-day" class="fs-6 fw-normal order-2 mt-4">
+                                {{ 'templates.components.product.calendar.service.start_date'|trans }}
+                            </label>
+                            <input type="text" id="calendar-start-day" class="form-control form-control-sm order-3">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <label for="calendar-end-day" class="fs-6 fw-normal">
+                            {{ 'templates.components.product.calendar.service.end_date'|trans }}
+                        </label>
+                        <input type="text" id="calendar-end-day" class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="d-grid col mt-3">
+            <button class="btn border border-0 text-primary text-decoration-underline" data-action="click->calendar#resetDates" type="button">
+                {{ 'templates.components.product.calendar.reset'|trans }}
+            </button>
+        </div>
+        {% if actionNeeded  %}
+            <div class="d-grid col-12 mt-3">
+                {% if app.user is null or is_granted('borrow', product) %}
+                    <button
+                        id="service-request"
+                        class="btn btn-sm btn-primary"
+                        data-path="{{ path('app_user_service_request_new', {id: product.id}) }}"
+                        data-action="click->calendar#serviceRequest"
+                        disabled
+                    >
+                        {{ 'templates.components.product.calendar.service_request'|trans }}
+                    </button>
+                {% else %}
+                    {{ form_widget(form.submit) }}
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endif %}
+</div>

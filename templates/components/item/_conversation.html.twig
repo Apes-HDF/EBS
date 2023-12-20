@@ -1,0 +1,39 @@
+<a href="{{ path('app_user_conversation_list', {'id': id}) }}" title="{{ 'conversations.list.link'|trans }}"
+   class="conversations-link d-block m-0 px-3">
+    <div class="row m-0 py-3 border-bottom">
+        <div class="col-auto p-0">
+            {% if product.images is not empty %}
+                <img src="{{ product|public_url_image(product.firstImage) }}" alt="{{ product_name }}" class="featured-image"
+                     width="100">
+            {% elseif product.category.image is not empty %}
+                <img src="{{ product.category|public_url }}" alt="{{ product_name }}" class="featured-image"
+                     width="100">
+            {% else %}
+                <img src="{{ asset('svg/product.svg') }}" alt="{{ product_name }}" class="featured-image"
+                     width="100">
+            {% endif %}
+        </div>
+        <div class="col">
+            <h6 class="fw-bold m-0">{{ name }}</h6>
+            <p class="fs-7 m-0">{{ product_name }} - {{ date|date('d/m/Y') }}</p>
+            <div class="mt-2">
+                {% include 'components/conversation/_badge.html.twig' with {
+                    status
+                } %}
+            </div>
+        </div>
+        <div class="col-auto align-self-center p-0">
+            <div class="position-relative">
+                <i class="fa-solid fa-message"></i>
+                {% if has_message %}
+                    <span class="position-absolute top-0 start-100 translate-middle p-1 rounded-circle bg-danger">
+                        <span class="visually-hidden">{{ 'conversations.list.new_messages'|trans }}</span>
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-auto align-self-center">
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+    </div>
+</a>

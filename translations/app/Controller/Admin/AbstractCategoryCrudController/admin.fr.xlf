@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="Ra2q2w9" resname="app.controller.admin.abstract_category_crud_controller.menu.action.move_up">
+            <source>app.controller.admin.abstract_category_crud_controller.menu.action.move_up</source>
+            <target>Monter</target>
+        </trans-unit>
+
+        <trans-unit id="vDQeiAm" resname="app.controller.admin.abstract_category_crud_controller.menu.action.move_down">
+            <source>app.controller.admin.abstract_category_crud_controller.menu.action.move_down</source>
+            <target>Descendre</target>
+        </trans-unit>
+
+        <trans-unit id="tX8r3i8" resname="app.controller.admin.abstract_category_crud_controller.move.success">
+            <source>app.controller.admin.abstract_category_crud_controller.move.success</source>
+            <target>Catégorie modifiée.</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,81 @@
+#account_create_step2_form_type,
+#create_group_form_type
+{
+    display: flex;
+
+    > .form-check {
+        margin-right: 10px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+label.required:after,
+legend.required:after
+{
+    content: "*" !important;
+    color: #B02A37;
+    padding-left: 4px;
+}
+
+label.form-check-label.required:after {
+    content: '' !important;
+}
+
+#account_create_step2_form_plainPassword_first:invalid,
+#account_create_step2_form_plainPassword_second:invalid,
+#login-password:invalid {
+    background-image: none !important;
+}
+
+#account_create_step2_form_plainPassword_first:valid,
+#account_create_step2_form_plainPassword_second:valid,
+#login-password:valid {
+    background-image: none !important;
+}
+
+.password-visibility {
+    display: flex;
+    align-items: center;
+
+    > input {
+        border-right: 0;
+    }
+
+    > .eye {
+        background-color: transparent;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: var(--bs-border-radius-sm) !important;
+        border-top-right-radius: var(--bs-border-radius-sm) !important;
+        height: fit-content;
+        padding: 4px 8px 1.2px 4px;
+    }
+
+    > input.is-invalid ~ .eye {
+        border: 1px solid #B02A37;
+    }
+
+    > input.is-invalid ~ span {
+        display: none;
+    }
+}
+
+.was-validated {
+    > .password {
+        > .password-visibility {
+            > input:invalid ~ .eye {
+                border: 1px solid #B02A37;
+            }
+
+            > input:valid ~ .eye {
+                border: 1px solid #198754;
+            }
+        }
+    }
+}
+
+
+

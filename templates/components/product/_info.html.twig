@@ -1,0 +1,94 @@
+{% set category = product.getCategory() %}
+{% set parent_category = category.getParent() %}
+
+<div class="grid-info px-3">
+    <div class="row">
+        <div class="col">
+            <h3 class="text-center text-black fw-bolder">{{ product.name }}</h3>
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col">
+            <p class="text-center fs-6 fw-lighter">
+                {% if parent_category %}
+                    {{ parent_category }} &nbsp;/&nbsp;
+                {% endif %}
+                {{ category }}
+            </p>
+        </div>
+    </div>
+
+    {# CAROUSEL #}
+    {% include 'components/product/_carousel.html.twig' with {
+        product,
+        category,
+    } %}
+
+    {# CITY #}
+    {% set city = product.owner.address ? product.owner.address.subAndlocality : '' %}
+    {% if city is not empty %}
+        <div class="row mt-3">
+            <div class="col">
+                <span class="badge rounded-pill bg-primary-100 border-primary-200 text-primary fw-normal">{{ city }}</span>
+            </div>
+        </div>
+    {% endif %}
+
+    {# DESCRIPTION #}
+    {% if product.description is not empty %}
+        <div class="row mt-3">
+            <div class="col">
+                {% if product.description|length > 150 %}
+                    <div class="d-flex flex-column read more">
+                        <p class="fs-6 fw-light">{{ product.description|nl2br }}</p>
+                    </div>
+                    <span class="read-toggle cursor-pointer text-primary" data-controller="read-more"
+                          data-action="click->read-more#toggle">{{ 'product.info_more'|trans }}</span>
+                {% else %}
+                    <p class="fs-6 fw-light">{{ product.description|nl2br }}</p>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    {# AGE #}
+    {% if product.age is not null %}
+        <div class="row mt-3">
+            <div class="col">
+                {# TODO: Remove this translation form 'security' group #}
+                <p><span class="fw-bold">{{ 'product.info_age'|trans }} :</span> {{ product.age }}</p>
+            </div>
+        </div>
+    {% endif %}
+
+    {# DEPOSIT #}
+    {% if product.deposit is not null and product.deposit != 0 %}
+        <div class="row mt-3">
+            <div class="col">
+                <p>
+                    <span class="fw-bold">{{ 'product.info_deposit'|trans }} : </span>
+                    {{ product.getDepositReal()|format_currency(product.currency) }}
+                </p>
+            </div>
+        </div>
+    {% endif %}
+
+    {# DURATION (ONLY SERVICES) #}
+    {% if product.duration is not null %}
+        <div class="row mt-3">
+            <div class="col">
+                <p><span class="fw-bold">{{ 'product.info_duration'|trans }}</span>{{ product.duration }}</p>
+            </div>
+        </div>
+    {% endif %}
+
+    {# PREFERRED LOAN DURATION (ONLY OBJECTS) #}
+    {% if product.preferredLoanDuration is not null %}
+        <div class="row mt-3">
+            <div class="col">
+                <p><span class="fw-bold">{{ 'product.info_loan_duration'|trans() }}</span>{{ product.preferredLoanDuration }}</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="VXYo9fv" resname="app.form.type.product.search_form_type.q.placeholder">
+            <source>app.form.type.product.search_form_type.q.placeholder</source>
+            <target>Mots-clés</target>
+        </trans-unit>
+
+        <trans-unit id="jMv1iqh" resname="app.form.type.product.search_form_type.category.placeholder">
+            <source>app.form.type.product.search_form_type.category.placeholder</source>
+            <target>Catégorie</target>
+        </trans-unit>
+
+        <trans-unit id="bYPBbE6" resname="app.form.type.product.search_form_type.place.placeholder">
+            <source>app.form.type.product.search_form_type.place.placeholder</source>
+            <target>Lieu partenaire</target>
+        </trans-unit>
+
+        <trans-unit id="hTZheiP" resname="app.form.type.product.search_form_type.object">
+            <source>app.form.type.product.search_form_type.object</source>
+            <target>Objets</target>
+        </trans-unit>
+
+        <trans-unit id="DMCCdBU" resname="app.form.type.product.search_form_type.service">
+            <source>app.form.type.product.search_form_type.service</source>
+            <target>Services</target>
+        </trans-unit>
+
+        <trans-unit id="3fZK2f2" resname="app.form.type.product.search_form_type.proximity.label">
+            <source>app.form.type.product.search_form_type.proximity.label</source>
+            <target>Distance</target>
+        </trans-unit>
+
+        <trans-unit id="4c7kRGx" resname="app.form.type.product.search_form_type.submit.label">
+            <source>app.form.type.product.search_form_type.submit.label</source>
+            <target>Rechercher</target>
+        </trans-unit>
+
+        <trans-unit id="aLNvmBC" resname="app.form.type.product.search_form_type.distance.placeholder">
+            <source>app.form.type.product.search_form_type.distance.placeholder</source>
+            <target>Pas de limite de distance</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

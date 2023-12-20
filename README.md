@@ -205,4 +205,4 @@ La page en question bénéficiera de l’accès au reste du framework, à la bas
 
 
 # Installation et documentation technique
-La documentation d'installation et configuration technique de la plateforme est disponible sur [cette page]().
+La documentation d'installation et configuration technique de la plateforme est disponible sur [cette page](docs/README.md).

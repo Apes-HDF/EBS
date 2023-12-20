@@ -1,0 +1,18 @@
+App\Entity\Category:
+    # —— Templates —————————————————————————————————————————————————————————————
+    category_template (template):
+        enabled: true
+
+    category_object (template, extends category_template):
+        type: !php/enum App\Enum\Product\ProductType::OBJECT
+
+    category_service (template, extends category_template):
+        type: !php/enum App\Enum\Product\ProductType::SERVICE
+        
+    # —— Objects ———————————————————————————————————————————————————————————————
+    category_object_1 (extends category_object):
+        name: Catégorie objets 1 
+
+    # —— Services ——————————————————————————————————————————————————————————————            
+    category_service_1 (extends category_service):
+        name: Catégorie services 1

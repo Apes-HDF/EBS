@@ -1,0 +1,40 @@
+{# https://symfony.com/bundles/EasyAdminBundle/current/dashboards.html#content-page-template #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% trans_default_domain 'admin' %}
+
+{% block content_title %}{{ 'conversation.title'|trans({'%product%': sr.product}) }}{% endblock %}
+
+{% block page_actions %}
+    {% include 'easy_admin/button/back.html.twig' %}
+{% endblock %}
+
+{# Get entity from context #}
+{% set sr = ea.entity.instance %}
+
+{% block main %}
+    <hr/>
+    <h2>{{ 'Conversation'|trans }}</h2>
+
+    {% for message in sr.messages %}
+        <div class="card">
+            <div class="card-header">
+                {{ ('message.type.' ~ message.type.value)|trans({}, 'messages') }}
+                {{ 'date.the'|trans }} {{ message.createdAt|date('d/m/Y') }}
+                {{ 'date.time_on'|trans }} {{ message.createdAt|date('H:i:s') }}
+            </div>
+            <div class="card-body">
+                {% if not message.type.isSystem %}
+                    {% set sender = message.getSender() %}
+                    {{ 'user.by'|trans }}
+                    <a href="{{ ea_url({'crudControllerFqcn': sender.getAdminCrudClass(), 'crudAction': 'detail', 'entityId': sender.id}) }}">
+                        {{ sender.displayName }} - {{ sender.email }}
+                    </a>
+                    <hr/>
+                {% endif %}
+                <p class="card-text">{{ message.message }}</p>
+            </div>
+        </div>
+        <br/>
+    {% endfor %}
+{% endblock %}

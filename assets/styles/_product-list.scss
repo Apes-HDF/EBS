@@ -1,0 +1,33 @@
+.product-type {
+    border-radius: 4px 0 0 4px !important;
+    border: 1px solid $primary !important;
+
+    &:last-child {
+        border-radius: 0 4px 4px 0 !important;
+    }
+}
+
+#p_distance {
+    display: flex;
+    justify-content: space-evenly;
+
+    .form-check {
+        .form-check-label {
+            margin-left: 8px;
+        }
+    }
+}
+
+.input-search {
+    > input {
+        border-right: 0;
+    }
+
+    .search {
+        background-color: transparent;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: var(--bs-border-radius-sm) !important;
+        border-top-right-radius: var(--bs-border-radius-sm) !important;
+    }
+}

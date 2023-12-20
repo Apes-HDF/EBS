@@ -1,0 +1,45 @@
+{% extends 'layout/connection.html.twig' %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% trans_default_domain 'security' %}
+
+{% block error %}{% endblock %}
+
+{% block icon %}
+    {{ parent() }}
+{% endblock %}
+
+{% block page_title %}
+    {% with {name: 'lost_password_action.title'|trans} %}
+        {{ parent() }}
+    {% endwith %}
+{% endblock %}
+
+{% block text %}
+    {% with {info: 'lost_password_action.info'|trans} %}
+        {{ parent() }}
+    {% endwith %}
+{% endblock %}
+
+{% block form_element %}
+    {{ form_start(form, {
+        attr: {
+            novalidate: true
+        }
+    }) }}
+    {{ form_row(form.email) }}
+    <div class="d-grid gap-2 col-12 mt-3">
+        {{ form_widget(form.submit) }}
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block link %}
+    {% with {
+        name: 'lost_password_action.login.link'|trans,
+        link: path('app_login')
+    } %}
+    {{ parent() }}
+    {% endwith %}
+{% endblock %}

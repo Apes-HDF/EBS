@@ -1,0 +1,67 @@
+App\Entity\ServiceRequest:
+    service_request (template):
+        status: !php/enum App\Enum\ServiceRequest\ServiceRequestStatus::NEW
+
+    # will start tomorrow
+    # see ServiceRequestStatusWorkflowControllerRefuseTest
+    service_request_1 (extends service_request):
+        id: <uuid('1ed9b3b1-26cd-68a6-8709-cbb2b8939b2e')>
+        owner: '@admin_loic'
+        product: '@loic_object_1'
+        recipient: '@user_17'
+        startAt: '<date_create_immutable("tomorrow midnight")>'
+        endAt: '<date_create_immutable("+1 week midnight")>'
+
+    # ongoing service request, can be finalized manually
+    # @see ServiceRequestStatusWorkflowControllerFinalizeTest
+    service_request_2 (extends service_request):
+        id: <uuid('1edb1f55-4270-6f8e-bc16-8bcfef1b7183')>
+        status: !php/enum App\Enum\ServiceRequest\ServiceRequestStatus::CONFIRMED
+        owner: '@admin_kevin'
+        product: '@kevin_object_1'
+        recipient: '@admin_loic'  
+        startAt: '<date_create_immutable("-3 days midnight")>' 
+        endAt: '<date_create_immutable("+3 days midnight")>'
+
+    # can be auto-finalized
+    # @see ServiceRequestStatusWorkflowControllerAutoFinalizeTest
+    service_request_3 (extends service_request):
+        id: <uuid('1edb2975-4ce1-644e-8167-efa11e476fb6')>
+        status: !php/enum App\Enum\ServiceRequest\ServiceRequestStatus::CONFIRMED
+        owner: '@admin_loic'
+        product: '@loic_service_1'
+        recipient: '@admin_camille'
+        startAt: '<date_create_immutable("-4 days midnight")>'
+        endAt: '<date_create_immutable("-1 days midnight")>'
+
+    # can be confirmed by the recipient 
+    # @see ServiceRequestStatusWorkflowModifyRecipientTest
+    service_request_4 (extends service_request):
+        id: <uuid('1edb68e7-fe43-6bc2-86fb-a553ef7039c9')>
+        status: !php/enum App\Enum\ServiceRequest\ServiceRequestStatus::TO_CONFIRM
+        owner: '@place_6'
+        product: '@place_6_object_1'
+        recipient: '@admin_loic'
+        startAt: '<date_create_immutable("+3 days midnight")>'
+        endAt: '<date_create_immutable("+6 days midnight")>'
+        
+    # can be confirmed by the recipient 
+    service_request_5 (extends service_request):
+        id: <uuid('1edc3426-1583-6620-9182-d9497d54e5de')>
+        status: !php/enum App\Enum\ServiceRequest\ServiceRequestStatus::TO_CONFIRM
+        owner: '@admin_loic'
+        product: '@loic_object_1'
+        recipient: '@user_16'
+        startAt: '<date_create_immutable("+13 days midnight")>'
+        endAt: '<date_create_immutable("+16 days midnight")>'    
+
+    # ongoing service request that is about to start and end
+    # it finishes the same day to test noth end and start notifications with the
+    # same record
+    service_request_6 (extends service_request):
+        status: !php/enum App\Enum\ServiceRequest\ServiceRequestStatus::CONFIRMED
+        owner: '@admin_camille'
+        product: '@camille_object_1'
+        recipient: '@user_16'
+        startAt: '<date_create_immutable("tomorrow")>'
+        endAt: '<date_create_immutable("tomorrow")>'

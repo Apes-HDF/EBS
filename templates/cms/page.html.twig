@@ -1,0 +1,26 @@
+{% extends 'layout/base.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% block title %}{{ page is not null ? page.name : brand }}{% endblock %}
+
+{% block body %}
+    <div class="px-3 px-lg-0 mt-4">
+        {% if page is not null %}
+            {{ page.content|raw }}
+        {% else %}
+            <h1>{{ (i18n_prefix ~ '.h1')|trans({'%brand%': brand}) }}</h1>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block funding %}
+    {% if is_home|default(false) %}
+        <div class="row">
+            <div class="col">
+                <div class="d-flex justify-content-center">
+                    <img src="{{ asset('/svg/funding.png') }}" alt="funding logo" class="img-funding">
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

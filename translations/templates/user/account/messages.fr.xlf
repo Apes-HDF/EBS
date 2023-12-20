@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="kg1iS12" resname="templates.pages.user.account.change_login.form.email">
+            <source>templates.pages.user.account.change_login.form.email</source>
+            <target>Adresse e-mail</target>
+        </trans-unit>
+        <trans-unit id="1kY3ASH" resname="templates.pages.user.account.change_login.form.email_repeat">
+            <source>templates.pages.user.account.change_login.form.email_repeat</source>
+            <target>Confirmer l'adresse e-mail</target>
+        </trans-unit>
+        <trans-unit id="GM61GkG" resname="templates.pages.user.account.change_login.form.email_placeholder">
+            <source>templates.pages.user.account.change_login.form.email_placeholder</source>
+            <target>monemail@domain.com</target>
+        </trans-unit>
+        <trans-unit id="Uo4dajC" resname="templates.pages.user.account.change_login.form.submit">
+            <source>templates.pages.user.account.change_login.form.submit</source>
+            <target>Enregistrer</target>
+        </trans-unit>
+        <trans-unit id="U4S4AQB" resname="templates.pages.user.account.change_login.form.success">
+            <source>templates.pages.user.account.change_login.form.success</source>
+            <target>L'e-mail a bien été modifié</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

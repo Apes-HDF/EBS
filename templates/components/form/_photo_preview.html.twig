@@ -1,0 +1,11 @@
+{% if isUser is defined and isUser == true %}
+    <div class="my-2 bg-primary bg-opacity-10 rounded border p-1 ps-3 d-flex align-items-center">
+        <img src="{{ entity|public_url(image) }}" height="40" class="me-5" alt="{{ entity.name ?? '' }}" />
+        <a href="{{ path('app_user_delete_avatar', {userId: entity.id}) }}">{{ (_self|i18n_prefix ~ '.link.delete')|trans }}</a>
+    </div>
+{% else %}
+    <div class="my-2 bg-primary bg-opacity-10 rounded border p-1 ps-3 d-flex align-items-center">
+    <img src="{{ entity|public_url_image(image) }}" height="40" class="me-5" alt="{{ entity.name ?? '' }}" />
+    <a href="{{ path('app_user_product_delete_photo', {productId: entity.id, image}) }}">{{ (_self|i18n_prefix ~ '.link.delete')|trans }}</a>
+    </div>
+{% endif %}

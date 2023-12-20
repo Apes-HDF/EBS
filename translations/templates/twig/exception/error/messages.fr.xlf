@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="hYW2Y9s" resname="templates.twig.exception.error.h5">
+            <source>templates.twig.exception.error.h5</source>
+            <target>Oops ! Une erreur %status_code% est survenue !</target>
+        </trans-unit>
+
+        <trans-unit id="bPzmEg9" resname="templates.twig.exception.error.p1">
+            <source>templates.twig.exception.error.p1</source>
+            <target>Désolé mais une erreur "%status_text%" (code %status_code%) est survenue.</target>
+        </trans-unit>
+
+        <trans-unit id="nwPbHbB" resname="templates.twig.exception.error.403">
+            <source>templates.twig.exception.error.403</source>
+            <target>Accès non autorisé.</target>
+        </trans-unit>
+
+        <trans-unit id="XGenxFx" resname="templates.twig.exception.error.404">
+            <source>templates.twig.exception.error.404</source>
+            <target>Page non trouvée.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,18 @@
+dependencies:
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami/
+  version: 11.9.13
+- name: external-dns
+  repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+  version: 5.4.16
+- name: redis
+  repository: https://charts.bitnami.com/bitnami/
+  version: 17.4.3
+- name: meilisearch
+  repository: https://meilisearch.github.io/meilisearch-kubernetes
+  version: 0.1.46
+- name: maildev
+  repository: https://pando85.github.io/helm-maildev/
+  version: 0.3.1
+digest: sha256:282a6d90f79ac02f80158c66f22939298fa1dfba29ecd4d2885e55597c515500
+generated: "2023-02-01T09:52:52.035346504+01:00"

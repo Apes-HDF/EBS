@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="kuP9m22" resname="app.controller.user.product.product_availability_controller.success">
+            <source>app.controller.user.product.product_availability_controller.success</source>
+            <target>Les disponibilités de votre produit ont bien été mises à jour.</target>
+        </trans-unit>
+
+        <trans-unit id="j99oeYk" resname="app.form.type.product.create_product_availability_type.startAt">
+            <source>app.form.type.product.create_product_availability_type.startAt</source>
+            <target>Date de début</target>
+        </trans-unit>
+
+        <trans-unit id="nDk7ymZ" resname="app.form.type.product.create_product_availability_type.endAt">
+            <source>app.form.type.product.create_product_availability_type.endAt</source>
+            <target>Date de fin</target>
+        </trans-unit>
+
+        <trans-unit id="rWzrizU" resname="app.form.type.product.create_product_availability_type.submit">
+            <source>app.form.type.product.create_product_availability_type.submit</source>
+            <target>Enregister</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

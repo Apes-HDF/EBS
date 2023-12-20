@@ -1,0 +1,36 @@
+<div class="d-block m-0 px-3 group-test">
+    <div class="row m-0 py-3 border-bottom">
+        {# avatar of the member #}
+        <div class="col-auto p-0 align-self-center">
+            {% if user.avatar is not null %}
+                <img src="{{ user|public_url }}" class="user-image" alt="Avatar" >
+            {% else %}
+                <i class="bi bi-person-circle default-user-avatar"></i>
+            {% endif %}
+        </div>
+        <div class="col align-self-center">
+            {% if not isInvited %}
+                <h6 class="fw-bold m-0">
+                    <a href="{{ path('app_user_profile', {userId: user.id}) }}">{{ user.displayName }}</a>
+                </h6>
+            {% endif %}
+            {# category of the member or badge of the invited user #}
+            {% if category is not null %}
+                <p class="fs-7 m-0">
+                    {% if category.parent %}
+                        {{ category.parent }} &nbsp;/&nbsp;
+                    {% endif %}
+                    {{ category }}
+                </p>
+            {% endif %}
+            {% if isInvited %}
+                <div class="mt-2">
+                    {% include 'components/utils/_badge.html.twig' with {
+                        type: 'invited member',
+                        name: (i18n_prefix ~ '.pending_invitation')|trans
+                    } %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="grid-lender row px-3 px-lg-0">
+    <div class="col">
+        <div class="w-100 p-3 border border-1 rounded-1">
+            <a href="{{ path('app_user_profile', {userId: product.owner.id}) }}">
+                <div class="d-flex align-items-center text-black">
+                    <div class="avatar">
+                        {% if avatar is defined and avatar is not null %}
+                            <div class="img-avatar" style="background-image: url({{ product.owner|public_url }});
+                                width: 24px;
+                                height: 24px">
+                            </div>
+                        {% else %}
+                            <i class="bi bi-person-circle avatar-icon"></i>
+                        {% endif %}
+                    </div>
+                    <p class="ms-3 mb-0 fs-6 fw-bolder">{{ name }}</p>
+                </div>
+                {% if isPlace %}
+                    <div class="row mt-3">
+                        <div class="col">
+                            <p class="fw-bold fs-6 mb-0">{{ 'templates.components.product.lender.address'|trans }}</p>
+                            <p class="fw-lighter mb-0">{{ address.getAddress() }},</p>
+                            <p class="fw-lighter mb-0">{{ address.postalCode }} {{ address.subAndlocality }}</p>
+                        </div>
+                    </div>
+                    {% if schedule is not empty %}
+                        <div class="row mt-2">
+                            <div class="col">
+                                <p class="fw-bold fs-6 mb-0">{{ 'templates.components.product.lender.schedule'|trans }}</p>
+                                <p class="fw-lighter mb-0">{{ schedule }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </a>
+        </div>
+    </div>
+</div>

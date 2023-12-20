@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="ThYqoMP" resname="account_create_action.title">
+            <source>account_create_action.title</source>
+            <target>Créer un compte</target>
+        </trans-unit>
+
+        <trans-unit id="Dkququ3" resname="account_create_action.already-logged">
+            <source>account_create_action.already-logged</source>
+            <target>Vous êtes déjà loggé·e</target>
+        </trans-unit>
+
+        <trans-unit id="sh8bNAn" resname="account_create_action.account_type">
+            <source>account_create_action.account_type</source>
+            <target>Type de compte</target>
+        </trans-unit>
+
+        <trans-unit id="SkjWV4M" resname="USER">
+            <source>USER</source>
+            <target>Individuel</target>
+        </trans-unit>
+
+        <trans-unit id="mkD43aY" resname="PLACE">
+            <source>PLACE</source>
+            <target>Lieu</target>
+        </trans-unit>
+
+        <trans-unit id="RPmjiMy" resname="account_create_action.firsname">
+            <source>account_create_action.firsname</source>
+            <target>Prénom</target>
+        </trans-unit>
+
+        <trans-unit id="ouLT76A" resname="account_create_action.firsname.placeholder">
+            <source>account_create_action.firsname.placeholder</source>
+            <target>Jeanne</target>
+        </trans-unit>
+
+        <trans-unit id="1u6ieTG" resname="account_create_action.lastname">
+            <source>account_create_action.lastname</source>
+            <target>Nom</target>
+        </trans-unit>
+
+        <trans-unit id="siX8Zxn" resname="account_create_action.lastname.placeholder">
+            <source>account_create_action.lastname.placeholder</source>
+            <target>Martin</target>
+        </trans-unit>
+
+        <trans-unit id="RoRnDat" resname="account_create_action.name">
+            <source>account_create_action.name</source>
+            <target>Nom du lieu</target>
+        </trans-unit>
+
+        <trans-unit id="GcE3ad2" resname="account_create_action.name.placeholder">
+            <source>account_create_action.name.placeholder</source>
+            <target>Mon association</target>
+        </trans-unit>
+
+        <trans-unit id="4NHKkYi" resname="account_create_action.password.first">
+            <source>account_create_action.password.first</source>
+            <target>Mot de passe</target>
+        </trans-unit>
+
+        <trans-unit id="uKsQw96" resname="account_create_action.password.second">
+            <source>account_create_action.password.second</source>
+            <target>Confirmer le mot de passe</target>
+        </trans-unit>
+
+        <trans-unit id="3Wd6Kp3" resname="account_create_action.password.help">
+            <source>account_create_action.password.help</source>
+            <target>8 caractères minimun</target>
+        </trans-unit>
+
+        <trans-unit id="m3UMrJf" resname="account_create_action.gdpr">
+            <source>account_create_action.gdpr</source>
+            <target>J’ai lu et j’accepte les <![CDATA[<a href="%link%" class="text-primary">Conditions Générales d'Utilisation</a>]]></target>
+        </trans-unit>
+
+        <trans-unit id="6ptnuZ4" resname="account_create_action.info">
+            <source>account_create_action.info</source>
+            <target>Un email avec un lien de validation vous sera envoyé. Vous avez 24 heures pour confirmer votre compte.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

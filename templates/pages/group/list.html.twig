@@ -1,0 +1,36 @@
+{% extends 'layout/base.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% block container %}container-fluid{% endblock %}
+
+{% block body %}
+    {% include 'components/layout/_title_3.html.twig' with {
+        name: (i18n_prefix ~ '.title')|trans
+    } %}
+    <div class="px-3 px-lg-5">
+        {% include 'components/layout/_searchbar.html.twig' with {
+            col: 'col col-lg-5',
+            placeholder: (i18n_prefix ~ '.placeholder')|trans,
+        } %}
+        <div class="row flex-column">
+            <div class="col col-lg-5 mx-lg-auto">
+                <div class="card mt-5">
+                    <ul class="list-group list-group-flush">
+                        {% for group in pagination %}
+                            <li class="list-group-item group-test">
+                                {% include 'components/group/_card.html.twig' with {
+                                    group,
+                                    link: path('app_group_show', {id: group.id, slug: group.slug})
+                                } %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% include 'components/layout/_pagination.html.twig' with {pagination} %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block link %}{% endblock %}

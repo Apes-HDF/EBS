@@ -1,0 +1,17 @@
+{% trans_default_domain 'email' %}
+
+{# @todo : use translations #}
+
+{% set url = url('app_user_my_lendings') %}
+
+<p>Bonjour !</p>
+
+<p>
+    Une nouvelle demande d'emprunt du {{ service_request.startAt|date('d/m/Y') }} au
+    {{ service_request.endAt|date('d/m/Y') }} concernant votre objet
+    {{ service_request.product.name }} a été créé par {{ service_request.recipient.displayName }}.
+</p>
+
+<p><a href="{{ url }}">Voir la demande</a></p>
+
+<p>{{ brand }}</p>

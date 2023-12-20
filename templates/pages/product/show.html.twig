@@ -1,0 +1,28 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block body %}
+    {% include 'components/layout/_back_to_link.html.twig' with {
+        name: 'templates.pages.product.show.back_to_search'|trans,
+        link: {
+            name: 'app_product_list'
+        }
+    } %}
+    <div class="grid-template-product my-4">
+        {% include 'components/product/_info.html.twig' with {product: product} %}
+        {% include 'components/product/_lender.html.twig' with {
+            avatar: product.owner.avatar,
+            name: product.owner.displayName,
+            isPlace: product.owner.isPlace,
+            address: product.owner.address,
+            schedule: product.owner.schedule
+        } %}
+        <div class="mt-4">
+            {% include 'components/product/_calendar.html.twig' with {
+                title: 'product.show.calendar_title'|trans,
+                actionNeeded: true
+            } %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block link %}{% endblock %}

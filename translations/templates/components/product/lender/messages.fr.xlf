@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="Bs92v8C" resname="templates.components.product.lender.address">
+            <source>templates.components.product.lender.address</source>
+            <target>Adresse :</target>
+        </trans-unit>
+
+        <trans-unit id="RYh9TUY" resname="templates.components.product.lender.schedule">
+            <source>templates.components.product.lender.schedule</source>
+            <target>Horaires :</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

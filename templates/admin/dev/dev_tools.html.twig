@@ -1,0 +1,32 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% trans_default_domain 'admin' %}
+
+{% block content_title %}Tools{% endblock %}
+
+{% block main %}
+    <h2>UUid</h2>
+    <ul>
+        <li>Uuid V4 : <b>{{ uuidV4 }}</b></li>
+        <li>Uuid V6 : <b>{{ uuidV6 }} ({{ uuidV6.dateTime|date(constant('\DateTime::ATOM')) }})</b></li>
+    </ul>
+
+    <h2>Encoding</h2>
+    <ul>
+        <li>Encoded url of <b><code>{{ encoded }}</code></b> : <b>{{ urlEncoded }}</b></li>
+    </ul>
+
+
+    <h2>Random</h2>
+    <ul>
+        <li>bin2hex(random_bytes(25)) : <b>{{ confirmationCode1 }}</b> - taille : {{ confirmationCode1|length }}</li>
+        <li>ByteString::fromRandom(32) : <b>{{ confirmationCode2 }}</b> - taille : {{ confirmationCode2|length }}</li>
+    </ul>
+
+    <h3>Transodes for translation messages</h3>
+    <ul>
+        {% for trans_code in transCodes %}
+            <li>{{ trans_code }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

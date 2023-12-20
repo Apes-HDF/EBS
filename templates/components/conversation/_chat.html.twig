@@ -1,0 +1,29 @@
+<div class="p-3 p-lg-0">
+    {% include 'components/layout/_title_5.html.twig' with {
+        rowClass: 'mb-4',
+        title: 'templates.pages.account.conversation.messages'|trans
+    } %}
+    <div class="chat-container px-3">
+        <div class="chat-content">
+            <ul class="chat-test">
+                {% for message in messages %}
+                    <li class="conversation-message {{ message.type.value }} py-2 px-3 mb-3">
+                        {% if message.type.isSystem %}
+                            <p class="fw-medium fs-7">
+                                <i class="bi bi-info-circle me-2"></i>
+                                {{ 'templates.pages.account.conversation.system_message'|trans }}
+                            </p>
+                        {% endif %}
+
+                        <p class="conversation-messageValue mb-2">
+                            {{ message.message|nl2br }}
+                        </p>
+                        <p class="m-0 text-end fs-7">
+                            {{ message.createdAt|date('d/m/Y - H\\hi') }}
+                        </p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+{# ## Custom JS validation ################################################### #}
+{# This is a specific error div for the client side validation #}
+{# It works for botth single and multiple uploads #}
+{# @todo create a stimulus controller #}
+<div id="after-form-errors" class="invalid-feedback d-block"></div>
+<script>
+    document.getElementById("edit-{{ form.parent.vars.name }}-form").addEventListener("submit", function checkFileSize(event) {
+        const input = document.getElementById('{{ form.parent.vars.name }}_{{ form.vars.name }}_file');
+        for (let file of input.files) {
+            if (file.size > (1048576 * {{ upload_maxsize_by_file }})) {
+                event.preventDefault();
+                document.getElementById('after-form-errors').innerHTML = '{{ 'validator.upload_maxsize_by_file.error'|trans([], 'validators') }}';
+                {# We have to do this hack so the save button is not disabled #}
+                setTimeout(function() {
+                    const submitButton = document.getElementsByName('ea[newForm][btn]')[0];
+                    submitButton.disabled = false;
+                }, 20);
+            }
+        }
+    });
+</script>

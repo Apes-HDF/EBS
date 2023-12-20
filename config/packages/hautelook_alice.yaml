@@ -1,0 +1,13 @@
+hautelook_alice:
+    fixtures_path: 'fixtures' # Path to which to look for fixtures relative to the project directory or the bundle path. May be a string or an array of strings.
+    root_dirs:
+        - '%kernel.project_dir%'
+
+when@dev: &dev
+    hautelook_alice:
+        fixtures_path: 'fixtures'
+
+when@test: *dev
+
+# An instance can be initialized thanks to the prod fixtures
+when@prod: *dev

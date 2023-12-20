@@ -1,0 +1,56 @@
+{# https://symfony.com/bundles/EasyAdminBundle/current/dashboards.html#content-page-template #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% trans_default_domain 'admin' %}
+
+{% block content_title %}{{ 'parameters.content_title'|trans }}{% endblock %}
+
+{% block page_actions %}
+    {#
+    <a class="btn btn-primary" href="{{ ea_url().setRoute('admin_parameters') }}">Sauver</a>
+    #}
+{% endblock %}
+
+{% block main %}
+    {{ form_start(form) }}
+    <div class="row mb-lg-5">
+        <h2 class="h3 fw-bold mt-3">{{ 'parameters.senders.h2'|trans }}</h2>
+        <hr/>
+
+        {{ form_row(form.notificationsSenderEmail) }}
+
+        {{ form_row(form.notificationsSenderName) }}
+
+
+        <h2 class="h3 fw-bold mt-3">{{ 'parameters.contact.h2'|trans }}</h2>
+        <hr/>
+
+        <span class="my-2 px-0">{{ form_widget(form.contactFormEnabled) }}</span>
+
+        {{ form_row(form.contactFormEmail) }}
+
+
+        <h2 class="h3 fw-bold mt-3">{{ 'parameters.groups.h2'|trans }}</h2>
+        <hr/>
+
+        <span class="my-2 mb-4 px-0">{{ form_widget(form.groupsEnabled) }}</span>
+
+        {{ form_row(form.groupsCreationMode) }}
+
+        <span class="my-2 px-0">{{ form_widget(form.groupsPaying) }}</span>
+
+
+        <h2 class="h3 fw-bold mt-3">{{ 'parameters.confidentiality.h2'|trans }}</h2>
+        <hr/>
+
+        <span class="my-2 px-0">{{ form_widget(form.confidentialityConversationAdminAccess) }}</span>
+
+        <span class="border rounded col-lg-6 my-lg-3 p-lg-3 bg-primary bg-opacity-10">{{ 'parameter.conversationsVisibilityWarning'|trans }}</span>
+
+        <div class="col-sm-12">
+            {{ form_widget(form.submit) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

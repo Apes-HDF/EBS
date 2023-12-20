@@ -1,0 +1,39 @@
+.myAccount{
+    border-bottom: 1px solid $gray-border;
+    > .myAccount-header {
+        display: flex;
+        align-items: center;
+        > svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            font-weight: 400;
+            > path {
+                fill: $secondary;
+            }
+        }
+    }
+
+    .myAccount-body {
+        > div {
+            > svg {
+                width: 20px;
+                height: 20px;
+                > path {
+                    fill: $secondary;
+                    font-weight: lighter;
+                }
+            }
+        }
+    }
+}
+
+.form-switch {
+    padding-left: 1em;
+}
+
+@media screen and (min-width: 768px) {
+    .myAccount {
+        border-bottom: none;
+    }
+}

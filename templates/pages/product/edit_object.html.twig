@@ -1,0 +1,37 @@
+{% extends 'layout/base.html.twig' %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+    <div class="px-3 px-lg-0">
+        {% include 'components/layout/_title_3.html.twig' with {
+            name: 'edit_object.form.title'|trans
+        } %}
+        {% if info is defined and not null %}
+            {% include 'components/layout/_text.html.twig' with {
+                text: info
+            } %}
+        {% endif %}
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                {{ form_start(form) }}
+                {% include 'components/product/_object_fields.html.twig' %}
+                 {% if product.images is not empty %}
+                    <div class="d-flex flex-column mb-4">
+                        {% for image in product.images %}
+                            {% include 'components/form/_photo_preview.html.twig' with {
+                                image,
+                                entity: product,
+                            } %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% include 'components/product/_address_form.html.twig' %}
+                <div class="d-grid col-12 mt-3 order-last py-4">
+                    {{ form_widget(form.submit) }}
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

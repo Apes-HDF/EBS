@@ -1,0 +1,29 @@
+framework:
+    notifier:
+        texter_transports:
+            sms_service: '%env(SMS_DSN)%'   # change in your .env.local to test with a real API key 
+            # sms_service: 'null://null'    # use this to deactivate totally SMS
+
+        channel_policy:
+            # use chat/slack, chat/telegram, sms/twilio or sms/nexmo
+            urgent: ['email']
+            high: ['email']
+            medium: ['email']
+            low: ['email']
+
+        admin_recipients:
+            - { email: admin@example.com }
+                
+when@dev:
+    framework:
+        notifier:
+            texter_transports:
+                fakesms: 'fakesms+email://mailer?to=TO&from=FROM'
+
+# don't send real SMS in test env, but we are still able to check that the code
+# tried to send something with the AssertCount assertions (@see tests)
+when@test:
+    framework:
+        notifier:
+            texter_transports:
+                sms_service: 'null://null'

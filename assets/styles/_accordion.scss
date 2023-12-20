@@ -1,0 +1,18 @@
+.accordion.rotate-180 {
+    transition: transform .3s ease-in-out;
+}
+
+.accordion {
+    transition: transform .3s ease-in-out;
+}
+
+.accordion-list {
+    max-height: 0;
+    transition: max-height .3s ease-out;
+    overflow: hidden;
+
+    &.opened {
+        max-height: 500px;
+        transition: max-height .3s ease-in;
+    }
+}

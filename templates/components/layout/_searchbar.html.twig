@@ -1,0 +1,22 @@
+<div class="{{ display|default('d-grid') }} {{ col|default('col') }} {{ margin|default('mx-auto mt-5') }} px-2 position-relative">
+    {% if form is not defined %}
+        <form action="{{ action ?? '' }}">
+            {% if label is defined %}
+                <label for="input-search" class="text-black pb-1">{{ label }}</label>
+            {% endif %}
+            <div class="input-group search-input">
+                <input name="q" value="{{ q ?? '' }}" type="search" id="input-search" class="form-control" placeholder="{{ placeholder|default('Rechercher') }}"  />
+                <button type="submit" class="search-input-button input-group-text">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </form>
+    {% else %}
+        {{ form_start(form) }}
+        <div class="input-group search-input">
+            {{ form_widget(form.q) }}
+            {{ form_widget(form.submit) }}
+        </div>
+        {{ form_end(form) }}
+    {% endif %}
+</div>

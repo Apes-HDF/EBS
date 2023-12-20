@@ -1,0 +1,70 @@
+{% extends 'layout/connection.html.twig' %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% trans_default_domain 'security' %}
+
+{% block error %}{% endblock %}
+
+{% block page_title %}
+    {% with {name: 'Créer un compte'} %}
+        {{ parent() }}
+    {% endwith %}
+{% endblock %}
+
+{% block text %}
+    {% set groups_invited = user.getMyGroupsAsInvited %}
+    {% set info = '' %}
+    {% if not groups_invited.isEmpty %}
+        {% set info = (i18n_prefix ~ '.group_invitations')|trans({
+            '%groups%': groups_invited|map(p => p.name)|join(', ')
+        }) ~ '<br/>' %}
+    {% endif %}
+    {% set info = info ~ (i18n_prefix ~ '.info')|trans %}
+    {{ parent() }}
+{% endblock %}
+
+{% block form_element %}
+    {{ form_errors(form) }}
+
+    {{ form_start(form, {attr: {novalidate: true}}) }}
+
+    {{ form_row(form.type) }}
+    <div class="user-input mt-2">
+        {{ form_label(form.firstname) }}
+        {{ form_widget(form.firstname) }}
+        {{ form_errors(form.firstname) }}
+        {{ form_label(form.lastname) }}
+        {{ form_widget(form.lastname) }}
+        {{ form_errors(form.lastname) }}
+    </div>
+    <div class="place-input mt-2">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+        {{ form_errors(form.name) }}
+    </div>
+
+    {% include 'components/form/_password_visibility.html.twig' with {
+        form: form.plainPassword.first
+    } %}
+
+    {% include 'components/form/_password_visibility.html.twig' with {
+        form: form.plainPassword.second
+    } %}
+
+    <div class="row mt-3">
+        <div class="col">
+            {{ form_widget(form.gdpr) }}
+            {{ form_errors(form.gdpr) }}
+        </div>
+    </div>
+
+    <div class="d-grid col-12 my-4">
+        {{ form_widget(form.submit) }}
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block link %}{% endblock %}

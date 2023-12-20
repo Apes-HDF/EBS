@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+      <note>prefix: templates.pages.account.conversation</note>
+    </header>
+    <body>
+        <trans-unit id="vq9TWAU" resname="templates.pages.account.conversation.modal.edit.title">
+            <source>templates.pages.account.conversation.modal.edit.title</source>
+            <target>Confirmer l'emprunt</target>
+        </trans-unit>
+
+        <trans-unit id="yQYM1JG" resname="templates.pages.account.conversation.modal.confirm.owner">
+            <source>templates.pages.account.conversation.modal.confirm.owner</source>
+            <target>Souhaitez-vous confirmer l'emprunt suivant ? L'emprunteur·euse devra ensuite confirmer à son tour.</target>
+        </trans-unit>
+
+        <trans-unit id="MSsNyaN" resname="templates.pages.account.conversation.modal.confirm.recipient">
+            <source>templates.pages.account.conversation.modal.confirm.recipient</source>
+            <target>Souhaitez-vous confirmer l'emprunt suivant ? Cela validera votre demande définitivement.</target>
+        </trans-unit>
+
+        <trans-unit id="1Q2agbk" resname="templates.pages.account.conversation.modal.edit.save">
+            <source>templates.pages.account.conversation.modal.edit.save</source>
+            <target>Enregistrer et confirmer l'emprunt</target>
+        </trans-unit>
+
+        <trans-unit id="MnrTeEB" resname="templates.pages.account.conversation.modal.edit.save_owner">
+            <source>templates.pages.account.conversation.modal.edit.save_owner</source>
+            <target>Enregistrer</target>
+        </trans-unit>
+
+        <trans-unit id="N6CFTuP" resname="templates.pages.account.conversation.modal.edit.cancel">
+            <source>templates.pages.account.conversation.modal.edit.cancel</source>
+            <target>Annuler</target>
+        </trans-unit>
+
+        <trans-unit id="9T9QApU" resname="templates.pages.account.conversation.modal.edit.back">
+            <source>templates.pages.account.conversation.modal.edit.back</source>
+            <target>Retour</target>
+        </trans-unit>
+
+        <trans-unit id="LgRjBNf" resname="templates.pages.account.conversation.modal.edit.cancel.confirm">
+            <source>templates.pages.account.conversation.modal.edit.cancel</source>
+            <target>Êtes-vous sûr·e de vouloir annuler l’emprunt ?</target>
+        </trans-unit>
+
+        <trans-unit id="omB7qac" resname="templates.pages.account.conversation.date">
+            <source>templates.pages.account.conversation.date</source>
+            <target>Le %date%</target>
+        </trans-unit>
+
+        <trans-unit id="KGSNtvW" resname="templates.pages.account.conversation.dates">
+            <source>templates.pages.account.conversation.dates</source>
+            <target>Du %startAt% au %endAt%</target>
+        </trans-unit>
+
+        <trans-unit id="kdEpWFb" resname="templates.pages.account.conversation.messages">
+            <source>templates.pages.account.conversation.messages</source>
+            <target>Messages</target>
+        </trans-unit>
+
+        <trans-unit id="Ti9LoGf" resname="templates.pages.account.conversation.system_message">
+            <source>templates.pages.account.conversation.system_message</source>
+            <target>Message automatique</target>
+        </trans-unit>
+
+        <trans-unit id="Jaj2QrF" resname="templates.pages.account.conversation.textarea.placeholder">
+            <source>templates.pages.account.conversation.textarea.placeholder</source>
+            <target>Votre message</target>
+        </trans-unit>
+
+        <trans-unit id="3cB6Gps" resname="templates.pages.account.conversation.confirmed_text">
+            <source>templates.pages.account.conversation.confirmed_text</source>
+            <target>
+                La demande est bien confirmée des deux côtés.
+                Nous vous invitons à échanger vos coordonnées pour votre rendez vous du %startAt%.
+            </target>
+        </trans-unit>
+
+        <trans-unit id="GtBRFTE" resname="templates.pages.account.conversation.accept_text">
+            <source>templates.pages.account.conversation.accept_text</source>
+            <target>En attente de confirmation du·de la propriétaire.</target>
+        </trans-unit>
+
+        <trans-unit id="MYo3T6T" resname="templates.pages.account.conversation.to_confirm_text">
+            <source>templates.pages.account.conversation.to_confirm_text</source>
+            <target>En attente de confirmation de l'emprunteur·euse.</target>
+        </trans-unit>
+
+        <trans-unit id="axTXoEN" resname="templates.pages.account.conversation.link.refuse_modal">
+            <source>templates.pages.account.conversation.link.refuse_modal</source>
+            <target>Annuler l'emprunt</target>
+        </trans-unit>
+
+        <trans-unit id="B2jc5ti" resname="templates.pages.account.conversation.link.refuse">
+            <source>templates.pages.account.conversation.link.refuse</source>
+            <target>Annuler l'emprunt</target>
+        </trans-unit>
+
+        <trans-unit id="apmX9NN" resname="templates.pages.account.conversation.link.refresh">
+            <source>templates.pages.account.conversation.link.refresh</source>
+            <target>Rafraîchir pour voir les nouveaux messages</target>
+        </trans-unit>
+
+
+        <trans-unit id="ubcgQZ4" resname="templates.pages.account.conversation.refused_text">
+            <source>templates.pages.account.conversation.refused_text</source>
+            <target>Cette transaction a été annulée et ne peut pas se poursuivre.</target>
+        </trans-unit>
+
+        <trans-unit id="9x5E9CS" resname="templates.pages.account.conversation.link.confirm_modal">
+            <source>templates.pages.account.conversation.link.confirm_modal</source>
+            <target>Confirmer l'emprunt</target>
+        </trans-unit>
+
+        <trans-unit id="ar6WGHt" resname="templates.pages.account.conversation.link.confirm">
+            <source>templates.pages.account.conversation.link.confirm</source>
+            <target>Confirmer</target>
+        </trans-unit>
+
+        <trans-unit id="JN753FG" resname="templates.pages.account.conversation.link.finalize">
+            <source>templates.pages.account.conversation.link.finalize</source>
+            <target>Finaliser l'emprunt</target>
+        </trans-unit>
+
+        <trans-unit id="2VNq5Jk" resname="templates.pages.account.conversation.link.finalize_modal">
+            <source>templates.pages.account.conversation.link.finalize_modal</source>
+            <target>Terminer l'emprunt</target>
+        </trans-unit>
+
+        <trans-unit id="P6okrMg" resname="templates.pages.account.conversation.finalize_text">
+            <source>templates.pages.account.conversation.finalize_text</source>
+            <target>Êtes-vous sûr·e de vouloir terminer l’emprunt ? Votre article sera à nouveau disponible à partir de la date d'aujourd'hui.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

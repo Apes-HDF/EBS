@@ -1,0 +1,29 @@
+{% extends 'layout/base.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% block body %}
+    {% include 'components/layout/_title_3.html.twig' with {
+        name: (i18n_prefix ~ '.title')|trans
+    } %}
+    <div class="row px-3 pt-5">
+        {% include 'components/layout/_multiple_searchbar.html.twig' with {
+            label: (i18n_prefix ~ '.filterBy')|trans,
+            placeholder: (i18n_prefix ~ '.search')|trans,
+            margin: 'mx-auto'
+        } %}
+    </div>
+    {% if pagination.count > 0 %}
+        {% include 'components/list/_conversations.html.twig' with {
+            pagination,
+            isMyLoans: true
+        } %}
+    {% else %}
+        <p class="text-center mt-5">{{ (i18n_prefix ~ '.no_result')|trans }}</p>
+    {% endif %}
+    <div class="my-5">
+        {% include 'components/layout/_pagination.html.twig' with {pagination} %}
+    </div>
+{% endblock %}
+
+{% block link %}{% endblock %}

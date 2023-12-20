@@ -1,0 +1,17 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block main %}
+    <h2>POC : test d'envoi d'une notification par email</h2>
+
+    <h3>Envoi avec le Symfony mailer</h3>
+
+    <ul>
+        <li><a href="https://symfony.com/doc/current/notifier.html#email-channel">Doc Symfony</a></li>
+    </ul>
+
+    <br/>
+    {{ form_start(form, {'attr': {}}) }}
+        {{ form_widget(form) }}
+    {{ form_end(form) }}
+    <br/>
+{% endblock %}

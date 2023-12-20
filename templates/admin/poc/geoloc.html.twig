@@ -1,0 +1,51 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block main %}
+    <h2>POC : test de géolocalisation avec le bundle </h2>
+
+    <h3>Résultats avec le fournisseur gratuit Nominatim</h3>
+
+    <br/>
+    {{ form_start(form, {'attr': {}}) }}
+        {{ form_widget(form) }}
+    {{ form_end(form) }}
+    <br/>
+
+{% if form.vars.submitted %}
+    {% if address is not null %}
+        <h2>Adresse renseignée : {{ address }}</h2>
+    {% endif %}
+
+    {% if addressCollection is not null %}
+
+        {% if addressCollection|length %}
+            <h3>Veuillez confirmer l'adresse</h3>
+        {% endif %}
+
+        {# @var Geocoder\Model\Address address #}
+        {% for address in addressCollection %}
+            <h4>&raquo; Proposition n° {{ loop.index }}</h4>
+            <ul>
+                <li>Numéro : {{ address.streetNumber }} </li>
+                <li>Rue / voie : {{ address.streetName }} </li>
+                <li>Localité : {{ address.locality }} </li>
+                <li>Code postal : {{ address.postalCode }} </li>
+                {% if address.country is not null %}
+                    <li>Pays : {{ address.country.name }} ({{ address.country.code }}) </li>
+                {% endif %}
+
+                {% if address.adminLevels is not null %}
+                    <li>Régions : {% for admin_level in address.adminLevels %}{{ admin_level.name }} {% endfor %}</li>
+                {% endif %}
+                {% if address.coordinates is not null %}
+                    <li>latitude : {{ address.coordinates.latitude }}, longitude : {{ address.coordinates.longitude }}</li>
+                {% endif %}
+                <li>Adresse reformatée : {{ address.displayName }} </li>
+            </ul>
+        {% else %}
+            <h4>Aucune proposition trouvée, veuillez affiner l'adresse.</h4>
+        {% endfor %}
+    {% endif %}
+{% endif %}
+
+{% endblock %}

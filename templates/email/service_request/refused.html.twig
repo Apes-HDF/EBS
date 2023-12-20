@@ -1,0 +1,18 @@
+{% trans_default_domain 'email' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% set url = url('app_user_conversation_list', {id: service_request.id}) %}
+
+<p>{{ (i18n_prefix ~ '.hi')|trans }}</p>
+
+<p>{{ (i18n_prefix ~ '.p1')|trans({
+        '%date%': service_request.endAt|date('format.date'|trans({}, 'date')),
+        '%product_name%': service_request.product.name,
+        '%actor%': actor.displayName ?? '',
+    })
+}}</p>
+
+<p><a href="{{ url }}">{{ (i18n_prefix ~ '.cta')|trans }}</a></p>
+
+<p>{{ brand }}</p>

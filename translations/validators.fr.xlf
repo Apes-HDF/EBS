@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <!-- uploads -->
+
+        <trans-unit id="EgnonqP" resname="validator.extensions_message">
+            <source>validator.extensions_message</source>
+            <target>L'extension de l'image est invalide {{ extension }}. Extensions autorisées {{ extensions }}.</target>
+        </trans-unit>
+
+        <trans-unit id="7jwFKg4" resname="validator.upload_maxsize_by_file.error">
+            <source>validator.upload_maxsize_by_file.error</source>
+            <target>Chaque fichier doit faire moins de un mégaoctet.</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,39 @@
+ <div {{ stimulus_controller('productupload', {
+     uploadMaxsizeByFile: upload_maxsize_by_file,
+     uploadMaxItems: upload_max_images,
+     currentImagesCount: product is defined ? product.images|length : 0,
+     feedbackMessage: 'templates.components.product.object_fields.feedback_message'|trans,
+     maxImagesError: 'templates.components.product.object_fields.max_images_error'|trans({'%count%': upload_max_images}),
+ }) }}>
+     {{ form_row(form.category) }}
+     {{ form_row(form.name, {
+         label: 'object.form.name'|trans
+     }) }}
+     {{ form_row(form.description) }}
+     {{ form_row(form.age) }}
+     {{ form_row(form.deposit) }}
+     {{ form_row(form.preferredLoanDuration) }}
+     {% if form.visibility is defined %}
+         <div {{ stimulus_controller('productvisibility') }}>
+             {% include 'components/product/service_request/_visibility.html.twig' with {
+                 visibility: form.visibility,
+                 product: 'objet'
+             } %}
+             <div {{ stimulus_target('productvisibility', 'groups') }}>
+                {{ form_row(form.groups) }}
+             </div>
+         </div>
+     {% endif %}
+     {% include 'components/product/_images.html.twig' with {
+         form: form.images
+     } %}
+ </div>
+
+{#
+ // https://github.com/symfony/webpack-encore-bundle#stimulus_target
+ {{ form_row(form.images, {
+     attr:
+        stimulus_target('controller-name', 'target-name').toArray() | merge(
+        stimulus_action('controller-name', 'action-name').toArray()        )
+ }) }}
+#}

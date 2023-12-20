@@ -1,0 +1,58 @@
+{# 2.1. with a pending invitation #}
+{% if group_membership.membership.isInvited %}
+
+    {# 2.1.1 and paying offers #}
+    {% if not group.activeOffers.isEmpty %}
+        {% include 'components/group/_first_offer.html.twig' with {group} %}
+        {% include 'components/group/_modal_offers.html.twig' with {
+            offers: group.activeOffers
+        } %}
+
+    {# 2.1.2 otherwise it is a free group #}
+    {% else %}
+        <div class="row my-5">
+            <form action="{{ path('app_user_group_accept_invitation', {id: group.id}) }}"
+                  method="post">
+                <input type="hidden"
+                       name="token"
+                       value="{{ csrf_token('accept_invitation') }}"/>
+                <div class="d-grid col col-lg-4 mx-auto">
+                    <button class="btn btn-primary"
+                            type="submit">
+                        <i class="bi bi-person-fill-add"></i>
+                        {{ (i18n_prefix ~ '.form.accept_invitation.submit')|trans }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+
+{# 2.2 already member (or group admin) #}
+{% else %}
+    <p class="text-center">
+        {{ (i18n_prefix ~ '.already_member')|trans }}
+        {% if group_membership.endAt is not null %}
+            {{ (i18n_prefix ~ '.membership_valid_until')|trans({'%endAt%': group_membership.endAt|date('format.date'|trans({}, 'date'))}) }}
+        {% endif %}
+    </p>
+
+    {% if group_membership.membership.isAdmin %}
+        <div class="d-grid col col-lg-4 mx-auto">
+            <a href="{{ ea_url().setController('App\\Controller\\Admin\\GroupCrudController').setAction('detail').setEntityId(group.id) }}"
+               class="btn btn-primary">
+                {{ (i18n_prefix ~ '.admin')|trans }}
+            </a>
+        </div>
+    {% endif %}
+
+    <div class="d-grid col col-lg-4 mx-auto ">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLeaveGroup">
+            <i class="bi bi-person-fill-dash"></i>
+            {{ (i18n_prefix ~ '.form.quit_group.submit-modal')|trans }}
+        </button>
+    </div>
+    {% include 'components/group/_modal.html.twig' with {
+        title: (i18n_prefix ~ '.form.quit_group.submit-modal')|trans,
+        message: (i18n_prefix ~ '.form.quit_group.submit-modal-message')|trans
+    } %}
+{% endif %}

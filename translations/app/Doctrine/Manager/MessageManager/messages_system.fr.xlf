@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="2WURVgm" resname="app.doctrine.manager.message_manager.message.system.new">
+            <source>app.doctrine.manager.message_manager.message.system.new</source>
+            <target>Début de la demande d'emprunt - Par %recipient% - Du %startAt% au %endAt%.</target>
+        </trans-unit>
+
+        <trans-unit id="FTddp5M" resname="app.doctrine.manager.message_manager.message.system.accepted.object">
+            <source>app.doctrine.manager.message_manager.message.system.accepted.object</source>
+            <target>La demande a été acceptée par le·la propriétaire de l'objet.</target>
+        </trans-unit>
+
+        <trans-unit id="BFAoLb4" resname="app.doctrine.manager.message_manager.message.system.accepted.service">
+            <source>app.doctrine.manager.message_manager.message.system.accepted.service</source>
+            <target>La demande a été acceptée par le·la prestataire du service.</target>
+        </trans-unit>
+
+        <trans-unit id="gkxXeGW" resname="app.doctrine.manager.message_manager.message.system.modified_by_owner.object">
+            <source>app.doctrine.manager.message_manager.message.system.modified_by_owner.dobject</source>
+            <target>Les dates de prêt ont été modifiées par le·la propriétaire de l'objet, du %startAt% au %endAt%.</target>
+        </trans-unit>
+
+        <trans-unit id="kjYqUuB" resname="app.doctrine.manager.message_manager.message.system.modified_by_owner.service">
+            <source>app.doctrine.manager.message_manager.message.system.modified_by_owner.service</source>
+            <target>Les dates de la demande ont été modifiées par le·la propriétaire service, du %startAt% au %endAt%.</target>
+        </trans-unit>
+
+        <trans-unit id="CZTx6S7" resname="app.doctrine.manager.message_manager.message.system.modified_by_recipient.object">
+            <source>app.doctrine.manager.message_manager.message.system.modified_by_recipient.dobject</source>
+            <target>Les dates de prêt ont été modifiées par l'emprunteur·euse, du %startAt% au %endAt%.</target>
+        </trans-unit>
+
+        <trans-unit id="HhMubGK" resname="app.doctrine.manager.message_manager.message.system.modified_by_recipient.service">
+            <source>app.doctrine.manager.message_manager.message.system.modified_by_recipient.service</source>
+            <target>Les dates de la demande ont été modifiées par le·la bénéficiaire du service, du %startAt% au %endAt%.</target>
+        </trans-unit>
+
+        <trans-unit id="uWcL6QD" resname="app.doctrine.manager.message_manager.message.system.confirmed.object">
+            <source>app.doctrine.manager.message_manager.message.system.confirmed.object</source>
+            <target>La demande a été confirmée par l'emprunteur·euse.</target>
+        </trans-unit>
+
+        <trans-unit id="fmwsM4Z" resname="app.doctrine.manager.message_manager.message.system.confirmed.service">
+            <source>app.doctrine.manager.message_manager.message.system.confirmed.service</source>
+            <target>La demande a été confirmée par le·la bénéficiaire du service.</target>
+        </trans-unit>
+
+        <trans-unit id="WUuETr2" resname="app.doctrine.manager.message_manager.message.system.refused.object">
+            <source>app.doctrine.manager.message_manager.message.system.refused.object</source>
+            <target>La demande d'emprunt a été refusée / annulée par %actor%.</target>
+        </trans-unit>
+
+        <trans-unit id="vGkakJz" resname="app.doctrine.manager.message_manager.message.system.refused.service">
+            <source>app.doctrine.manager.message_manager.message.system.refused.service</source>
+            <target>La demande de service a été refusée / annulée par %actor%.</target>
+        </trans-unit>
+
+        <trans-unit id="xcH6SWs" resname="app.doctrine.manager.message_manager.message.system.finalized">
+            <source>app.doctrine.manager.message_manager.message.system.finalized</source>
+            <target>La demande de service a été finalisée.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

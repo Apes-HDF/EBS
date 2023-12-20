@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="tnnSdDG" resname="templates.pages.product.product_availability.subtitle">
+            <source>templates.pages.product.product_availability.subtitle</source>
+            <target>Disponibilité</target>
+        </trans-unit>
+
+        <trans-unit id="MzuFHa9" resname="templates.pages.product.product_availability.title">
+            <source>templates.pages.product.product_availability.title</source>
+            <target>Ajouter une indisponibilité</target>
+        </trans-unit>
+
+        <trans-unit id="P2nPEzP" resname="templates.pages.product.product_availability.date">
+            <source>templates.pages.product.product_availability.date</source>
+            <target>Du %startAt% au %endAt%</target>
+        </trans-unit>
+
+        <trans-unit id="rmAPpa3" resname="templates.pages.product.product_availability.delete_title">
+            <source>templates.pages.product.product_availability.delete_title</source>
+            <target>Supprimer une indisponibilité</target>
+        </trans-unit>
+
+        <trans-unit id="WUGWYTM" resname="templates.pages.product.product_availability.back_to_list">
+            <source>templates.pages.product.product_availability.back_to_list</source>
+            <target>Retour</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,54 @@
+<div class="modal fade"
+     id="modalLeaveGroup"
+     tabindex="-1"
+     aria-labelledby="modalLeaveGroup"
+     aria-hidden="true">
+    <form action="{{ path('app_user_group_quit_group', {id: group.id}) }}"
+          method="post">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title fs-5"
+                        id="exampleModalLabel">{{ title }}</h6>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ message }}
+
+                    {% if showQuitGroupChoices %}
+                        <p class="my-4">
+                            {{ (i18n_prefix ~ '.form.quit_group.submit-modal-message-item')|trans }}
+                        </p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="type" value="public" id="itemPublic" checked>
+                            <label class="form-check-label" for="itemPublic">
+                                {{ (i18n_prefix ~ '.form.quit_group.submit-modal-item-public')|trans }}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="type" value="vacation" id="itemBreak">
+                            <label class="form-check-label" for="itemBreak">
+                                {{ (i18n_prefix ~ '.form.quit_group.submit-modal-item-break')|trans }}
+                            </label>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">{{ (i18n_prefix ~ '.close')|trans }}</button>
+                    <input type="hidden"
+                           name="token"
+                           value="{{ csrf_token('quit_group') }}"/>
+                    <button class="btn btn-danger"
+                            type="submit">
+                        <i class="bi bi-person-fill-dash"></i>
+                        {{ (i18n_prefix ~ '.form.quit_group.submit')|trans }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

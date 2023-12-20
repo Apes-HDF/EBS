@@ -1,0 +1,25 @@
+<div class="row {{ rowClass|default('') }}">
+    <div class="col-auto">
+        {% if product.images is not empty %}
+            <img src="{{ product|public_url_image(product.firstImage) }}" alt="{{ product.name }}"
+                 class="featured-image" width="74" height="74">
+        {% elseif category.image %}
+            <img src="{{ category|public_url }}" alt="{{ product.name }}" class="featured-image"
+                 width="74" height="74">
+        {% else %}
+            <img src="{{ asset('svg/product.svg') }}" alt="{{ product.name }}" class="featured-image"
+                 width="74" height="74">
+        {% endif %}
+    </div>
+    <div class="col d-flex flex-column justify-content-center">
+        <h6 class="fw-bold m-0">
+            <a href="{{ path('app_product_show', {slug: product.slug, id: product.id}) }}">{{ product.name }}</a>
+        </h6>
+        <p class="fs-7 m-0">
+            {% if category.parent %}
+                {{ category.parent }} &nbsp;/&nbsp;
+            {% endif %}
+            {{ category }}
+        </p>
+    </div>
+</div>

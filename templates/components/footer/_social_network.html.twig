@@ -1,0 +1,12 @@
+{% set items = icons|sort((a, b) => a.position <=> b.position) %}
+<div class="col-6 col-md-3 order-last d-flex justify-content-center align-items-center flex-wrap">
+    {% for item in items %}
+        <a href="{{ item.link }}" class="ms-3 fs-5 text-gray">
+            {% if item.mediaType.isWeb() %}
+                <i class="bi bi-globe"></i>
+            {% else %}
+                <i class="bi bi-{{ item.mediaType.value }}"></i>
+            {% endif %}
+        </a>
+    {% endfor %}
+</div>

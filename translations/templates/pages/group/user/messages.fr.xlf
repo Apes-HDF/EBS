@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+     <body>
+        <trans-unit id="VMpkMGq" resname="templates.pages.group.user.back_group">
+            <source>templates.pages.group.user.back_group</source>
+            <target>Retour au groupe</target>
+        </trans-unit>
+
+        <trans-unit id="8HSbdxr" resname="templates.pages.group.user.no_result">
+            <source>templates.pages.group.user.no_result</source>
+            <target>%name% n'a aucun produit pour le moment.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

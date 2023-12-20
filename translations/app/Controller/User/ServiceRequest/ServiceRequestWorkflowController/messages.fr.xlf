@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="hwvsMfc" resname="app.controller.user.service_request.service_request_status_workflow_controller.flash.object.accept">
+            <source>app.controller.user.service_request.service_request_status_workflow_controller.flash.object.accept</source>
+            <target>La demande de prêt a bien été acceptée, l'emprunteur·euse vient d'être notifié·e par email.</target>
+        </trans-unit>
+
+        <trans-unit id="4vDDgP2" resname="app.controller.user.service_request.service_request_status_workflow_controller.flash.service.accept">
+            <source>app.controller.user.service_request.service_request_status_workflow_controller.flash.service.accept</source>
+            <target>La demande de service a bien été acceptée, le·la bénéficiaire vient d'être notifié·e par email.</target>
+        </trans-unit>
+
+        <trans-unit id="8TTYgFa" resname="app.controller.user.service_request.service_request_status_workflow_controller.flash.object.modify_owner">
+            <source>app.controller.user.service_request.service_request_status_workflow_controller.flash.object.modify_owner</source>
+            <target>La demande d'emprunt a bien été modifiée, l'emprunteur·euse vient d'être notifié·e par email.</target>
+        </trans-unit>
+
+        <trans-unit id="7AG11jG" resname="app.controller.user.service_request.service_request_status_workflow_controller.flash.service.modify_owner">
+            <source>app.controller.user.service_request.service_request_status_workflow_controller.flash.service.modify_owner</source>
+            <target>La demande de service a bien été modifiée, le·la bénéficiaire vient d'être notifié·e par email.</target>
+        </trans-unit>
+
+        <trans-unit id="1GwruhR" resname="app.controller.user.service_request.service_request_status_workflow_controller.flash.object.modify_recipient">
+            <source>app.controller.user.service_request.service_request_status_workflow_controller.flash.object.modify_recipient</source>
+            <target>La demande d'emprunt a bien été modifiée, le·la propriétaire vient d'être notifié·e par email.</target>
+        </trans-unit>
+
+        <trans-unit id="Y1sPBot" resname="app.controller.user.service_request.service_request_status_workflow_controller.flash.service.modify_recipient">
+            <source>app.controller.user.service_request.service_request_status_workflow_controller.flash.service.modify_recipient</source>
+            <target>La demande de service a bien été modifiée, le·la propriétaire vient d'être notifié·e par email.</target>
+        </trans-unit>
+
+        <trans-unit id="3DuPeXE" resname="app.controller.user.service_request.service_request_status_workflow_controller.flash.object.confirm">
+            <source>app.controller.user.service_request.service_request_status_workflow_controller.flash.object.confirm</source>
+            <target>La demande de prêt a bien été confirmée, l'emprunteur·euse vient d'être notifié·e par email.</target>
+        </trans-unit>
+
+        <trans-unit id="K4kxSbX" resname="app.controller.user.service_request.service_request_status_workflow_controller.flash.service.confirm">
+            <source>app.controller.user.service_request.service_request_status_workflow_controller.flash.service.confirm</source>
+            <target>La demande de service a bien été confirmée, le·la bénéficiaire vient d'être notifié·e par email.</target>
+        </trans-unit>
+
+        <trans-unit id="W6oAgoM" resname="app.controller.user.service_request.service_request_status_workflow_controller.flash.object.refuse">
+            <source>app.controller.user.service_request.service_request_status_workflow_controller.flash.object.refuse</source>
+            <target>La demande de prêt a bien été refusée / annulée.</target>
+        </trans-unit>
+
+        <trans-unit id="DfBm1oB" resname="app.controller.user.service_request.service_request_status_workflow_controller.flash.service.refuse">
+            <source>app.controller.user.service_request.service_request_status_workflow_controller.flash.service.refuse</source>
+            <target>La demande de service a bien été refusée / annulée.</target>
+        </trans-unit>
+
+        <trans-unit id="2HWKVYa" resname="app.controller.user.service_request.service_request_status_workflow_controller.flash.object.finalize">
+            <source>app.controller.user.service_request.service_request_status_workflow_controller.flash.object.finalize</source>
+            <target>La demande de prêt a bien été finalisée.</target>
+        </trans-unit>
+
+        <trans-unit id="bLBXyr3" resname="app.controller.user.service_request.service_request_status_workflow_controller.flash.service.finalize">
+            <source>app.controller.user.service_request.service_request_status_workflow_controller.flash.service.finalize</source>
+            <target>La demande de service a bien été finalisée.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

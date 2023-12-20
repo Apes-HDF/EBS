@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="e34enK7" resname="UserGroup">
+            <source>UserGroup</source>
+            <target>adhésion</target>
+        </trans-unit>
+
+        <trans-unit id="hr5zvhY" resname="user_groups">
+            <source>user_groups</source>
+            <target>Membres</target>
+        </trans-unit>
+
+        <trans-unit id="qioJLMp" resname="MEMBER">
+            <source>MEMBER</source>
+            <target>Membre</target>
+        </trans-unit>
+
+        <trans-unit id="Rod1RjD" resname="INVITATION">
+            <source>INVITATION</source>
+            <target>Invitation</target>
+        </trans-unit>
+
+        <trans-unit id="yo7WJ3G" resname="List Members">
+            <source>List Members</source>
+            <target>Voir les membres</target>
+        </trans-unit>
+
+         <trans-unit id="d2usYYt" resname="app.controller.admin.group_crud_controller.invite.flash.success">
+            <source>app.controller.admin.group_crud_controller.invite.flash.success</source>
+            <target>Invitation envoyée.</target>
+        </trans-unit>
+
+         <trans-unit id="7EuEutS" resname="app.controller.admin.user_group_crud_controller.expires_in.formatted_value">
+            <source>app.controller.admin.user_group_crud_controller.expires_in.formatted_value</source>
+            <target>%days% jour(s).</target>
+         </trans-unit>
+
+         <trans-unit id="j9rKEUY" resname="Expires In">
+            <source>Expires In</source>
+            <target>Expire dans ?</target>
+         </trans-unit>
+
+    </body>
+  </file>
+</xliff>

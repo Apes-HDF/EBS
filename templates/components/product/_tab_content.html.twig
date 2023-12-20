@@ -1,0 +1,36 @@
+<div class="tab-content"
+     id="pills-tabContent">
+    <div class="tab-pane fade show active"
+         id="pills-objects" role="tabpanel"
+         aria-labelledby="pills-objects-tab"
+         tabindex="0">
+        <ul class="row mt-5">
+            {% for product in objects_pagination %}
+                <li class="col-6 col-sm-4 col-lg-3 d-flex justify-content-center mt-3">
+                    {% include 'components/product/_card.html.twig' with {product} %}
+                </li>
+            {% endfor %}
+        </ul>
+        {% include 'components/layout/_pagination.html.twig' with {
+            pagination: objects_pagination,
+        } %}
+    </div>
+    {% if services_pagination is defined and services_pagination is not null %}
+    <div class="tab-pane fade"
+         id="pills-services"
+         role="tabpanel"
+         aria-labelledby="pills-services-tab"
+         tabindex="0">
+        <ul class="row mt-5">
+            {% for product in services_pagination %}
+                <li class="col-6 col-sm-4 col-lg-3 d-flex justify-content-center mt-3">
+                    {% include 'components/product/_card.html.twig' with {product} %}
+                </li>
+            {% endfor %}
+        </ul>
+        {% include 'components/layout/_pagination.html.twig' with {
+            pagination: services_pagination,
+        } %}
+    </div>
+</div>
+{% endif %}

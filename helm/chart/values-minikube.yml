@@ -1,0 +1,44 @@
+meilisearch:
+  persistence:
+    enabled: true
+    size: "1Gi"
+
+redis:
+  master:
+    persistence:
+      enabled: true
+      size: "1Gi"
+
+payum:
+  enabled: true
+  gateway: 'mollie'
+  apikey: 'test'
+
+postgresql:
+  auth:
+    # PostgreSQL password is set only the first time chart in installed
+    postgresPassword: change_me
+
+maildev:
+  enabled: true
+  ingress:
+    enabled: true
+    hosts:
+      - maildev.chart-example.local
+
+php:
+  image:
+    repository: plateformcoop-ebs-php
+    tag: latest
+  storage:
+    bucket: "toto"
+    endpoint: "titi"
+    region: "tata"
+    usePathStyleEndpoint: true
+    key: "tonton"
+    secret: "tomtom"
+
+caddy:
+  image:
+    repository: plateformcoop-ebs-caddy
+    tag: latest

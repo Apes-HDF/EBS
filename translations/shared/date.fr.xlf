@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="1YUAKxN" resname="format.date">
+            <source>format.date</source>
+            <target>d/m/Y</target>
+        </trans-unit>
+
+        <trans-unit id="VeqycEL" resname="format.time">
+            <source>format.time</source>
+            <target>H:i:s</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

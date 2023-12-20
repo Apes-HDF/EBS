@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="A9JbSoR" resname="app.mailer.email.command.notify_service_request_start_email.subject">
+            <source>app.mailer.email.command.notify_service_request_start_email.subject</source>
+            <target>%brand% : Votre emprunt concernant "%product%" débute demain %date%.</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

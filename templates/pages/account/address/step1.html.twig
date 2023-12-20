@@ -1,0 +1,35 @@
+{% extends 'layout/base.html.twig' %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+    {% include 'components/layout/_title_3.html.twig' with {
+        name: 'address.step1_action.title'|trans
+    } %}
+    {% include 'components/layout/_text.html.twig' with {
+        text: 'address.step1_action.plaintext'|trans
+    } %}
+
+    <div class="px-3 px-lg-0">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                {{ form_start(form, {
+                    attr: {
+                        novalidate: true
+                    }
+                }) }}
+                {{ form_row(form.address) }}
+                {{ form_row(form.addressSupplement) }}
+                {{ form_row(form.postalCode) }}
+                {{ form_row(form.locality) }}
+                {{ form_row(form.country) }}
+                <div class="d-grid col-12 my-5">
+                    {{ form_widget(form.submit) }}
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+     {% block step2 %}{% endblock %}
+{% endblock %}
+{% block link %}{% endblock %}

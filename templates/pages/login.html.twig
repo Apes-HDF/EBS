@@ -1,0 +1,66 @@
+{% extends 'layout/connection.html.twig' %}
+
+{% trans_default_domain 'security' %}
+
+{% block page_title %}
+    {% with {name: 'login_action.title'|trans} %}
+        {{ parent() }}
+    {% endwith %}
+{% endblock %}
+
+{% block text %}{% endblock %}
+
+{% block form_element %}
+    <form action="{{ path('app_login') }}"
+          method="post"
+          novalidate>
+        <div class="d-flex flex-column">
+            <div class="form-group d-flex justify-content-between align-items-center pt-3">
+                <label
+                    class="text-black fs-6 required"
+                    for="login-username">
+                    {{ 'login_action.fom.username.label'|trans }}
+                </label>
+            </div>
+            <input type="email"
+                   id="login-username"
+                   class="form-control form-control-sm mt-2 {% if error %}is-invalid{% endif %}"
+                   name="_username"
+                   value="{{ last_username }}"
+                   placeholder="monemail@mail.com"
+                   required>
+        </div>
+
+        {% include 'components/form/_password_visibility.html.twig' with {error} %}
+
+        <div class="d-flex justify-content-end">
+            <span class="mt-4">
+                <a href="{{ path('security_lost_password') }}"
+                   class="text-primary">
+                    {{ 'login_action.lost_password.button'|trans }}
+                </a>
+            </span>
+        </div>
+
+        <input type="hidden"
+               name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}">
+
+        <div class="d-grid col-12 mt-5">
+            <button type="submit"
+                    id="submit"
+                    class="btn btn-primary btn-sm">
+                {{ 'login_action.login.button'|trans }}
+            </button>
+        </div>
+    </form>
+{% endblock %}
+
+{% block link %}
+    {% with {
+        name: 'login_action.create_account.button'|trans,
+        link: path('security_account_create_step1')
+    } %}
+        {{ parent() }}
+    {% endwith %}
+{% endblock %}

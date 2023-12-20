@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="6ivwphJ" resname="templates.components.item.product.edit">
+            <source>templates.components.item.product.edit</source>
+            <target>Modifier</target>
+        </trans-unit>
+        <trans-unit id="7pgnVWz" resname="templates.components.item.product.duplicate">
+            <source>templates.components.item.product.duplicate</source>
+            <target>Dupliquer</target>
+        </trans-unit>
+        <trans-unit id="qsKX6i3" resname="templates.components.item.product.manage_availabilities">
+            <source>templates.components.item.product.manage_availabilities</source>
+            <target>Gérer les disponibilités</target>
+        </trans-unit>
+        <trans-unit id="wYW9Wbh" resname="templates.components.item.product.pause">
+            <source>templates.components.item.product.pause</source>
+            <target>Mettre en pause</target>
+        </trans-unit>
+        <trans-unit id="cqfEgDG" resname="templates.components.item.product.resume">
+            <source>templates.components.item.product.resume</source>
+            <target>Réactiver</target>
+        </trans-unit>
+        <trans-unit id="VXFRGAL" resname="templates.components.item.product.active">
+            <source>templates.components.item.product.active</source>
+            <target>Actif</target>
+        </trans-unit>
+        <trans-unit id="RP4M23f" resname="templates.components.item.product.paused">
+            <source>templates.components.item.product.paused</source>
+            <target>En pause</target>
+        </trans-unit>
+        <trans-unit id="jqeqbEQ" resname="templates.components.item.product.delete">
+            <source>templates.components.item.product.delete</source>
+            <target>Supprimer</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

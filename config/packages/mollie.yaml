@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # @see https://github.com/webbaard/payum-mollie#symfony-integration 
+    app.payum.mollie.factory:
+        class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
+        arguments: [PayHelper\Payum\Mollie\MollieGatewayFactory]
+        tags:
+            - { name: payum.gateway_factory_builder, factory: mollie }

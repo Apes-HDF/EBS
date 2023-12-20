@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="uj5B12J" resname="templates.pages.group.list.title">
+            <source>templates.pages.group.list.title</source>
+            <target>Chercher un groupe</target>
+        </trans-unit>
+
+        <trans-unit id="cBiV5H6" resname="templates.pages.group.list.placeholder">
+            <source>templates.pages.group.list.placeholder</source>
+            <target>Rechercher un groupe</target>
+        </trans-unit>
+
+        <trans-unit id="d2M7vAS" resname="templates.pages.group.list.join">
+            <source>templates.pages.group.list.join</source>
+            <target>Rejoindre</target>
+        </trans-unit>
+
+        <trans-unit id="DzNhDJe" resname="templates.pages.group.list.pill_public">
+            <source>templates.pages.group.list.pill_public</source>
+            <target>Public</target>
+        </trans-unit>
+
+        <trans-unit id="yMRkv4P" resname="templates.pages.group.list.pill_private">
+            <source>templates.pages.group.list.pill_private</source>
+            <target>Privé</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

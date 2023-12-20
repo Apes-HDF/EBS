@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="r9t869U" resname="templates.pages.user.account.change_password.title">
+            <source>templates.pages.user.account.change_password.title</source>
+            <target>Changer mon mot de passe</target>
+        </trans-unit>
+
+        <trans-unit id="gZDbjKW" resname="templates.pages.user.account.change_password.old">
+            <source>templates.pages.user.account.change_password.old</source>
+            <target>Mot de passe actuel</target>
+        </trans-unit>
+
+        <trans-unit id="PhPFzRh" resname="templates.pages.user.account.change_password.new">
+            <source>templates.pages.user.account.change_password.new</source>
+            <target>Nouveau mot de passe</target>
+        </trans-unit>
+
+        <trans-unit id="DTdr8in" resname="templates.pages.user.account.change_password.confirm">
+            <source>templates.pages.user.account.change_password.confirm</source>
+            <target>Confirmer le nouveau mot de passe</target>
+        </trans-unit>
+
+        <trans-unit id="mAYPgKU" resname="templates.pages.user.account.change_password.submit">
+            <source>templates.pages.user.account.change_password.submit</source>
+            <target>Enregistrer</target>
+        </trans-unit>
+
+        <trans-unit id="KHJKxbn" resname="templates.pages.user.account.change_password.help">
+            <source>templates.pages.user.account.change_password.help</source>
+            <target>8 caractères minimum</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

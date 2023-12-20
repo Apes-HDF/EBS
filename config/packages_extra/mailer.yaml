@@ -1,0 +1,17 @@
+# additional services related to the mailer
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    _instanceof:
+        App\Mailer\Email\EmailInterface:
+            tags: ['app.email']
+
+    # we need to reload EmailInterface objects here so the correct tag is applied
+    App\Mailer\Email\:
+        resource: '../../src/Mailer/Email/'
+
+    App\Mailer\EmailCollection:
+        arguments:
+            - !tagged_iterator app.email

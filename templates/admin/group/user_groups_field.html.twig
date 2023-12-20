@@ -1,0 +1,7 @@
+{% trans_default_domain 'admin' %}
+{% if field.value.count > 0 %}
+    {% set group = field.value.first.group %}
+    <div>
+        <a href="{{ ea_url().setController('App\\Controller\\Admin\\UserGroupCrudController').setAction('index').set('filters[group]', group.id) }}">{{ field.value.count }}</a>
+    </div>
+{% endif %}

@@ -1,0 +1,97 @@
+App\Entity\MenuItem:
+    menu_item (template):
+        menu: '@menu'
+        linkType: !php/enum App\Enum\Menu\LinkType::LINK
+
+    footer_item (template):
+        menu: '@footer'
+     
+    footer_item_link (template, extends footer_item):
+        menu: '@footer'
+        linkType: !php/enum App\Enum\Menu\LinkType::LINK
+     
+    footer_item_social (template, extends footer_item):
+        menu: '@footer'
+        linkType: !php/enum App\Enum\Menu\LinkType::SOCIAL_NETWORK
+     
+    # Menu items
+    menu_item_home (extends menu_item): # first position of first level header
+        id: <uuid('58a72426-57e4-4251-9c32-d29603bdcf5b')> 
+        name: 'Accueil'
+        link: '/'
+        position: 0
+
+    menu_item_account (extends menu_item): 
+        name: 'Compte'
+        link: '/fr/compte/creer-mon-compte'
+        position: 1
+
+    menu_item_create_account (extends menu_item):
+        name: 'Mon compte'
+        link: '/fr/mon-compte'
+        parent: '@menu_item_account'
+        position: 0
+
+    menu_item_forgotten_password (extends menu_item): 
+        name: 'Mot de passe oublié'
+        link: '/fr/compte/mot-de-passe-oublie'
+        parent: '@menu_item_account'
+        position: 1
+
+    menu_item_logout (extends menu_item):
+        name: 'Se déconnecter'
+        link: '/logout'
+        parent: '@menu_item_account'
+        position: 2
+
+    menu_item_products (extends menu_item):
+        name: 'Produits'
+        link: '/fr/produits'
+        position: 2
+    
+    menu_item_groups (extends menu_item):
+        name: 'Groupes'
+        link: '/fr/groupes'
+        position: 3
+        
+    menu_item_cms_page_1 (extends menu_item): # last position of 1st level header
+        id: <uuid('ac678c07-421f-4968-b2f8-74c9f2f22fcf')>
+        name: 'Qui sommes nous ?'
+        link: '/fr/qui-sommes-nous'
+        position: 4
+        
+    # Footer items: links (1st position of footer)
+    menu_item_footer_link1 (extends footer_item):
+        id: <uuid('1ed9717c-26af-622e-b50d-c14b0dba3b13')>
+        name: 'APES Hauts-de-France'
+        link: 'http://www.apes-hdf.org'
+
+    menu_item_footer_link2 (extends footer_item):
+        name: 'Plateformes coopératives'
+        link: 'https://apes-hdf.org/page-96-0-0.html'
+
+    menu_item_footer_cgu (extends footer_item):
+        name: 'CGU'
+        link: '/fr/cgu'    
+
+    # Footer items: social
+    menu_item_footer_facebook (extends footer_item_social):
+        id: <uuid('82dc7e49-8db8-46f5-b7db-9e8a8bea1b5a')>
+        link: 'https://www.facebook.com'
+        mediaType: !php/enum App\Enum\SocialMediaType::FACEBOOK
+
+    menu_item_footer_mastodon (extends footer_item_social):
+        link: 'https://mastodon.online'
+        mediaType: !php/enum App\Enum\SocialMediaType::MASTODON
+
+    menu_item_footer_tweeter (extends footer_item_social):
+        link: 'https://twitter.com'
+        mediaType: !php/enum App\Enum\SocialMediaType::TWITTER
+
+    menu_item_footer_youtube (extends footer_item_social):
+        link: 'https://www.youtube.com'
+        mediaType: !php/enum App\Enum\SocialMediaType::YOUTUBE
+
+    menu_item_footer_linkedin (extends footer_item_social):
+        link: 'https://www.linkedin.com'
+        mediaType: !php/enum App\Enum\SocialMediaType::LINKEDIN

@@ -1,0 +1,39 @@
+<!-- Modal -->
+<div class="modal fade"
+     id="modalFinalize"
+     tabindex="-1"
+     aria-labelledby="finalizeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title"
+                    id="finalizeModalLabel">
+                    {{ (i18n_prefix ~ '.link.finalize_modal')|trans }}
+                </h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="fs-6 fw-lighter text-justify">{{ (i18n_prefix ~ '.finalize_text')|trans }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    {{ (i18n_prefix ~ '.modal.edit.back')|trans }}
+                </button>
+                <form
+                    action="{{ path('app_user_service_request_transition', {id: service_request.id, transition: 'finalize'}) }}"
+                    method="post">
+                    <input type="hidden" name="token" value="{{ csrf_token }}"/>
+                    <div class="d-grid col mt-2">
+                        <button type="submit"
+                                data-bs-toggle="modal" data-bs-target="#modalConfirmation"
+                                class="btn btn-primary">{{ (i18n_prefix ~ '.link.finalize')|trans }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

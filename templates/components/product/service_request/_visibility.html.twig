@@ -1,0 +1,7 @@
+<div class="py-4 border-top mt-4">
+    <h5>{{ 'product.form.visibility'|trans }}</h5>
+    <p class="text-dark">{{ 'new_product.form.visibility_for'|trans({
+            '%product%': product
+        }) }}</p>
+    {{ form_widget(visibility) }}
+</div>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="9eHr8wt" resname="app.controller.security.account_create_controller.step1.flash.success">
+            <source>app.controller.security.account_create_controller.step1.flash.success</source>
+            <target>Vous allez recevoir un lien par e-mail pour valider votre adresse e-mail. Cliquez sur ce lien pour poursuivre la création de votre compte.</target>
+        </trans-unit>
+
+        <trans-unit id="n6xZ4Y5" resname="app.controller.security.account_create_controller.step2.flash.success">
+            <source>app.controller.security.account_create_controller.step2.flash.success</source>
+            <target>Votre compte a bien été créé. Veuillez renseigner votre adresse afin de pouvoir utiliser les différents services.</target>
+        </trans-unit>
+
+        <trans-unit id="" resname="app.controller.security.account_create_controller.step2.with_invitation.flash.success">
+            <source>app.controller.security.account_create_controller.step2.with_invitation.flash.success</source>
+            <target>Votre compte a bien été créé. Vous pouvez accepter l'invitation sur la page du groupe.</target>
+        </trans-unit>
+
+        <trans-unit id="jDAjgu1" resname="app.controller.security.account_create_controller.step2.user_not_found.warning">
+            <source>app.controller.security.account_create_controller.step2.user_not_found.warning</source>
+            <target>Aucun·e utilisateur·rice correspondant à ce code n'a été trouvé·e. Si votre compte est déjà confirmé veuillez vous connecter.</target>
+        </trans-unit>
+
+        <trans-unit id="iW2E8Qy" resname="app.controller.security.account_create_controller.step2.user_confirmation_token_expired.warning">
+            <source>app.controller.security.account_create_controller.step2.user_confirmation_token_expired.warning</source>
+            <target>Votre jeton de sécurité a expiré. Un nouvel email de confirmation de compte vient de vous être envoyé.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

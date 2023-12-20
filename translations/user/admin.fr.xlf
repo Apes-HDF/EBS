@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="aEoEJjB" resname="User">
+            <source>User</source>
+            <target>Utilisateur·rice</target>
+        </trans-unit>
+
+        <trans-unit id="GWEY6vj" resname="Email">
+            <source>Email</source>
+            <target>Email</target>
+        </trans-unit>
+
+        <trans-unit id="nVao7xp" resname="User Link">
+            <source>User Link</source>
+            <target>Accéder à la fiche de l'utilisateur·rice</target>
+        </trans-unit>
+
+        <trans-unit id="SvSn7RN" resname="ADMIN">
+            <source>ADMIN</source>
+            <target>Administrateur·rice</target>
+        </trans-unit>
+
+        <trans-unit id="bZ9nHsz" resname="USER">
+            <source>USER</source>
+            <target>Utilisateur·rice</target>
+        </trans-unit>
+
+        <trans-unit id="Y2ocCpA" resname="PLACE">
+            <source>PLACE</source>
+            <target>Lieu</target>
+        </trans-unit>
+
+        <trans-unit id="qh8er7Z" resname="Firstname">
+            <source>Firstname</source>
+            <target>Prénom</target>
+        </trans-unit>
+
+        <trans-unit id="i6Q6PET" resname="Lastname">
+            <source>Lastname</source>
+            <target>Nom</target>
+        </trans-unit>
+
+        <trans-unit id="Zse7H9X" resname="Avatar">
+            <source>Avatar</source>
+            <target>Photo</target>
+        </trans-unit>
+
+        <trans-unit id="nacXw28" resname="Phone Number">
+            <source>Phone Number</source>
+            <target>Numéro de téléphone</target>
+        </trans-unit>
+
+        <trans-unit id="gu88djc" resname="Phone">
+            <source>Phone</source>
+            <target>Numéro de téléphone</target>
+        </trans-unit>
+
+        <trans-unit id="WFAd3dz" resname="Schedule">
+            <source>Schedule</source>
+            <target>Horaires</target>
+        </trans-unit>
+
+        <trans-unit id="9dzn5rC" resname="Description">
+            <source>Description</source>
+            <target>Description</target>
+        </trans-unit>
+
+        <trans-unit id="rVGSgZK" resname="Category">
+            <source>Category</source>
+            <target>Catégorie</target>
+        </trans-unit>
+
+        <trans-unit id="FYg8xve" resname="Sms Notifications">
+            <source>Sms Notifications</source>
+            <target>Notifications SMS</target>
+        </trans-unit>
+
+        <trans-unit id="EFwpMot" resname="Vacation Mode">
+            <source>Vacation Mode</source>
+            <target>Mode vacances</target>
+        </trans-unit>
+
+        <trans-unit id="Qt2cTZN" resname="Password">
+            <source>Password</source>
+            <target>Mot de passe</target>
+        </trans-unit>
+
+        <trans-unit id="97GCBas" resname="Plain Password">
+            <source>Plain Password</source>
+            <target>Mot de passe</target>
+        </trans-unit>
+
+        <trans-unit id="y8MKXtn" resname="First">
+            <source>First</source>
+            <target>Mot de passe</target>
+        </trans-unit>
+
+        <trans-unit id="CAWVNjR" resname="Second">
+            <source>Second</source>
+            <target>Répéter le mot de passe</target>
+        </trans-unit>
+
+        <trans-unit id="9tdQtU3" resname="Login At">
+            <source>Login At</source>
+            <target>Date de dernier login</target>
+        </trans-unit>
+
+        <trans-unit id="6rAvKMy" resname="action.connectAs">
+            <source>action.connectAs</source>
+            <target>Se connecter en tant que</target>
+        </trans-unit>
+
+        <trans-unit id="z1cvf6Y" resname="Export">
+            <source>Export</source>
+            <target>Exporter</target>
+        </trans-unit>
+
+        <trans-unit id="Z96itzt" resname="flash.warning.connectAs">
+            <source>flash.warning.connectAs</source>
+            <target>Attention, vous êtes désormais connecté·e en tant que %target_user%.</target>
+        </trans-unit>
+
+        <trans-unit id="9r5pKlP" resname="action.promoteToAdmin">
+            <source>action.promoteToAdmin</source>
+            <target>Passer en admin</target>
+        </trans-unit>
+
+        <trans-unit id="P16stq7" resname="flash.success.promoteToAdmin">
+            <source>flash.success.promoteToAdmin</source>
+            <target>%target_user% est désormais administrateur·rice</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

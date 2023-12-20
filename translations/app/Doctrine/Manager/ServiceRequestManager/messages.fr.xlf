@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="jWR1ZFj" resname="src.doctrine.manager.service_request_manager.message.object.default">
+            <source>src.doctrine.manager.service_request_manager.message.object.default</source>
+            <target>Bonjour. Je voudrais emprunter votre %product%, svp. 🙂</target>
+        </trans-unit>
+
+        <trans-unit id="YnmaNrm" resname="src.doctrine.manager.service_request_manager.message.service.default">
+            <source>src.doctrine.manager.service_request_manager.message.object.default</source>
+            <target>Bonjour. Je suis intéressé·e par votre service "%product%". 🙂</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

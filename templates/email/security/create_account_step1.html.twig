@@ -1,0 +1,22 @@
+{% trans_default_domain 'email' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% set url = url('security_account_create_step2', {token: user.confirmationToken}) %}
+
+<p>{{ (i18n_prefix ~ '.hi')|trans }}</p>
+
+{% if group is defined and group is not null %}
+    <p>{{ (i18n_prefix ~ '.invitation.p1')|trans({'%group%': group.name}) }}</p>
+    <p>{{ (i18n_prefix ~ '.invitation.p2')|trans }}</p>
+{% endif %}
+
+<p>{{ (i18n_prefix ~ '.p1')|trans }}</p>
+
+<p><a href="{{ url }}">{{ (i18n_prefix ~ '.cta')|trans }}</a></p>
+
+<p>{{ (i18n_prefix ~ '.cta2')|trans }}</p>
+
+<p>{{ url }}</p>
+
+<p>{{ brand }}</p>

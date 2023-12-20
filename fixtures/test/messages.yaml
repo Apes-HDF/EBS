@@ -1,0 +1,20 @@
+App\Entity\Message:
+    message (template):
+        serviceRequest: '@service_request_1'
+
+    message_system_1 (extends message):
+        id: <uuid('1eda2176-5a50-60c4-8fbb-4d75002d1385')>
+        type: !php/enum App\Enum\Message\MessageType::SYSTEM
+        messageTemplate: 'message.system.new'
+        messageParameters:
+            - '%recipient%': Adah
+            - '%startAt%': '01/02/2023'
+            - '%endAt%': '08/02/2023'
+        message: Début de la demande d'emprunt - Par Suzanne - Du 01/05/2023 au 08/05/2023.
+
+    message_from_recipient_1 (extends message):
+        id: <uuid('1eda2176-5a54-6c1e-8e0b-4d75002d1385')>
+        type: !php/enum App\Enum\Message\MessageType::FROM_RECIPIENT
+        message: Bonjour. Je voudrais emprunter votre objet Vélo Fuji Jari 2.5. 🙂
+        createdAt: <date_create_immutable('+1 second')> 
+        updatedAt: <date_create_immutable('+1 second')>

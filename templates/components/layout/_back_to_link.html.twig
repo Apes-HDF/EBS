@@ -1,0 +1,13 @@
+<div class="row mt-3">
+    <div class="col">
+        <a
+            href="{{ path(link.name, link.params is defined ? link.params : {}) }}"
+            class="text-primary"
+        >
+            <i class="bi bi-chevron-left"></i>
+            <span class="ms-1 text-blue-500">
+                {{ name }}
+            </span>
+        </a>
+    </div>
+</div>

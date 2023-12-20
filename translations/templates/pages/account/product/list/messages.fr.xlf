@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="Wi7nYae" resname="templates.pages.account.product.list.object.title">
+            <source>templates.pages.account.product.list.object.title</source>
+            <target>Mes objets</target>
+        </trans-unit>
+        <trans-unit id="Kg3Ny4D" resname="templates.pages.account.product.list.service.title">
+            <source>templates.pages.account.product.list.service.title</source>
+            <target>Mes services</target>
+        </trans-unit>
+        <trans-unit id="64RbpTH" resname="templates.pages.account.product.list.service.filter_by">
+            <source>templates.pages.account.product.list.service.filter_by</source>
+            <target>Filtrer par :</target>
+        </trans-unit>
+        <trans-unit id="zQRSGHT" resname="templates.pages.account.product.list.object.no_result">
+            <source>templates.pages.account.product.list.object.no_result</source>
+            <target>Vous n'avez aucun objet pour le moment</target>
+        </trans-unit>
+        <trans-unit id="EZdEH11" resname="templates.pages.account.product.list.object.new">
+            <source>templates.pages.account.product.list.object.new</source>
+            <target>Créer un objet</target>
+        </trans-unit>
+        <trans-unit id="vZvGPhy" resname="templates.pages.account.product.list.service.no_result">
+            <source>templates.pages.account.product.list.service.no_result</source>
+            <target>Vous n'avez aucun service pour le moment</target>
+        </trans-unit>
+        <trans-unit id="XRwRk1t" resname="templates.pages.account.product.list.service.new">
+            <source>templates.pages.account.product.list.service.new</source>
+            <target>Créer un service</target>
+        </trans-unit>
+        <trans-unit id="BNAjbAv" resname="templates.pages.account.product.list.category">
+            <source>templates.pages.account.product.list.category</source>
+            <target>Toutes les catégories</target>
+        </trans-unit>
+        <trans-unit id="T5g9xYo" resname="templates.pages.account.product.list.notification.active_success">
+            <source>templates.pages.account.product.list.notification.active_success</source>
+            <target>L'élément a bien été réactivé</target>
+        </trans-unit>
+        <trans-unit id="LGCh1MP" resname="templates.pages.account.product.list.notification.paused_success">
+            <source>templates.pages.account.product.list.notification.paused_success</source>
+            <target>L'élément a bien été mis en pause</target>
+        </trans-unit>
+        <trans-unit id="EKPLows" resname="select_placeholder">
+            <source>select_placeholder</source>
+            <target>Toutes les catégories</target>
+        </trans-unit>
+          <trans-unit id="ysDgs7v" resname="templates.pages.account.product.list.no-address">
+             <source>templates.pages.account.product.list.no-address</source>
+             <target>Ajoutez une adresse</target>
+         </trans-unit>
+
+         <trans-unit id="iQnfh8t" resname="templates.pages.account.product.list.no-address-title">
+             <source>templates.pages.account.product.list.no-address-title</source>
+             <target>Ajoutez une adresse</target>
+         </trans-unit>
+
+          <trans-unit id="GDWZ8qr" resname="templates.pages.account.product.list.no-address-message">
+             <source>templates.pages.account.product.list.no-address-message</source>
+             <target>Pour pouvoir créer un %product%, commencez par remplir votre adresse.</target>
+         </trans-unit>
+
+         <trans-unit id="5xNDHiD" resname="templates.pages.account.product.list.no-address-cancel">
+             <source>templates.pages.account.product.list.no-address-cancel</source>
+             <target>Annuler</target>
+         </trans-unit>
+
+         <trans-unit id="xQggLoc" resname="templates.pages.account.product.list.no-address-add">
+             <source>templates.pages.account.product.list.no-address-add</source>
+             <target>Ajoutez une adresse</target>
+         </trans-unit>
+    </body>
+  </file>
+</xliff>

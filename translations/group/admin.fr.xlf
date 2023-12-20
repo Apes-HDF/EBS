@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="xMhMgQB" resname="Membership">
+            <source>Membership</source>
+            <target>Type adhésion</target>
+        </trans-unit>
+
+        <trans-unit id="im7Dqzu" resname="CHARGED">
+            <source>CHARGED</source>
+            <target>payante</target>
+        </trans-unit>
+
+        <trans-unit id="mhgwvvJ" resname="FREE">
+            <source>FREE</source>
+            <target>gratuite</target>
+        </trans-unit>
+
+        <trans-unit id="XLsuDTn" resname="Invitation By Admin">
+            <source>Invitation By Admin</source>
+            <target>Envoi d'invitations par les admins possible</target>
+        </trans-unit>
+
+        <trans-unit id="MQA7gVL" resname="Invitation By Moderator">
+            <source>Invitation By Moderator</source>
+            <target>Envoi d'invitations par les modérateur·rice·s possible</target>
+        </trans-unit>
+
+        <trans-unit id="RCkgNqK" resname="Invitation By Member">
+            <source>Invitation By Member</source>
+            <target>Envoi d'invitations par les membres possible</target>
+        </trans-unit>
+
+        <trans-unit id="kkWyuMW" resname="Children">
+            <source>Children</source>
+            <target>Enfant(s)</target>
+        </trans-unit>
+
+        <trans-unit id="9urvGvD" resname="User Groups">
+            <source>User Groups</source>
+            <target>Membres</target>
+        </trans-unit>
+
+        <trans-unit id="qwnRowf" resname="Main Admin Account">
+            <source>Main Admin Account</source>
+            <target>Gérant·e du groupe</target>
+        </trans-unit>
+
+        <trans-unit id="BTr72Zv" resname="Payed At">
+            <source>Payed At</source>
+            <target>Payé le</target>
+        </trans-unit>
+
+        <trans-unit id="y1X5LQY" resname="invite">
+            <source>invite</source>
+            <target>Inviter</target>
+        </trans-unit>
+
+        <trans-unit id="2zLxkQP" resname="offers_list">
+            <source>offers_list</source>
+            <target>Voir les tarifs d'adhésion</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,12 @@
+<ul class="mt-3">
+    {% for product in products %}
+        <li class="px-0">
+            {% include 'components/item/_product.html.twig' with {
+                product,
+                category: product.getCategory(),
+                route,
+                has_conversation: product.hasServiceRequests(),
+            } %}
+        </li>
+    {% endfor %}
+</ul>

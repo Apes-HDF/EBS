@@ -1,0 +1,11 @@
+{% if app.user.address is not null %}
+    {% include 'components/layout/_title_5.html.twig' with {
+        rowClass: 'border-top',
+        title: 'product.form.recover'|trans,
+        colClass: 'col-md-8 col-lg-6 col-xl-5 mt-4'
+    } %}
+    {% include 'components/product/_address.html.twig' with {
+        address: app.user.address,
+        schedule: app.user.schedule
+    } %}
+{% endif %}

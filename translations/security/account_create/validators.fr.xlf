@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <trans-unit id="8MDNKT5" resname="account_create_action.password.invalid_message">
+            <source>account_create_action.password.invalid_message</source>
+            <target>Les mots de passe doivent être identiques</target>
+        </trans-unit>
+
+        <trans-unit id="zMEmHfs" resname="account_create.firstname.empty.error">
+            <source>account_create.firstname.empty.error</source>
+            <target>Le prénom est obligatoire pour un compte particulier</target>
+        </trans-unit>
+
+        <trans-unit id="VBaoqyK" resname="account_create.lastname.empty.error">
+            <source>account_create.lastname.empty.error</source>
+            <target>Le nom est obligatoire pour un compte particulier</target>
+        </trans-unit>
+
+        <trans-unit id="tY5WDru" resname="account_create.name.empty.error">
+            <source>account_create.name.empty.error</source>
+            <target>Le nom du lieu est obligatoire</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

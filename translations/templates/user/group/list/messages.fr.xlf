@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="dgLBamV" resname="templates.pages.user.group.list.title">
+            <source>templates.pages.user.group.list.title</source>
+            <target>Mes groupes</target>
+        </trans-unit>
+
+        <trans-unit id="S6cywwV" resname="templates.pages.user.group.list.user_invitations">
+            <source>templates.pages.user.group.list.user_invitations</source>
+            <target>Mes invitations</target>
+        </trans-unit>
+
+        <trans-unit id="HWfc7oT" resname="templates.pages.user.group.list.user_invitations_empty">
+            <source>templates.pages.user.group.list.user_invitations_empty</source>
+            <target>Pas d'invitation en cours.</target>
+        </trans-unit>
+
+        <trans-unit id="WYMJpVX" resname="templates.pages.user.group.list.no_group">
+            <source>templates.pages.user.group.list.no_group</source>
+            <target>Vous n'avez aucun groupe pour le moment.</target>
+        </trans-unit>
+
+        <trans-unit id="ySmLbCM" resname="templates.pages.user.group.list.user_no_group">
+            <source>templates.pages.user.group.list.user_no_group</source>
+            <target>Vous n'avez aucun groupe pour le moment.</target>
+        </trans-unit>
+
+        <trans-unit id="Cn4f4wB" resname="templates.pages.user.group.list.user_show_all_group">
+            <source>templates.pages.user.group.list.user_show_all_group</source>
+            <target>Voir tous les groupes</target>
+        </trans-unit>
+
+        <trans-unit id="CeHruQv" resname="templates.pages.user.group.list.user_groups">
+            <source>templates.pages.user.group.list.user_groups</source>
+            <target>Mes groupes</target>
+        </trans-unit>
+
+        <trans-unit id="Tsc64XX" resname="templates.pages.user.group.list.join">
+            <source>templates.pages.user.group.list.join</source>
+            <target>Rejoindre</target>
+        </trans-unit>
+
+        <trans-unit id="TwXcXFP" resname="templates.pages.user.group.list.admin">
+            <source>templates.pages.user.group.list.admin</source>
+            <target>Administrer le groupe</target>
+        </trans-unit>
+
+        <trans-unit id="wY5tUQC" resname="templates.pages.user.group.list.form.submit">
+            <source>templates.pages.user.group.list.join.form.submit</source>
+            <target><![CDATA[<i class="bi bi-search"></i>]]></target>
+        </trans-unit>
+
+        <trans-unit id="UtPVC9m" resname="templates.pages.user.group.list.public">
+            <source>templates.pages.user.group.list.public</source>
+            <target>Public</target>
+        </trans-unit>
+
+        <trans-unit id="Jc3NFP6" resname="templates.pages.user.group.list.private">
+            <source>templates.pages.user.group.list.join.private</source>
+            <target>Privé</target>
+        </trans-unit>
+
+        <trans-unit id="bzJxjXj" resname="templates.pages.user.group.list.all_group">
+            <source>templates.pages.user.group.list.join.all_group</source>
+            <target>Voir tous les groupes</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

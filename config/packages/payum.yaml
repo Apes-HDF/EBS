@@ -1,0 +1,21 @@
+# https://github.com/Payum/PayumBundle
+payum:
+    security:
+        token_storage:
+            App\Entity\PaymentToken: { doctrine: orm }
+
+    storages:
+        App\Entity\Payment: { doctrine: orm }
+    
+    gateways:
+        # For tests but can also be used for offline payments like cash.
+        offline:
+            factory: offline
+
+        # https://github.com/webbaard/payum-mollie 
+        # fork for PHP 8.0+
+        # see config/packages/mollie.yaml
+        mollie:
+            factory: mollie
+            apiKey: '%env(string:PAYUM_APIKEY)%'
+            method: creditcard # one of directdebit, creditcard or directdebit_oneoff

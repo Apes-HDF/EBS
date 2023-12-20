@@ -1,0 +1,15 @@
+<div class="avatar me-3 text-black">
+    {% if contact.avatar is not null %}
+        <div class="img-avatar" style="background-image: url({{ contact|public_url }});
+            width: 24px;
+            height: 24px">
+        </div>
+    {% else %}
+        <i class="bi bi-person-circle avatar-icon"></i>
+    {% endif %}
+</div>
+<h3 class="m-0">
+    <a href="{{ path('app_user_profile', {userId: product.owner.id}) }}">
+        {{ name }}
+    </a>
+</h3>

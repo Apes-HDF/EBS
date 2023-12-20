@@ -1,0 +1,15 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% trans_default_domain('admin') %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% block content_title %}
+    <h1>{{ (i18n_prefix ~ '.h1')|trans({'%group%': group.name}) }}</h1>
+{% endblock %}
+
+{% block main %}
+    <p>{{ (i18n_prefix ~ '.p1')|trans }}</p>
+
+    {{ form(form) }}
+{% endblock %}

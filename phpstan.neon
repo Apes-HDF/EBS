@@ -1,0 +1,24 @@
+#includes:
+    # https://github.com/spaze/phpstan-disallowed-calls
+    #- vendor/spaze/phpstan-disallowed-calls/disallowed-dangerous-calls.neon
+# https://arnaud.le-blanc.net/post/phpstan-generics.html
+# https://phpstan.org/blog/generics-in-php-using-phpdocs
+parameters:
+    level: max
+    paths:
+        - config
+        - tests
+        - public
+        - src
+    symfony:
+        container_xml_path: var/cache/dev/App_KernelDevDebugContainer.xml
+    #bootstrapFiles:
+        #- %rootDir%/../../../vendor/twig/twig/src/Extension/CoreExtension.php
+
+    # https://phpstan.org/config-reference#vague-typehints
+    checkMissingIterableValueType: true # https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-iterable-type
+
+    # https://phpstan.org/user-guide/ignoring-errors#reporting-unused-ignores
+    # reportUnmatchedIgnoredErrors: true
+    ignoreErrors:
+        # - '#foobar_pattern#'

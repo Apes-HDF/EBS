@@ -1,0 +1,5 @@
+App\Entity\Menu:
+    menu:
+        code: 'menu'
+    footer:
+        code: 'footer'

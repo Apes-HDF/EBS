@@ -1,0 +1,24 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # we need a PSR16 cache for bazinga_geoloc             
+    cache.geoloc.psr16:
+        class: Symfony\Component\Cache\Psr16Cache
+        arguments: ['@cache.geoloc']
+
+# See the docs at https://github.com/geocoder-php/BazingaGeocoderBundle
+bazinga_geocoder:
+    # The local IP (127.0.0.1) will be replaced by the fake_ip
+    # see https://github.com/geocoder-php/BazingaGeocoderBundle/blob/5.0.0/Resources/doc/index.md#fake-local-ip
+    fake_ip: 92.159.11.105 # Lomme
+    providers:
+        nominatim:
+            # https://github.com/geocoder-php/nominatim-provider
+            factory: Bazinga\GeocoderBundle\ProviderFactory\NominatimFactory
+            
+            # https://github.com/geocoder-php/BazingaGeocoderBundle/blob/master/doc/cache.md
+            cache: 'cache.geoloc.psr16'
+            cache_lifetime: 86400
+            cache_precision: ~

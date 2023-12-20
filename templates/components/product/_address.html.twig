@@ -1,0 +1,19 @@
+{% if address is not null %}
+    <div class="row mt-3">
+        <div class="col">
+            <span class="fw-bold fs-6">{{ 'product.form.address'|trans ~ ' : ' }}</span>
+            <br>
+            <p class="fw-lighter mb-0">{{ address.getAddress() }},</p>
+            <p class="fw-lighter mb-0">{{ address.postalCode }} {{ address.subAndlocality }}</p>
+        </div>
+    </div>
+{% endif %}
+{% if schedule is not empty %}
+    <div class="row mt-2">
+        <div class="col">
+            <span class="fw-bold fs-6">{{ 'product.form.schedules'|trans ~ ' : ' }}</span>
+            <br>
+            <p class="fw-lighter">{{ schedule }}</p>
+        </div>
+    </div>
+{% endif %}

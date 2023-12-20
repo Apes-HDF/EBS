@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "plateformcoop-ebs" . }}
+  labels:
+    {{- include "plateformcoop-ebs.labels" . | nindent 4 }}
+data:
+  payum-gateway: {{ .Values.payum.gateway | quote }}
+  php-host: {{ .Values.php.host | quote }}
+  php-app-env: {{ .Values.php.appEnv | quote }}
+  php-app-debug: {{ .Values.php.appDebug | quote }}
+  php-cors-allow-origin: {{ .Values.php.corsAllowOrigin | quote }}
+  php-trusted-hosts: {{ .Values.php.trustedHosts | quote }}
+  php-trusted-proxies: "{{ join "," .Values.php.trustedProxies }}"
+  mercure-url: "http://{{ include "plateformcoop-ebs" . }}/.well-known/mercure"
+  mercure-public-url: {{ .Values.mercure.publicUrl | default "http://127.0.0.1/.well-known/mercure" | quote }}
+  mercure-extra-directives: {{ .Values.mercure.extraDirectives | quote }}
+  {{- if .Values.meilisearch.enabled }}
+  meilisearch-url: "http://{{ include "meilisearch.fullname" .Subcharts.meilisearch }}:7700"
+  {{- end }}
+  {{- if .Values.redis.enabled }}
+  redis-url: "redis://{{ printf "%s-master" (include "common.names.fullname" .Subcharts.redis) }}"
+  {{- end }}
+  payum-gateway: {{ .Values.payum.gateway | quote }}
+  php-storage-bucket: {{ .Values.php.storage.bucket | quote }}
+  php-storage-endpoint: {{ .Values.php.storage.endpoint | quote }}
+  php-storage-region: {{ .Values.php.storage.region | quote }}
+  php-storage-use-path-style-endpoint: {{ .Values.php.storage.usePathStyleEndpoint | quote }}

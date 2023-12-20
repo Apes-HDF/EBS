@@ -1,0 +1,4 @@
+# https://github.com/KnpLabs/KnpPaginatorBundle#configuration-example
+knp_paginator:
+    template:
+        pagination: '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig'

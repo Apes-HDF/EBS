@@ -1,0 +1,75 @@
+{% extends 'layout/base.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% block body %}
+    <div class="px-3 px-lg-0">
+
+        {% include 'components/utils/_notification.html.twig' with {
+            name: 'activeStatusSuccess',
+            text: (i18n_prefix ~ '.notification.active_success')|trans,
+            type: 'success'
+        } %}
+
+        {% include 'components/utils/_notification.html.twig' with {
+            name: 'pausedStatusSuccess',
+            text: (i18n_prefix ~ '.notification.paused_success')|trans,
+            type: 'success'
+        } %}
+
+        {% include 'components/layout/_title_3.html.twig' with {
+            name: pagination.route == 'app_user_objects' ? (i18n_prefix ~ '.object.title')|trans : (i18n_prefix ~ '.service.title')|trans
+        } %}
+
+        <div class="row my-4">
+            <div class="col">
+                {% include 'components/form/_select.html.twig' with {
+                    label: (i18n_prefix ~ '.service.filter_by')|trans,
+                    name: (i18n_prefix ~ '.category')|trans,
+                } %}
+            </div>
+        </div>
+        {% if pagination.count > 0 %}
+            {% include 'components/list/_products.html.twig' with {
+                products: pagination,
+                route: pagination.route
+            } %}
+        {% else %}
+            <p class="text-center mt-5">
+                {% if pagination.route == 'app_user_objects' %}
+                    {{ (i18n_prefix ~ '.object.no_result')|trans }}
+                {% else %}
+                    {{ (i18n_prefix ~ '.service.no_result')|trans }}
+                {% endif %}
+            </p>
+        {% endif %}
+        {% include 'components/layout/_pagination.html.twig' with {pagination} %}
+
+        {% if app.user.address is null %}
+            {% include 'components/product/_modal.html.twig' with {
+                button: (i18n_prefix ~ '.no-address')|trans,
+                title: (i18n_prefix ~ '.no-address-title')|trans,
+                message: (i18n_prefix ~ '.no-address-message')|trans({
+                    '%product%': pagination.route == 'app_user_objects' ? 'objet' : 'service'
+                }),
+                action: (i18n_prefix ~ '.no-address-add')|trans
+            } %}
+        {% else %}
+            <div class="d-grid col col-lg-4 mx-auto">
+                {% if pagination.route == 'app_user_objects' %}
+                    <a href="{{ path('app_object_new') }}"
+                       class="btn btn-primary">
+                        {{ (i18n_prefix ~ '.object.new')|trans }}
+                    </a>
+                {% elseif pagination.route == 'app_user_services' %}
+                    <a href="{{ path('app_service_new') }}"
+                       class="btn btn-primary">
+                        {{ (i18n_prefix ~ '.service.new')|trans }}
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block link %}{% endblock %}

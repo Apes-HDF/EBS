@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{ brand }}{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+{% include 'components/utils/_notification.html.twig' with {
+    name: 'error',
+    text: 'templates.layout.base.notification.error'|trans,
+    type: 'danger'
+} %}
+
+{% block header %}
+    <header>
+        {{ render(controller('App\\Controller\\Menu\\MenuController::menu', {q: app.request.query.get('q')})) }}
+    </header>
+{% endblock %}
+<div class="{% block container %}container-lg px-0{% endblock %}">
+    <div class="row">
+        <div class="col">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} alert-dismissible fade show mt-5" role="alert">
+                        {{ message|trans }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    {% block body %}{% endblock %}
+    {% if app.request.get('_route') != 'home' %}
+        {% block link %}
+            <div class="row mb-5">
+                <div class="col text-center">
+                    <a class="link" href="{{ path('home') }}">Retour</a>
+                </div>
+            </div>
+        {% endblock %}
+    {% endif %}
+</div>
+{% block footer %}
+<footer class="mt-auto">
+    {% block funding %}{% endblock %}
+    {{ render(controller(
+        'App\\Controller\\Menu\\MenuController::footerItems'
+    )) }}
+    <!-- generated on {{ 'now'|date(constant('\DateTime::RFC822')) }} by {{ app_version }} -->
+    {% endblock %}
+</footer>
+</body>
+</html>

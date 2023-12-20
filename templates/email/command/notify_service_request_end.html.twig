@@ -1,0 +1,9 @@
+{% trans_default_domain 'email' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+<p>{{ (i18n_prefix ~ '.h1')|trans }}</p>
+
+<p>{{ (i18n_prefix ~ '.p1')|trans({'%product%': service_request.product.name, '%date%': service_request.endAt|date('format.date'|trans({}, 'date'))}) }}</p>
+
+<p>{{ brand }}</p>

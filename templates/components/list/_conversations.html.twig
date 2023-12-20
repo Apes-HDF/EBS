@@ -1,0 +1,15 @@
+<ul class="mt-3">
+    {% for conversation in pagination %}
+        <li class="px-0 conversation-test">
+            {% include 'components/item/_conversation.html.twig' with {
+                id: conversation.id,
+                name: isMyLoans ? conversation.owner.displayName : conversation.recipient.displayName,
+                product_name: conversation.product.name,
+                has_message: conversation.hasUnreadMessages(app.user),
+                date: conversation.startAt,
+                status: conversation.status,
+                product: conversation.product
+            } %}
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,7 @@
+<div class="col-6 col-md-3 order-0 d-flex justify-content-center align-items-center order-1 py-2">
+    {% if menu.logo is null %}
+        <img src="{{ asset('svg/logo-black.svg') }}" alt="logo" width="70" class="logo">
+    {% else %}
+        <img src="{{ menu|public_url }}" width="70" alt="logo"/>
+    {% endif %}
+</div>

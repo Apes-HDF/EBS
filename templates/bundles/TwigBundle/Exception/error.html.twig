@@ -1,0 +1,17 @@
+{% extends 'layout/base.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% block body %}
+    <div class="row">
+        <card>
+            <h5>{{ (i18n_prefix ~ '.h5')|trans({'%status_code%': status_code}) }}</h5>
+            <hr>
+            {% if status_code in [403, 404]  %}
+                <p>{{ (i18n_prefix ~ '.' ~ status_code)|trans }}</p>
+            {% else %}
+                <p>{{ (i18n_prefix ~ '.p1')|trans({'%status_code%': status_code, '%status_text%': status_code|status_text}) }}</p>
+            {% endif %}
+        </card>
+    </div>
+{% endblock %}

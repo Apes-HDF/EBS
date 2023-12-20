@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="D2pXPWh" resname="templates.components.product.search.accordion.toogle">
+            <source>templates.components.product.search.accordion.toogle</source>
+            <target>Affiner la recherche</target>
+        </trans-unit>
+
+        <trans-unit id="f4QfKMu" resname="templates.components.product.search.city.label">
+            <source>templates.components.product.search.city.label</source>
+            <target>À proximité</target>
+        </trans-unit>
+
+        <trans-unit id="W7LweXt" resname="templates.components.product.search.city.placeholder">
+            <source>templates.components.product.search.city.placeholder</source>
+            <target>Ville</target>
+        </trans-unit>
+
+        <trans-unit id="ZhxKn7D" resname="templates.components.product.search.city.tooltip">
+            <source>templates.components.product.search.city.tooltip</source>
+            <target>Filtrer par distance maximum d'une ville donnée</target>
+        </trans-unit>
+
+        <trans-unit id="vWga1Zy" resname="templates.components.product.search.place.label">
+            <source>templates.components.product.search.place.label</source>
+            <target>Chez un partenaire</target>
+        </trans-unit>
+
+        <trans-unit id="GCpgofS" resname="templates.components.product.search.place.tooltip">
+            <source>templates.components.product.search.place.label</source>
+            <target>Filtrer les objets et services d'un lieu particulier</target>
+        </trans-unit>
+
+        <trans-unit id="EJ3GeDH" resname="templates.components.product.search.button.reset">
+            <source>templates.components.product.search.button.reset</source>
+            <target>Réinitialiser le formulaire</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

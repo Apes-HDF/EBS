@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <!-- Products / objects / services -->
+        <trans-unit id="h1sBLc1" resname="products">
+            <source>products</source>
+            <target>Produits</target>
+        </trans-unit>
+
+        <trans-unit id="d6w7Y2w" resname="Product">
+            <source>Product</source>
+            <target>Produit</target>
+        </trans-unit>
+
+        <trans-unit id="aD43Rze" resname="OBJECT">
+            <source>OBJECT</source>
+            <target>objet</target>
+        </trans-unit>
+
+        <trans-unit id="e3tLL3J" resname="SERVICE">
+            <source>SERVICE</source>
+            <target>service</target>
+        </trans-unit>
+
+        <trans-unit id="puh5vrG" resname="Owner">
+            <source>Owner</source>
+            <target>Propriétaire·rice</target>
+        </trans-unit>
+
+        <trans-unit id="a2FwN1F" resname="Age">
+            <source>Age</source>
+            <target>Âge / état</target>
+        </trans-unit>
+
+        <trans-unit id="EaEtxNE" resname="Duration">
+            <source>Duration</source>
+            <target>Durée de la prestation</target>
+        </trans-unit>
+
+        <trans-unit id="TKyYzKE" resname="Deposit">
+            <source>Deposit</source>
+            <target>Caution</target>
+        </trans-unit>
+
+        <trans-unit id="DiaWVji" resname="Currency">
+            <source>Currency</source>
+            <target>Devise</target>
+        </trans-unit>
+
+        <trans-unit id="Status" resname="Status">
+            <source>Status</source>
+            <target>Statut</target>
+        </trans-unit>
+
+        <trans-unit id="kMs7t2V" resname="ACTIVE">
+            <source>ACTIVE</source>
+            <target>actif</target>
+        </trans-unit>
+
+        <trans-unit id="W1TRuP1" resname="PAUSED">
+            <source>PAUSED</source>
+            <target>en pause</target>
+        </trans-unit>
+
+        <trans-unit id="SP7v62B" resname="DELETED">
+            <source>DELETED</source>
+            <target>supprimé</target>
+        </trans-unit>
+
+        <trans-unit id="grfrH4v" resname="Visibility">
+            <source>Visibility</source>
+            <target>Visibilité</target>
+        </trans-unit>
+
+        <trans-unit id="Ra7wqBJ" resname="PUBLIC">
+            <source>PUBLIC</source>
+            <target>public</target>
+        </trans-unit>
+
+        <trans-unit id="jqeVP8S" resname="RESTRICTED">
+            <source>RESTRICTED</source>
+            <target>restreinte à certains groupes</target>
+        </trans-unit>
+
+        <trans-unit id="r9AfBYC" resname="Groups">
+            <source>Groups</source>
+            <target>Groupes</target>
+        </trans-unit>
+
+        <trans-unit id="E8LERcc" resname="action.onBreak">
+            <source>action.onBreak</source>
+            <target>Mettre en pause</target>
+        </trans-unit>
+
+        <trans-unit id="VMgc1ui" resname="action.activate">
+            <source>action.activate</source>
+            <target>Rendre actif</target>
+        </trans-unit>
+
+        <trans-unit id="4b9rDXW" resname="action.availability">
+            <source>action.availability</source>
+            <target>Disponibilité</target>
+        </trans-unit>
+
+        <trans-unit id="PobWq2z" resname="Address">
+            <source>Address</source>
+            <target>Adresse</target>
+        </trans-unit>
+
+        <trans-unit id="hxpZN3e" resname="Preferred Loan Duration">
+            <source>Preferred Loan Duration</source>
+            <target>Durée d'emprunt souhaitée</target>
+        </trans-unit>
+
+        <trans-unit id="JBhbR2a" resname="Images">
+            <source>Images</source>
+            <target>Images</target>
+        </trans-unit>
+
+        <trans-unit id="iMvEJyz" resname="Product Link">
+            <source>Product Link</source>
+            <target>Accéder à la fiche produit</target>
+        </trans-unit>
+
+        <trans-unit id="xR5J1Ax" resname="type">
+            <source>type</source>
+            <target>Type de produit</target>
+        </trans-unit>
+
+        <!--  availability page  -->
+        <trans-unit id="B9s2e7C" resname="product.availability">
+            <source>product.availability</source>
+            <target>Disponibilité</target>
+        </trans-unit>
+
+        <trans-unit id="vH1xJAh" resname="object">
+            <source>object</source>
+            <target>Objet</target>
+        </trans-unit>
+
+        <trans-unit id="nGsKESW" resname="service">
+            <source>service</source>
+            <target>Service</target>
+        </trans-unit>
+
+        <trans-unit id="wFtodE6" resname="active">
+            <source>active</source>
+            <target>Actif</target>
+        </trans-unit>
+
+        <trans-unit id="5s6f5yb" resname="owner">
+            <source>owner</source>
+            <target>Prêteur·euse</target>
+        </trans-unit>
+
+        <trans-unit id="ME99gdw" resname="product.unavailabilities">
+            <source>product.unavailabilities</source>
+            <target>Date(s) d'indisponibibilé</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

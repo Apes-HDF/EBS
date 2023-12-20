@@ -1,0 +1,51 @@
+// GRID PAGE LOAN
+.grid-template-loans {
+    display: grid;
+    grid-template-areas:
+        "product calendar"
+        "message calendar";
+    column-gap: 2rem;
+    grid-template-rows: 100px auto;
+}
+
+// GRID PAGE PRODUCT
+.grid-template-product {
+    display: grid;
+    grid-template-areas:
+        "info lender"
+        "info calendar";
+    grid-template-columns: 45rem 3fr;
+    column-gap: 100px;
+}
+
+.grid {
+    &-lender {
+        grid-area: lender;
+    }
+
+    &-product {
+        grid-area: product;
+    }
+
+    &-message {
+        grid-area: message;
+    }
+
+    &-calendar {
+        grid-area: calendar;
+    }
+
+    &-info {
+        grid-area: info;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .grid-template-loans, .grid-template-product, .grid-template-conversation {
+        display: flex;
+        flex-direction: column;
+    }
+    .lender {
+        display: none;
+    }
+}

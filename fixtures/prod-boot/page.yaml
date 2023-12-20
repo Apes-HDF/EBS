@@ -1,0 +1,20 @@
+App\Entity\Page:
+    # —— Templates —————————————————————————————————————————————————————————————
+    page_template (template):
+        enabled: true
+
+    home:
+        name: Accueil
+        content: |
+            \<h1>Plateforme EBS</h1>
+            <h2>Bienvenue sur Plateforme EBS !</h2>
+            <p>
+                <a target="_blank" href="http://www.apes-hdf.org/page-96-839-0.html#menu">
+                    <img src="http://www.apes-hdf.org/_docs/Divers/logo.png" />
+                </a>
+            </p>
+    
+    cgu:
+        name: CGU
+        content: |
+            \<h1>CGU</h1>

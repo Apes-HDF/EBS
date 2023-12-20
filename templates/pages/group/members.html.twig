@@ -1,0 +1,42 @@
+{% extends 'layout/base.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% block body %}
+    {% include 'components/layout/_title_3.html.twig' with {
+        name: (i18n_prefix ~ '.title')|trans
+    } %}
+    <div class="row my-4 px-3">
+    {% include 'components/layout/_searchbar.html.twig' with {
+        margin: 'my-3 my-lg-0 me-lg-3'
+    } %}
+    </div>
+    <div class="my-4">
+        {% if pagination is empty %}
+            <p class="text-center mt-5">{{ (i18n_prefix ~ '.no_result')|trans }}</p>
+        {% else %}
+            {% for member in pagination %}
+                {% include 'components/group/_member_card.html.twig' with {
+                    user: member.user,
+                    category: member.user.category,
+                    isInvited: member.membership.isInvited,
+                    group,
+                } %}
+            {% endfor %}
+            {% include 'components/layout/_pagination.html.twig' with {pagination} %}
+            {% if is_granted('IS_AUTHENTICATED') and app.user.isGroupAdmin(group) %}
+                <div class="row justify-content-center">
+                    <a
+                        href="{{ ea_url().setController('App\\Controller\\Admin\\GroupCrudController').setAction('detail').setEntityId(group.id) }}"
+                        class="btn btn-primary col-8 col-md-3 admin-button-test"
+                    >
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        {{ (i18n_prefix ~ '.manage_button')|trans }}
+                    </a>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block link %}{% endblock %}

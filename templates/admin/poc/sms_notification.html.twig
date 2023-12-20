@@ -1,0 +1,19 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block main %}
+    <h2>POC : test d'envoi d'une notification SMS</h2>
+
+    <h3>Envoi avec l'API Twilio / OVHCloud</h3>
+
+    <ul>
+        <li><a href="https://symfony.com/doc/current/notifier.html#notifier-sms-channel">Doc Symfony</a></li>
+        <li><a href="https://www.twilio.com/fr/messaging/programmable-messaging-api">API Twilio</a></li>
+        <li><a href="https://www.ovhtelecom.fr/sms/">API OVH CLoud</a></li>
+    </ul>
+
+    <br/>
+    {{ form_start(form, {'attr': {}}) }}
+        {{ form_widget(form) }}
+    {{ form_end(form) }}
+    <br/>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% set i18n_prefix = _self|i18n_prefix %}
+
+<div
+    class="d-block m-0"
+    data-controller="product"
+    data-product-id-value="{{ product.id }}"
+    data-product-route-value="{{ path('_api_/product/{id}/switchStatus_patch', {id: product.id}) }}"
+    data-test-product
+>
+    <div class="row m-0 py-3 border-bottom">
+        <div class="col-auto p-0 align-self-center">
+            <a href="#">
+                {% if product.images is not empty %}
+                    <img src="{{ product|public_url_image(product.firstImage) }}" alt="{{ product.name }}" class="featured-image" width="74" height="74">
+                {% elseif category.image %}
+                    <img src="{{ category|public_url }}" alt="{{ product.name }}" class="featured-image" width="74" height="74">
+                {% else %}
+                    <img src="{{ asset('svg/product.svg') }}" alt="{{ product.name }}" class="featured-image" width="74" height="74">
+                {% endif %}
+            </a>
+        </div>
+        <div class="col align-self-center">
+            <h6 class="fw-bold m-0">
+                <a href="{{ path('app_product_show', {slug: product.slug, id: product.id}) }}">{{ product.name }}</a>
+            </h6>
+            <p class="fs-7 m-0">
+                {% if category.parent %}
+                    {{ category.parent }} &nbsp;/&nbsp;
+                {% endif %}
+                {{ category }}
+            </p>
+            <div
+                class="mt-2 {% if product.isPaused() %}d-none{% endif %}"
+                data-product-target="activeTag"
+            >
+                {% include 'components/utils/_badge.html.twig' with {
+                    type: 'success',
+                    name: (i18n_prefix ~ '.active')|trans
+                } %}
+            </div>
+            <div
+                class="mt-2 {% if product.isActive() %}d-none{% endif %}"
+                data-product-target="pausedTag"
+            >
+                {% include 'components/utils/_badge.html.twig' with {
+                    type: 'secondary',
+                    name: (i18n_prefix ~ '.paused')|trans
+                } %}
+            </div>
+        </div>
+        <div class="col-auto align-self-center">
+            {% if has_conversation %}
+                <a href="{{ path('app_user_my_lendings', {'user_lending_product_select_form[product]': [product.id]}) }}" class="position-relative text-black">
+                    <i class="bi bi-chat-left-text-fill"></i>
+                </a>
+            {% endif %}
+        </div>
+        <div class="col-auto align-self-center">
+            <div class="dropdown">
+                <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a
+                            href="{{ path(route == 'app_user_objects' ? 'app_object_edit' : 'app_service_edit', {id: product.id}) }}"
+                            class="btn text-black fw-semibold text-start"
+                        >
+                            <i class="bi bi-pencil-fill me-2"></i> {{ (i18n_prefix ~ '.edit')|trans }}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="{{ path('app_user_product_duplicate', {id: product.id}) }}"
+                            class="btn text-black fw-semibold text-start"
+                        >
+                            <i class="bi bi-clipboard-fill me-2"></i> {{ (i18n_prefix ~ '.duplicate')|trans }}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="{{ path('app_user_product_availabilities', {id: product.id}) }}"
+                            class="btn text-black fw-semibold text-start">
+                            <i class="bi bi-calendar-fill me-2"></i> {{ (i18n_prefix ~ '.manage_availabilities')|trans }}
+                        </a>
+                    </li>
+                    <li>
+                        <button
+                            class="btn text-black fw-semibold text-start"
+                            data-action="click->product#switchStatus"
+                        >
+                            <span
+                                class="{% if product.isPaused() %}d-none{% endif %}"
+                                data-product-target="activeButton"
+                            >
+                                <i class="bi bi-pause-circle-fill me-2"></i>
+                                {{ (i18n_prefix ~ '.pause')|trans }}
+                            </span>
+                            <span
+                                class="{% if product.isActive() %}d-none{% endif %}"
+                                data-product-target="pausedButton"
+                            >
+                                <i class="bi bi-play-circle-fill me-2"></i>
+                                {{ (i18n_prefix ~ '.resume')|trans }}
+                            </span>
+                        </button>
+                    </li>
+                    <li>
+                        {% if not product.hasOngoingServiceRequests() %}
+                            <a
+                                href="{{ path('app_user_product_delete', {id: product.id}) }}"
+                                class="btn text-black fw-semibold text-start"
+                            >
+                                <i class="bi bi-trash3-fill me-2"></i> {{ (i18n_prefix ~ '.delete')|trans }}
+                            </a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

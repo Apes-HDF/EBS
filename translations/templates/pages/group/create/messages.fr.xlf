@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <trans-unit id="XyCwwRp" resname="templates.pages.group.create.title">
+            <source>templates.pages.group.create.title</source>
+            <target>Demande de création de groupe</target>
+        </trans-unit>
+
+        <trans-unit id="oBiMCpy" resname="templates.pages.group.create.form.email">
+            <source>templates.pages.group.create.form.email</source>
+            <target>Adresse e-mail du·de la gérant·e</target>
+        </trans-unit>
+
+        <trans-unit id="k4VQk9j" resname="templates.pages.group.create.form.name">
+            <source>templates.pages.group.create.form.name</source>
+            <target>Nom du groupe</target>
+        </trans-unit>
+
+        <trans-unit id="XEAMuPz" resname="templates.pages.group.create.form.type">
+            <source>templates.pages.group.create.form.type</source>
+            <target>Type</target>
+        </trans-unit>
+
+        <trans-unit id="qBmcBDh" resname="templates.pages.group.create.form.membership">
+            <source>templates.pages.group.create.form.membership</source>
+            <target>Tarif</target>
+        </trans-unit>
+
+        <trans-unit id="WjvmgBt" resname="templates.pages.group.create.form.subgroup">
+            <source>templates.pages.group.create.form.subgroup</source>
+            <target>Sous-groupe de</target>
+        </trans-unit>
+
+        <trans-unit id="4mZKYiJ" resname="templates.pages.group.create.form.textarea">
+            <source>templates.pages.group.create.form.textarea</source>
+            <target>Précisez votre demande</target>
+        </trans-unit>
+
+        <trans-unit id="crnHLD8" resname="templates.pages.group.create.form.submit">
+            <source>templates.pages.group.create.form.textarea</source>
+            <target>Créer le groupe</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

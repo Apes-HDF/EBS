@@ -1,0 +1,24 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block link %}{% endblock %}
+
+{% block body %}
+    <div class="px-4 px-lg-0">
+        <br/>
+        <details>
+            <summary>Liens de test</summary>
+            <ul>
+                <li><a href="{{ path('security_account_create_step1') }}">Créer un compte (étape 1)</a></li>
+                <li>
+                    <a href="{{ path('security_account_create_step2', {'token': '3PpTWgYdgNZcuRTbqZTS5HRihEGGhw5rCszuo7XYAPJ9dEwttR'}) }}">Finaliser
+                        son compte (étape 2)</a></li>
+                <li>
+                    <a href="{{ path('security_account_create_step2', {'token': 'DrCaEPr3pKM9e8PkfUZiZZsAe5nwcgBDpQjKbuaJ3ukzL5qLv9'}) }}">Finaliser
+                        son compte (étape 2) (lien expiré)</a></li>
+                <li>
+                    <a href="{{ path('security_reset_password', {'token': 'cuYxfS5eCWX2FYtJwWdhHZrGY6W1KT7UBV6CeARK2E2s4V3SKB'}) }}">Réinitialisation
+                        du mot de passe</a></li>
+            </ul>
+        </details>
+    </div>
+{% endblock %}

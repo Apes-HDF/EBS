@@ -1,0 +1,13 @@
+# load everyting in Controller and use attributes
+controllers:
+    resource: ../src/Controller/
+    type: attribute
+
+# avoid to have an empty and not used function in SecurityController 
+app_logout:
+    path: /logout
+
+# Payoum: 
+# @see https://github.com/Payum/Payum/blob/master/docs/symfony/get-it-started.md#payum-bundle-get-it-started"
+payum_all:
+    resource: "@PayumBundle/Resources/config/routing/all.xml"

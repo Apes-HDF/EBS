@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <trans-unit id="LCEpbXz" resname="templates.components.product.calendar.object.edit">
+            <source>templates.components.product.calendar.object.edit</source>
+            <target>Modifier mon objet</target>
+        </trans-unit>
+
+        <trans-unit id="sWYD8WJ" resname="templates.components.product.calendar.service.edit">
+            <source>templates.components.product.calendar.service.edit</source>
+            <target>Modifier mon service</target>
+        </trans-unit>
+
+        <trans-unit id="4tCWziB" resname="templates.components.product.calendar.service.start_date">
+            <source>templates.components.product.calendar.service.start_date</source>
+            <target>Date de début</target>
+        </trans-unit>
+
+        <trans-unit id="nf6BeZr" resname="templates.components.product.calendar.service.end_date">
+            <source>templates.components.product.calendar.service.end_date</source>
+            <target>Date de fin</target>
+        </trans-unit>
+
+        <trans-unit id="3az6vdH" resname="templates.components.product.calendar.reset">
+            <source>templates.components.product.calendar.reset</source>
+            <target>Réinitialiser les dates</target>
+        </trans-unit>
+
+        <trans-unit id="qz2AXhC" resname="templates.components.product.calendar.service_request">
+            <source>templates.components.product.calendar.service_request</source>
+            <target>Envoyer ma demande</target>
+        </trans-unit>
+
+        <trans-unit id="oq9A0mZ" resname="templates.components.product.calendar.clarifying_sentence">
+            <source>templates.components.product.calendar.clarifying_sentence</source>
+            <target>Sélectionnez vos dates dans le calendrier et cliquez sur le bouton "Envoyer ma demande" pour faire une demande d'emprunt</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

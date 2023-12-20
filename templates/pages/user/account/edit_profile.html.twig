@@ -1,0 +1,70 @@
+{% extends 'layout/base.html.twig' %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% block error %}{% endblock %}
+
+{% block body %}
+    <div class="px-3 px-lg-0">
+        {% include 'components/layout/_title_3.html.twig' with {
+            name: (i18n_prefix ~ '.title')|trans
+        } %}
+        <div class="row mt-3 justify-content-center">
+        <div class="col-md-8 col-lg-6 col-xl-5">
+            {{ form_start(form, {
+                attr: {
+                    novalidate: true,
+                }
+            }) }}
+            {% if form.firstname is defined %}
+                {{ form_row(form.firstname) }}
+            {% endif %}
+
+            {% if form.lastname is defined %}
+                {{ form_row(form.lastname) }}
+            {% endif %}
+
+            {# place field #}
+            {% if form.name is defined %}
+                {{ form_row(form.name) }}
+            {% endif %}
+
+            {{ form_row(form.avatar) }}
+            {% if app.user.avatar is not null %}
+                {% include 'components/form/_photo_preview.html.twig' with {
+                    image: app.user.avatar,
+                    entity: app.user,
+                    isUser: true,
+                } %}
+            {% endif %}
+
+            {# place field #}
+            {% if form.schedule is defined %}
+                {{ form_row(form.schedule) }}
+            {% endif %}
+
+            {% if form.category is defined %}
+                {{ form_row(form.category) }}
+            {% endif %}
+
+            {% if form.description is defined %}
+                {{ form_row(form.description) }}
+            {% endif %}
+
+            {{ form_row(form.phone) }}
+
+            <div class="form-switch">
+                {{ form_widget(form.smsNotifications) }}
+            </div>
+
+            <div class="d-grid col-12 mt-4">
+                {{ form_widget(form.submit) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    </div>
+{% endblock %}
+{% block link %}{% endblock %}

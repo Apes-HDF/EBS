@@ -1,0 +1,26 @@
+{% set pill_bg = item.group.type.isPublic() ? 'text-primary text-bg-blue-custom' : 'text-bg-secondary' %}
+{% set link = isAdmin ? ea_url().setController('App\\Controller\\Admin\\GroupCrudController').setAction('detail').setEntityId(item.group.id) : path('app_group_show', {slug: item.group.slug, id: item.group.id}) %}
+{% set button_action = isAdmin ? (i18n_prefix ~ '.admin')|trans : (i18n_prefix ~ '.join')|trans %}
+
+{% if item %}
+    <a href="{{ link }}"
+       class="d-flex flex-column">
+        <div class="d-flex align-items-center py-2 w-100">
+            <div class="d-flex flex-column {{ needAction|default(false) ? 'w-50' : 'w-100' }}">
+            <span class="fs-6 fw-bolder text-dark">
+                {{ item.group }}
+            </span>
+                <span class="badge rounded-pill {{ pill_bg }} fit-content mt-2">
+                {{ (i18n_prefix ~ '.' ~ item.group.type.value)|trans }}
+            </span>
+            </div>
+            {% if needAction|default(false) %}
+                <div class="w-50">
+                    <span class="btn btn-primary w-100">
+                        {{ button_action }}
+                    </span>
+                </div>
+            {% endif %}
+        </div>
+    </a>
+{% endif %}

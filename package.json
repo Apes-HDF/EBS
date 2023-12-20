@@ -1,0 +1,37 @@
+{
+    "devDependencies": {
+        "@babel/core": "^7.17.0",
+        "@babel/preset-env": "^7.16.0",
+        "@hotwired/stimulus": "^3.0.0",
+        "@popperjs/core": "^2.11.6",
+        "@symfony/stimulus-bridge": "^3.2.0",
+        "@symfony/ux-autocomplete": "file:vendor/symfony/ux-autocomplete/assets",
+        "@symfony/webpack-encore": "^4.0.0",
+        "bootstrap": "^5.2.3",
+        "bootstrap-icons": "^1.10.3",
+        "core-js": "^3.23.0",
+        "eslint": "^8.33.0",
+        "regenerator-runtime": "^0.13.9",
+        "sass": "^1.56.1",
+        "sass-loader": "^13.0.0",
+        "stimulus-carousel": "^5.0.1",
+        "stimulus-password-visibility": "^2.0.0",
+        "tom-select": "^2.2.2",
+        "webpack": "^5.74.0",
+        "webpack-cli": "^4.10.0",
+        "webpack-notifier": "^1.15.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress",
+        "lint": "eslint assets/ --ext .js"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^6.2.1",
+        "flatpickr": "^4.6.13"
+    }
+}

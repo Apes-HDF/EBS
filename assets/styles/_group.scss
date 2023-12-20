@@ -1,0 +1,21 @@
+.card-group {
+    width: 100%;
+
+    div {
+        span.badge {
+            width: fit-content;
+        }
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .group-list {
+        li {
+            border-bottom: 1px solid $gray;
+
+            &:last-child {
+                border: none;
+            }
+        }
+    }
+}

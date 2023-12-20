@@ -1,0 +1,61 @@
+{% extends 'layout/base.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{# User logged? #}
+{% set logged = is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+
+{# Is the group public? #}
+{% set is_public = group.type.isPublic %}
+
+{# Get the current status of the user for the current group #}
+{% set group_membership = logged ? app.user.getGroupMembership(group) : null %}
+{% set has_group_membership = group_membership != null %}
+
+{# Can we display the show members button? #}
+{% set display_show_members_button = is_public or (has_group_membership and group_membership.membership.isConfirmed) %}
+
+{% block body %}
+    <div class="px-3 px-lg-0">
+        {% include 'components/layout/_title_3.html.twig' with {
+            name: group.name
+        } %}
+
+        <div class="d-flex justify-content-center mt-3">
+            {% set pill_bg = group.type.isPublic() ? 'text-primary text-bg-blue-custom' : 'text-bg-secondary' %}
+            <span class="badge d-inline-flex align-items-center rounded-pill {{ pill_bg }}">
+                {{ group.type.value|trans }}
+            </span>
+        </div>
+
+        {% include 'components/layout/_text.html.twig' with {
+            text: group.description
+        } %}
+
+        {# 1. logged but not member and no pending invitaton #}
+        {% if logged and not has_group_membership %}
+            {% include 'pages/group/show/_logged_without_link.html.twig' %}
+
+        {# 2. logged and has a link with the group #}
+        {% elseif logged and has_group_membership %}
+            {% include 'pages/group/show/_logged_with_link.html.twig' %}
+
+        {# 3. not logged, display the link to login and come back to this page #}
+        {% else %}
+            <p class="text-center">
+                <a href="{{ path('app_group_show_logged', {id: group.id, slug: group.slug}) }}">{{ (i18n_prefix ~ '.login_text')|trans }}</a>
+            </p>
+        {% endif %}
+
+        {% if display_show_members_button %}
+            <div class="d-grid col col-lg-4 mx-auto mt-5">
+                <a class="btn btn-outline-primary"
+                   href="{{ path('app_group_members', {id: group.id, slug: group.slug}) }}">
+                    <i class="bi bi-people"></i>
+                    {{ (i18n_prefix ~ '.show_members')|trans }}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block link %}{% endblock %}

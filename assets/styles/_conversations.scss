@@ -1,0 +1,59 @@
+.conversations {
+    &-link {
+        transition: background .3s;
+
+        &:hover,
+        &:focus {
+            background: rgba($gray-300, 0.3);
+            color: inherit;
+        }
+    }
+
+    &-img {
+        width: 74px;
+        aspect-ratio: 1/1;
+    }
+}
+
+.conversation {
+    &-message {
+        border-radius: 4px;
+
+        &.system {
+            border: 1px solid $gray-400;
+        }
+
+        &.from_recipient,
+        &.from_owner {
+            width: 80%;
+        }
+
+        &.from_recipient {
+            background: $blue-100;
+        }
+
+        &.from_owner {
+            margin-left: auto;
+            background: $blue-500;
+            color: $white;
+
+            .conversation-messageValue {
+                color: inherit;
+            }
+        }
+
+    }
+
+    &-messageValue {
+        color: $black;
+    }
+
+    &-textarea {
+        height: calc(1.5em + 0.75rem + 2px);
+    }
+}
+
+.label-modal-width.col-sm-2 {
+    width: 100%;
+}
+

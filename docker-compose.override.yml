@@ -1,0 +1,67 @@
+version: "3.4"
+
+# Development environment override
+services:
+  # https://localhost/_profiler/phpinfo
+  php:
+    build:
+      target: app_php_dev
+    volumes:
+      - ./:/srv/app
+      - storage:/srv/app/public/storage
+      - ./docker/php/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
+      # If you develop on Mac or Windows you can remove the vendor/ directory
+      # from the bind-mount for better performance by enabling the next line:
+      #- /srv/app/vendor
+    environment:
+      # See https://xdebug.org/docs/all_settings#mode 
+      XDEBUG_MODE: "${XDEBUG_MODE:-off}"
+      #MAILER_DSN: "smtp://maildev:1025"
+    extra_hosts:
+      # Ensure that host.docker.internal is correctly defined on Linux
+      - host.docker.internal:host-gateway
+
+  caddy:
+    volumes:
+      - ./public:/srv/app/public:ro
+      - storage:/srv/app/public/storage
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+
+  maildev:
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+
+  storage:
+    image: minio/minio
+    ports:
+      - "9001:9000"
+      - "9090:9090"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-app} 
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-!ChangeMe!}
+      MINIO_USE_SSL: "on"
+      MINIO_S3_FORCE_PATH_STYLE: "on"
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9090"
+    # see https://github.com/minio/minio/issues/18389/
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+###> symfony/mercure-bundle ###
+###< symfony/mercure-bundle ###
+
+###> doctrine/doctrine-bundle ###
+  database:
+    ports:
+      - "5432"     
+###< doctrine/doctrine-bundle ###
+
+volumes:
+  storage:
+  minio_data:

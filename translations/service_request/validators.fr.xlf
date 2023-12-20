@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <trans-unit id="" resname="validator.product.productavailabilitynooverlap">
+            <source>validator.product.productavailabilitynooverlap</source>
+            <target>
+                    Vous ne pouvez pas choisir ces dates, il existe un conflit avec les dates d'indisponibilité actuelles du produit.
+                    Les dates d'indisponibilité sont indiquées en rouge sur le calendrier.
+            </target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

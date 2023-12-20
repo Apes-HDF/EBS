@@ -1,0 +1,17 @@
+App\Entity\User:
+    base_user_template (template):
+        enabled: true
+        mainAdminAccount: false
+        password: '\$2y\$13\$LOIpgrMmOysCysIwkILTl.qD8psPxn9U9/V03p3odlqztLb7Aewze' # 35DVDj8ir3Buc7
+        emailConfirmed: true
+
+    admin_template (template, extends base_user_template):
+        type: !php/enum App\Enum\User\UserType::ADMIN
+        roles: [!php/const App\Entity\User::ROLE_ADMIN]
+
+    # —— Main instance admin ⚡—————————————————————————————————————————————————
+    admin_main (extends admin_template):
+        email: 'plateforme-ebs@apes-hdf.org'
+        firstname: 'Main'
+        lastname: 'Admin'
+        mainAdminAccount: true

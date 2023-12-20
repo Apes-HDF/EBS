@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <!-- Dashboard -->
+        <trans-unit id="iF5xzf9" resname="dashboard.title">
+            <source>dashboard.title</source>
+            <target>Plateforme EBS</target>
+        </trans-unit>
+
+        <trans-unit id="jrjxoZV" resname="dashboard.statistics">
+            <source>dashboard.statistics</source>
+            <target>Statistiques</target>
+        </trans-unit>
+
+        <!-- Menu -->
+        <trans-unit id="PyXvN8a" resname="menu.dashboard">
+            <source>menu.dashboard</source>
+            <target>Dashboard</target>
+        </trans-unit>
+
+        <trans-unit id="mUDz5Ga" resname="menu.administrators">
+            <source>menu.administrators</source>
+            <target>Administrateur·rice·s</target>
+        </trans-unit>
+
+        <trans-unit id="MCpn36c" resname="menu.parameters">
+            <source>menu.parameters</source>
+            <target>Paramètres</target>
+        </trans-unit>
+
+        <trans-unit id="8eDTmk7" resname="menu.menu">
+            <source>menu.menu</source>
+            <target>Menu</target>
+        </trans-unit>
+
+        <trans-unit id="zw6tuJr" resname="menu.pages">
+            <source>menu.pages</source>
+            <target>Pages</target>
+        </trans-unit>
+
+        <trans-unit id="BGa9gFG" resname="menu.config_menu">
+            <source>menu.config_menu</source>
+            <target>Menu</target>
+        </trans-unit>
+
+        <trans-unit id="DGPRFbb" resname="menu.config_footer">
+            <source>menu.config_footer</source>
+            <target>Pied de page</target>
+        </trans-unit>
+
+        <trans-unit id="hRQbSgA" resname="menu.menu">
+            <source>menu.menu</source>
+            <target>Menu</target>
+        </trans-unit>
+
+        <trans-unit id="37c9DAN" resname="menu.content">
+            <source>menu.content</source>
+            <target>Contenus</target>
+        </trans-unit>
+
+        <trans-unit id="NuouXG9" resname="menu.categories">
+            <source>menu.categories</source>
+            <target>Catégories</target>
+        </trans-unit>
+
+        <trans-unit id="XW1Pqib" resname="menu.usage">
+            <source>menu.usage</source>
+            <target>Utilisation</target>
+        </trans-unit>
+
+        <trans-unit id="ryRC6aC" resname="menu.users">
+            <source>menu.users</source>
+            <target>Utilisateur·rice</target>
+        </trans-unit>
+
+        <trans-unit id="vHHqaCM" resname="menu.places">
+            <source>menu.places</source>
+            <target>Lieux</target>
+        </trans-unit>
+
+        <trans-unit id="hdRnhac" resname="menu.groups">
+            <source>menu.groups</source>
+            <target>Groupes</target>
+        </trans-unit>
+
+        <trans-unit id="qz4HScW" resname="menu.members">
+            <source>menu.members</source>
+            <target>Membres</target>
+        </trans-unit>
+
+        <trans-unit id="VBawu5y" resname="menu.articles">
+            <source>menu.articles</source>
+            <target>Produits</target>
+        </trans-unit>
+
+        <trans-unit id="hGMuL1h" resname="menu.objects">
+            <source>menu.objects</source>
+            <target>Objets</target>
+        </trans-unit>
+
+        <trans-unit id="Lv1bCq4" resname="menu.services">
+            <source>menu.services</source>
+            <target>Services</target>
+        </trans-unit>
+
+        <trans-unit id="UwoVRxF" resname="menu.loans">
+            <source>menu.loans</source>
+            <target>Emprunts</target>
+        </trans-unit>
+
+        <trans-unit id="5PqFw3T" resname="menu.public">
+            <source>menu.public</source>
+            <target>Site public</target>
+        </trans-unit>
+
+        <trans-unit id="uTy7rFr" resname="menu.home">
+            <source>menu.home</source>
+            <target>Page d'accueil</target>
+        </trans-unit>
+
+        <trans-unit id="E9Egztt" resname="menu.user">
+            <source>menu.user</source>
+            <target>Espace utilisateur·rice</target>
+        </trans-unit>
+
+        <trans-unit id="NThseqd" resname="menu.devtools">
+            <source>menu.devtools</source>
+            <target>DEV Tools</target>
+        </trans-unit>
+
+        <trans-unit id="ToiKd8p" resname="menu.poc_payoum">
+            <source>menu.poc_payoum</source>
+            <target>POC Payoum</target>
+        </trans-unit>
+
+        <trans-unit id="t17F4ea" resname="menu.poc_meilisearch">
+            <source>menu.poc_meilisearch</source>
+            <target>POC Meilisearch</target>
+        </trans-unit>
+
+        <trans-unit id="9YCopcf" resname="menu.dev_tools">
+            <source>menu.dev_tools</source>
+            <target>Outils</target>
+        </trans-unit>
+
+        <trans-unit id="3LfbSJq" resname="menu.poc_email_notification">
+            <source>menu.poc_email_notification</source>
+            <target>Test notif. email</target>
+        </trans-unit>
+
+        <trans-unit id="mixUhzp" resname="menu.poc_sms_notification">
+            <source>menu.poc_sms_notification</source>
+            <target>Test notif. SMS</target>
+        </trans-unit>
+
+        <trans-unit id="YhKvDyb" resname="menu.poc_geoloc">
+            <source>menu.poc_geoloc</source>
+            <target>Test de géolocalisation</target>
+        </trans-unit>
+
+        <!-- Generic fields -->
+        <trans-unit id="8dfB4ny" resname="id">
+            <source>id</source>
+            <target>Identifiant</target>
+        </trans-unit>
+
+        <trans-unit id="Wm7Fzvc" resname="Created At">
+            <source>Created At</source>
+            <target>Créé le</target>
+        </trans-unit>
+
+        <trans-unit id="sztpwbg" resname="Updated At">
+            <source>Updated At</source>
+            <target>Mis à jour le</target>
+        </trans-unit>
+
+        <trans-unit id="hL4HSoJ" resname="Type">
+            <source>Type</source>
+            <target>Type</target>
+        </trans-unit>
+
+        <trans-unit id="5Zt6C6L" resname="Enabled">
+            <source>Enabled</source>
+            <target>Activé ?</target>
+        </trans-unit>
+
+        <trans-unit id="D7gqaFj" resname="Email Confirmed">
+            <source>Email Confirmed</source>
+            <target>Email Confirmé ?</target>
+        </trans-unit>
+
+        <trans-unit id="hV31LKE" resname="crud.entitylabelinsingular">
+            <source>crud.entitylabelinsingular</source>
+            <target></target>
+        </trans-unit>
+
+        <!-- Groups CRUD -->
+        <trans-unit id="ZTR9RpK" resname="groups">
+            <source>groups</source>
+            <target>Groupes</target>
+        </trans-unit>
+
+        <trans-unit id="aJyhNuE" resname="Group">
+           <source>Group</source>
+            <target>Groupe</target>
+        </trans-unit>
+
+        <trans-unit id="zDKDtiq" resname="Is Public">
+            <source>Is Public</source>
+            <target>Public ?</target>
+        </trans-unit>
+
+        <trans-unit id="GHbBqYC" resname="Name">
+            <source>Name</source>
+            <target>Nom</target>
+        </trans-unit>
+
+        <trans-unit id="GARnq8u" resname="Description">
+            <source>Description</source>
+            <target>Description</target>
+        </trans-unit>
+
+        <trans-unit id="UWBt1Hn" resname="URL">
+            <source>URL</source>
+            <target>URL</target>
+        </trans-unit>
+
+        <trans-unit id="w1vgNaH" resname="Type">
+            <source>Type</source>
+            <target>Type</target>
+        </trans-unit>
+
+        <trans-unit id="2kMrx5w" resname="PUBLIC">
+            <source>PUBLIC</source>
+            <target>public</target>
+        </trans-unit>
+
+        <trans-unit id="mrQUeJW" resname="PRIVATE">
+            <source>PRIVATE</source>
+            <target>privé</target>
+        </trans-unit>
+
+        <trans-unit id="fLcnqMx" resname="Parent">
+            <source>Parent</source>
+            <target>Parent</target>
+        </trans-unit>
+
+        <trans-unit id="xc8WH5Q" resname="Link">
+            <source>Link</source>
+            <target>Lien</target>
+        </trans-unit>
+
+        <!-- Parameters -->
+        <trans-unit id="JF17Jut" resname="parameters.content_title">
+            <source>parameters.content_title</source>
+            <target>Paramètres de l'instance</target>
+        </trans-unit>
+
+        <trans-unit id="eNqNAUs" resname="parameters.senders.h2">
+            <source>parameters.senders.h2</source>
+            <target>Expéditeur·rice des notifications</target>
+        </trans-unit>
+
+        <trans-unit id="YGeMdMU" resname="parameters.contact.h2">
+            <source>parameters.contac.h2t</source>
+            <target>Contact</target>
+        </trans-unit>
+
+        <trans-unit id="nyyhQ5t" resname="parameters.groups.h2">
+            <source>parameters.groups.h2</source>
+            <target>Groupes</target>
+        </trans-unit>
+
+        <trans-unit id="WkesfgU" resname="parameters.products.h2">
+            <source>parameters.products.h2</source>
+            <target>Paramètres des produits</target>
+        </trans-unit>
+
+        <trans-unit id="H7NcBfv" resname="parameters.confidentiality.h2">
+            <source>parameters.confidentiality.h2</source>
+            <target>Confidentialité</target>
+        </trans-unit>
+
+        <trans-unit id="GPjf4pu" resname="parameters_controller.form.success">
+            <source>parameters_controller.form.success</source>
+            <target>Configuration sauvegardée</target>
+        </trans-unit>
+
+        <!-- Export -->
+        <trans-unit id="sbAXHZe" resname="yes">
+            <source>yes</source>
+            <target>oui</target>
+        </trans-unit>
+
+        <trans-unit id="oh1obNm" resname="no">
+            <source>no</source>
+            <target>non</target>
+        </trans-unit>
+
+        <!-- Generic panel -->
+        <trans-unit id="LrD5EKN" resname="panel.tech_information">
+            <source>panel.tech_informations</source>
+            <target>Informations techniques</target>
+        </trans-unit>
+
+        <trans-unit id="1bw8XRj" resname="panel.information">
+            <source>panel.information</source>
+            <target>Informations</target>
+        </trans-unit>
+
+        <!-- Files and images -->
+        <trans-unit id="AHzY4cd" resname="images.help">
+            <source>images.help</source>
+            <target>Formats autorisés : %extensions%. Taille maximum %upload_maxsize_by_file% mégaoctet.</target>
+        </trans-unit>
+
+        <trans-unit id="aTJYtf9" resname="1 Fichiers">
+            <source>1 Fichiers</source>
+            <target>1 fichier</target>
+        </trans-unit>
+
+        <trans-unit id="3hiqfdP" resname="2 Fichiers">
+            <source>2 Fichiers</source>
+            <target>2 fichiers</target>
+        </trans-unit>
+
+        <trans-unit id="Hjg6ccu" resname="action.save">
+            <source>action.save</source>
+            <target>Sauvegarder</target>
+        </trans-unit>
+
+        <trans-unit id="sKYQbRg" resname="date.the">
+            <source>date.the</source>
+            <target>le</target>
+        </trans-unit>
+
+        <trans-unit id="zbR8uDC" resname="date.time_on">
+            <source>date.on</source>
+            <target>à</target>
+        </trans-unit>
+
+        <trans-unit id="e2989Qu" resname="user.by">
+            <source>user.by</source>
+            <target>par</target>
+        </trans-unit>
+
+        <trans-unit id="3he8Pof" resname="action.back">
+            <source>action.back</source>
+            <target>Retour</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

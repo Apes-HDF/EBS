@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="ZAV8KQs" resname="templates.pages.group.show.name">
+            <source>templates.pages.group.show.name</source>
+            <target>Nom</target>
+        </trans-unit>
+
+        <trans-unit id="WcWXwch" resname="templates.pages.group.show.description">
+            <source>templates.pages.group.show.description</source>
+            <target>Description</target>
+        </trans-unit>
+
+        <trans-unit id="vwzn3XJ" resname="templates.pages.group.show.type">
+            <source>templates.pages.group.show.type</source>
+            <target>Visibilité</target>
+        </trans-unit>
+
+        <trans-unit id="kAno4Fu" resname="templates.pages.group.show.url">
+            <source>templates.pages.group.show.type</source>
+            <target>URL</target>
+        </trans-unit>
+
+        <trans-unit id="jZoZN9i" resname="templates.pages.group.show.group_join.form.submit">
+            <source>templates.pages.group.show.group_join.form.submit</source>
+            <target>Rejoindre ce groupe</target>
+        </trans-unit>
+
+        <trans-unit id="Qwnucbj" resname="templates.pages.group.show.payment_prepare.form.submit">
+            <source>templates.pages.group.show.payment_prepare.form.submit</source>
+            <target>Accéder au paiement</target>
+        </trans-unit>
+
+        <trans-unit id="Jznvprx" resname="templates.pages.group.show.form.accept_invitation.submit">
+            <source>templates.pages.group.show.form.accept_invitation.submit</source>
+            <target>Accepter l'invitation et rejoindre le groupe</target>
+        </trans-unit>
+
+        <trans-unit id="asKPpkn" resname="templates.pages.group.show.login_text">
+            <source>templates.pages.group.show.form.login_text</source>
+            <target>Veuillez vous logger pour rejoindre ce groupe</target>
+        </trans-unit>
+
+        <trans-unit id="ikLUMaj" resname="templates.pages.group.show.already_member">
+            <source>templates.pages.group.show.form.already_member</source>
+            <target>Vous êtes membre de ce groupe.</target>
+        </trans-unit>
+
+        <trans-unit id="UmUGtW6" resname="templates.pages.group.show.form.quit_group.submit">
+            <source>templates.pages.group.show.form.quit_group.submit</source>
+            <target>Quitter le groupe</target>
+        </trans-unit>
+
+        <trans-unit id="CsvD34p" resname="templates.pages.group.show.form.quit_group.submit-modal">
+            <source>templates.pages.group.show.form.quit_group.submit-modal</source>
+            <target>Quitter le groupe</target>
+        </trans-unit>
+
+        <trans-unit id="vb5JYzj" resname="templates.pages.group.show.form.quit_group.submit-modal-message">
+            <source>templates.pages.group.show.form.quit_group.submit-modal-message</source>
+            <target>Êtes-vous sûr·e de vouloir quitter ce groupe ?</target>
+        </trans-unit>
+
+        <trans-unit id="smBJPFC" resname="templates.pages.group.show.form.quit_group.submit-modal-message-item">
+            <source>templates.pages.group.show.form.quit_group.submit-modal-message-item</source>
+            <target>Vous avez des produits dans ce groupe, qu'en faisons nous:</target>
+        </trans-unit>
+
+        <trans-unit id="jAsKhuK" resname="templates.pages.group.show.form.quit_group.submit-modal-item-break">
+            <source>templates.pages.group.show.form.quit_group.submit-modal-item-break</source>
+            <target>Mettre les articles en pause</target>
+        </trans-unit>
+
+        <trans-unit id="zkew7TM" resname="templates.pages.group.show.form.quit_group.submit-modal-item-public">
+            <source>templates.pages.group.show.form.quit_group.submit-modal-item-public</source>
+            <target>Mettre les articles en public</target>
+        </trans-unit>
+
+        <trans-unit id="XDrRuh9" resname="templates.pages.group.show.type.yearly">
+            <source>templates.pages.group.show.type.yearly</source>
+            <target>Adhésion annuel</target>
+        </trans-unit>
+
+        <trans-unit id="HmhwWPE" resname="templates.pages.group.show.type.monthly">
+            <source>templates.pages.group.show.type.monthly</source>
+            <target>Adhésion mensuel</target>
+        </trans-unit>
+
+        <trans-unit id="Vtr2GJU" resname="templates.pages.group.show.type.oneshot">
+            <source>templates.pages.group.show.type.oneshot</source>
+            <target>Unique</target>
+        </trans-unit>
+
+        <trans-unit id="NgpwqkX" resname="templates.pages.group.show.show_members">
+            <source>templates.pages.group.show.show_members</source>
+            <target>Voir les membres</target>
+        </trans-unit>
+
+        <trans-unit id="v4xDXHQ" resname="templates.pages.group.show.choose_offer">
+            <source>templates.pages.group.show.choose_offer</source>
+            <target>Rejoindre le groupe</target>
+        </trans-unit>
+
+        <trans-unit id="ok3oX64" resname="templates.pages.group.show.admin">
+            <source>templates.pages.group.show.admin</source>
+            <target>Administrer le groupe</target>
+        </trans-unit>
+
+        <trans-unit id="DMvoLvx" resname="templates.pages.group.show.close">
+            <source>templates.pages.group.show.close</source>
+            <target>Annuler</target>
+        </trans-unit>
+
+        <trans-unit id="whPvLgS" resname="templates.pages.group.show.no_offer">
+            <source>templates.pages.group.show.no_offer</source>
+            <target>Aucune offre pour ce groupe.</target>
+        </trans-unit>
+
+        <trans-unit id="1w4Jeyy" resname="templates.pages.group.show.membership">
+            <source>templates.pages.group.show.membership</source>
+            <target>Adhésion: </target>
+        </trans-unit>
+
+        <trans-unit id="EeFpAB4" resname="templates.pages.group.show.membership.start">
+            <source>templates.pages.group.show.membership.start</source>
+            <target>À partir de </target>
+        </trans-unit>
+
+        <trans-unit id="umB4Qfp" resname="templates.pages.group.show.membership_valid_until">
+            <source>templates.pages.group.show.membership_valid_until</source>
+            <target>Adhésion valide jusqu'au %endAt%.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,55 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Form\Type\Security;
+
+use App\Doctrine\Manager\UserManager;
+use App\Entity\User;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+/**
+ * Account creation step1 (email only).
+ */
+final class AccountCreateStep1FormType extends AbstractType
+{
+    public function __construct(
+        private readonly UserManager $userManager,
+    ) {
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('email', EmailType::class, [
+                'label' => 'Adresse e-mail',
+                'label_attr' => ['class' => 'fs-6 text-black'],
+                'attr' => [
+                    'class' => 'form-control-sm',
+                    'placeholder' => 'monemail@domain.com',
+                ],
+                'empty_data' => '', // allow to have a non nullable type for the email
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'account_create_action.title',
+                'attr' => ['class' => 'btn btn-primary btn-sm'],
+            ])
+        ;
+
+        // normalize the email for the Unique constraint to work properly
+        $this->userManager->addEmailNormalizeSubmitEvent($builder);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => User::class,
+            'translation_domain' => 'security',
+            'validation_groups' => $this::class,
+        ]);
+    }
+}

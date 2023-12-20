@@ -1,0 +1,83 @@
+App\Entity\UserGroup:
+    # Group 7 ——————————————————————————————————————————————————————————————
+    loic_at_group_7:
+        id: <uuid('1edb8e0d-bdeb-6fac-9be9-811296e7064d')>
+        user: '@admin_loic'
+        group: '@group_7'
+        membership: !php/enum App\Enum\Group\UserMembership::MEMBER
+        
+    kevin_at_group_7:
+        user: '@admin_kevin'
+        group: '@group_7'
+        membership: !php/enum App\Enum\Group\UserMembership::ADMIN
+        
+    sarah_at_group_7:
+        user: '@admin_sarah'
+        group: '@group_7'
+        membership: !php/enum App\Enum\Group\UserMembership::MEMBER
+        startAt: <date_create_immutable('-3 weeks')>
+        endAt: <date_create_immutable('+7 days')>
+        payedAt: <date_create_immutable('-3 weeks')>   
+
+    user11_invitation_at_group_7:
+        user: '@user_11'
+        group: '@group_7'
+        membership: !php/enum App\Enum\Group\UserMembership::INVITATION
+        
+    # Group 1 ———————————————————————————————————————————————————————————————————
+    camille_at_group_1:
+        user: '@admin_camille'
+        group: '@group_1'
+        membership: !php/enum App\Enum\Group\UserMembership::MEMBER
+        payedAt: <date_create_immutable('-1 year + 1 day')>
+        startAt: <date_create_immutable('-1 year + 1 day')>
+        endAt: <date_create_immutable('+1 day midnight')>
+
+    user_16_at_group_1:
+        user: '@user_16'
+        group: '@group_1'
+        membership: !php/enum App\Enum\Group\UserMembership::ADMIN
+    
+    # membership expired
+    sarah_at_group_1:
+        user: '@admin_sarah'
+        group: '@group_1'
+        membership: !php/enum App\Enum\Group\UserMembership::MEMBER
+        mainAdminAccount: true
+        payedAt: <date_create_immutable('-1 year')>
+        startAt: <date_create_immutable('-1 year + 1 day')>
+        endAt: <date_create_immutable('yesterday')>
+    
+    place_apes_at_group_1:
+        user: '@place_apes'
+        group: '@group_1'
+        membership: !php/enum App\Enum\Group\UserMembership::ADMIN
+    
+    user14_invitation_at_group_1:
+        user: '@user_14'
+        group: '@group_1'
+        membership: !php/enum App\Enum\Group\UserMembership::INVITATION
+        
+    user_apes_admin_at_group_1:
+        user: '@user_apes'
+        group: '@group_1'
+        membership: !php/enum App\Enum\Group\UserMembership::ADMIN
+        mainAdminAccount: true
+        
+    user11_invitation_at_group_private:
+        user: '@user_11'
+        group: '@group_private'
+        membership: !php/enum App\Enum\Group\UserMembership::INVITATION
+   
+    # Private group ————————————————————————————————————————————————————————————
+    sarah_at_group_private:
+        user: '@admin_sarah'
+        group: '@group_private'
+        membership: !php/enum App\Enum\Group\UserMembership::MEMBER    
+        
+    # Group 2 ——————————————————————————————————————————————————————————————
+    sarah_invitation_at_group_2:
+        user: '@admin_sarah'
+        group: '@group_2'
+        membership: !php/enum App\Enum\Group\UserMembership::INVITATION    
+        

@@ -1,0 +1,54 @@
+<article class="card w-100">
+    <a href="{{ path('app_product_show', {'slug': product.slug, 'id': product.id}) }}">
+        <div class="card-img position-relative img-container">
+            {% if product.images is not empty %}
+                <img alt="{{ product.name }}" src="{{ product|public_url_image(product.firstImage) }}"
+                     class="rounded-top h-100 mw-100 img">
+            {% elseif product.category.image is not empty %}
+                <img alt="{{ product.category.name }}" src="{{ product.category|public_url }}" class="rounded-top img-fluid h-100">
+            {% else %}
+                <img src="{{ asset('svg/product.svg') }}" alt="{{ product.category.name }}" class="rounded-top h-100 img-default">
+            {% endif %}
+            <a href="{{ path('app_user_profile', {userId: product.owner.id}) }}">
+                <div
+                    class="badge d-flex align-items-center text-bg-light mb-2 position-absolute bottom-0 start-50 translate-middle-x">
+                    <div class="avatar me-2">
+                        {% if product.owner.avatar is not null %}
+                            <div class="img-avatar" style="background-image: url({{ product.owner|public_url }});
+                                width: 24px;
+                                height: 24px">
+                            </div>
+                        {% else %}
+                            <i class="bi bi-person-circle avatar-icon"></i>
+                        {% endif %}
+                    </div>
+                    <span class="overlay-span fs-7">
+                     {{ product.owner.displayName }}
+                    </span>
+                </div>
+            </a>
+        </div>
+    </a>
+    <div class="card-body">
+        <h5 class="card-title">
+            <a href="{{ path('app_product_show', {'slug': product.slug, 'id': product.id}) }}">{{ product.name }}</a>
+        </h5>
+        <p class="card-text">
+            {% if product.category.parent is not null %}
+                {{ product.category.parent }} / {{ product.category }}
+            {% else %}
+                {{ product.category }}
+            {% endif %}
+        </p>
+
+        {% if product.owner.address is not null %}
+            <span
+                class="badge rounded-pill text-bg-blue-custom white-space-normal">{{ product.owner.address.subAndLocality }}</span>
+
+            {% if product.geoDistance is not null %}
+                <span
+                    class="badge rounded-pill text-bg-secondary white-space-normal">{{ product.geoDistance|round(1) }} km</span>
+            {% endif %}
+        {% endif %}
+    </div>
+</article>

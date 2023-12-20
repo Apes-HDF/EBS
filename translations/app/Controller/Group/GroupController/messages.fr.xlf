@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="1xAuJGm" resname="app.controller.group.group_controller.mail_subject">
+            <source>app.controller.group.group_controller.mail_subject</source>
+            <target>Demande de création de groupe</target>
+        </trans-unit>
+
+        <trans-unit id="JhiJCQt" resname="app.controller.group.group_controller.mail_success">
+            <source>app.controller.group.group_controller.mail_success</source>
+            <target>Votre demande de création de groupe a bien été envoyée</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

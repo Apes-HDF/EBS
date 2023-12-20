@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="skqmpA9" resname="app.mailer.email.admin.promote_to_admin.promote_to_admin_email.subject">
+            <source>app.mailer.email.admin.promote_to_admin.promote_to_admin_email.subject</source>
+            <target>%brand%: Changement de rôle</target>
+        </trans-unit>
+
+        <trans-unit id="q0pPN5w" resname="templates.email.admin.promote_to_admin.promote_to_admin.p1">
+            <source>templates.email.admin.promote_to_admin.promote_to_admin.p1</source>
+            <target>Bonjour !</target>
+        </trans-unit>
+
+        <trans-unit id="w29xS4O" resname="templates.email.admin.promote_to_admin.promote_to_admin.p2">
+            <source>templates.email.admin.promote_to_admin.promote_to_admin.p2</source>
+            <target>Votre êtes désormais administrateur·rice.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

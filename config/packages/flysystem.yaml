@@ -1,0 +1,100 @@
+parameters:
+    # physical storage path
+    upload_dir: '%kernel.project_dir%/public/storage/uploads'
+    category_upload_dir: '%upload_dir%/category'
+    user_upload_dir: '%upload_dir%/user'
+    product_upload_dir: '%upload_dir%/product'
+
+    # relative URL path
+    base_path: '/storage/uploads'
+    category_base_path: '%base_path%/category'
+    user_base_path: '%base_path%/user'
+    product_base_path: '%base_path%/product'
+    
+    # S3 Bucket config
+    storage_bucket: '%env(resolve:STORAGE_BUCKET)%'
+    
+# Read the documentation at https://github.com/thephpleague/flysystem-bundle/blob/master/docs/1-getting-started.md
+flysystem:
+    storages:
+        category.storage:
+            adapter: 'local'
+            options:
+                directory: '%category_upload_dir%'
+            public_url: '%category_base_path%'
+            
+         # local 
+        user.storage:
+            adapter: 'local'
+            options:
+                directory: '%user_upload_dir%'        
+            public_url: '%user_base_path%'
+           
+        # Test S3 config locally with the min.io service (@see the docker compose files) 
+#        user.storage:
+#            adapter: 'aws'
+#            visibility: public
+#            options:
+#                bucket: '%storage_bucket%'
+#                prefix: 'user'
+#                client: 'Aws\S3\S3Client'
+
+        product.storage:
+            adapter: 'local'
+            options:
+                directory: '%product_upload_dir%'        
+            public_url: '%product_base_path%'                
+        default.storage:
+            adapter: 'local'
+            options:
+                directory: '%upload_dir%'
+            public_url: '%base_path%'
+
+# memory storage in the test env so we don't have to manipulate actual files
+when@test:
+    flysystem:
+        storages:
+            category.storage:
+                adapter: 'memory'
+                public_url: '%category_base_path%'
+            user.storage:
+                adapter: 'memory'
+                public_url: '%user_base_path%'
+            product.storage:
+                adapter: 'memory'
+                public_url: '%product_base_path%'
+            default.storage:
+                adapter: 'memory'
+                public_url: '%base_path%'
+
+# S3 compatible bucket in the production environment
+when@prod:
+    flysystem:
+        storages:
+            category.storage:
+                adapter: 'aws'
+                visibility: public
+                options:
+                    bucket: '%storage_bucket%'
+                    prefix: 'category'
+                    client: 'Aws\S3\S3Client'
+            user.storage:
+                adapter: 'aws'
+                visibility: public
+                options:
+                    bucket: '%storage_bucket%'
+                    prefix: 'user'
+                    client: 'Aws\S3\S3Client'
+            product.storage:
+                adapter: 'aws'
+                visibility: public
+                options:
+                    bucket: '%storage_bucket%'
+                    prefix: 'product'
+                    client: 'Aws\S3\S3Client'
+            default.storage:
+                adapter: 'aws'
+                visibility: public
+                options:
+                    bucket: '%storage_bucket%'
+                    client: 'Aws\S3\S3Client'

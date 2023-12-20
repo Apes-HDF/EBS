@@ -1,0 +1,19 @@
+{% set first_offer = group.activeOffers|first %}
+<div class="col-md-6 col-lg-4 col-xl-4 mx-lg-auto">
+    <p class="text-gray fw-bolder fs-6 text-lg-center">
+        {{ (i18n_prefix ~ '.membership')|trans }}
+        <span class="text-gray fs-6 fw-normal">
+                            {{ (i18n_prefix ~ '.membership.start')|trans }}
+            {{ first_offer.actualPrice|format_currency(first_offer.currency) }}
+                        </span>
+    </p>
+</div>
+<div class="d-grid col col-lg-4 px-1 mx-auto">
+    <button type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#offersModal">
+        <i class="bi bi-currency-euro"></i>
+        {{ (i18n_prefix ~ '.choose_offer')|trans }}
+    </button>
+</div>

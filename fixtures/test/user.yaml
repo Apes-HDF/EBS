@@ -1,0 +1,173 @@
+App\Entity\User:
+    base_user_template (template):
+        enabled: true
+        mainAdminAccount: false
+        password: '\$2y\$13\$LOIpgrMmOysCysIwkILTl.qD8psPxn9U9/V03p3odlqztLb7Aewze' # 35DVDj8ir3Buc7
+        emailConfirmed: true
+        phoneNumber: '+33600000000'
+        smsNotifications: true
+
+    admin_template (template, extends base_user_template):
+        type: !php/enum App\Enum\User\UserType::ADMIN
+        roles: [!php/const App\Entity\User::ROLE_ADMIN]
+
+    user_template (template, extends base_user_template):
+        type: !php/enum App\Enum\User\UserType::USER
+
+    place_template (template, extends base_user_template):
+        type: !php/enum App\Enum\User\UserType::PLACE
+
+    # —— Admins ————————————————————————————————————————————————————————————————
+    admin_camille (extends admin_template):
+        id: <uuid('1ed674d3-886f-6660-bcf3-15f868662c0c')>
+        email: 'camille@example.com'
+        firstname: 'Camille'
+        lastname: 'Croteau'
+        mainAdminAccount: true
+        address: '@address_camille'
+
+    admin_loic (extends admin_template):
+        id: <uuid('1ed674d3-886f-6ad4-bc25-15f868662c0c')>
+        email: 'loic@example.com'
+        firstname: 'Loïc'
+        lastname: 'Duclos'
+        devAccount: true
+        address: '@address_loic'
+
+    admin_kevin (extends admin_template):
+        id: <uuid('1ed69804-eeb9-6c32-990b-632c3a6846ba')>
+        email: 'kevin@example.com'
+        firstname: 'Kevin'
+        lastname: 'Pirouet'
+
+    admin_apes (extends admin_template):
+        id: <uuid('1ed69804-eeb9-6e6c-bce0-632c3a6846ba')>
+        address: '@address_loic'
+        email: 'plateformcoop@apes-hdf.org'
+        firstname: 'APES'
+        lastname: 'APES'
+
+    admin_sarah (extends admin_template):
+        id: <uuid('1ed7a201-b796-69d2-a508-59c49e0f28ee')>
+        email: 'sarah@example.com'
+        firstname: 'Sarah'
+        lastname: 'Charest'
+        devAccount: true
+        address: '@address_region_hauts_de_france'
+        category: '@category_object_16'
+
+    # —— Places ————————————————————————————————————————————————————————————————
+    place_{6} (extends place_template):
+        email: 'lieu<current()>\@example.com'
+        name: 'Lieu n°<current()>'
+        schedule: '9h30 - 17h30'
+
+    place_{7} (extends place_template):
+        id: <uuid('1ed69ae4-305f-68a8-b35a-f5221b39ed0c')>
+        email: 'lieu<current()>\@example.com'
+        name: 'Lieu n°<current()>'
+        schedule: '9h - 17h'
+        
+    place_apes (extends place_template):
+        id: <uuid('1edd876a-bb8e-66a8-b352-692256fc3f7e')>
+        email: 'compte+lieu@apes-hdf.org'
+        name: 'APES compte lieu'
+        address: '@address_region_hauts_de_france'
+        schedule: '9h30 - 17h30'
+        phoneNumber: null
+        
+    # —— Users —————————————————————————————————————————————————————————————————
+    # user with vacation mode
+    user_{9} (extends user_template):
+        id: <uuid('1ed8d15a-fa39-645e-a365-f15f4a44bdf2')>
+        email: 'user<current()>\@example.com'
+        firstname: <firstname()>
+        lastname: <lastname()>
+        vacationMode: true
+
+    # deactivated user
+    user_{10} (extends user_template):
+        id: <uuid('1ed6a419-ccc2-6b80-9944-2772760241c7')>
+        email: 'user<current()>\@example.com'
+        firstname: <firstname()>
+        lastname: <lastname()>
+        enabled: false
+
+    # confirmed user with a pending invitation
+    user_{11} (extends user_template):
+        id: <uuid('1ed6ce0e-8685-6cf2-93b7-af7ed3e58b6f')>
+        email: 'user<current()>\@example.com'
+        firstname: <firstname()>
+        lastname: <lastname()>
+        emailConfirmed: true
+
+    # user ready to access the account creation step 2
+    user_{12} (extends user_template):
+        id: <uuid('1ed85f39-2909-643a-93ca-8584a5513c3c')>
+        password: null
+        emailConfirmed: true
+        email: 'user<current()>\@example.com'
+        confirmationToken: '3PpTWgYdgNZcuRTbqZTS5HRihEGGhw5rCszuo7XYAPJ9dEwttR'
+        confirmationExpiresAt: <date_create_immutable('+12 hours')>
+        firstname: <firstname()>
+        lastname: <lastname()>
+
+    # user with an expired confirmation token
+    # user with an unconfirmed email
+    user_{13} (extends user_template):
+        id: <uuid('1ed86996-30e8-6e50-81dd-a38f421de17d')>
+        password: null
+        emailConfirmed: false
+        email: 'user<current()>\@example.com'
+        confirmationToken: 'DrCaEPr3pKM9e8PkfUZiZZsAe5nwcgBDpQjKbuaJ3ukzL5qLv9'
+        confirmationExpiresAt: <date_create_immutable('-12 hours')>
+        firstname: <firstname()>
+        lastname: <lastname()>
+
+    # user with a valid lost password token and a confirmation token for an invitation
+    user_{14} (extends user_template):
+        id: <uuid('1ed87889-f074-6e5c-a576-59b704e6187a')>
+        password: null
+        emailConfirmed: false
+        email: 'user<current()>\@example.com'
+        lostPasswordToken: 'cuYxfS5eCWX2FYtJwWdhHZrGY6W1KT7UBV6CeARK2E2s4V3SKB'
+        lostPasswordExpiresAt: <date_create_immutable('+1 hour')>
+        confirmationToken: 'cuYxfS5eCWX2FYtJwWdhHZrGY6W1KT7UBV6CeARK2E2s4V3SKB'
+        confirmationExpiresAt: <date_create_immutable('+1 hours')>
+        firstname: <firstname()>
+        lastname: <lastname()>
+
+    # user with an expired lost password token
+    user_{15} (extends user_template):
+        id: <uuid('1ed878cd-bb60-6100-89cf-859d2b8c0b9d')>
+        password: null
+        emailConfirmed: false
+        email: 'user<current()>\@example.com'
+        lostPasswordToken: 'A4QJZqhf3wFnoJCf65xLwce2f7aMWkLEoZHshvHCDWC61vQSAv'
+        lostPasswordExpiresAt: <date_create_immutable('-1 hour')>
+        firstname: <firstname()>
+        lastname: <lastname()>
+        
+    user_{16} (extends user_template):
+        id: <uuid('1ed8d15a-fa38-6f54-9188-f15f4a44bdf2')>
+        email: 'user<current()>\@example.com'
+        firstname: <firstname()>
+        lastname: <lastname()>
+        address: null
+        avatar: 'ba827ea0-b140-4cbf-9786-77ac980c648c.jpg'    
+    
+    # user with an address and a preferred category set
+    user_{17} (extends user_template):
+        id: <uuid('1ed69ae4-305f-6cfe-aee4-f5221b39ed0c')>
+        email: 'user<current()>\@example.com'
+        firstname: <firstname()>
+        lastname: <lastname()>
+        category: '@category_object_1'
+        description: 'description example'
+        address: '@address_user_17'    
+
+    # Demo accounts
+    user_apes (extends user_template):
+        email: 'john.doe@example.com'
+        firstname: 'John'
+        lastname: 'Doe'

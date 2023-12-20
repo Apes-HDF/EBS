@@ -1,0 +1,180 @@
+{
+    "name": "platformcoop/ebs",
+    "type": "project",
+    "license": "MIT",
+    "description": "APES : Platforme d'échange de services et de biens",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "repositories": {
+        "coopTilleuls/payum-mollie": {
+            "type": "vcs",
+            "url": "git@github.com:coopTilleuls/payum-mollie.git"
+        }
+    },
+    "require": {
+        "php": ">=8.1.11",
+        "ext-apcu": "*",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "ext-intl": "*",
+        "ext-xsl": "*",
+        "ext-zip": "*",
+        "api-platform/core": "^3.1",
+        "craue/formflow-bundle": "^3.6",
+        "doctrine/annotations": "^1.0",
+        "doctrine/doctrine-bundle": "^2.7",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.13",
+        "easycorp/easyadmin-bundle": "v4.5.1",
+        "friendsofsymfony/ckeditor-bundle": "^2.4",
+        "geocoder-php/nominatim-provider": "^5.6",
+        "handcraftedinthealps/goodby-csv": "^1.4",
+        "hautelook/alice-bundle": "^2.11",
+        "knplabs/knp-paginator-bundle": "^6.1",
+        "league/commonmark": "^2.3",
+        "league/flysystem-aws-s3-v3": "^3.15",
+        "league/flysystem-bundle": "^3.0",
+        "league/flysystem-google-cloud-storage": "^3.15",
+        "league/flysystem-memory": "^3.10",
+        "meilisearch/meilisearch-php": "^1.0",
+        "moneyphp/money": "^3.3",
+        "nelmio/cors-bundle": "^2.2",
+        "nesbot/carbon": "^2.66",
+        "nyholm/psr7": "^1.0",
+        "odolbeau/phone-number-bundle": "^3.9",
+        "payum/offline": "^1.7",
+        "payum/payum-bundle": "^2.5",
+        "phpdocumentor/reflection-docblock": "^5.3",
+        "phpstan/phpdoc-parser": "^1.11",
+        "sensio/framework-extra-bundle": "^6.2",
+        "snc/redis-bundle": "^4.3",
+        "stof/doctrine-extensions-bundle": "^1.7",
+        "symfony/asset": "6.2.*",
+        "symfony/cache": "6.2.*",
+        "symfony/clock": "6.2.*",
+        "symfony/console": "6.2.*",
+        "symfony/doctrine-messenger": "6.2.*",
+        "symfony/dotenv": "6.2.*",
+        "symfony/expression-language": "6.2.*",
+        "symfony/fake-sms-notifier": "6.2.*",
+        "symfony/flex": "^2",
+        "symfony/form": "6.2.*",
+        "symfony/framework-bundle": "6.2.*",
+        "symfony/google-mailer": "6.2.*",
+        "symfony/html-sanitizer": "6.2.*",
+        "symfony/http-client": "6.2.*",
+        "symfony/mailer": "6.2.*",
+        "symfony/mercure-bundle": "^0.3.5",
+        "symfony/messenger": "6.2.*",
+        "symfony/mime": "6.2.*",
+        "symfony/monolog-bundle": "^3.8",
+        "symfony/notifier": "6.2.*",
+        "symfony/ovh-cloud-notifier": "6.2.*",
+        "symfony/property-access": "6.2.*",
+        "symfony/property-info": "6.2.*",
+        "symfony/proxy-manager-bridge": "6.2.*",
+        "symfony/rate-limiter": "6.2.*",
+        "symfony/requirements-checker": "^2.0",
+        "symfony/runtime": "6.2.*",
+        "symfony/security-bundle": "6.2.*",
+        "symfony/serializer": "6.2.*",
+        "symfony/translation-contracts": "^3.2",
+        "symfony/twig-bridge": "6.2.*",
+        "symfony/twig-bundle": "6.2.*",
+        "symfony/twilio-notifier": "6.2.*",
+        "symfony/uid": "6.2.*",
+        "symfony/ux-autocomplete": "^2.7",
+        "symfony/validator": "6.2.*",
+        "symfony/webpack-encore-bundle": "^1.16",
+        "symfony/workflow": "6.2.*",
+        "symfony/yaml": "6.2.*",
+        "twig/cssinliner-extra": "^3.4",
+        "twig/extra-bundle": "^3.4",
+        "twig/inky-extra": "^3.4",
+        "twig/intl-extra": "^3.5",
+        "twig/markdown-extra": "^3.4",
+        "twig/twig": "^2.12|^3.0",
+        "webbaard/payum-mollie": "^1.0",
+        "webmozart/assert": "^1.11",
+        "willdurand/geocoder-bundle": "^5.18"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "symfony/flex": true,
+            "symfony/runtime": true,
+            "phpstan/extension-installer": true,
+            "php-http/discovery": true
+        },
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "ckeditor:install --tag=4.22.1": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "requirements-checker": "script"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "6.2.*",
+            "docker": true
+        }
+    },
+    "require-dev": {
+        "ekino/phpstan-banned-code": "^1.0",
+        "friendsofphp/php-cs-fixer": "^3.12",
+        "friendsoftwig/twigcs": "^6.1",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-doctrine": "^1.3",
+        "phpstan/phpstan-strict-rules": "^1.4",
+        "phpstan/phpstan-symfony": "^1.2",
+        "phpstan/phpstan-webmozart-assert": "^1.2",
+        "phpunit/phpunit": "^9.5",
+        "rector/rector": "^0.14.5",
+        "staabm/annotate-pull-request-from-checkstyle": "^1.8",
+        "symfony/browser-kit": "6.2.*",
+        "symfony/css-selector": "6.2.*",
+        "symfony/debug-bundle": "6.2.*",
+        "symfony/maker-bundle": "^1.47",
+        "symfony/panther": "^2.0",
+        "symfony/phpunit-bridge": "^6.1",
+        "symfony/web-profiler-bundle": "6.2.*",
+        "zenstruck/messenger-test": "^1.5"
+    }
+}

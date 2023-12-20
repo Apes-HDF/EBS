@@ -1,0 +1,69 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% trans_default_domain 'admin' %}
+
+{% set product = ea.entity.instance %}
+
+{% block page_actions %}
+    {% include 'easy_admin/button/back.html.twig' %}
+{% endblock %}
+
+{% block content_title %}{{ 'product.availability'|trans ~ ' - ' ~ product.name }}{% endblock %}
+
+{% block main %}
+    <div class="d-flex mt-4">
+        <div class="border p-2 px-3 col-lg-6 mx-lg-5 pb-5">
+            <h2 class="h3 fw-bold mt-3">{{ product.type.value|trans }}</h2>
+            <hr/>
+            <div class="d-flex justify-content-lg-between align-content-center">
+                <div class="row lh-lg">
+                    <span class="fw-bold">{{ product.name }}</span>
+                    <span>{{ product.category }}</span>
+                    <span class="rounded-5 bg-success col-2 text-white mx-2 mt-2" style="height:25px;">{{ product.status.name|trans }}</span>
+                </div>
+                {% if product.images is not null %}
+                    {% for image in product.images %}
+                        <img src="{{ product|public_url_image(image) }}" height="100" />
+                    {% endfor %}
+                {% elseif product.category.image %}
+                    <img src="{{ product.category|public_url }}" height="100" />
+                {% else %}
+                    <i class="fa-solid fa-desktop fa-5x"></i>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="border p-2 px-3 col-lg-6 mx-lg-5 pb-5">
+            <h2 class="h3 fw-bold mt-3">{{ 'owner'|trans }}</h2>
+            <hr/>
+            <div class="d-flex justify-content-lg-between">
+                <div class="row">
+                    <span>{{ product.owner.firstname }} {{ product.owner.lastname }}</span>
+                    <span>{{ product.owner.email }}</span>
+                </div>
+                {% if product.owner.avatar is not null %}
+                    <img src="{{ product.owner|public_url }}" height="100" />
+                {% else %}
+                    <i class="fa-solid fa-user fa-5x"></i>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% set unavailabilities = product.unavailabilities %}
+    {% if unavailabilities is not empty %}
+        <div class="d-flex mt-4">
+            <div class="border p-2 px-3 col-lg-6 mx-lg-5 pb-5">
+                <h2 class="h3 fw-bold mt-3">{{ 'product.unavailabilities'|trans }} <i class="fa-solid fa-calendar-alt"></i></h2>
+                <hr/>
+                <div class="d-flex justify-content-lg-between">
+                    <div class="row">
+                        {% for date in unavailabilities %}
+                            <span class="rounded-5 bg-danger col-2 text-white mx-2 mt-2" style="height:20px;">{{ date(date)|date('d/m/Y') }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

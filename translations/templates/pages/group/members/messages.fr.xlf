@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="Pb5h9xv" resname="templates.pages.group.members.title">
+            <source>templates.pages.group.members.title</source>
+            <target>Annuaire du groupe</target>
+        </trans-unit>
+
+        <trans-unit id="HA79edf" resname="templates.pages.group.members.pending_invitation">
+            <source>templates.pages.group.members.pending_invitation</source>
+            <target>Invitation en attente</target>
+        </trans-unit>
+
+        <trans-unit id="R8vy339" resname="templates.pages.group.members.no_result">
+            <source>templates.pages.group.members.no_result</source>
+            <target>Aucun membre pour le moment.</target>
+        </trans-unit>
+
+        <trans-unit id="7jd8g16" resname="templates.pages.group.members.manage_button">
+            <source>templates.pages.group.members.manage_button</source>
+            <target>Administrer le groupe</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

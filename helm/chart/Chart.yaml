@@ -1,0 +1,48 @@
+apiVersion: v2
+name: plateformcoop-ebs
+description: A Helm chart for the PlateformCoop-EBS project
+# home: https://plateformcoop-ebs.dev
+# icon: https://plateformcoop-ebs.dev/logo-250x250.png
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.0.1
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+appVersion: 0.0.1
+
+dependencies:
+  # bitnami chart are using the workaround from https://github.com/bitnami/charts/issues/10539
+  - name: postgresql
+    version: ~11.9.13
+    repository: https://charts.bitnami.com/bitnami/
+    condition: postgresql.enabled
+  - name: external-dns
+    version: ~5.4.15
+    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+    condition: external-dns.enabled
+  - name: redis
+    version: ~17.4.0
+    repository: https://charts.bitnami.com/bitnami/
+    condition: redis.enabled
+  - name: meilisearch
+    version: ~0.1.46
+    repository: https://meilisearch.github.io/meilisearch-kubernetes
+    condition: meilisearch.enabled
+  - name: maildev
+    version: ~0.3.1
+    repository: https://pando85.github.io/helm-maildev/
+    condition: maildev.enabled

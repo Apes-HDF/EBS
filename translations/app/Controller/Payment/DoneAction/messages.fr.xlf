@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="HVbbDui" resname="app.controller.payment.done_action.flash.success">
+            <source>app.controller.payment.done_action.flash.success</source>
+            <target>Paiement réussi. Vous êtes désormais membre du groupe %group%.</target>
+        </trans-unit>
+
+        <trans-unit id="ipYvZb8" resname="app.controller.payment.done_action.status.new">
+            <source>app.controller.payment.done_action.status.new</source>
+            <target>Le paiement est en cours mais n'a pas encore abouti.</target>
+        </trans-unit>
+
+        <trans-unit id="K3ZL3UV" resname="app.controller.payment.done_action.status.failed">
+            <source>app.controller.payment.done_action.status.failed</source>
+            <target>Le paiement a échoué, vous n'avez pas été prélevé·e.</target>
+        </trans-unit>
+
+        <trans-unit id="AVy18N2" resname="app.controller.payment.done_action.status.canceled">
+            <source>app.controller.payment.done_action.status.canceled</source>
+            <target>Le paiement a été annulé, vous n'avez pas été prélevé·e.</target>
+        </trans-unit>
+
+        <trans-unit id="D8DSDe6" resname="app.controller.payment.done_action.status.expired">
+            <source>app.controller.payment.done_action.status.expired</source>
+            <target>Le paiement a expiré, veuillez réessayer.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

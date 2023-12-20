@@ -1,0 +1,11 @@
+# additional services related to the uuid component
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # Activate these commands        
+    Symfony\Component\Uid\Command\GenerateUlidCommand: ~
+    Symfony\Component\Uid\Command\GenerateUuidCommand: ~
+    Symfony\Component\Uid\Command\InspectUlidCommand: ~
+    Symfony\Component\Uid\Command\InspectUuidCommand: ~

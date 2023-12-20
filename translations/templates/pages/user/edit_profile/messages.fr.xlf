@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="5GqHK9U" resname="templates.pages.user.account.edit_profile.title">
+            <source>templates.pages.user.account.edit_profile.title</source>
+            <target>Mon compte</target>
+        </trans-unit>
+
+        <trans-unit id="eNDrUhj" resname="templates.pages.user.account.edit_profile.firstname">
+            <source>templates.pages.user.account.edit_profile.firstname</source>
+            <target>Prénom</target>
+        </trans-unit>
+
+        <trans-unit id="CuEdYHc" resname="templates.pages.user.account.edit_profile.lastname">
+            <source>templates.pages.user.account.edit_profile.lastname</source>
+            <target>Nom</target>
+        </trans-unit>
+
+        <trans-unit id="ftbET36" resname="templates.pages.user.account.edit_profile.image">
+            <source>templates.pages.user.account.edit_profile.image</source>
+            <target>Image</target>
+        </trans-unit>
+
+        <trans-unit id="UKs3ey8" resname="templates.pages.user.account.edit_profile.description">
+            <source>templates.pages.user.account.edit_profile.description</source>
+            <target>Description</target>
+        </trans-unit>
+
+        <trans-unit id="Rio1Wqx" resname="templates.pages.user.account.edit_profile.category">
+            <source>templates.pages.user.account.edit_profile.category</source>
+            <target>Catégorie préférée</target>
+        </trans-unit>
+
+        <trans-unit id="cWzZ1wi" resname="templates.pages.user.account.edit_profile.phone">
+            <source>templates.pages.user.account.edit_profile.phone</source>
+            <target>Téléphone</target>
+        </trans-unit>
+
+        <trans-unit id="rAA4mBV" resname="templates.pages.user.account.edit_profile.sms">
+            <source>templates.pages.user.account.edit_profile.sms</source>
+            <target>Activer les notifications par SMS</target>
+        </trans-unit>
+
+        <trans-unit id="V38WgNp" resname="templates.pages.user.account.edit_profile.submit">
+            <source>templates.pages.user.account.edit_profile.submit</source>
+            <target>Enregistrer</target>
+        </trans-unit>
+
+        <!-- Place -->
+        <trans-unit id="pGuogHg" resname="templates.pages.user.account.edit_profile.name">
+            <source>templates.pages.user.account.edit_profile.name</source>
+            <target>Nom</target>
+        </trans-unit>
+
+        <trans-unit id="ThA1ig9" resname="templates.pages.user.account.edit_profile.schedule">
+            <source>templates.pages.user.account.edit_profile.schedule</source>
+            <target>Horaires</target>
+        </trans-unit>
+
+        <trans-unit id="mBvUaRz" resname="templates.pages.user.account.edit_profile.service">
+            <source>templates.pages.user.account.edit_profile.service</source>
+            <target>Services</target>
+        </trans-unit>
+
+        <trans-unit id="HhgAzZN" resname="templates.pages.user.account.edit_profile.object">
+            <source>templates.pages.user.account.edit_profile.object</source>
+            <target>Objets</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,47 @@
+{% extends 'layout/base.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        {% include 'components/layout/_back_to_link.html.twig' with {
+            name: 'templates.pages.product.product_availability.back_to_list'|trans,
+            link: {
+                name: 'app_user_' ~ product.type.value ~ 's'
+            }
+        } %}
+        <div class="col-md-10">
+            {% include 'components/layout/_title_3.html.twig' with {
+                name: 'templates.pages.product.product_availability.title'|trans
+            } %}
+            {{ form_start(form) }}
+            {% include 'components/product/_calendar.html.twig' with {
+                title: (i18n_prefix ~ '.subtitle')|trans,
+                form: form,
+                actionNeeded: true
+            } %}
+            {{ form_end(form) }}
+        </div>
+        {% if unavailabilities is not empty %}
+        <div class="d-flex row my-4">
+            {% include 'components/layout/_title_3.html.twig' with {
+                name: (i18n_prefix ~ '.delete_title')|trans
+            } %}
+            <div class="d-flex justify-content-center row">
+                {% for unavailability in unavailabilities %}
+                    <div class="col-md-8 d-flex justify-content-center align-items-center border-top py-1">
+                        <span class="me-4">
+                            {{ (i18n_prefix ~ '.date')|trans({
+                                '%startAt%': unavailability.startAt|date('format.date'|trans({}, 'date')),
+                                '%endAt%': unavailability.endAt|date('format.date'|trans({}, 'date'))
+                            }) }}
+                        </span>
+                        <a href="{{ path('app_user_product_delete_availability', {id: unavailability.id}) }}" class="btn btn-link p-1">supprimer</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block link %}{% endblock %}

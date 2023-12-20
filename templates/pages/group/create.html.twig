@@ -1,0 +1,30 @@
+{% extends 'layout/base.html.twig' %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+
+{% block body %}
+    <div class="px-3 px-lg-0">
+        {% include 'components/layout/_title_3.html.twig' with {
+            rowClass: 'mt-4',
+            name: (i18n_prefix ~ '.title')|trans
+        } %}
+        <div class="row mt-3 justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                {{ form_start(form) }}
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.type) }}
+                    {{ form_row(form.membership) }}
+                    {% if form.parent is defined and form.parent is not null %}
+                        {{ form_row(form.parent) }}
+                    {% endif %}
+                    {{ form_widget(form.submit) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block link %}{% endblock %}

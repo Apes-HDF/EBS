@@ -1,0 +1,26 @@
+{% set index = 0 %}
+<div class="row mt-4">
+    <div class="col col-lg-6 mx-auto">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item product-type w-50" role="presentation">
+                    <button class="nav-link rounded-0 w-100 {% if index == 0 %}active{% endif %}"
+                            id="pills-objects-tab"
+                            data-bs-toggle="pill"
+                            data-bs-target="#pills-objects" type="button" role="tab" aria-controls="pills-objects"
+                            aria-selected="true">
+                        {{ 'product.list_type_objects'|trans }} ({{ objects_pagination.totalItemCount }})
+                    </button>
+                </li>
+                <li class="nav-item product-type w-50" role="presentation">
+                    <button class="nav-link rounded-0 w-100 {% if index == 1 %}active{% endif %}"
+                            id="pills-services-tab"
+                            data-bs-toggle="pill"
+                            data-bs-target="#pills-services" type="button" role="tab" aria-controls="pills-services"
+                            aria-selected="true">
+                        {{ 'product.list_type_services'|trans }}
+                        ({{ services_pagination.totalItemCount }})
+                    </button>
+                </li>
+        </ul>
+    </div>
+</div>

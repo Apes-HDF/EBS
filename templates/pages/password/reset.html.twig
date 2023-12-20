@@ -1,0 +1,44 @@
+{% extends 'layout/connection.html.twig' %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% trans_default_domain 'security' %}
+
+{% block error %}{% endblock %}
+
+{% block icon %}
+    {{ parent() }}
+{% endblock %}
+
+{% block page_title %}
+    {% with {name: 'reset_password_action.title'|trans} %}
+        {{ parent() }}
+    {% endwith %}
+{% endblock %}
+
+{% block text %}
+    {% with {info: 'reset_password_action.info'|trans} %}
+        {{ parent() }}
+    {% endwith %}
+{% endblock %}
+
+{% block form_element %}
+    {{ form_start(form, {
+        attr: {
+            novalidate: true
+        }
+    }) }}
+    {% include 'components/form/_password_visibility.html.twig' with {
+        form: form.password.first,
+    } %}
+    {% include 'components/form/_password_visibility.html.twig' with {
+        form: form.password.second
+    } %}
+
+    <div class="d-grid col-12 my-5">
+        {{ form_widget(form.submit) }}
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block link %}{% endblock %}

@@ -1,0 +1,85 @@
+.color-svg-secondary {
+    > svg {
+        width: 16px;
+        height: 16px;
+        path {
+            fill: $secondary;
+        }
+    }
+}
+
+.product-img{
+    max-width: 100%;
+    max-height: 300px;
+}
+
+.swiper-wrapper {
+    align-items: center;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    background: rgba($black, .5);
+    width: 30px;
+    height: 30px;
+
+    &:after {
+        font-size: 14px;
+        font-weight: 900;
+        line-height: 0;
+        color: white;
+    }
+}
+
+.read {
+    overflow: hidden;
+
+    &.more {
+        max-height: 80px;
+        transition: max-height .3s ease-in-out;
+    }
+
+    &.less {
+        max-height: 500px;
+        transition: max-height .3s ease-in-out;
+    }
+}
+
+.read-toggle {
+    text-decoration: underline;
+}
+
+.avatar {
+    > svg {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.loan-application {
+    padding: 8px 12px;
+    background-color: $secondary;
+    width: fit-content;
+    > p {
+        margin: 0;
+    }
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+
+    > .comment-header {
+        display: flex;
+        justify-content: space-between;
+
+        > p {
+            margin: 0;
+        }
+    }
+}

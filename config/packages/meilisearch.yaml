@@ -1,0 +1,9 @@
+# Meilisearch 
+parameters:
+    meilisearchUrl: '%env(string:MEILISEARCH_URL)%'
+    meilisearchApiKey: '%env(string:MEILISEARCH_API_KEY)%'
+
+services:
+    _defaults:
+        autowire: true      
+        autoconfigure: true 

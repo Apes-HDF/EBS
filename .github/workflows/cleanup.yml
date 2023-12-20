@@ -1,0 +1,33 @@
+name: Cleanup
+
+on:
+  pull_request:
+    types: [ closed ]
+
+jobs:
+  cleanup:
+    name: Cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set KUBECONFIG
+        run: |
+          mkdir ~/.kube
+          echo ${{ secrets.KUBECONFIG }} | base64 -d > ~/.kube/config
+          kubectl config view
+
+      - name: Uninstall helm release
+        id: uninstall_helm_release
+        run: |
+          export RELEASE_NAME=pr-$(jq --raw-output .pull_request.number $GITHUB_EVENT_PATH)
+          echo "Uninstalling release ${RELEASE_NAME}"
+          if ! helm uninstall ${RELEASE_NAME} --kube-context nonprod --wait ; then
+            echo "HELM Uninstall has failed !"
+            echo "Please ask the SRE team to manually clean remaining objects"
+            exit 1
+          fi
+          echo "HELM uninstall successfull"
+          echo "Cleaning remaining PVC..."
+          kubectl delete pvc -l app.kubernetes.io/instance=$RELEASE_NAME

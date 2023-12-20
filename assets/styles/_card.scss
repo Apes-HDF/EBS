@@ -1,0 +1,22 @@
+.card {
+    .img-container {
+        @media (min-width: 1200px) {
+            height: 310px;
+        }
+        @media (max-width: 1025px) {
+            height: 235px;
+        }
+        @media (max-width: 700px) {
+            height: 180px;
+        }
+    }
+    .img {
+        object-fit: contain;
+        width: 100%;
+    }
+
+    .img-default {
+        object-fit: cover;
+        width: 100%;
+    }
+}

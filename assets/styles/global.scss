@@ -1,0 +1,46 @@
+// customize some Bootstrap variables
+// $primary: darken(#428bca, 20%); // muse rebuild to see the change
+
+@import "custom-variables";
+
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons";
+@import "~flatpickr/dist/flatpickr.min.css";
+
+@import "reset";
+@import "product-list";
+@import "card";
+@import "pagination";
+@import "product";
+@import "utilities";
+@import "my-account";
+@import "connexion";
+@import "conversations";
+@import "accordion";
+@import "calendar";
+@import "headings";
+@import "lender";
+@import "grid";
+@import "upload";
+@import "address";
+@import "chat";
+@import "group";
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+body {
+    // Hack to force footer in the bottom of the page
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}

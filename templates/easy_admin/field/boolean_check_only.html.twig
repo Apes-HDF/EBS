@@ -1,0 +1,7 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var field \EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
+{# @see vendor/easycorp/easyadmin-bundle/src/Resources/views/crud/field/boolean.html.twig #}
+{% trans_default_domain 'EasyAdminBundle' %}
+
+ <span>{{ field.value == true ? '✅' : '' }}</span>

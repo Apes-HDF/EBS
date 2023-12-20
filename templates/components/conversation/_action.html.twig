@@ -1,0 +1,44 @@
+<div class="row align-items-end p-3 bg-secondary-subtle">
+    <div class="col">
+        {% if accept or confirm %}
+            <div class="d-grid col bg-secondary-subtle">
+                <button class="btn btn-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalConfirmation">
+                    <i class="bi bi-check"></i>
+                    {{ (i18n_prefix ~ '.link.confirm_modal')|trans }}
+                </button>
+            </div>
+        {% endif %}
+
+        {% if finalize %}
+            <div class="d-grid col mt-2">
+                <button type="button"
+                        class="btn btn-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalFinalize">
+                    <i class="bi bi-x"></i>
+                    {{ (i18n_prefix ~ '.link.finalize_modal')|trans }}
+                </button>
+            </div>
+            {% include 'components/conversation/_modal-finalize.html.twig' with {
+                finalize
+            } %}
+        {% endif %}
+
+        {% if refuse %}
+            <div class="d-grid col mt-2">
+                <button type="button"
+                        class="btn btn-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalRefuse">
+                    <i class="bi bi-x"></i>
+                    {{ (i18n_prefix ~ '.link.refuse_modal')|trans }}
+                </button>
+            </div>
+            {% include 'components/conversation/_modal-refuse.html.twig' with {
+                refuse
+            } %}
+        {% endif %}
+    </div>
+</div>

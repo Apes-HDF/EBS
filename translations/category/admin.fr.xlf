@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <trans-unit id="fGSPXkA" resname="categories.objects">
+            <source>categories.objects</source>
+            <target>Catégories des objets</target>
+        </trans-unit>
+
+        <trans-unit id="xA5DLs6" resname="categories.services">
+            <source>categories.services</source>
+            <target>Catégories des services</target>
+        </trans-unit>
+
+        <trans-unit id="FzsVYAj" resname="category">
+            <source>category</source>
+            <target>catégorie</target>
+        </trans-unit>
+
+        <trans-unit id="78DvmKc" resname="Image">
+            <source>Image</source>
+            <target>Image</target>
+        </trans-unit>
+
+        <trans-unit id="doxfdBb" resname="image.default">
+            <source>image.default</source>
+            <target>Image par défaut</target>
+        </trans-unit>
+
+        <trans-unit id="CohY5co" resname="image.help">
+            <source>image.help</source>
+            <target>Image utilisée pour les produits si ceux-ci n'ont pas d'image associée.</target>
+        </trans-unit>
+
+        <trans-unit id="GZKAxw5" resname="category.parent">
+            <source>category.parent</source>
+            <target>Catégorie parente</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

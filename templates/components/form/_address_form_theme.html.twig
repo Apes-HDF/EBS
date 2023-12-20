@@ -1,0 +1,42 @@
+{# @see vendor/symfony/twig-bridge/Resources/views/Form/bootstrap_5_layout.html.twig #}
+{% use 'bootstrap_5_layout.html.twig' %}
+
+{%- block choice_widget_expanded -%}
+    <div class="card"{{ block('widget_container_attributes') }}>
+        <ul class="list-group list-group-flush">
+            {%- for child in form %}
+                {% set address = child.parent.vars.choices[child.vars.value].data %}
+                <li class="list-group-item">
+                    <div class="address-card">
+                        <div class="address-card-checkbox">
+                            {{- form_widget(child, {
+                                label: false
+                            }) -}}
+                        </div>
+                        <div class="address-card-info">
+                            <p>
+                                {{ address.streetNumber }} {{ address.streetName }}
+                                <br>
+                                {{ address.postalCode }} {{ address.locality }}
+                                <br>
+                                {% if address.country is not null %}
+                                    {{ address.country.name }}
+                                {% endif %}
+                                <br>
+                                {% if address.coordinates is not null and address.osmType is not empty and address.osmId is not empty %}
+                                    <a target="_blank"
+                                       class="text-black text-decoration-underline"
+                                       href="https://www.openstreetmap.org/{{ address.osmType }}/{{ address.osmId }}">
+                                        {{ address.coordinates.latitude }}, {{ address.coordinates.longitude }}
+                                    </a>
+                                {% endif %}
+                                <br/><br/>
+                                ({{ address.displayName }})
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            {% endfor -%}
+        </ul>
+    </div>
+{%- endblock choice_widget_expanded %}

@@ -1,0 +1,34 @@
+App\Entity\ProductAvailability:
+    product_availability (template):
+        mode: !php/enum App\Enum\Product\ProductAvailabilityMode::UNAVAILABLE
+
+    product_availability_user (template, extends product_availability):
+        type: !php/enum App\Enum\Product\ProductAvailabilityType::OWNER
+
+    product_availability_service_request (template, extends product_availability):
+        type: !php/enum App\Enum\Product\ProductAvailabilityType::SERVICE_REQUEST
+
+    # —— Ongoing service request ———————————————————————————————————————————————
+    product_availability_object_sr_1 (extends product_availability_service_request):
+        product: '@loic_object_1'
+        serviceRequest: '@service_request_1'
+        startAt: '@service_request_1->startAt'
+        endAt: '@service_request_1->endAt'
+
+    # —— Owner black list ——————————————————————————————————————————————————————
+    product_availability_user_1 (extends product_availability_user):
+        id: <uuid('1edc2761-1291-690c-9d72-eb08fd92218b')>
+        product: '@loic_object_1'
+        startAt: '<date_create_immutable("+2 week")>'
+        endAt: '<date_create_immutable("+2 week + 1 day")>'
+    
+    product_availability_2_user_1 (extends product_availability_user):
+        product: '@loic_object_1'
+        startAt: '<date_create_immutable("+1 week + 2 day")>'
+        endAt: '<date_create_immutable("+1 week + 4 day")>'    
+    
+    product_availability_object_sr_2 (extends product_availability_service_request):
+        product: '@kevin_object_1'
+        serviceRequest: '@service_request_2'
+        startAt: '@service_request_2->startAt'
+        endAt: '@service_request_2->endAt'

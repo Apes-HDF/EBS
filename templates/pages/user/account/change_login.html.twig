@@ -1,0 +1,29 @@
+{% extends 'layout/base.html.twig' %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+    <div class="px-3 px-lg-0">
+        {% include 'components/layout/_title_3.html.twig' with {
+            name: 'change_login.action.title'|trans
+        } %}
+
+        <div class="row mt-3 justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                {{ form_start(form, {
+                    attr: {
+                        novalidate: true,
+                    }
+                }) }}
+                {{ form_row(form.email.first) }}
+                {{ form_row(form.email.second) }}
+                <div class="d-grid col-12 mt-4">
+                    {{ form_widget(form.submit) }}
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block link %}{% endblock %}

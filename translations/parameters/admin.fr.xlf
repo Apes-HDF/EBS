@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <!-- notification sender section -->
+        <trans-unit id="qqTbwBV" resname="parameter.mail">
+            <source>parameter.mail</source>
+            <target>Adresse e-mail</target>
+        </trans-unit>
+
+        <trans-unit id="kJm7zT5" resname="parameter.name">
+            <source>parameter.name</source>
+            <target>Nom</target>
+        </trans-unit>
+
+        <!-- contact section -->
+        <trans-unit id="2iT7Kgj" resname="parameter.formVisibility">
+            <source>parameter.formVisibility</source>
+            <target>Lien contact visible</target>
+        </trans-unit>
+
+        <trans-unit id="eTfhW7G" resname="parameter.receptionEmail">
+            <source>parameter.receptionEmail</source>
+            <target>E-mail de réception</target>
+        </trans-unit>
+
+        <!-- groups section -->
+        <trans-unit id="cGeXpFr" resname="parameter.groups">
+            <source>parameter.groups</source>
+            <target>Groupes</target>
+        </trans-unit>
+
+        <trans-unit id="G1X2Rsg" resname="parameter.groupsCreation">
+            <source>parameter.groupsCreation</source>
+            <target>Création de groupe</target>
+        </trans-unit>
+
+        <trans-unit id="S77eoXC" resname="parameter.groupsCreationForAll">
+            <source>parameter.groupsCreationForAll</source>
+            <target>Ouvert à tou·te·s</target>
+        </trans-unit>
+
+        <trans-unit id="WjEbF3e" resname="parameter.groupsCreationOnlyForAdmin">
+            <source>parameter.groupsCreationOnlyForAdmin</source>
+            <target>Uniquement par les administrateur·rice·s de l'instance</target>
+        </trans-unit>
+
+        <trans-unit id="1mqfhHc" resname="parameter.paidGroupsCreation">
+            <source>parameter.paidGroupsCreation</source>
+            <target>Création de groupe payante</target>
+        </trans-unit>
+
+        <!-- products parameters section -->
+        <trans-unit id="PSJ7ZJF" resname="parameter.commentsOnArticles">
+            <source>parameter.commentsOnArticles</source>
+            <target>Commentaires sur les articles</target>
+        </trans-unit>
+
+        <trans-unit id="jobpqvv" resname="parameter.ratingOnArticles">
+            <source>parameter.ratingOnArticles</source>
+            <target>Notes sur les articles</target>
+        </trans-unit>
+
+        <!-- confidentiality section -->
+        <trans-unit id="LepySmu" resname="parameter.conversationsVisibility">
+            <source>parameter.conversationsVisibility</source>
+            <target>Conversations visibles par l'admin</target>
+        </trans-unit>
+
+        <trans-unit id="fkUirBo" resname="parameter.conversationsVisibilityWarning">
+            <source>parameter.conversationsVisibilityWarning</source>
+            <target>Si vous activez l'accès aux conversations par les administrateur·rice·s, vous vous engagez à respecter la vie privée des utilisateur·rice·s et à n'utiliser cet accès qu'en cas de nécessité comme la résolution d'un conflit</target>
+        </trans-unit>
+
+        <trans-unit id="Ktj8J55" resname="parameter.save">
+            <source>parameter.save</source>
+            <target>Enregister</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

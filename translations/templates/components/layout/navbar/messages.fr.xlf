@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <trans-unit id="8vZserG" resname="templates.components.layout.navbar.contact">
+            <source>templates.components.layout.navbar.contact</source>
+            <target>Contact</target>
+        </trans-unit>
+
+        <trans-unit id="HW2kSGE" resname="templates.components.layout.navbar.logged">
+            <source>templates.components.layout.navbar.logged</source>
+            <target>Connecté en tant que %name%</target>
+        </trans-unit>
+
+        <trans-unit id="Hn2k9pA" resname="templates.components.layout.navbar.admin_link">
+            <source>templates.components.layout.navbar.admin_link</source>
+            <target>Espace d'administration</target>
+        </trans-unit>
+
+        <trans-unit id="Jfm5yRJ" resname="templates.components.layout.navbar.disconnect">
+            <source>templates.components.layout.navbar.disconnect</source>
+            <target>Me déconnecter</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>
