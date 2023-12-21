@@ -10,6 +10,7 @@ use App\Dto\Product\Search;
 use App\Entity\User;
 use App\Message\Query\User\Account\GetUserQuery;
 use App\MessageBus\QueryBus;
+use App\Repository\ConfigurationRepository;
 use App\Search\Meilisearch;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,6 +34,7 @@ final class ProfileAction extends AbstractController
         private readonly QueryBus $queryBus,
         private readonly PaginatorInterface $paginator,
         private readonly Meilisearch $meilisearch,
+        private readonly ConfigurationRepository $configurationRepository,
     ) {
     }
 
@@ -59,6 +61,7 @@ final class ProfileAction extends AbstractController
             'user' => $user,
             'objects_pagination' => $this->paginate($this->meilisearch->searchObjects($searchDto)),
             'services_pagination' => $this->paginate($this->meilisearch->searchServices($searchDto)),
+            'services_enabled' => $this->configurationRepository->getServicesParameter(),
         ]);
     }
 }

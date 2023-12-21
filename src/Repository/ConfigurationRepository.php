@@ -58,4 +58,16 @@ final class ConfigurationRepository extends ServiceEntityRepository
 
         return $cfg;
     }
+
+    public function getServicesParameter(): bool
+    {
+        /** @var array{configuration: array{ services: array{ servicesEnabled: bool }}} $config */
+        $config = $this
+            ->createQueryBuilder('c')
+            ->select('c.configuration')
+            ->setMaxResults(1)
+            ->getQuery()->getOneOrNullResult();
+
+        return $config['configuration']['services']['servicesEnabled'];
+    }
 }

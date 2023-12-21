@@ -76,6 +76,24 @@ class Configuration
     /** end of basic getters and setters ------------------------------------------------ */
 
     /**
+     * @return bool[]
+     */
+    public function getServices(): array
+    {
+        /** @var array<bool> $services */
+        $services = $this->configuration['services'] ?? [];
+
+        return $services;
+    }
+
+    public function getServicesEnabled(): bool
+    {
+        $services = $this->getServices();
+
+        return $services['servicesEnabled'];
+    }
+
+    /**
      * @return array<string, string>
      */
     public function getNotificationsSender(): array

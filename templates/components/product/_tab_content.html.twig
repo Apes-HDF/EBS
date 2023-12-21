@@ -15,7 +15,7 @@
             pagination: objects_pagination,
         } %}
     </div>
-    {% if services_pagination is defined and services_pagination is not null %}
+    {% if services_pagination is defined and services_pagination is not null and services_enabled %}
     <div class="tab-pane fade"
          id="pills-services"
          role="tabpanel"

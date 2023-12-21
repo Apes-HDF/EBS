@@ -17,6 +17,10 @@ final class ParametersFormCommand extends AbstractFormCommand
     final public const ONLY_ADMIN = 'only_admin';
     final public const ALL = 'all';
 
+    // services section —————————————————————————————————————————————
+    #[Assert\Type('bool')]
+    public bool $servicesEnabled = true;
+
     // notificationsSender section —————————————————————————————————————————————
     #[Assert\Email()]
     #[Assert\NotBlank()]
@@ -55,6 +59,7 @@ final class ParametersFormCommand extends AbstractFormCommand
     protected function getSections(): array
     {
         return [
+            'services',
             'notificationsSender',
             'contact',
             'groups',
@@ -71,6 +76,7 @@ final class ParametersFormCommand extends AbstractFormCommand
     public function hydrate(Configuration $configuration): self
     {
         $instanceConfiguration = $configuration->getConfiguration();
+//        dd($instanceConfiguration);
         foreach (array_keys(get_class_vars($this::class)) as $classVar) {
             $this->{$classVar} = $instanceConfiguration[$this->getSection($classVar)][$classVar]; // @phpstan-ignore-line
         }

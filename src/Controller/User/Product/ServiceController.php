@@ -11,12 +11,14 @@ use App\Entity\Product;
 use App\Entity\User;
 use App\Form\Type\Product\ServiceFormType;
 use App\MessageBus\QueryBus;
+use App\Repository\ConfigurationRepository;
 use App\Tests\Functional\Controller\Product\ServiceControllerTest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\GoneHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
@@ -37,6 +39,7 @@ final class ServiceController extends AbstractController
     public function __construct(
         private readonly QueryBus $queryBus,
         private readonly ProductManager $productManager,
+        private readonly ConfigurationRepository $configurationRepository,
     ) {
     }
 
@@ -51,18 +54,22 @@ final class ServiceController extends AbstractController
     ], name: 'new')]
     public function new(Request $request, #[CurrentUser] User $user): Response
     {
-        $product = $this->productManager->initService($user);
-        $form = $this->getForm($product, $request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var array<UploadedFile>|null $images */
-            $images = $form->get('images')->getData();
-            $this->productManager->multipleUpload($images, $product);
-            $this->productManager->save($product, true);
+        if ($this->configurationRepository->getServicesParameter()) {
+            $product = $this->productManager->initService($user);
+            $form = $this->getForm($product, $request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                /** @var array<UploadedFile>|null $images */
+                $images = $form->get('images')->getData();
+                $this->productManager->multipleUpload($images, $product);
+                $this->productManager->save($product, true);
 
-            return $this->redirectToRoute('app_product_show', $product->getRoutingParameters());
+                return $this->redirectToRoute('app_product_show', $product->getRoutingParameters());
+            }
+
+            return $this->render('pages/product/new_service.html.twig', compact('form'));
+        } else {
+            throw new GoneHttpException();
         }
-
-        return $this->render('pages/product/new_service.html.twig', compact('form'));
     }
 
     #[Route([
@@ -74,17 +81,21 @@ final class ServiceController extends AbstractController
     )]
     public function edit(string $id, Request $request): Response
     {
-        $product = $this->getProductForEdit($id);
-        $form = $this->getForm($product, $request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var array<UploadedFile>|null $images */
-            $images = $form->get('images')->getData();
-            $this->productManager->multipleUpload($images, $product);
-            $this->productManager->save($product, true);
+        if ($this->configurationRepository->getServicesParameter()) {
+            $product = $this->getProductForEdit($id);
+            $form = $this->getForm($product, $request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                /** @var array<UploadedFile>|null $images */
+                $images = $form->get('images')->getData();
+                $this->productManager->multipleUpload($images, $product);
+                $this->productManager->save($product, true);
 
-            return $this->redirectToRoute('app_product_show', $product->getRoutingParameters());
+                return $this->redirectToRoute('app_product_show', $product->getRoutingParameters());
+            }
+
+            return $this->render('pages/product/edit_service.html.twig', compact('form', 'product'));
+        } else {
+            throw new GoneHttpException();
         }
-
-        return $this->render('pages/product/edit_service.html.twig', compact('form', 'product'));
     }
 }

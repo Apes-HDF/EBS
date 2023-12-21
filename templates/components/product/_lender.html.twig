@@ -15,7 +15,7 @@
                     </div>
                     <p class="ms-3 mb-0 fs-6 fw-bolder">{{ name }}</p>
                 </div>
-                {% if isPlace %}
+                {% if isPlace and address is not null %}
                     <div class="row mt-3">
                         <div class="col">
                             <p class="fw-bold fs-6 mb-0">{{ 'templates.components.product.lender.address'|trans }}</p>

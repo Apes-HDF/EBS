@@ -34,7 +34,7 @@ final class ParametersControllerTest extends WebTestCase
 
         $form = $crawler->selectButton('parameters_form_submit')->form();
 
-        self::assertSame(5, $crawler->filter('input:checked')->count());
+        self::assertSame(6, $crawler->filter('input:checked')->count());
 
         /** @var FormField $notificationsSenderEmailField */
         $notificationsSenderEmailField = $form->get('parameters_form[notificationsSenderEmail]');
@@ -69,7 +69,7 @@ final class ParametersControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
         self::assertResponseIsSuccessful();
 
-        self::assertSame(1, $crawler->filter('input:checked')->count());
+        self::assertSame(2, $crawler->filter('input:checked')->count());
 
         $form = $crawler->selectButton('parameters_form_submit')->form();
         /** @var FormField $groupsCreationModeField */

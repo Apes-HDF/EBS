@@ -19,19 +19,19 @@
     {
         section: 'Messagerie',
         links: [
-        {
-            name: 'Mes emprunts',
-            link: 'app_user_my_loans',
-            icon: null,
-            notification: userHasNewLoanMessage
-        },
-        {
-            name: 'Mes prêts',
-            link: 'app_user_my_lendings',
-            icon: null,
-            notification: userHasNewLendingMessage
-        },
-    ],
+            {
+                name: 'Mes emprunts',
+                link: 'app_user_my_loans',
+                icon: null,
+                notification: userHasNewLoanMessage
+            },
+            {
+                name: 'Mes prêts',
+                link: 'app_user_my_lendings',
+                icon: null,
+                notification: userHasNewLendingMessage
+            },
+        ],
         icon: 'bi bi-chat-left-text'
     },
     {
@@ -53,73 +53,74 @@
     },
     {
         section: 'Mes services',
+        disable: servicesConfig,
         links: [
-        {
-            name: 'Voir mes services',
-            link: 'app_user_services',
-            icon: null
-        },
-        {
-            name: 'Créer un service',
-            link: 'app_service_new',
-            icon: null,
-            needAddress: app.user.address is null ? true : false
-        },
-    ],
+            {
+                name: 'Voir mes services',
+                link: 'app_user_services',
+                icon: null
+            },
+            {
+                name: 'Créer un service',
+                link: 'app_service_new',
+                icon: null,
+                needAddress: app.user.address is null ? true : false
+            },
+        ],
         icon: 'fa-solid fa-shop'
     },
     {
         section: 'Mes groupes',
         links: [
-        {
-            name: 'Voir mes groupes',
-            link: 'app_user_groups',
-            icon: null
-        },
-        {
-            name: 'Administrer mes groupes',
-            link: 'admin',
-            show: show_my_groups,
-            icon: 'bi bi-box-arrow-up-right'
-        },
-        {
-            name: create_group_label,
-            link: 'app_group_create',
-            icon: create_group_icon,
-            canCreateGroup: canCreateGroup,
-        },
-    ],
+            {
+                name: 'Voir mes groupes',
+                link: 'app_user_groups',
+                icon: null
+            },
+            {
+                name: 'Administrer mes groupes',
+                link: 'admin',
+                show: show_my_groups,
+                icon: 'bi bi-box-arrow-up-right'
+            },
+            {
+                name: create_group_label,
+                link: 'app_group_create',
+                icon: create_group_icon,
+                canCreateGroup: canCreateGroup,
+            },
+        ],
         icon: 'fa-solid fa-user-group'
     },
     {
         section: 'Compte',
         links: [
-        {
-            name: 'Mon adresse',
-            link: 'user_address_step1',
-            icon: null
-        },
-        {
-            name: 'Modifier mon profil',
-            link: 'app_user_edit_profile',
-            icon: null
-        },
-        {
-            name: 'Changer mon adresse e-mail',
-            link: 'app_user_change_login',
-            icon: null
-        },
-        {
-            name: 'Changer mon mot de passe',
-            link: 'app_user_change_password',
-            icon: null
-        },
-        {
-            name: vacation_mode_link,
-            link: 'user_toggle_vacation_mode',
-            icon: vacation_mode_icon
-        },
-    ],
+            {
+                name: 'Mon adresse',
+                link: 'user_address_step1',
+                icon: null
+            },
+            {
+                name: 'Modifier mon profil',
+                link: 'app_user_edit_profile',
+                icon: null
+            },
+            {
+                name: 'Changer mon adresse e-mail',
+                link: 'app_user_change_login',
+                icon: null
+            },
+            {
+                name: 'Changer mon mot de passe',
+                link: 'app_user_change_password',
+                icon: null
+            },
+            {
+                name: vacation_mode_link,
+                link: 'user_toggle_vacation_mode',
+                icon: vacation_mode_icon
+            },
+        ],
         icon: 'fa-solid fa-user fa-xl text-white'
     },
 ] %}
@@ -133,56 +134,58 @@
         } %}
         <div class="row flex-wrap">
             {% for my_account_link in my_account_links %}
-                <div class="col-12 col-md-4">
-                    <nav class="myAccount d-flex flex-column mt-3 mt-md-5">
-                        <div class="myAccount-header w-100 rounded-2">
-                            <i class="{{ my_account_link.icon }}"></i>
-                            <h5 class="mb-1 ms-3 fw-bolder fs-5 text-black">{{ my_account_link.section }}</h5>
-                        </div>
-                        <div class="myAccount-body pb-4">
-                            {% for link in my_account_link.links %}
-                                {% if link.show ?? true %}
-                                <div class="mt-3 d-flex align-items-center">
-                                    {% if link.canCreateGroup is defined and not link.canCreateGroup %}
-                                        <a
-                                            href="mailto:{{ contactEmail ~ "?Subject=" ~ (i18n_prefix ~ '.mail.subject')|trans ~ "&body=" ~ (i18n_prefix ~ '.mail.mail_adress')|trans ~ "%0A" ~ (i18n_prefix ~ '.mail.group')|trans ~ "%0A" ~ (i18n_prefix ~ '.mail.type')|trans ~ "%0A" ~ (i18n_prefix ~ '.mail.membership')|trans ~ "%0A" ~ (i18n_prefix ~ '.mail.info')|trans }}"
-                                            class="text-decoration-none text-primary ms-2">
-                                            {% if link.icon is not empty %}
-                                                <i class="{{ link.icon }} ~ me-1"></i>
-                                            {% endif %}
-                                            {{ link.name }}
-                                        </a>
-                                    {% else %}
-                                        {% if link.needAddress is defined and link.needAddress == true %}
-                                            {% include 'components/product/_modal.html.twig' with {
-                                                menu_action: true,
-                                                button: link.name,
-                                                title: (i18n_prefix ~ '.no-address-title')|trans,
-                                                message: (i18n_prefix ~ '.no-address-message')|trans({
-                                                    '%product%': link.link == 'app_object_new' ? 'objet' : 'service'
-                                                }),
-                                                action: (i18n_prefix ~ '.no-address-add')|trans
-                                            } %}
-                                        {% else %}
-                                            <a href="{{ path(link.link) }}"
-                                               class="text-decoration-none text-primary ms-2 position-relative pe-1">
+                {% if my_account_link.disable is not defined %}
+                    <div class="col-12 col-md-4">
+                        <nav class="myAccount d-flex flex-column mt-3 mt-md-5">
+                            <div class="myAccount-header w-100 rounded-2">
+                                <i class="{{ my_account_link.icon }}"></i>
+                                <h5 class="mb-1 ms-3 fw-bolder fs-5 text-black">{{ my_account_link.section }}</h5>
+                            </div>
+                            <div class="myAccount-body pb-4">
+                                {% for link in my_account_link.links %}
+                                    {% if link.show ?? true %}
+                                    <div class="mt-3 d-flex align-items-center">
+                                        {% if link.canCreateGroup is defined and not link.canCreateGroup %}
+                                            <a
+                                                href="mailto:{{ contactEmail ~ "?Subject=" ~ (i18n_prefix ~ '.mail.subject')|trans ~ "&body=" ~ (i18n_prefix ~ '.mail.mail_adress')|trans ~ "%0A" ~ (i18n_prefix ~ '.mail.group')|trans ~ "%0A" ~ (i18n_prefix ~ '.mail.type')|trans ~ "%0A" ~ (i18n_prefix ~ '.mail.membership')|trans ~ "%0A" ~ (i18n_prefix ~ '.mail.info')|trans }}"
+                                                class="text-decoration-none text-primary ms-2">
                                                 {% if link.icon is not empty %}
                                                     <i class="{{ link.icon }} ~ me-1"></i>
                                                 {% endif %}
                                                 {{ link.name }}
-                                                {% if link.notification is defined and link.notification %}
-                                                    <span
-                                                        class="position-absolute top-0 start-100 translate-middle p-1 rounded-circle bg-danger"></span>
-                                                {% endif %}
                                             </a>
+                                        {% else %}
+                                            {% if link.needAddress is defined and link.needAddress == true %}
+                                                {% include 'components/product/_modal.html.twig' with {
+                                                    menu_action: true,
+                                                    button: link.name,
+                                                    title: (i18n_prefix ~ '.no-address-title')|trans,
+                                                    message: (i18n_prefix ~ '.no-address-message')|trans({
+                                                        '%product%': link.link == 'app_object_new' ? 'objet' : 'service'
+                                                    }),
+                                                    action: (i18n_prefix ~ '.no-address-add')|trans
+                                                } %}
+                                            {% else %}
+                                                <a href="{{ path(link.link) }}"
+                                                   class="text-decoration-none text-primary ms-2 position-relative pe-1">
+                                                    {% if link.icon is not empty %}
+                                                        <i class="{{ link.icon }} ~ me-1"></i>
+                                                    {% endif %}
+                                                    {{ link.name }}
+                                                    {% if link.notification is defined and link.notification %}
+                                                        <span
+                                                            class="position-absolute top-0 start-100 translate-middle p-1 rounded-circle bg-danger"></span>
+                                                    {% endif %}
+                                                </a>
+                                            {% endif %}
                                         {% endif %}
+                                    </div>
                                     {% endif %}
-                                </div>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    </nav>
-                </div>
+                                {% endfor %}
+                            </div>
+                        </nav>
+                    </div>
+                {% endif %}
             {% endfor %}
         </div>
         <div class="d-grid col-12 col-md-6 mx-auto mt-5">

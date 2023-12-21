@@ -25,10 +25,18 @@ final class ParametersFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('servicesEnabled', CheckboxType::class, [
+                'label' => 'parameter.services',
+                'label_attr' => [
+                    'class' => 'checkbox-inline checkbox-switch',
+                ],
+            ])
+
             ->add('notificationsSenderEmail', EmailType::class, [
                 'label' => 'parameter.mail',
                 'label_attr' => ['class' => 'col-sm-2 col-form-label'],
             ])
+
             ->add('notificationsSenderName', TextType::class, [
                 'label' => 'parameter.name',
             ])

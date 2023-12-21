@@ -47,6 +47,8 @@ final class MyAccountAction extends AbstractController
         $canCreateGroup = $configuration->isGroupsCreationForAll() || $user->isAdmin();
         $contactEmail = $configuration->getContactEmail();
 
-        return $this->render('pages/account/index.html.twig', compact('userHasNewLoanMessage', 'userHasNewLendingMessage', 'canCreateGroup', 'contactEmail'));
+        $servicesConfig = $this->configurationRepository->getServicesParameter();
+
+        return $this->render('pages/account/index.html.twig', compact('userHasNewLoanMessage', 'userHasNewLendingMessage', 'canCreateGroup', 'contactEmail', 'servicesConfig'));
     }
 }

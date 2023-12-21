@@ -15,12 +15,14 @@ use App\Message\Query\User\GetUserObjectsQuery;
 use App\Message\Query\User\GetUserServicesQuery;
 use App\MessageBus\QueryBus;
 use App\Repository\CategoryRepository;
+use App\Repository\ConfigurationRepository;
 use Doctrine\ORM\Query;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\GoneHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -40,6 +42,7 @@ final class UserProductsController extends AbstractController
         private readonly QueryBus $queryBus,
         private readonly PaginatorInterface $paginator,
         public readonly CategoryRepository $categoryRepository,
+        private readonly ConfigurationRepository $configurationRepository,
     ) {
     }
 
@@ -89,6 +92,10 @@ final class UserProductsController extends AbstractController
         $query = $this->queryBus->query(new GetUserServicesQuery($user->getId(), $category?->getId()));
         $pagination = $this->paginate($query, $this->getPage($request));
 
-        return $this->render('pages/account/product/list.html.twig', compact('pagination', 'form'));
+        if ($this->configurationRepository->getServicesParameter()) {
+            return $this->render('pages/account/product/list.html.twig', compact('pagination', 'form'));
+        } else {
+            throw new GoneHttpException('there is no services');
+        }
     }
 }

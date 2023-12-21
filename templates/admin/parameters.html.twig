@@ -14,6 +14,11 @@
 {% block main %}
     {{ form_start(form) }}
     <div class="row mb-lg-5">
+        <h2 class="h3 fw-bold mt-3">{{ 'parameters.services.h2'|trans }}</h2>
+        <hr/>
+
+        {{ form_widget(form.servicesEnabled) }}
+
         <h2 class="h3 fw-bold mt-3">{{ 'parameters.senders.h2'|trans }}</h2>
         <hr/>
 

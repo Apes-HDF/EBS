@@ -11,16 +11,18 @@
                         {{ 'product.list_type_objects'|trans }} ({{ objects_pagination.totalItemCount }})
                     </button>
                 </li>
-                <li class="nav-item product-type w-50" role="presentation">
-                    <button class="nav-link rounded-0 w-100 {% if index == 1 %}active{% endif %}"
-                            id="pills-services-tab"
-                            data-bs-toggle="pill"
-                            data-bs-target="#pills-services" type="button" role="tab" aria-controls="pills-services"
-                            aria-selected="true">
-                        {{ 'product.list_type_services'|trans }}
-                        ({{ services_pagination.totalItemCount }})
-                    </button>
-                </li>
+                {% if services_enabled %}
+                    <li class="nav-item product-type w-50" role="presentation">
+                        <button class="nav-link rounded-0 w-100 {% if index == 1 %}active{% endif %}"
+                                id="pills-services-tab"
+                                data-bs-toggle="pill"
+                                data-bs-target="#pills-services" type="button" role="tab" aria-controls="pills-services"
+                                aria-selected="true">
+                            {{ 'product.list_type_services'|trans }}
+                            ({{ services_pagination.totalItemCount }})
+                        </button>
+                    </li>
+                {% endif %}
         </ul>
     </div>
 </div>

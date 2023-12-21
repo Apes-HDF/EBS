@@ -260,6 +260,11 @@
             <target>Paramètres de l'instance</target>
         </trans-unit>
 
+        <trans-unit id="e1qNBMp" resname="parameters.services.h2">
+            <source>parameters.services.h2</source>
+            <target>Services</target>
+        </trans-unit>
+
         <trans-unit id="eNqNAUs" resname="parameters.senders.h2">
             <source>parameters.senders.h2</source>
             <target>Expéditeur·rice des notifications</target>

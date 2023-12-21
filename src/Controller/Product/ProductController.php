@@ -10,14 +10,19 @@ use App\Controller\RequestTrait;
 use App\Dto\Product\Search;
 use App\Entity\Product;
 use App\Entity\User;
+use App\Enum\Product\ProductType;
 use App\Form\Type\Product\SearchFormType;
 use App\Message\Query\Product\GetProductByIdQuery;
 use App\MessageBus\QueryBus;
+use App\Repository\ConfigurationRepository;
+use App\Repository\ProductRepository;
 use App\Search\Meilisearch;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\GoneHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
@@ -42,6 +47,8 @@ final class ProductController extends AbstractController
         private readonly QueryBus $queryBus,
         private readonly PaginatorInterface $paginator,
         private readonly Meilisearch $meilisearch,
+        private readonly ConfigurationRepository $configurationRepository,
+        private readonly ProductRepository $productRepository,
     ) {
     }
 
@@ -64,6 +71,7 @@ final class ProductController extends AbstractController
             'objects_pagination' => $this->paginate($this->meilisearch->searchObjects($searchDto)),
             'services_pagination' => $this->paginate($this->meilisearch->searchServices($searchDto)),
             'search_form' => $searchForm,
+            'services_enabled' => $this->configurationRepository->getServicesParameter(),
         ]);
     }
 
@@ -79,13 +87,24 @@ final class ProductController extends AbstractController
     )]
     public function show(string $slug, string $id): Response
     {
-        try {
-            /** @var Product $product */
-            $product = $this->queryBus->query(new GetProductByIdQuery(Uuid::fromString($id)));
-        } catch (HandlerFailedException $e) {
-            throw $this->createNotFoundException($e->getMessage());
+        /** @var ?Product $product */
+        $product = $this->productRepository->find(['id' => $id]);
+
+        if ($product === null) {
+            throw new NotFoundHttpException();
         }
 
-        return $this->render('pages/product/show.html.twig', compact('slug', 'id', 'product'));
+        if (($product->getType() === ProductType::SERVICE && $this->configurationRepository->getServicesParameter()) || $product->getType() === ProductType::OBJECT) {
+            try {
+                /** @var Product $product */
+                $product = $this->queryBus->query(new GetProductByIdQuery(Uuid::fromString($id)));
+            } catch (HandlerFailedException $e) {
+                throw $this->createNotFoundException($e->getMessage());
+            }
+
+            return $this->render('pages/product/show.html.twig', compact('slug', 'id', 'product'));
+        } else {
+            throw new GoneHttpException();
+        }
     }
 }

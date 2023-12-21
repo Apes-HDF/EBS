@@ -56,7 +56,7 @@
                 <span>{{ (i18n_prefix ~ '.no_result')|trans }}</span>
             </div>
         {% else %}
-            {% include 'components/product/_section.html.twig' %}
+            {% include 'components/product/_section.html.twig' with {services_enabled} %}
             {% include 'components/product/_tab_content.html.twig' with {objects_pagination, services_pagination} %}
         {% endif %}
     </div>

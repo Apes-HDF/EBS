@@ -4,8 +4,8 @@
     <div class="px-3 px-lg-0">
         {% include 'components/layout/_title_3.html.twig' with {name: 'product.list_name'|trans} %}
         {% include 'components/product/_search.html.twig' with {form: search_form} %}
-        {% include 'components/product/_section.html.twig'with {objects_pagination, services_pagination} %}
-        {% include 'components/product/_tab_content.html.twig' with {objects_pagination, services_pagination} %}
+        {% include 'components/product/_section.html.twig'with {objects_pagination, services_pagination, services_enabled} %}
+        {% include 'components/product/_tab_content.html.twig' with {objects_pagination, services_pagination, services_enabled} %}
     </div>
 {% endblock %}
 

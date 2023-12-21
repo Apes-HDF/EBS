@@ -7,6 +7,12 @@
     <body>
 
         <!-- notification sender section -->
+        <trans-unit id="qlPbwB3" resname="parameter.services">
+            <source>parameter.services</source>
+            <target>Services activés</target>
+        </trans-unit>
+
+        <!-- notification sender section -->
         <trans-unit id="qqTbwBV" resname="parameter.mail">
             <source>parameter.mail</source>
             <target>Adresse e-mail</target>
