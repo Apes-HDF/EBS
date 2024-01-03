@@ -75,6 +75,7 @@ App\Entity\User:
         address: '@address_region_hauts_de_france'
         schedule: '9h30 - 17h30'
         phoneNumber: null
+        createdAt: <date_create_immutable('+1 month')>
         
     # —— Users —————————————————————————————————————————————————————————————————
     # user with vacation mode
@@ -111,6 +112,7 @@ App\Entity\User:
         confirmationExpiresAt: <date_create_immutable('+12 hours')>
         firstname: <firstname()>
         lastname: <lastname()>
+        createdAt: <date_create_immutable('-1 month')>
 
     # user with an expired confirmation token
     # user with an unconfirmed email

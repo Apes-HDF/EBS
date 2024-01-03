@@ -7,6 +7,8 @@ namespace App\Repository;
 use App\Entity\User;
 use App\Enum\User\UserType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -104,5 +106,45 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             // sort
             ->orderBy('p.name', 'ASC')
         ;
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getUserCountByType(UserType $type): int
+    {
+        /** @var int */
+        return $this
+            ->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->where('u.type = :type')
+            ->setParameter('type', $type)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getNewUsersOfMonthByType(UserType $type): int
+    {
+        $today = new \DateTime();
+
+        /** @var int */
+        return $this
+            ->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->where('u.type = :type')
+            ->andWhere('u.createdAt >= :firstDay')
+            ->andWhere('u.createdAt <= :lastDay')
+            ->setParameters([
+                'firstDay' => $today->modify('first day of this month')->format('Y-m-d'),
+                'lastDay' => $today->modify('last day of this month')->format('Y-m-d'),
+                'type' => $type,
+            ])
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }
