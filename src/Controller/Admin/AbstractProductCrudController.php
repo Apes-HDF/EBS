@@ -15,6 +15,7 @@ use App\Enum\Product\ProductType;
 use App\Enum\Product\ProductVisibility;
 use App\Flysystem\EasyAdminHelper;
 use App\Flysystem\MediaManager;
+use App\Helper\CsvExporter;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -27,8 +28,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\CrudDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
+use EasyCorp\Bundle\EasyAdminBundle\Factory\FilterFactory;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
@@ -45,6 +48,8 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 abstract class AbstractProductCrudController extends AbstractCrudController implements AdminSecuredCrudControllerInterface
 {
@@ -65,6 +70,10 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
         private readonly MediaManager $mediaManager,
         #[Autowire('%product_base_path%')]
         private readonly string $productBasePath,
+        private readonly CsvExporter $csvExporter,
+        private readonly TranslatorInterface $translator,
+        private readonly FilterFactory $filterFactory,
+        private readonly SluggerInterface $slugger,
     ) {
     }
 
@@ -112,13 +121,29 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
         $availability = Action::new('availability', 'action.availability')
             ->linkToCrudAction('linkToProductAvailabilityPage');
 
+        $exportAction = Action::new('export')
+            ->linkToUrl(function () {
+                /** @var AdminContext $context */
+                $context = $this->getContext();
+
+                return $this->adminUrlGenerator->setAll($context->getRequest()->query->all())
+                    ->setEntityId(null)
+                    ->setAction('export')
+                    ->generateUrl();
+            })
+            ->addCssClass('btn btn-success')
+            ->setIcon('fa fa-download')
+            ->createAsGlobalAction()
+        ;
+
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->add(Crud::PAGE_EDIT, Action::DETAIL)
             ->add(Crud::PAGE_EDIT, Action::INDEX)
             ->add(Crud::PAGE_INDEX, $onBreak)
             ->add(Crud::PAGE_INDEX, $activate)
-            ->add(Crud::PAGE_DETAIL, $availability);
+            ->add(Crud::PAGE_DETAIL, $availability)
+            ->add(Crud::PAGE_INDEX, $exportAction);
     }
 
     private function redirectToObjectCrudPage(): RedirectResponse
@@ -145,6 +170,23 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
         $this->productRepository->save($product, true);
 
         return $this->redirectToObjectCrudPage();
+    }
+
+    /**
+     * For now, we export exactly what we see in the list to avoid security problems.
+     */
+    public function export(AdminContext $context): Response
+    {
+        $fields = FieldCollection::new($this->configureFields(Crud::PAGE_INDEX));
+        /** @var CrudDto $crud Crud is defined here */
+        $crud = $context->getCrud();
+        $filters = $this->filterFactory->create($crud->getFiltersConfig(), $fields, $context->getEntity());
+        /** @var SearchDto $search */
+        $search = $context->getSearch();
+        $queryBuilder = $this->createIndexQueryBuilder($search, $context->getEntity(), $fields, $filters);
+        $fileName = $this->slugger->slug($this->translator->trans($this->getEntityLabelInPlural(), [], DashboardController::DOMAIN));
+
+        return $this->csvExporter->createResponseFromQueryBuilder($queryBuilder, $fields, $fileName.'.csv');
     }
 
     public static function getEntityFqcn(): string

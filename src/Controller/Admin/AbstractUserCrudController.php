@@ -354,6 +354,7 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
         $smsNotificationsField = BooleanField::new('smsNotifications');
         $vacationModeField = BooleanField::new('vacationMode');
         $addressField = AssociationField::new('address');
+        $groupsCountField = AssociationField::new('userGroups')->setLabel('Groups number');
 
         return compact(
             'idField',
@@ -376,6 +377,7 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
             'smsNotificationsField',
             'vacationModeField',
             'addressField',
+            'groupsCountField',
         );
     }
 

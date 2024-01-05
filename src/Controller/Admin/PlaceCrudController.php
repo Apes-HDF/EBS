@@ -45,10 +45,11 @@ final class PlaceCrudController extends AbstractUserCrudController
             'loginAt' => $loginAt,
             'createdAt' => $createdAt,
             'updatedAt' => $updatedAt,
+            'groupsCountField' => $groupsCountField,
         ] = $this->getFields($pageName);
 
         if ($pageName === Crud::PAGE_INDEX) {
-            return [$emailField, $nameField, $enabledField, $emailConfirmedField, $createdAt, $updatedAt, $loginAt];
+            return [$emailField, $nameField, $enabledField, $emailConfirmedField, $createdAt, $updatedAt, $loginAt, $groupsCountField];
         }
 
         if ($pageName === Crud::PAGE_NEW || $pageName === Crud::PAGE_EDIT) {

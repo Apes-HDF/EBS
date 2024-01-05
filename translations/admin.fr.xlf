@@ -358,6 +358,11 @@
             <target>Retour</target>
         </trans-unit>
 
+        <trans-unit id="D4hiuPj" resname="Groups number">
+            <source>Groups number</source>
+            <target>Nombre de groupes</target>
+        </trans-unit>
+
     </body>
   </file>
 </xliff>

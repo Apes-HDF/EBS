@@ -47,10 +47,11 @@ final class UserCrudController extends AbstractUserCrudController
             'smsNotificationsField' => $smsNotificationsField,
             'vacationModeField' => $vacationModeField,
             'addressField' => $addressField,
+            'groupsCountField' => $groupsCountField,
         ] = $this->getFields($pageName);
 
         if ($pageName === Crud::PAGE_INDEX) {
-            return [$emailField, $firstNameField, $lastNameField, $enabledField, $emailConfirmedField, $avatarField, $createdAt, $updatedAt, $loginAt];
+            return [$emailField, $firstNameField, $lastNameField, $enabledField, $emailConfirmedField, $avatarField, $createdAt, $updatedAt, $loginAt, $groupsCountField];
         }
 
         $panels = $this->getPanels();
