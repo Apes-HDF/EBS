@@ -80,7 +80,7 @@ class Configuration
      */
     public function getServices(): array
     {
-        /** @var array<bool> $services */
+        /** @var array<string, bool> $services */
         $services = $this->configuration['services'] ?? [];
 
         return $services;
