@@ -11,8 +11,13 @@ use App\Entity\Page;
 use App\Entity\ServiceRequest;
 use App\Entity\User;
 use App\Entity\UserGroup;
+use App\Enum\User\UserType;
 use App\Repository\GroupRepository;
+use App\Repository\ServiceRequestRepository;
+use App\Repository\UserRepository;
 use App\Security\Checker\AuthorizationChecker;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -55,6 +60,8 @@ final class DashboardController extends AbstractDashboardController
         private readonly GroupRepository $groupRepository,
         private readonly AdminUrlGenerator $adminUrlGenerator,
         private readonly AuthorizationChecker $authorizationChecker,
+        private readonly UserRepository $userRepository,
+        private readonly ServiceRequestRepository $requestRepository
     ) {
     }
 
@@ -74,6 +81,10 @@ final class DashboardController extends AbstractDashboardController
         ;
     }
 
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
@@ -87,6 +98,11 @@ final class DashboardController extends AbstractDashboardController
 
         return $this->render('admin/dashboard.html.twig', [
             'group_count' => $this->groupRepository->count([]),
+            'user_count' => $this->userRepository->getUserCountByType(UserType::USER),
+            'place_count' => $this->userRepository->getUserCountByType(UserType::PLACE),
+            'month_users_count' => $this->userRepository->getNewUsersOfMonthByType(UserType::USER),
+            'month_places_count' => $this->userRepository->getNewUsersOfMonthByType(UserType::PLACE),
+            'month_requests_count' => $this->requestRepository->getNewServiceRequestsOfMonth(),
         ]);
     }
 

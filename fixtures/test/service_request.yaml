@@ -11,6 +11,7 @@ App\Entity\ServiceRequest:
         recipient: '@user_17'
         startAt: '<date_create_immutable("tomorrow midnight")>'
         endAt: '<date_create_immutable("+1 week midnight")>'
+        createdAt: <date_create_immutable('+1 month')>
 
     # ongoing service request, can be finalized manually
     # @see ServiceRequestStatusWorkflowControllerFinalizeTest

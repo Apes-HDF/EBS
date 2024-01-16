@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+        <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="xIbdP9t" resname="templates.admin.dashboard.group">
+            <source>templates.admin.dashboard.group</source>
+            <target>Groupes</target>
+        </trans-unit>
+
+        <trans-unit id="kjbR67l" resname="templates.admin.dashboard.group_count">
+            <source>templates.admin.dashboard.group_count</source>
+            <target>Nombre de groupe: %group_count%</target>
+        </trans-unit>
+
+        <trans-unit id="jhQrGv7" resname="templates.admin.dashboard.users">
+            <source>templates.admin.dashboard.users</source>
+            <target>Utilisateurs</target>
+        </trans-unit>
+
+        <trans-unit id="aml4vgY" resname="templates.admin.dashboard.month_users_count">
+            <source>templates.admin.dashboard.month_users_count</source>
+            <target>Nombre de nouveaux utilisateurs du mois: %month_users_count%</target>
+        </trans-unit>
+
+        <trans-unit id="xhMdko2" resname="templates.admin.dashboard.user_count">
+            <source>templates.admin.dashboard.user_count</source>
+            <target>Nombre total: %user_count%</target>
+        </trans-unit>
+
+        <trans-unit id="kjBr0ll" resname="templates.admin.dashboard.places">
+            <source>templates.admin.dashboard.places</source>
+            <target>Lieux</target>
+        </trans-unit>
+
+        <trans-unit id="hGa6vcQ" resname="templates.admin.dashboard.month_places_count">
+            <source>templates.admin.dashboard.month_places_count</source>
+            <target>Nombre de nouveaux lieux du mois: %month_places_count%</target>
+        </trans-unit>
+
+        <trans-unit id="om9jZug" resname="templates.admin.dashboard.place_count">
+            <source>templates.admin.dashboard.place_count</source>
+            <target>Nombre total: %place_count%</target>
+        </trans-unit>
+
+        <trans-unit id="xIhuGv7" resname="templates.admin.dashboard.loans">
+            <source>templates.admin.dashboard.loans</source>
+            <target>Emprunts</target>
+        </trans-unit>
+
+        <trans-unit id="olk9wsr" resname="templates.admin.dashboard.month_requests_count">
+            <source>templates.admin.dashboard.month_requests_count</source>
+            <target>Nombre d’emprunts du mois: %month_requests_count%</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

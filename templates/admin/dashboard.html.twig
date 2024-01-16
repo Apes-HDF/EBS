@@ -3,6 +3,8 @@
 
 {% trans_default_domain 'admin' %}
 
+{% set i18n_prefix = _self|i18n_prefix %}
+
 {% block content_title %}Dashboard{% endblock %}
 
 {% block page_actions %}
@@ -17,13 +19,54 @@
     <table class="datagrid">
         <thead>
         <tr>
-            <td><b>Nombre de groupes</b></td>
+            <td><b>{{ (i18n_prefix ~ '.group')|trans }}</b></td>
         </tr>
         </thead>
         <tbody>
             <tr>
-                <td>{{ group_count }}</td>
+                <td>{{ (i18n_prefix ~ '.group_count')|trans({'%group_count%': group_count}) }}</td>
             </tr>
+        </tbody>
+
+        <thead>
+        <tr>
+            <td><b>{{ (i18n_prefix ~ '.users')|trans }}</b></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <p>{{ (i18n_prefix ~ '.month_users_count')|trans({'%month_users_count%': month_users_count}) }}</p>
+                <p>{{ (i18n_prefix ~ '.user_count')|trans({'%user_count%': user_count}) }}</p>
+            </td>
+        </tr>
+        </tbody>
+
+        <thead>
+        <tr>
+            <td><b>{{ (i18n_prefix ~ '.places')|trans }}</b></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <p>{{ (i18n_prefix ~ '.month_places_count')|trans({'%month_places_count%': month_places_count}) }}</p>
+                <p>{{ (i18n_prefix ~ '.place_count')|trans({'%place_count%': place_count}) }}</p>
+            </td>
+        </tr>
+        </tbody>
+
+        <thead>
+        <tr>
+            <td><b>{{ (i18n_prefix ~ '.loans')|trans }}</b></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <p>{{ (i18n_prefix ~ '.month_requests_count')|trans({'%month_requests_count%': month_requests_count}) }}</p>
+            </td>
+        </tr>
         </tbody>
     </table>
 {% endblock %}

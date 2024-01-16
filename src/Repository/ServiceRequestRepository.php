@@ -10,6 +10,8 @@ use App\Entity\User;
 use App\Enum\ServiceRequest\ServiceRequestStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -125,5 +127,27 @@ final class ServiceRequestRepository extends ServiceEntityRepository
     public function getEndingAtTomorow(): Query
     {
         return $this->getActionSoon('endAt');
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getNewServiceRequestsOfMonth(): int
+    {
+        $today = new \DateTime();
+
+        /** @var int */
+        return $this
+            ->createQueryBuilder('sr')
+            ->select('COUNT(sr.id)')
+            ->where('sr.createdAt >= :firstDay')
+            ->andWhere('sr.createdAt <= :lastDay')
+            ->setParameters([
+                'firstDay' => $today->modify('first day of this month')->format('Y-m-d'),
+                'lastDay' => $today->modify('last day of this month')->format('Y-m-d'),
+            ])
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }
