@@ -79,6 +79,7 @@ L’utilisateur·rice peut également renseigner des périodes d’indisponibili
 La plateforme propose un traitement similaire aux objets et aux services. 
 
 Les objets et services peuvent être consultés par les administrateur·rice·s dans l’interface d’administration.
+Les services peuvent être activés ou désactivés pour l'instance, via l'espace d'administration.
 
 
 ### Catégories
@@ -184,6 +185,7 @@ L’interface d’administration permet de configurer les liens du menu. Le pied
 
 ## Fonctionnalités configurables
 Les options suivantes peuvent être configurées manuellement dans l’espace d’administration : 
+- Activation des services
 - Gestion des administrateur·rice·s de l’instance
 - Expéditeur des notifications (e-mail, nom)
 - Activation du lien de contact dans le menu
