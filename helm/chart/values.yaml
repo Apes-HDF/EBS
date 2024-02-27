@@ -4,7 +4,7 @@
 
 php:
   image:
-    repository: "ghcr.io/Apes-HDF/plateformcoop-ebs-php" # CHANGE ME
+    repository: "ghcr.io/apes-hdf/plateformcoop-ebs-php" # CHANGE ME
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
