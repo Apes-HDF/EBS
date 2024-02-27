@@ -1,0 +1,33 @@
+name: Build
+
+on:
+  workflow_call:
+
+jobs:
+  build-push-php:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - name: Build/Push
+      uses: coopTilleuls/action-docker-build-push@v10
+      with:
+        IMAGE_NAME: plateformcoop-ebs-php
+        BUILD_CONTEXT: .
+        BUILD_TARGET: app_php
+        REGISTRY_JSON_KEY: ${{ secrets.GITHUB_TOKEN }}
+        IMAGE_REPOSITORY: ghcr.io/Apes-HDF
+         
+  build-push-caddy:
+    # Same Dockerfile as php, with a build target which is after
+    needs: [build-push-php]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - name: Build/Push
+      uses: coopTilleuls/action-docker-build-push@v10
+      with:
+        IMAGE_NAME: plateformcoop-ebs-caddy
+        BUILD_CONTEXT: .
+        BUILD_TARGET: app_caddy
+        REGISTRY_JSON_KEY: ${{ secrets.GITHUB_TOKEN }}
+        IMAGE_REPOSITORY: ghcr.io/Apes-HDF
