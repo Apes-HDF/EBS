@@ -51,15 +51,11 @@ jobs:
             ENVIRONMENT=prod
             IMAGE_TAG=${{ github.ref_name }}
             RELEASE_NAME=prod
-            URL=${{ vars.DOMAIN }}
-            STORAGE_NAME=${{ vars.STORAGE_BUCKET }}
             echo "context=${CONTEXT}" >> $GITHUB_OUTPUT
             echo "environment=${ENVIRONMENT}" >> $GITHUB_OUTPUT
             echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
             echo "release_name=${RELEASE_NAME}" >> $GITHUB_OUTPUT
             echo "namespace=${CONTEXT}-${PROJECT}" >> $GITHUB_OUTPUT
-            echo "url=${URL}" >> $GITHUB_OUTPUT
-            echo "storage_name=${STORAGE_NAME}" >> $GITHUB_OUTPUT
 
   deploy:
     name: Deploy
@@ -115,12 +111,12 @@ jobs:
             --namespace ${{ needs.meta.outputs.namespace }} \
             --set=php.image.tag=${{ needs.meta.outputs.image_tag }} \
             --set=caddy.image.tag=${{ needs.meta.outputs.image_tag }} \
-            --set=ingress.hosts[0].host=${{ needs.meta.outputs.url }} \
+            --set=ingress.hosts[0].host=${{ vars.DOMAIN }} \
             --set=ingress.tls[0].secretName=${{ needs.meta.outputs.release_name }}-tls \
-            --set=ingress.tls[0].hosts[0]=${{ needs.meta.outputs.url }} \
+            --set=ingress.tls[0].hosts[0]=${{ vars.DOMAIN }} \
             --set=postgresql.url="${{ secrets.database-url }}" \
             --set=payum.apikey="${{ secrets.payum-apikey }}" \
-            --set=php.storage.bucket="${{ needs.meta.outputs.storage_name }}" \
+            --set=php.storage.bucket="${{ vars.STORAGE_BUCKET }}" \
             --set=php.storage.endpoint="https://storage.googleapis.com" \
             --set=php.storage.region="eu-west-1" \
             --set=php.storage.usePathStyleEndpoint=true \
