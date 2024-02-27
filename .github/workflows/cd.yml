@@ -7,7 +7,9 @@ on:
       - main
 permissions:
   pull-requests: write
-  id-token: write 
+  id-token: write
+  contents: read
+
 jobs:
   # remove-deploy-label:
   #   name: Remove deploy label
