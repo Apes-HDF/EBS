@@ -45,17 +45,16 @@ jobs:
         run: |
           set -xo pipefail
           PROJECT=plateformcoop-ebs
-          if [[ "${{ github.ref }}" == *"tag"* ]]; then
-            # Tags are deployed in prod
-            CONTEXT=prod
-            ENVIRONMENT=prod
-            IMAGE_TAG=${{ github.ref_name }}
-            RELEASE_NAME=prod
-            echo "context=${CONTEXT}" >> $GITHUB_OUTPUT
-            echo "environment=${ENVIRONMENT}" >> $GITHUB_OUTPUT
-            echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
-            echo "release_name=${RELEASE_NAME}" >> $GITHUB_OUTPUT
-            echo "namespace=${CONTEXT}-${PROJECT}" >> $GITHUB_OUTPUT
+          # Tags are deployed in prod
+          CONTEXT=prod
+          ENVIRONMENT=prod
+          IMAGE_TAG=${{ github.ref_name }}
+          RELEASE_NAME=prod
+          echo "context=${CONTEXT}" >> $GITHUB_OUTPUT
+          echo "environment=${ENVIRONMENT}" >> $GITHUB_OUTPUT
+          echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
+          echo "release_name=${RELEASE_NAME}" >> $GITHUB_OUTPUT
+          echo "namespace=${CONTEXT}-${PROJECT}" >> $GITHUB_OUTPUT
 
   deploy:
     name: Deploy
