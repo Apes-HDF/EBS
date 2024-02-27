@@ -30,7 +30,6 @@ jobs:
     secrets:
       domain: ${{ secrets.DOMAIN }}
       payum-apikey: ${{ secrets.PAYUM_APIKEY }}
-      mailer-dsn: '${{ secrets.MAILER_DSN }}'
       storage-key: ${{ secrets.STORAGE_KEY }}
       storage-secret-key: ${{ secrets.STORAGE_SECRET_KEY}}
       project-id: ${{ secrets.PROJECT_ID }}
