@@ -4,7 +4,7 @@
 
 php:
   image:
-    repository: "ghcr.io/ApesHDF/EBS-php" # CHANGE ME
+    repository: "ghcr.io/ApesHDF/plateformcoop-ebs-php" # CHANGE ME
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
@@ -50,7 +50,7 @@ consumer:
 
 caddy:
   image:
-    repository: "ghcr.io/ApesHDF/EBS-caddy" # CHANGE ME
+    repository: "ghcr.io/ApesHDF/plateformcoop-ebs-caddy" # CHANGE ME
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
