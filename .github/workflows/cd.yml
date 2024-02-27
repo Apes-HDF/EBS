@@ -5,7 +5,9 @@ on:
   push:
     branches:
       - main
-
+permissions:
+  pull-requests: write
+  id-token: write 
 jobs:
   # remove-deploy-label:
   #   name: Remove deploy label
