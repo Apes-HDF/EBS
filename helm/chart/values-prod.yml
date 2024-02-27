@@ -29,6 +29,4 @@ redis:
       size: "1Gi"
 
 postgresql:
-  persistence:
-    enabled: true
-    storageClass: "standard"
+  enabled: false

@@ -50,7 +50,7 @@ consumer:
 
 caddy:
   image:
-    repository: "ghcr.io/ApesHDF/plateformcoop-ebs-caddy" # CHANGE ME
+    repository: "ghcr.io/apes-hdf/plateformcoop-ebs-caddy" # CHANGE ME
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
