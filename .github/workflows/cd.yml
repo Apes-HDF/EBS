@@ -39,3 +39,4 @@ jobs:
       project-id: ${{ secrets.PROJECT_ID }}
       workload-identity-provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
       database-url: ${{ secrets.DATABASE_URL }}
+      mailer-dsn: ${{ secrets.MAILER_DSN }}

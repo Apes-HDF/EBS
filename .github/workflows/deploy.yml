@@ -24,6 +24,9 @@ on:
       database-url:
         description: Database URL
         required: true
+      mailer-dsn:
+        description: Mailer DSN
+        required: true
 
 
 jobs:
@@ -115,6 +118,7 @@ jobs:
             --set=ingress.tls[0].hosts[0]=${{ vars.DOMAIN }} \
             --set=postgresql.url="${{ secrets.database-url }}" \
             --set=payum.apikey="${{ secrets.payum-apikey }}" \
+            --set=mailer.dsn="${{ secrets.mailer-dsn }}" \
             --set=php.storage.bucket="${{ vars.STORAGE_BUCKET }}" \
             --set=php.storage.endpoint="https://storage.googleapis.com" \
             --set=php.storage.region="eu-west-1" \
