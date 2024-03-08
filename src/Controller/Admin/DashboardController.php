@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Controller\Admin\Dev\DevToolsController;
 use App\Controller\User\MyAccountAction;
 use App\Entity\Group;
 use App\Entity\Page;
@@ -210,12 +209,6 @@ final class DashboardController extends AbstractDashboardController
         ])->setPermission(User::ROLE_ADMIN);
 
         yield MenuItem::linkToCrud('menu.loans', 'fas fa-link', ServiceRequest::class)->setPermission(User::ROLE_ADMIN);
-
-        // —————————————————————————————————————————————————————————————————————
-        if ($user->isDevAccount()) {
-            yield MenuItem::section('menu.devtools')->setPermission(User::ROLE_ADMIN);
-            yield MenuItem::linkToRoute('menu.dev_tools', 'fas fa-wrench', DevToolsController::ROUTE_NAME)->setPermission(User::ROLE_ADMIN);
-        }
 
         // —————————————————————————————————————————————————————————————————————
         yield MenuItem::section('menu.public');
