@@ -1,4 +1,3 @@
-{{- if .Values.dailyCronjobs.enabled }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -68,9 +67,15 @@ spec:
                       name: {{ include "plateformcoop-ebs" . }}
                       key: php-trusted-proxies
                 - name: APP_ENV
-                  value: "prod"
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateformcoop-ebs" . }}
+                      key: php-app-env
                 - name: APP_DEBUG
-                  value: "0"
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateformcoop-ebs" . }}
+                      key: php-app-debug
                 - name: APP_SECRET
                   valueFrom:
                     secretKeyRef:
@@ -86,6 +91,11 @@ spec:
                     secretKeyRef:
                       name: {{ include "plateformcoop-ebs" . }}
                       key: database-url
+                - name: MAILER_DSN
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ include "plateformcoop-ebs" . }}
+                      key: mailer-dsn
                 - name: MERCURE_URL
                   valueFrom:
                     configMapKeyRef:
@@ -101,6 +111,40 @@ spec:
                     secretKeyRef:
                       name: {{ include "plateformcoop-ebs" . }}
                       key: mercure-jwt-secret
+                {{- if .Values.meilisearch.enabled }}
+                - name: MEILISEARCH_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ printf "%s-%s" (include "meilisearch.fullname" .Subcharts.meilisearch ) "master-key" }}
+                      key: MEILI_MASTER_KEY
+                - name: MEILISEARCH_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateformcoop-ebs" . }}
+                      key: meilisearch-url
+                {{- end }}
+                {{- if .Values.redis.enabled }}
+                - name: REDIS_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateformcoop-ebs" . }}
+                      key: redis-url
+                {{- end }}
+                - name: SMS_DSN
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ include "plateformcoop-ebs" . }}
+                      key: sms-dsn
+                - name: PAYUM_APIKEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ include "plateformcoop-ebs" . }}
+                      key: payum-apikey
+                - name: PAYUM_GATEWAY
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateformcoop-ebs" . }}
+                      key: payum-gateway
                 - name: STORAGE_BUCKET
                   valueFrom:
                     configMapKeyRef:
@@ -153,4 +197,3 @@ spec:
                 periodSeconds: 3
               resources:
                 {{- toYaml .Values.resources.fixtures | nindent 16 }}
-{{- end }}
