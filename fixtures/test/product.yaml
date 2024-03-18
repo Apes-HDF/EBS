@@ -43,7 +43,8 @@ App\Entity\Product:
         name: Guitare électrique
         description: >
             Guitare en bon état.
-        age: 2010    
+        age: 2010
+        images: ["d51c66ad-9e02-4fa9-8f37-5c84d928226e.jpg"]
         
     loic_service_1 (extends service):
         id: <uuid('1ed7a2a8-0a78-605a-a8e0-f3a729006754')>
@@ -53,7 +54,8 @@ App\Entity\Product:
         description: >
             Initiation aux échecs pour débutants (1 heure). 
         duration: >
-            Une ou deux heures si besoin. 
+            Une ou deux heures si besoin.
+        images: ["e2140911-4689-47df-a9cd-f87cef342cdd.jpg"]
 
     # Kevin ———————————————————————————————————————————————————————————————————
     kevin_object_1 (extends object):
@@ -64,6 +66,7 @@ App\Entity\Product:
         description: >
             Très bien pour les déménagements, même proches.
         age: Acheté en 2012.
+        images: ["d4a5f2fb-57bb-4e6a-95eb-0614e8f62d45.jpg"]
 
     kevin_object_2 (extends object):
         owner: '@admin_kevin'
@@ -72,6 +75,7 @@ App\Entity\Product:
         description: >
             Très bien pour percer des trous dans la maison.
         age: Acheté en 2015.
+        images: ["d75f07b1-52cb-4e39-929d-9da35e722627.jpg"]
 
     # Camille —————————————————————————————————————————————————————————————————————
     camille_object_1 (extends object):
@@ -109,6 +113,7 @@ App\Entity\Product:
             Pour transporter son enfant ou son chat.
         age: 2022
         deposit: 5000
+        images: ["335dbbc1-3660-4f82-a529-fe79eb1a9a87.jpg"]
     
     # user 16 —————————————————————————————————————————————————————————————————————
     user_16_service_1 (extends service):        
@@ -129,6 +134,7 @@ App\Entity\Product:
             Très belle guitare électrique en bon état.
         age: 2013
         deposit: 2000
+        images: ["e5889470-abfd-432c-aa96-0838608b936a.jpg"]
             
     user_16_object_2 (extends object):
         owner: '@user_16'
@@ -136,7 +142,8 @@ App\Entity\Product:
         name: Piano
         description: >
             Piano en bon état.
-        age: 2010    
+        age: 2010
+        images: ["f3fa0285-2b3c-4235-a618-9092ee55cae4.jpg"]
     
     # place apes —————————————————————————————————————————————————————————————————————
     place_apes_service_1 (extends service):
@@ -163,7 +170,8 @@ App\Entity\Product:
         description: >
              Cours de rattrapage en histoire, aide aux devoirs, remise à niveau. 
         duration: >
-            Une journée.        
+            Une journée.
+        images: ["c594de44-8999-46ed-89f0-6688c7d7c087.jpg"]
 
     # Place 6 ———————————————————————————————————————————————————————————————————        
     place_6_object_1 (extends object):
@@ -175,6 +183,7 @@ App\Entity\Product:
         duration: Une journée.
         age: De 2 à 10 ans
         deposit: 0
+        images: ["434a9bb7-c140-4776-93e8-b8d018cd28f0.jpg"]
 
     place_6_object_2 (extends object):
         id: <uuid('1edf938b-7344-6684-87d5-d36fc869cf92')>

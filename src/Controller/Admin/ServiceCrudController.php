@@ -10,6 +10,7 @@ use App\Enum\Product\ProductType;
 use App\Enum\Product\ProductVisibility;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 
 /**
  * Specific page for services.
@@ -53,14 +54,18 @@ final class ServiceCrudController extends AbstractProductCrudController
             'nameField' => $nameField,
             'descriptionField' => $descriptionField,
             'durationField' => $durationField,
+            'imageField' => $imageField,
             'createdAt' => $createdAt,
             'updatedAt' => $updatedAt,
         ] = $this->getFields($pageName);
 
         // list
         if ($pageName === Crud::PAGE_INDEX) {
-            return [$nameField, $ownerField, $categoryField, $statusField, $visibilityField, $createdAt];
+            return [$nameField, $ownerField, $categoryField, $statusField, $visibilityField, $imageField, $createdAt];
         }
+
+        /** @var ImageField $imageField */
+        $imageField->setCustomOption('first_image_only', false);
 
         // forms
         if ($pageName === Crud::PAGE_NEW || $pageName === Crud::PAGE_EDIT) {
@@ -69,7 +74,7 @@ final class ServiceCrudController extends AbstractProductCrudController
             /** @var ChoiceField $visibilityField */
             $visibilityField->setChoices(ProductVisibility::cases());
 
-            return [$nameField, $ownerField, $categoryField, $statusField, $visibilityField, $descriptionField, $durationField];
+            return [$nameField, $ownerField, $categoryField, $statusField, $visibilityField, $descriptionField, $imageField, $durationField];
         }
 
         // detail
@@ -83,7 +88,7 @@ final class ServiceCrudController extends AbstractProductCrudController
             $nameField,
             $descriptionField,
             $durationField,
-
+            $imageField,
             $panels['tech_information'],
             $idField,
             $typeField,
