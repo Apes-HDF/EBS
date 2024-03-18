@@ -57,8 +57,83 @@ App\Entity\Page:
         name: Accueil
         home: true
         content: |
-           \<h2><strong>Nulla fermentum justo sed magna rutrum, eget fermentum dolor accumsan.</strong></h2> 
-    
+           \<h1><strong>Bienvenue sur la d&eacute;mo de la plateforme d&#39;&eacute;change de biens et services EBS</strong></h1>
+            <p dir="auto">&nbsp;</p>
+            <h1 dir="auto">Contexte</h1>
+            <p dir="auto">Le logiciel est destin&eacute; aux porteurs de projets qui souhaitent d&eacute;velopper une plateforme coop&eacute;rative &agrave; une &eacute;chelle territoriale locale (ville, EPCI, d&eacute;partement, r&eacute;gion Hauts-de-France) et ce dans une f&eacute;d&eacute;ration d&rsquo;instances de plateformes coop&eacute;ratives.</p>
+            <p dir="auto">Ce logiciel propose une plateforme d&#39;&eacute;change de biens et services au sein d&#39;une communaut&eacute;. La plateforme propose un moyen de rentrer en contact avec quelqu&rsquo;un pour permettre cet &eacute;change : soit en tant que pr&ecirc;teur, qui propose un objet, soit en tant qu&rsquo;emprunteur, qui l&rsquo;utilise.</p>
+            <p dir="auto">Pour les administrateur&middot;rice&middot;s de la plateforme, elle est personnalisable en configurant les fonctionnalit&eacute;s disponibles et en personnalisant les contenus via l&rsquo;espace d&rsquo;administration.</p>
+            <p dir="auto">La plateforme a &eacute;t&eacute; con&ccedil;ue au format responsive pour &ecirc;tre utilis&eacute;e tant sur ordinateur qu&rsquo;appareil mobile (tablette ou smartphone).</p>
+            <p>Le code est disponible sous licence AGPL (Affero General Public License).</p>
+            <p>&nbsp;</p>
+            <hr />
+            <h2>D&eacute;p&ocirc;t</h2>
+            <p>Toutes les informations sur le projet et le code sont disponibles sur <strong><u><a href="https://github.com/Apes-HDF/EBS">le d&eacute;p&ocirc;t public</a></u></strong>.</p>
+            <p>&nbsp;</p>
+            <hr />
+            <h2>D&eacute;mo</h2>
+            <p>Vous pouvez tester la plateforme sur cet environnement de d&eacute;mo.</p>
+            <p>Utilisez les identifiants ci-dessous pour naviguez, ou cr&eacute;&eacute;z vous un compte :</p>
+            <table border="1" cellpadding="1" cellspacing="1" style="width:500px">
+            <thead>
+            <tr>
+            <th scope="col">R&ocirc;le</th>
+            <th scope="col">Identifiant</th>
+            <th scope="col">Mot de passe</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>Admin</td>
+            <td>sarah@example.com</td>
+            <td>35DVDj8ir3Buc7</td>
+            </tr>
+            <tr>
+            <td>Utilisateur de type individuel</td>
+            <td>loic@example.com</td>
+            <td>35DVDj8ir3Buc7</td>
+            </tr>
+            <tr>
+            <td>Utilisateur de type lieu</td>
+            <td>compte+lieu@apes-hdf.org</td>
+            <td>35DVDj8ir3Buc7</td>
+            </tr>
+            </tbody>
+            </table>
+            <p>&nbsp;</p>
+            <p>Testez les paiements avec les cartes de test suivantes :</p>
+            <table border="1" class="docutils styled-table">
+            <thead>
+            <tr>
+            <th>Type</th>
+            <th>Num&eacute;ro de carte</th>
+            <th>Expiration</th>
+            <th>CVV</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>American Express</td>
+            <td><code>3782 822463 10005</code></td>
+            <td>Tous</td>
+            <td>Tous</td>
+            </tr>
+            <tr>
+            <td>Mastercard</td>
+            <td><code>2223 0000 1047 9399</code></td>
+            <td>Tous</td>
+            <td>Tous</td>
+            </tr>
+            <tr>
+            <td>VISA</td>
+            <td><code>4543 4740 0224 9996</code></td>
+            <td>Tous</td>
+            <td>Tous</td>
+            </tr>
+            </tbody>
+            </table>
+            <p>&nbsp;</p>
+
     cgu:
         id: <uuid('1edca5ff-338d-6fa8-a99b-cf5fb5b2f7a5')>
         name: CGU

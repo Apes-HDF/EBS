@@ -32,12 +32,6 @@ App\Entity\MenuItem:
         parent: '@menu_item_account'
         position: 0
 
-    menu_item_forgotten_password (extends menu_item): 
-        name: 'Mot de passe oublié'
-        link: '/fr/compte/mot-de-passe-oublie'
-        parent: '@menu_item_account'
-        position: 1
-
     menu_item_logout (extends menu_item):
         name: 'Se déconnecter'
         link: '/logout'
