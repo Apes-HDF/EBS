@@ -40,7 +40,7 @@
         <!-- translations for admin email -->
         <trans-unit id="ZKTDVd5" resname="templates.pages.account.index.mail.subject">
             <source>templates.pages.account.index.mail.subject</source>
-            <target>PlatformCoop : demande de création de groupe</target>
+            <target>Platforme EBS : demande de création de groupe</target>
         </trans-unit>
 
         <trans-unit id="nd7Cu7v" resname="templates.pages.account.index.mail.mail_adress">
