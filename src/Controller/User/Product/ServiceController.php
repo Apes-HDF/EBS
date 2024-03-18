@@ -66,7 +66,7 @@ final class ServiceController extends AbstractController
                 return $this->redirectToRoute('app_product_show', $product->getRoutingParameters());
             }
 
-            return $this->render('pages/product/new_service.html.twig', compact('form'));
+            return $this->render('pages/product/new_service.html.twig', compact('form', 'product'));
         } else {
             throw new GoneHttpException();
         }

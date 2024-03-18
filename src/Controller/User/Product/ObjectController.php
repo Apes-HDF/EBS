@@ -61,7 +61,7 @@ final class ObjectController extends AbstractController
             return $this->redirectToRoute('app_product_show', $product->getRoutingParameters());
         }
 
-        return $this->render('pages/product/new_object.html.twig', compact('form'));
+        return $this->render('pages/product/new_object.html.twig', compact('form', 'product'));
     }
 
     #[Route(path: [

@@ -151,6 +151,11 @@
             <target>A récupérer</target>
         </trans-unit>
 
+        <trans-unit id="CBB4WUZ" resname="product.form.service_location">
+          <source>product.form.service_location</source>
+          <target>Lieu de la prestation</target>
+        </trans-unit>
+
         <trans-unit id="QqEwe6u" resname="product.form.address">
             <source>product.form.address</source>
             <target>Adresse</target>
