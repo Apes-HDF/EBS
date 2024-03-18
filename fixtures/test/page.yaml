@@ -86,17 +86,17 @@ App\Entity\Page:
             <tr>
             <td>Admin</td>
             <td>sarah@example.com</td>
-            <td>35DVDj8ir3Buc7</td>
+            <td>apesebs</td>
             </tr>
             <tr>
             <td>Utilisateur de type individuel</td>
             <td>loic@example.com</td>
-            <td>35DVDj8ir3Buc7</td>
+            <td>apesebs</td>
             </tr>
             <tr>
             <td>Utilisateur de type lieu</td>
             <td>compte+lieu@apes-hdf.org</td>
-            <td>35DVDj8ir3Buc7</td>
+            <td>apesebs</td>
             </tr>
             </tbody>
             </table>
