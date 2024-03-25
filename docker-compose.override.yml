@@ -8,6 +8,7 @@ services:
       target: app_php_dev
     volumes:
       - ./:/srv/app
+      - storage:/srv/app/public/storage
       - ./docker/php/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
       # If you develop on Mac or Windows you can remove the vendor/ directory
       # from the bind-mount for better performance by enabling the next line:
@@ -23,6 +24,7 @@ services:
   caddy:
     volumes:
       - ./public:/srv/app/public:ro
+      - storage:/srv/app/public/storage
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
 
   maildev:
