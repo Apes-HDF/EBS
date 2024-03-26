@@ -33,7 +33,7 @@ final class TestReference
 
     // users
     public const USER_COUNT = 18;
-    public const PASSWORD_FIXTURES = '35DVDj8ir3Buc7';
+    public const PASSWORD_FIXTURES = 'apesebs';
     public const PASSWORD = '12345678';
     public const USER_17_EMAIL = 'user17@example.com';
 
@@ -101,7 +101,7 @@ final class TestReference
 
     // menu and footer
     public const MENU_COUNT = 2;
-    public const MENU_ITEMS_COUNT = 16;
+    public const MENU_ITEMS_COUNT = 15;
     public const MENU_HEADER_ITEM_FIRST = '58a72426-57e4-4251-9c32-d29603bdcf5b';
     public const MENU_HEADER_ITEM_LAST = 'ac678c07-421f-4968-b2f8-74c9f2f22fcf';
 

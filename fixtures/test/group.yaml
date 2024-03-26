@@ -3,7 +3,7 @@ App\Entity\Group:
 
     group_1 (extends group_template):
         id: <uuid('1ed4bcca-336e-6732-a08c-a15bb85fa24a')>
-        name: Groupe 1
+        name: Groupe 1 - adhésion payante
         description: >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean velit erat, 
             fringilla sit amet dui in, vehicula ultrices dui.
@@ -12,7 +12,7 @@ App\Entity\Group:
         invitation_by_admin: true
         
     group_2 (extends group_template):
-        name: Groupe 2
+        name: Groupe 2 - adhésion gratuite
         description: >
             Mauris varius vitae nunc ac maximus. Aliquam quis placerat nisi. 
             Pellentesque aliquam magna sed elit interdum, sed elementum erat posuere.

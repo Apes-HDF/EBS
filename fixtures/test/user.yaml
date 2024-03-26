@@ -2,7 +2,7 @@ App\Entity\User:
     base_user_template (template):
         enabled: true
         mainAdminAccount: false
-        password: '\$2y\$13\$LOIpgrMmOysCysIwkILTl.qD8psPxn9U9/V03p3odlqztLb7Aewze' # 35DVDj8ir3Buc7
+        password: '\$2y\$13\$TQ31DwKCMXXDX4.vV8R10OLUIT8rDgtbUCywwtoT/gB72Ei46AOQ.' # apesebs
         emailConfirmed: true
         phoneNumber: '+33600000000'
         smsNotifications: true
@@ -25,6 +25,7 @@ App\Entity\User:
         lastname: 'Croteau'
         mainAdminAccount: true
         address: '@address_camille'
+        avatar: 'a9a9bf49-24e4-4b3e-bdbd-86808c32939e.jpg'
 
     admin_loic (extends admin_template):
         id: <uuid('1ed674d3-886f-6ad4-bc25-15f868662c0c')>
@@ -33,17 +34,19 @@ App\Entity\User:
         lastname: 'Duclos'
         devAccount: true
         address: '@address_loic'
+        avatar: '7c732ddb-9c13-45eb-aea0-e614f2340e6d.jpg'
 
     admin_kevin (extends admin_template):
         id: <uuid('1ed69804-eeb9-6c32-990b-632c3a6846ba')>
         email: 'kevin@example.com'
         firstname: 'Kevin'
         lastname: 'Pirouet'
+        avatar: '7c732ddb-9c13-45eb-aea0-e614f2340e6d.jpg'
 
     admin_apes (extends admin_template):
         id: <uuid('1ed69804-eeb9-6e6c-bce0-632c3a6846ba')>
         address: '@address_loic'
-        email: 'plateformcoop@apes-hdf.org'
+        email: 'plateformeebs@apes-hdf.org'
         firstname: 'APES'
         lastname: 'APES'
 
@@ -55,6 +58,7 @@ App\Entity\User:
         devAccount: true
         address: '@address_region_hauts_de_france'
         category: '@category_object_16'
+        avatar: 'a9a9bf49-24e4-4b3e-bdbd-86808c32939e.jpg'
 
     # —— Places ————————————————————————————————————————————————————————————————
     place_{6} (extends place_template):
@@ -156,7 +160,7 @@ App\Entity\User:
         firstname: <firstname()>
         lastname: <lastname()>
         address: null
-        avatar: 'ba827ea0-b140-4cbf-9786-77ac980c648c.jpg'    
+        avatar: 'a9a9bf49-24e4-4b3e-bdbd-86808c32939e.jpg'    
     
     # user with an address and a preferred category set
     user_{17} (extends user_template):
@@ -173,3 +177,4 @@ App\Entity\User:
         email: 'john.doe@example.com'
         firstname: 'John'
         lastname: 'Doe'
+        avatar: '7c732ddb-9c13-45eb-aea0-e614f2340e6d.jpg'

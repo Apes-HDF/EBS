@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     app_version: 0.7.2
-    brand: PlateformCoop
+    brand: Plateforme EBS
 
     # https://symfony.com/doc/current/performance.html#dump-the-service-container-into-a-single-file
     container.dumper.inline_factories: true

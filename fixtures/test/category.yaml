@@ -26,6 +26,7 @@ App\Entity\Category:
     category_service_4_0 (extends category_object):
         parent: '@category_object_4'
         name: Guitare
+        image: 'de945081-21b6-46c2-864d-db6ed6b43311.png'
 
     category_object_5 (extends category_object):
         name: Entretien de la maison
@@ -35,6 +36,7 @@ App\Entity\Category:
 
     category_object_7 (extends category_object):
         name: Images & son
+        image: 'd1fdbb3f-a5ca-4019-b488-fe6d8b06a4d3.png'
 
     category_object_8 (extends category_object):
         name: Informatique - téléphonie consoles et jeux vidéos
@@ -44,12 +46,13 @@ App\Entity\Category:
 
     category_object_10 (extends category_object):
         name: Livres
-
+        image: '87c1aa88-1937-4a71-b4d9-325086783193.png'
     category_object_11 (extends category_object):
         name: Loisirs divers
 
     category_object_12 (extends category_object):
         name: Matériel de sports
+        image: '04f41100-e963-4f33-8aaf-f1c774e0d42f.png'
 
     category_object_13 (extends category_object):
         name: Matériel de vacances et weekend

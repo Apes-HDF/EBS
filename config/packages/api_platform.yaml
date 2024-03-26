@@ -1,6 +1,6 @@
 api_platform:
-    title: 'PlateformCoop API'
-    description: 'List of PlateformCoop API endpoints. Most of them require to be logged.'
+    title: 'Plateforme EBS API'
+    description: 'List of Plateforme EBS API endpoints. Most of them require to be logged.'
 
     # The version of the API.
     version: '%app_version%'
