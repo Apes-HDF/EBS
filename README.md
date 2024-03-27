@@ -201,7 +201,7 @@ L’apparence globale du site (couleurs, disposition) est elle seulement modifia
 
 
 ## Possibilité d’extension 
-Il est possible de mettre en place une instance du logiciel Libre et Open Source PlateformeCoop puis de développer des pages supplémentaires sur-mesure. 
+Il est possible de mettre en place une instance du logiciel Libre et Open Source Plateforme EBS puis de développer des pages supplémentaires sur-mesure. 
 Il est par exemple possible de rajouter un fichier PHP et de lui attribuer une route sur le serveur HTTP, afin de permettre aux utilisateur·rice·s de charger cette page dans leur navigateur. 
 La page en question bénéficiera de l’accès au reste du framework, à la base de données et au contexte de session de l’utilisateur·rice connecté·e.
 
