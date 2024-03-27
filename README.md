@@ -11,6 +11,7 @@ Pour les administrateur·rice·s de la plateforme, elle est personnalisable en c
 
 La plateforme a été conçue au format responsive pour être utilisée tant sur ordinateur qu’appareil mobile (tablette ou smartphone). 
 
+Une démo de la plateforme est disponible : [Voir la démo](https://ebs.apes-hdf.org/fr).
 
 
 # Licence 
