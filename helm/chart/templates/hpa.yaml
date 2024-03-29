@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "plateformcoop-ebs" . }}
+  name: {{ include "plateforme-ebs" . }}
   labels:
-    {{- include "plateformcoop-ebs.labels" . | nindent 4 }}
+    {{- include "plateforme-ebs.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "plateformcoop-ebs" . }}
+    name: {{ include "plateforme-ebs" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

@@ -1,9 +1,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "plateformcoop-ebs" . }}-fixture-reset
+  name: {{ include "plateforme-ebs" . }}-fixture-reset
   labels:
-    {{- include "plateformcoop-ebs.labels" . | nindent 4 }}
+    {{- include "plateforme-ebs.labels" . | nindent 4 }}
 spec:
   schedule: '0 0 * * *'
   jobTemplate:
@@ -11,7 +11,7 @@ spec:
       annotations:
         rollme: {{ randAlphaNum 5 | quote }}
       labels:
-        {{- include "plateformcoop-ebs.selectorLabels" . | nindent 8 }}
+        {{- include "plateforme-ebs.selectorLabels" . | nindent 8 }}
     spec:
       template:
         spec:
@@ -19,7 +19,7 @@ spec:
           imagePullSecrets:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          serviceAccountName: {{ include "plateformcoop-ebs.serviceAccountName" . }}
+          serviceAccountName: {{ include "plateforme-ebs.serviceAccountName" . }}
           restartPolicy: Never
           containers:
             - name: {{ .Chart.Name }}-cronjob-notify-ms-e-7
@@ -39,77 +39,77 @@ spec:
                 - name: API_ENTRYPOINT_HOST
                   valueFrom:
                     configMapKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-host
                 - name: JWT_PASSPHRASE
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-jwt-passphrase
                 - name: JWT_PUBLIC_KEY
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-jwt-public-key
                 - name: JWT_SECRET_KEY
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-jwt-secret-key
                 - name: TRUSTED_HOSTS
                   valueFrom:
                     configMapKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-trusted-hosts
                 - name: TRUSTED_PROXIES
                   valueFrom:
                     configMapKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-trusted-proxies
                 - name: APP_ENV
                   valueFrom:
                     configMapKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-app-env
                 - name: APP_DEBUG
                   valueFrom:
                     configMapKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-app-debug
                 - name: APP_SECRET
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-app-secret
                 - name: CORS_ALLOW_ORIGIN
                   valueFrom:
                     configMapKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-cors-allow-origin
                 - name: DATABASE_URL
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: database-url
                 - name: MAILER_DSN
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: mailer-dsn
                 - name: MERCURE_URL
                   valueFrom:
                     configMapKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: mercure-url
                 - name: MERCURE_PUBLIC_URL
                   valueFrom:
                     configMapKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: mercure-public-url
                 - name: MERCURE_JWT_SECRET
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: mercure-jwt-secret
                 {{- if .Values.meilisearch.enabled }}
                 - name: MEILISEARCH_API_KEY
@@ -120,60 +120,60 @@ spec:
                 - name: MEILISEARCH_URL
                   valueFrom:
                     configMapKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: meilisearch-url
                 {{- end }}
                 {{- if .Values.redis.enabled }}
                 - name: REDIS_URL
                   valueFrom:
                     configMapKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: redis-url
                 {{- end }}
                 - name: SMS_DSN
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: sms-dsn
                 - name: PAYUM_APIKEY
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: payum-apikey
                 - name: PAYUM_GATEWAY
                   valueFrom:
                     configMapKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: payum-gateway
                 - name: STORAGE_BUCKET
                   valueFrom:
                     configMapKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-storage-bucket
                 - name: STORAGE_ENDPOINT
                   valueFrom:
                     configMapKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-storage-endpoint
                 - name: STORAGE_REGION
                   valueFrom:
                     configMapKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-storage-region
                 - name: STORAGE_USE_PATH_STYLE_ENDPOINT
                   valueFrom:
                     configMapKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-storage-use-path-style-endpoint
                 - name: STORAGE_KEY
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-storage-key
                 - name: STORAGE_SECRET
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plateformcoop-ebs" . }}
+                      name: {{ include "plateforme-ebs" . }}
                       key: php-storage-secret
               lifecycle:
                 preStop:

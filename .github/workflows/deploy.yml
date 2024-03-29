@@ -47,7 +47,7 @@ jobs:
         id: meta
         run: |
           set -xo pipefail
-          PROJECT=plateformcoop-ebs
+          PROJECT=plateforme-ebs
           # Tags are deployed in prod
           CONTEXT=prod
           ENVIRONMENT=prod

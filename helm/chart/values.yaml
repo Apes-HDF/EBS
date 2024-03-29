@@ -1,10 +1,10 @@
-# Default values for plateformcoop-ebs.
+# Default values for plateforme-ebs.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 php:
   image:
-    repository: "ghcr.io/apes-hdf/plateformcoop-ebs-php" # CHANGE ME
+    repository: "ghcr.io/apes-hdf/plateforme-ebs-php" # CHANGE ME
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
@@ -50,7 +50,7 @@ consumer:
 
 caddy:
   image:
-    repository: "ghcr.io/apes-hdf/plateformcoop-ebs-caddy" # CHANGE ME
+    repository: "ghcr.io/apes-hdf/plateforme-ebs-caddy" # CHANGE ME
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
@@ -66,7 +66,7 @@ mercure:
 postgresql:
   enabled: true
   # If bringing your own PostgreSQL, the full uri to use
-  # url: postgresql://plateformcoop-ebs:!ChangeMe!@database:5432/api?serverVersion=13&charset=utf8
+  # url: postgresql://plateforme-ebs:!ChangeMe!@database:5432/api?serverVersion=13&charset=utf8
   global:
     postgresql:
       auth:

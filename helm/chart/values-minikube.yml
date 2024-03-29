@@ -28,7 +28,7 @@ maildev:
 
 php:
   image:
-    repository: plateformcoop-ebs-php
+    repository: plateforme-ebs-php
     tag: latest
   storage:
     bucket: "toto"
@@ -40,5 +40,5 @@ php:
 
 caddy:
   image:
-    repository: plateformcoop-ebs-caddy
+    repository: plateforme-ebs-caddy
     tag: latest
