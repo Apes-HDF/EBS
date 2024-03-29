@@ -6,7 +6,7 @@ This documention gives solutions for some errors occuring in the project.
 
 ### Error 1.1
 
-    plateformcoop-ebs$ docker compose exec php ./vendor/bin/php-cs-fixer fix --allow-risky=yes
+    plateforme-ebs$ docker compose exec php ./vendor/bin/php-cs-fixer fix --allow-risky=yes
     OCI runtime exec failed: exec failed: unable to start container process: exec: "./vendor/bin/php-cs-fixer": permission denied: unknown
     
 ### Solution 1.1

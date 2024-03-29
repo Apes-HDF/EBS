@@ -105,7 +105,7 @@ Which gives:
 
 Install the project dependencies:
 
-    cd /var/www/plateformcoop-ebs
+    cd /var/www/plateforme-ebs
     composer install --ignore-platform-req=php
 
 The `--ignore-platform-` options is required if you have a PHP version below `8.1.11`.
@@ -161,12 +161,12 @@ And put:
 
     <VirtualHost *:80>
         ServerAdmin admin@example.com
-        DocumentRoot /var/www/plateformcoop-ebs/public
+        DocumentRoot /var/www/plateforme-ebs/public
 
         ErrorLog ${APACHE_LOG_DIR}/error.log
         CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-        <Directory /var/www/plateformcoop-ebs/public>
+        <Directory /var/www/plateforme-ebs/public>
              AllowOverride All
              Require all granted
              FallbackResource /index.php
@@ -198,7 +198,7 @@ Close and reopen the session so nvm is available:
 
 Then run:
 
-    cd /var/www/plateformcoop-ebs
+    cd /var/www/plateforme-ebs
     yarn install
     yarn build
 
@@ -209,8 +209,8 @@ Be careful that is you run the commands as root some files may not have the corr
 rights.
 The following directory should be owned by the web server user:
 
-    chown -R /var/www/plateformcoop-ebs/public 
-    chown -R /var/www/plateformcoop-ebs/var 
+    chown -R /var/www/plateforme-ebs/public 
+    chown -R /var/www/plateforme-ebs/var 
 
 
 ## Parameters 
