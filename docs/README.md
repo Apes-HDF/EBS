@@ -75,12 +75,3 @@ Run the tests and generate the code coverage report:
 Run all checks like the Github CI:
 
     make ci
-
-### Import a commit into customers repo
-
-1. go to customer repo tree
-2. add les tilleuls repo as a remote : `git remote add source git@github.com:coopTilleuls/plateformcoop-ebs.git`
-3. change to sync branch : `git checkout chore/sync-les-tilleuls`
-4. update the branch by merging main : `git merge main`
-5. update source remote : `git fetch source`
-6. cherry-pick the commits you want : `git cherry-pick <commit ref>`
