@@ -1,8 +1,8 @@
 apiVersion: v2
-name: plateformcoop-ebs
-description: A Helm chart for the PlateformCoop-EBS project
-# home: https://plateformcoop-ebs.dev
-# icon: https://plateformcoop-ebs.dev/logo-250x250.png
+name: plateforme-ebs
+description: A Helm chart for the plateforme-EBS project
+# home: https://plateforme-ebs.dev
+# icon: https://plateforme-ebs.dev/logo-250x250.png
 
 # A chart can be either an 'application' or a 'library' chart.
 #

@@ -6,8 +6,8 @@ to test locally with [minikube](https://minikube.sigs.k8s.io/docs/)
 minikube start
 minikube addons enable ingress
 kubectx minikube
-kubectl create ns plateformcoop-ebs
-kubens plateformcoop-ebs
+kubectl create ns plateforme-ebs
+kubens plateforme-ebs
 ```
 
 get minikube ip via `minikube ip`

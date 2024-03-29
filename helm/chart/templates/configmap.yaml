@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "plateformcoop-ebs" . }}
+  name: {{ include "plateforme-ebs" . }}
   labels:
-    {{- include "plateformcoop-ebs.labels" . | nindent 4 }}
+    {{- include "plateforme-ebs.labels" . | nindent 4 }}
 data:
   payum-gateway: {{ .Values.payum.gateway | quote }}
   php-host: {{ .Values.php.host | quote }}
@@ -12,7 +12,7 @@ data:
   php-cors-allow-origin: {{ .Values.php.corsAllowOrigin | quote }}
   php-trusted-hosts: {{ .Values.php.trustedHosts | quote }}
   php-trusted-proxies: "{{ join "," .Values.php.trustedProxies }}"
-  mercure-url: "http://{{ include "plateformcoop-ebs" . }}/.well-known/mercure"
+  mercure-url: "http://{{ include "plateforme-ebs" . }}/.well-known/mercure"
   mercure-public-url: {{ .Values.mercure.publicUrl | default "http://127.0.0.1/.well-known/mercure" | quote }}
   mercure-extra-directives: {{ .Values.mercure.extraDirectives | quote }}
   {{- if .Values.meilisearch.enabled }}
