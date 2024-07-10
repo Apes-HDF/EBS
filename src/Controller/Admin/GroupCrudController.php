@@ -19,6 +19,7 @@ use App\Form\Type\Security\GroupInvitationFormType;
 use App\Helper\CsvExporter;
 use App\Message\Command\Group\CreateGroupInvitationMessage;
 use App\MessageBus\CommandBus;
+use App\Repository\ConfigurationRepository;
 use App\Security\Checker\AuthorizationChecker;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -66,6 +67,7 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
         private readonly TranslatorInterface $translator,
         private readonly FilterFactory $filterFactory,
         private readonly SluggerInterface $slugger,
+        private readonly ConfigurationRepository $configurationRepository
     ) {
     }
 
@@ -75,6 +77,7 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
             ->setEntityLabelInPlural('groups')
             ->setSearchFields(['name', 'description'])
             ->setDefaultSort(['id' => 'ASC'])
+            ->overrideTemplate('crud/field/boolean', 'admin/field/services_enabled.html.twig')
         ;
     }
 
@@ -230,8 +233,24 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
             ->setFormTypeOption('class', GroupMembership::class)
             ->setChoices(GroupMembership::getAsArray());
 
+        if ($this->configurationRepository->getInstanceConfigurationOrCreate()->getServicesEnabled()) {
+            $servicesEnabledField = BooleanField::new('servicesEnabled')
+                ->renderAsSwitch()
+                ->setFormTypeOption('attr', [
+                    'data-controller' => 'admin-parentgroup',
+                    'data-admin-parentgroup-target' => 'servicesEnabledField',
+                ])
+                ->addWebpackEncoreEntries('admin');
+        }
+
         $parentField = AssociationField::new('parent')
-            ->setRequired(false);
+            ->setRequired(false)
+            ->addWebpackEncoreEntries('admin')
+            ->setFormTypeOption('attr', [
+                'data-controller' => 'admin-parentgroup',
+                'data-admin-parentgroup-target' => 'parentField',
+            ])
+        ;
         $childrenField = AssociationField::new('children');
         $usersField = AssociationField::new('userGroups')
             ->setTemplatePath('admin/group/user_groups_field.html.twig');
@@ -247,14 +266,20 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
         $panels = $this->getPanels();
 
         if ($pageName === Crud::PAGE_INDEX) {
-            return [$nameField, $typeField, $parentField, $membershipField, $usersField, $createdAt, $updatedAt];
+            $fields = [$nameField, $typeField, $parentField, $membershipField, $usersField, $createdAt, $updatedAt];
+
+            if ($this->configurationRepository->getInstanceConfigurationOrCreate()->getServicesEnabled()) {
+                array_splice($fields, 3, 0, [$servicesEnabledField]);
+            }
+
+            return $fields;
         }
 
         if ($pageName === Crud::PAGE_NEW || $pageName === Crud::PAGE_EDIT) {
             $typeField->setChoices(GroupType::cases());
             $membershipField->setChoices(GroupMembership::cases());
 
-            return [
+            $fields = [
                 $nameField,
                 $typeField,
                 $membershipField,
@@ -264,11 +289,17 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
                 $invitationByAdminField,
                 $membershipField,
             ];
+
+            if ($this->configurationRepository->getInstanceConfigurationOrCreate()->getServicesEnabled()) {
+                array_splice($fields, 3, 0, [$servicesEnabledField]);
+            }
+
+            return $fields;
         }
 
         // show
 
-        return [
+        $fields = [
             $panels['information'],
             $nameField,
             $parentField,
@@ -283,6 +314,12 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
             $updatedAt,
             $createdAt,
         ];
+
+        if ($this->configurationRepository->getInstanceConfigurationOrCreate()->getServicesEnabled()) {
+            array_splice($fields, 2, 0, [$servicesEnabledField]);
+        }
+
+        return $fields;
     }
 
     /**
@@ -309,7 +346,7 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
     }
 
     /**
-     * For now we export exactly what we see in the list to avoid seurity problems.
+     * For now we export exactly what we see in the list to avoid security problems.
      */
     public function export(AdminContext $context): Response
     {

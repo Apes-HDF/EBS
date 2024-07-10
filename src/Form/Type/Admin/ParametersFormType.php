@@ -25,8 +25,15 @@ final class ParametersFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('servicesEnabled', CheckboxType::class, [
+            ->add('globalServicesEnabled', CheckboxType::class, [
                 'label' => 'parameter.services',
+                'label_attr' => [
+                    'class' => 'checkbox-inline checkbox-switch',
+                ],
+            ])
+
+            ->add('globalPaidMembership', CheckboxType::class, [
+                'label' => 'parameter.paid_membership',
                 'label_attr' => [
                     'class' => 'checkbox-inline checkbox-switch',
                 ],

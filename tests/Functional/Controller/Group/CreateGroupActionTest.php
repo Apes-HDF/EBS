@@ -33,7 +33,7 @@ final class CreateGroupActionTest extends WebTestCase
         $client->submit($form, [
              $form->getName().'[name]' => 'Groupe 1',
              $form->getName().'[type]' => 'public',
-             $form->getName().'[parent]' => TestReference::GROUP_1,
+             $form->getName().'[servicesEnabled]' => false,
          ]);
         self::assertResponseRedirects();
         self::assertTrue(u($client->getResponse()->headers->get('Location'))->startsWith('http://localhost/admin'));

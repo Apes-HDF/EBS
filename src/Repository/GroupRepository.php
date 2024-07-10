@@ -8,6 +8,7 @@ use App\Entity\Group;
 use App\Entity\User;
 use App\Entity\UserGroup;
 use App\Enum\Group\GroupType;
+use App\Enum\Group\UserMembership;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -86,5 +87,52 @@ final class GroupRepository extends ServiceEntityRepository
             ->andWhere('g = ug.group')
             ->andWhere('ug.user = :user')
             ->setParameter('user', $user);
+    }
+
+    /**
+     * @return Group[]
+     */
+    public function getGroupsByEnabledServices(bool $servicesEnabled, ?User $user = null): array
+    {
+        $qb = $this->createQueryBuilder('g')
+            ->andWhere('g.servicesEnabled = :servicesEnabled')
+            ->setParameter('servicesEnabled', $servicesEnabled);
+
+        if ($user instanceof User) {
+            $qb
+                ->leftJoin('g.userGroups', 'gu')
+                ->andWhere('gu.user = :user')
+                ->andWhere('gu.mainAdminAccount = :mainAdminAccount OR gu.membership = :membership')
+                ->setParameter('user', $user)
+                ->setParameter('mainAdminAccount', true)
+                ->setParameter('membership', UserMembership::ADMIN);
+        }
+
+        /** @var Group[] */
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param Group[] $groups
+     */
+    public function disableServicesForAllGroups(array $groups): void
+    {
+        foreach ($groups as $group) {
+            $group->setServicesEnabled(false);
+            $this->getEntityManager()->persist($group);
+        }
+        $this->getEntityManager()->flush();
+    }
+
+    public function disableServicesForChildGroup(Group $group): void
+    {
+        /** @var Group $child */
+        foreach ($group->getChildren() as $child) {
+            $child->setServicesEnabled(false);
+            $this->getEntityManager()->persist($child);
+        }
+        $this->getEntityManager()->flush();
     }
 }

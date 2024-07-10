@@ -17,9 +17,12 @@ final class ParametersFormCommand extends AbstractFormCommand
     final public const ONLY_ADMIN = 'only_admin';
     final public const ALL = 'all';
 
-    // services section —————————————————————————————————————————————
+    // global section —————————————————————————————————————————————
     #[Assert\Type('bool')]
-    public bool $servicesEnabled = true;
+    public bool $globalServicesEnabled = true;
+
+    #[Assert\Type('bool')]
+    public bool $globalPaidMembership = false;
 
     // notificationsSender section —————————————————————————————————————————————
     #[Assert\Email()]
@@ -59,7 +62,7 @@ final class ParametersFormCommand extends AbstractFormCommand
     protected function getSections(): array
     {
         return [
-            'services',
+            'global',
             'notificationsSender',
             'contact',
             'groups',

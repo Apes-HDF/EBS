@@ -78,19 +78,26 @@ class Configuration
     /**
      * @return bool[]
      */
-    public function getServices(): array
+    public function getGlobals(): array
     {
-        /** @var array<string, bool> $services */
-        $services = $this->configuration['services'] ?? [];
+        /** @var array<string, bool> $globals */
+        $globals = $this->configuration['global'] ?? [];
 
-        return $services;
+        return $globals;
     }
 
     public function getServicesEnabled(): bool
     {
-        $services = $this->getServices();
+        $globals = $this->getGlobals();
 
-        return $services['servicesEnabled'];
+        return $globals['globalServicesEnabled'];
+    }
+
+    public function getPaidMembership(): bool
+    {
+        $globals = $this->getGlobals();
+
+        return $globals['globalPaidMembership'];
     }
 
     /**

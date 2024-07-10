@@ -14,12 +14,28 @@
 {% block main %}
     {{ form_start(form) }}
     <div class="row mb-lg-5">
-        <h2 class="h3 fw-bold mt-3">{{ 'parameters.services.h2'|trans }}</h2>
+        <h2 class="h3 fw-bold mt-3">{{ 'parameters.global.h2'|trans }}</h2>
         <hr/>
 
-        {{ form_widget(form.servicesEnabled) }}
+        <h2 class="h5 fw-bold my-3">{{ 'parameters.services.h3'|trans }}</h2>
 
-        <h2 class="h3 fw-bold mt-3">{{ 'parameters.senders.h2'|trans }}</h2>
+        {{ form_widget(form.globalServicesEnabled) }}
+
+        <h2 class="h5 fw-bold my-3">{{ 'parameters.paid_membership.h3'|trans }}</h2>
+
+        {{ form_widget(form.globalPaidMembership) }}
+
+        <div class="col-2 my-3 mx-4">
+            <a
+                type="button"
+                class="btn btn-primary "
+                href="{{ ea_url().setController('App\\Controller\\Admin\\PlatformOfferCrudController').setAction('index') }}"
+            >
+                {{ 'parameter.set_price'|trans }}
+            </a>
+        </div>
+
+        <h2 class="h3 fw-bold mt-3 mb-1">{{ 'parameters.senders.h2'|trans }}</h2>
         <hr/>
 
         {{ form_row(form.notificationsSenderEmail) }}

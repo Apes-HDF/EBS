@@ -1,0 +1,11 @@
+App\Entity\PlatformOffer:
+    platform_offer_1:
+        id: <uuid('9040b3fb-8a01-4bbf-a228-ca9f90db5034')>
+        name: Lorem ipsum
+        price: 2000
+        type: !php/enum App\Enum\OfferType::YEARLY
+
+    platform_offer_2:
+        name: Aliquet risus
+        price: 200
+        type: !php/enum App\Enum\OfferType::MONTHLY

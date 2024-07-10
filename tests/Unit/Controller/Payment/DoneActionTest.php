@@ -39,7 +39,7 @@ final class DoneActionTest extends TestCase
             ->setId($this->getUuid())
             ->setSlug('group');
 
-        return (new GroupOffer())
+        return (new GroupOffer())  // @phpstan-ignore-line
             ->setId($this->getUuid())
             ->setGroup($group);
     }

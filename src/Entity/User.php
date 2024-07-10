@@ -770,15 +770,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
      *
      * @return Collection<int,Group>
      */
-    public function getMyGroupsAsAdmin(): Collection
+    public function getMyGroupsAsAdmin(bool $enabledServices = false): Collection
     {
         $adminUserGroups = $this->userGroups->filter(
             static fn (UserGroup $userGroup) => $userGroup->getMembership()->isAdmin() || $userGroup->isMainAdminAccount()
         );
 
-        return new ArrayCollection(
+        $groups = new ArrayCollection(
             array_map(static fn (UserGroup $userGroup) => $userGroup->getGroup(), $adminUserGroups->toArray())
         );
+
+        if ($enabledServices) {
+            return $groups->filter(
+                static fn (Group $group) => $group->getServicesEnabled()
+            );
+        }
+
+        return $groups;
     }
 
     /**

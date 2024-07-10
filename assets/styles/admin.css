@@ -1,0 +1,4 @@
+/* Remove the extra arrow added by Tom Select */
+.ts-wrapper.single .ts-control:after {
+    display: none;
+}

@@ -39,7 +39,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Patch(
             uriTemplate: '/product/{id}/switchStatus',
-            openapiContext: ['summary' => 'Swicth the status of the product'],
+            openapiContext: ['summary' => 'Switch the status of the product'],
             normalizationContext: ['groups' => [ProductSwitchProcessor::class]],
             security: "is_granted('".ProductVoter::EDIT."', object)",
             input: false,

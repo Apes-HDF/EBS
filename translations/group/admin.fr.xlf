@@ -25,6 +25,11 @@
             <target>Envoi d'invitations par les admins possible</target>
         </trans-unit>
 
+        <trans-unit id="KBpmXZn" resname="Services Enabled">
+            <source>Services Enabled</source>
+            <target>Activer la disponibilité des services pour le groupe</target>
+        </trans-unit>
+
         <trans-unit id="MQA7gVL" resname="Invitation By Moderator">
             <source>Invitation By Moderator</source>
             <target>Envoi d'invitations par les modérateur·rice·s possible</target>

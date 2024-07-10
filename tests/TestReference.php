@@ -127,4 +127,7 @@ final class TestReference
 
     // payments
     final public const PAYMENT_USER_16_1 = '1edcefc9-45b3-6a3e-b4a6-db137f56da56';
+
+    // platform offer
+    final public const PLATFORM_OFFER_1 = '9040b3fb-8a01-4bbf-a228-ca9f90db5034';
 }
