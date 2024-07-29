@@ -3,12 +3,20 @@ name: Deploy
 on:
   workflow_call:
     secrets:
+      kubeconfig:
+        description: kubeconfig stored as a base64 encrypted secret
+        required: true
       domain:
         description: Main project deploy domain used in URLs
         required: true
       payum-apikey:
         description: Payum API Key
         required: true
+      sms-dsn:
+        description: SMS DSN
+        required: true
+      mailer-dsn:
+        description: MAILER DSN
       storage-key:
         description: storage key
         required: true
@@ -117,6 +125,8 @@ jobs:
             --set=ingress.tls[0].secretName=${{ needs.meta.outputs.release_name }}-tls \
             --set=ingress.tls[0].hosts[0]=${{ vars.DOMAIN }} \
             --set=postgresql.url="${{ secrets.database-url }}" \
+            --set=postgresql.enabled='${{ github.event_name == 'pull_request' }}' \
+            --set=sms.dsn="${{ secrets.sms-dsn }}" \
             --set=payum.apikey="${{ secrets.payum-apikey }}" \
             --set=mailer.dsn="${{ secrets.mailer-dsn }}" \
             --set=php.storage.bucket="${{ vars.STORAGE_BUCKET }}" \
