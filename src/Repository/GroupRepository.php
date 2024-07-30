@@ -80,13 +80,11 @@ final class GroupRepository extends ServiceEntityRepository
         return $qb->orderBy('g.name', 'ASC')->getQuery();
     }
 
-    public function getUserGroups(User $user): QueryBuilder
+    public function getUserGroupsWithEnabledServices(User $user): QueryBuilder
     {
-        return $this->createQueryBuilder('g')
-            ->from(UserGroup::class, 'ug')
-            ->andWhere('g = ug.group')
-            ->andWhere('ug.user = :user')
-            ->setParameter('user', $user);
+        return $this->getUserGroups($user)
+            ->andWhere('g.servicesEnabled = :enabled')
+            ->setParameter('enabled', true);
     }
 
     /**
@@ -134,5 +132,14 @@ final class GroupRepository extends ServiceEntityRepository
             $this->getEntityManager()->persist($child);
         }
         $this->getEntityManager()->flush();
+    }
+
+    public function getUserGroups(User $user): QueryBuilder
+    {
+        return $this->createQueryBuilder('g')
+            ->from(UserGroup::class, 'ug')
+            ->andWhere('g = ug.group')
+            ->andWhere('ug.user = :user')
+            ->setParameter('user', $user);
     }
 }

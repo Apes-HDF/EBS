@@ -7,6 +7,11 @@
     <body>
 
         <!-- global section -->
+        <trans-unit id="qlPklB7" resname="parameter.global_name">
+            <source>parameter.global_name</source>
+            <target>Nom de la plateforme</target>
+        </trans-unit>
+
         <trans-unit id="qlPbwB3" resname="parameter.services">
             <source>parameter.services</source>
             <target>Services activés</target>

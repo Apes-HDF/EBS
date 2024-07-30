@@ -25,6 +25,10 @@ final class ParametersFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('globalName', TextType::class, [
+                'label' => 'parameter.global_name',
+            ])
+
             ->add('globalServicesEnabled', CheckboxType::class, [
                 'label' => 'parameter.services',
                 'label_attr' => [

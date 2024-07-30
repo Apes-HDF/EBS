@@ -64,7 +64,7 @@ abstract class AbstractOfferEntity implements \Stringable
     #[ORM\Column(type: 'boolean', nullable: false)]
     protected bool $active = true;
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->name.' ('.$this->type->value.')';
     }

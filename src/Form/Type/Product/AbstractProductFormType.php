@@ -6,18 +6,14 @@ namespace App\Form\Type\Product;
 
 use App\Controller\i18nTrait;
 use App\Entity\Category;
-use App\Entity\Group;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Enum\Product\ProductType;
-use App\Enum\Product\ProductVisibility;
 use App\Flysystem\MediaManager;
 use App\Repository\CategoryRepository;
-use App\Repository\GroupRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -36,7 +32,6 @@ abstract class AbstractProductFormType extends AbstractType
 
     public function __construct(
         private readonly MediaManager $mediaManager,
-        private readonly GroupRepository $groupRepository,
         private readonly Security $security,
     ) {
     }
@@ -86,38 +81,6 @@ abstract class AbstractProductFormType extends AbstractType
                 'label' => 'product.form.submit',
                 'attr' => ['class' => 'btn-sm btn-primary'],
             ]);
-
-        // only if the user has groups
-        if (!$user->getUserGroupsConfirmed()->isEmpty()) {
-            $builder
-                ->add('visibility', EnumType::class, [
-                    'class' => ProductVisibility::class,
-                    'label' => 'product.form.visibility',
-                    'expanded' => true,
-                    'label_attr' => [
-                        'class' => 'radio-inline text-black fs-6 fw-normal',
-                    ],
-                    // check if we can do simpler (@see productvisibility_controller.js)
-                    'choice_attr' => [
-                        0 => [
-                            'data-productvisibility-target' => ProductVisibility::PUBLIC->value,
-                            'data-action' => 'click->productvisibility#hideGroups',
-                        ],
-                        1 => [
-                            'data-productvisibility-target' => ProductVisibility::RESTRICTED->value,
-                            'data-action' => 'click->productvisibility#showGroups',
-                        ],
-                    ],
-                ])
-                ->add('groups', EntityType::class, [
-                    'class' => Group::class,
-                    'query_builder' => $this->groupRepository->getUserGroups($user),
-                    'label' => $i18nPrefix.'.form.groups',
-                    'expanded' => true,
-                    'multiple' => true,
-                    'required' => false,
-                ]);
-        }
 
         // remove all group associations if public to avoid side effects
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event): void {

@@ -32,4 +32,9 @@ class PlatformOfferRepository extends ServiceEntityRepository
     {
         return $this->find($id, $lockMode, $lockVersion) ?? throw new \LogicException('Platform offer not found.');
     }
+
+    public function findOneActive(string $id): ?PlatformOffer
+    {
+        return $this->findOneBy(['id' => $id, 'active' => true]);
+    }
 }

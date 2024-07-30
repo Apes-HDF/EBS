@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <trans-unit id="Xwpl7p9" resname="templates.pages.redirect_to_payment.type.yearly">
+            <source>templates.pages.redirect_to_payment.type.yearly</source>
+            <target>Adhésion annuel</target>
+        </trans-unit>
+
+        <trans-unit id="HJFwmkE" resname="templates.pages.redirect_to_payment.type.monthly">
+            <source>templates.pages.redirect_to_payment.type.monthly</source>
+            <target>Adhésion mensuel</target>
+        </trans-unit>
+
+        <trans-unit id="Pwx2GJU" resname="templates.pages.redirect_to_payment.type.oneshot">
+            <source>templates.pages.redirect_to_payment.type.oneshot</source>
+            <target>Unique</target>
+        </trans-unit>
+
+        <trans-unit id="v4xDplQ" resname="templates.pages.redirect_to_payment.choose_offer">
+            <source>templates.pages.redirect_to_payment.choose_offer</source>
+            <target>Rejoindre la plateforme</target>
+        </trans-unit>
+
+        <trans-unit id="DMvoLvx" resname="templates.pages.redirect_to_payment.close">
+            <source>templates.pages.redirect_to_payment.close</source>
+            <target>Annuler</target>
+        </trans-unit>
+
+        <trans-unit id="1w4Jeyy" resname="templates.pages.redirect_to_payment.membership">
+            <source>templates.pages.redirect_to_payment.membership</source>
+            <target>Adhésion: </target>
+        </trans-unit>
+
+        <trans-unit id="Ee6vfs4" resname="templates.pages.redirect_to_payment.membership.start">
+            <source>templates.pages.redirect_to_payment.membership.start</source>
+            <target>À partir de </target>
+        </trans-unit>
+
+        <trans-unit id="QwsvcUp" resname="templates.pages.redirect_to_payment.payment_prepare.form.submit">
+            <source>templates.pages.redirect_to_payment.payment_prepare.form.submit</source>
+            <target>Accéder au paiement</target>
+        </trans-unit>
+
+        <trans-unit id="QsIj9kp" resname="templates.pages.redirect_to_payment.title">
+            <source>templates.pages.redirect_payment.title</source>
+            <target>Bienvenue</target>
+        </trans-unit>
+
+        <trans-unit id="wSc8oud" resname="templates.pages.redirect_to_payment.text">
+            <source>templates.pages.redirect_to_payment.text</source>
+            <target>Pour avoir accès aux prêts/emprunts sur notre plateforme, il faut être adhérent.</target>
+        </trans-unit>
+
+        <trans-unit id="wSc6sFt" resname="templates.pages.redirect_to_payment.button">
+            <source>templates.pages.redirect_to_payment.button</source>
+            <target>Payer mon adhésion</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

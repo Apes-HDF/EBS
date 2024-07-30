@@ -9,7 +9,7 @@ enum OfferType: string
     use AsArrayTrait;
 
     // The user only to pay once to access the group/platform. In his case the end date is
-    // not set and the membership is valid until it is deleted or a end date is
+    // not set and the membership is valid until it is deleted or an end date is
     // set. The end date can always be set manually in case of a problem.
     case ONESHOT = 'oneshot';
 
@@ -18,7 +18,7 @@ enum OfferType: string
     // try a group/platform on the short period before taking a longer subscription.
     case MONTHLY = 'monthly';
 
-    // Subscription valid for one year. An email will be send a few days before
+    // Subscription valid for one year. An email will be sent a few days before
     // the end of the membership
     case YEARLY = 'yearly';
 

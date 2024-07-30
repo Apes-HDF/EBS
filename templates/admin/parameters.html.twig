@@ -17,6 +17,8 @@
         <h2 class="h3 fw-bold mt-3">{{ 'parameters.global.h2'|trans }}</h2>
         <hr/>
 
+        {{ form_row(form.globalName) }}
+
         <h2 class="h5 fw-bold my-3">{{ 'parameters.services.h3'|trans }}</h2>
 
         {{ form_widget(form.globalServicesEnabled) }}

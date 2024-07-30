@@ -42,6 +42,9 @@ App\Entity\User:
         firstname: 'Kevin'
         lastname: 'Pirouet'
         avatar: '7c732ddb-9c13-45eb-aea0-e614f2340e6d.jpg'
+        membershipPaid: true
+        type: !php/enum App\Enum\User\UserType::ADMIN
+        roles: [ !php/const App\Entity\User::ROLE_ADMIN, !php/const App\Entity\User::MEMBERSHIP_PAID]
 
     admin_apes (extends admin_template):
         id: <uuid('1ed69804-eeb9-6e6c-bce0-632c3a6846ba')>

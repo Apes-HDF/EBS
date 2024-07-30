@@ -5,6 +5,7 @@ App\Entity\Configuration:
     features (extends configuration_template):
         configuration:
             global:
+                globalName: Echanges de biens et de services
                 globalServicesEnabled: true
                 globalPaidMembership: false
             notificationsSender:

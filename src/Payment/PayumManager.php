@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Payment;
 
-use App\Controller\Payment\PrepareAction;
+use App\Controller\Payment\Group\PrepareAction;
 use App\Entity\GroupOffer;
 use App\Entity\Payment;
+use App\Entity\PlatformOffer;
 use App\Entity\User;
 use App\Enum\Payment\PaymentMethod;
 use Payum\Core\Payum;
@@ -29,20 +30,27 @@ final class PayumManager
      *
      * @see PrepareAction
      */
-    public function getPayment(GroupOffer $groupOffer, User $user): Payment
+    public function getPayment(GroupOffer|PlatformOffer $offer, User $user): Payment
     {
         $storage = $this->payum->getStorage(Payment::class);
-
         /** @var Payment $payment */
         $payment = $storage->create();
         $payment->setNumber(uniqid('payum_', true));
-        $payment->setCurrencyCode($groupOffer->getCurrency());
-        $payment->setTotalAmount($groupOffer->getPrice());
-        $payment->setDescription($groupOffer->getGroup()->getName().' / '.$groupOffer->getName());
+        $payment->setCurrencyCode($offer->getCurrency());
+        $payment->setTotalAmount($offer->getPrice());
+
+        if ($offer instanceof GroupOffer) {
+            $payment->setDescription($offer->getGroup()->getName().' / '.$offer->getName());
+        }
+
+        if ($offer instanceof PlatformOffer) {
+            $payment->setDescription($offer->getConfiguration()?->getPlatformName().' / '.$offer->getName());
+        }
+
         $payment->setClientId((string) $user->getId());
         $payment->setClientEmail($user->getEmail());
         $payment->setUser($user);
-        $payment->setDetails($this->getGatewayDetails($groupOffer));
+        $payment->setDetails($this->getGatewayDetails($offer));
         $storage->update($payment);
 
         return $payment;
@@ -61,16 +69,27 @@ final class PayumManager
      *
      * @return array<string, mixed>
      */
-    private function getGatewayDetails(GroupOffer $groupOffer): array
+    private function getGatewayDetails(GroupOffer|PlatformOffer $offer): array
     {
-        return [
-            // method must be set as the default value is not retrieved from the gateway configuration
-            'method' => PaymentMethod::CREDITCARD->value,
-            'metadata' => [
-                'groupId' => (string) $groupOffer->getGroup()->getId(),
-                'groupOfferId' => (string) $groupOffer->getId(),
-            ],
-        ];
+        if ($offer instanceof GroupOffer) {
+            return [
+                // method must be set as the default value is not retrieved from the gateway configuration
+                'method' => PaymentMethod::CREDITCARD->value,
+                'metadata' => [
+                    'groupId' => (string) $offer->getGroup()->getId(),
+                    'groupOfferId' => (string) $offer->getId(),
+                ],
+            ];
+        } else {
+            return [
+                // method must be set as the default value is not retrieved from the gateway configuration
+                'method' => PaymentMethod::CREDITCARD->value,
+                'metadata' => [
+                    'platformId' => (string) $offer->getConfiguration()?->getId(),
+                    'platformOfferId' => (string) $offer->getId(),
+                ],
+            ];
+        }
     }
 
     /**

@@ -1,0 +1,30 @@
+{% extends 'layout/base.html.twig' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+{% block body %}
+    <div class="">
+        {% include 'components/layout/_title_3.html.twig' with {
+            name: (i18n_prefix ~ '.title')|trans
+        } %}
+        {% include 'components/layout/_text.html.twig' with {
+            text: (i18n_prefix ~ '.text')|trans
+        } %}
+        <div class="d-grid col col-lg-4 mx-auto">
+            <button
+                type="button"
+                class="btn btn-primary my-2 mb-4"
+                data-bs-toggle="modal"
+                data-bs-target="#offersModal"
+            >
+                <i class="bi bi-currency-euro"></i>
+                {{ (i18n_prefix ~ '.button')|trans }}
+            </button>
+        </div>
+
+        {% include 'components/group/_modal_offers.html.twig' with {
+            offers: offers,
+            prepare_path: 'app_platform_payment_prepare'
+        } %}
+    </div>
+{% endblock %}

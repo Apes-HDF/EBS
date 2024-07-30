@@ -9,6 +9,7 @@ use App\Controller\User\MyAccountAction;
 use App\Doctrine\Manager\ProductManager;
 use App\Entity\Product;
 use App\Entity\User;
+use App\Enum\Product\ProductVisibility;
 use App\Form\Type\Product\ServiceFormType;
 use App\MessageBus\QueryBus;
 use App\Repository\ConfigurationRepository;
@@ -56,6 +57,7 @@ final class ServiceController extends AbstractController
     {
         if ($this->configurationRepository->getServicesParameter()) {
             $product = $this->productManager->initService($user);
+            $product->setVisibility(ProductVisibility::RESTRICTED);
             $form = $this->getForm($product, $request);
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var array<UploadedFile>|null $images */

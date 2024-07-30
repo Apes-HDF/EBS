@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Payment;
+namespace App\Controller\Payment\Group;
 
 use App\Controller\FlashTrait;
 use App\Controller\i18nTrait;
@@ -67,6 +67,7 @@ final class DoneAction extends AbstractController
             $this->addFlashSuccess($this->translator->trans($this->getI18nPrefix().'.flash.success', [
                 '%group%' => $groupOffer->getGroup()->getName()],
             ));
+            $request->getSession()->remove('payment_in_progress');
         } else {
             $this->addFlashWarning($this->translator->trans($this->getI18nPrefix().'.status.'.$status->getValue()));
         }

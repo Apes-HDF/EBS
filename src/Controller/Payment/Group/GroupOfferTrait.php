@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Payment;
+namespace App\Controller\Payment\Group;
 
 use App\Entity\GroupOffer;
 use App\Repository\GroupOfferRepository;

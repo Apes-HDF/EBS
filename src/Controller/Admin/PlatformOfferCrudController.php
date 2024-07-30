@@ -66,7 +66,7 @@ final class PlatformOfferCrudController extends AbstractCrudController implement
 
     public function configureFields(string $pageName): iterable
     {
-        $idFIeld = IdField::new('id')
+        $idField = IdField::new('id')
             ->setLabel('id')
             ->hideOnForm();
 
@@ -113,7 +113,7 @@ final class PlatformOfferCrudController extends AbstractCrudController implement
             $currencyField,
 
             $panels['tech_information'],
-            $idFIeld,
+            $idField,
             $updatedAtField,
             $createdAtField,
         ];

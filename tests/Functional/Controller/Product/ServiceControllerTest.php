@@ -35,8 +35,6 @@ class ServiceControllerTest extends WebTestCase
             $form->getName().'[name]' => 'jardinage',
             $form->getName().'[description]' => 'description',
             $form->getName().'[duration]' => '1 jour',
-            $form->getName().'[visibility]' => 'restricted',
-            $form->getName().'[groups]' => [TestReference::GROUP_1],
         ]);
 
         $container = $client->getContainer();
@@ -49,7 +47,6 @@ class ServiceControllerTest extends WebTestCase
         self::assertSame('jardinage', $editedService->getName());
         self::assertSame('description', $editedService->getDescription());
         self::assertSame('1 jour', $editedService->getDuration());
-        self::assertSame('restricted', $editedService->getVisibility()->value);
 
         self::assertResponseRedirects();
         $client->followRedirect();

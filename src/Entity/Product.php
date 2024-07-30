@@ -156,7 +156,7 @@ class Product implements \Stringable, ImagesInterface
      */
     #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'products')]
     #[Assert\When(
-        expression: '!this.getVisibility().isPublic()',
+        expression: '!this.getVisibility().isPublic() && !this.getOwner().getUserGroupsConfirmedWithServices().isEmpty()',
         constraints: [
             new Assert\Count(min: 1, minMessage: 'app.entity.product.groups.constraints.count.min_message'),
         ],

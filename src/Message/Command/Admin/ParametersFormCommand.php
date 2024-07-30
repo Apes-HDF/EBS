@@ -18,6 +18,9 @@ final class ParametersFormCommand extends AbstractFormCommand
     final public const ALL = 'all';
 
     // global section —————————————————————————————————————————————
+    #[Assert\NotBlank()]
+    public ?string $globalName = null;
+
     #[Assert\Type('bool')]
     public bool $globalServicesEnabled = true;
 
@@ -79,7 +82,6 @@ final class ParametersFormCommand extends AbstractFormCommand
     public function hydrate(Configuration $configuration): self
     {
         $instanceConfiguration = $configuration->getConfiguration();
-//        dd($instanceConfiguration);
         foreach (array_keys(get_class_vars($this::class)) as $classVar) {
             $this->{$classVar} = $instanceConfiguration[$this->getSection($classVar)][$classVar]; // @phpstan-ignore-line
         }

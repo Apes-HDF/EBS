@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Controller\Payment;
 
-use App\Controller\Payment\DoneAction;
+use App\Controller\Payment\Group\DoneAction;
 use App\Entity\Group;
 use App\Entity\GroupOffer;
 use App\Entity\PaymentToken;
@@ -103,6 +103,7 @@ final class DoneActionTest extends TestCase
         );
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Cannot verify Payum token');
+
         $doneAction->__invoke(new Request(), TestReference::UUID_404, $this->getUser());
     }
 
@@ -153,7 +154,8 @@ final class DoneActionTest extends TestCase
         $container->method('get')->willReturn($requesStack);
         $doneAction->setContainer($container);
 
-        $this->expectException(\Error::class); // or more mock are needed. To cleanup later
+        $this->expectException(\Error::class); // or more mock are needed. To clean up later
+
         $doneAction->__invoke(new Request(), TestReference::UUID_404, $this->getUser());
     }
 }
