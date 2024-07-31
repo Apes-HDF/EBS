@@ -4,7 +4,7 @@
 
 php:
   image:
-    repository: "ghcr.io/apes-hdf/plateforme-ebs-php" # CHANGE ME
+    repository: "ghcr.io/tipimi-fr/plateforme-ebs-php" # CHANGE ME
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
@@ -12,7 +12,10 @@ php:
   appDebug: "0"
   appSecret: ""
   corsAllowOrigin: "^https?://.*?\\.chart-example\\.local$"
-  trustedHosts: "^127\\.0\\.0\\.1|localhost|.*\\.chart-example\\.local$"
+  trustedHosts: 
+    - "^127\\.0\\.0\\.1"
+    - "localhost"
+    - ".*\\.chart-example\\.local$"
   trustedProxies:
     - "127.0.0.1"
     - "10.0.0.0/8"
@@ -50,7 +53,7 @@ consumer:
 
 caddy:
   image:
-    repository: "ghcr.io/apes-hdf/plateforme-ebs-caddy" # CHANGE ME
+    repository: "ghcr.io/tipimi-fr/plateforme-ebs-caddy" # CHANGE ME
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
