@@ -11,7 +11,7 @@ jobs:
     - name: Build/Push
       uses: coopTilleuls/action-docker-build-push@v10
       with:
-        IMAGE_NAME: plateforme-ebs-php
+        IMAGE_NAME: ebs-php
         BUILD_CONTEXT: .
         BUILD_TARGET: app_php
         REGISTRY_JSON_KEY: ${{ secrets.GITHUB_TOKEN }}
@@ -26,7 +26,7 @@ jobs:
     - name: Build/Push
       uses: coopTilleuls/action-docker-build-push@v10
       with:
-        IMAGE_NAME: plateforme-ebs-caddy
+        IMAGE_NAME: ebs-caddy
         BUILD_CONTEXT: .
         BUILD_TARGET: app_caddy
         REGISTRY_JSON_KEY: ${{ secrets.GITHUB_TOKEN }}
