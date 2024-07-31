@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\PlatformOffer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -36,5 +37,20 @@ class PlatformOfferRepository extends ServiceEntityRepository
     public function findOneActive(string $id): ?PlatformOffer
     {
         return $this->findOneBy(['id' => $id, 'active' => true]);
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findLowOffer(): ?PlatformOffer
+    {
+        /** @var ?PlatformOffer */
+        return $this
+            ->createQueryBuilder('o')
+            ->andWhere('o.active = true')
+            ->orderBy('o.price', 'ASC')
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getOneOrNullResult();
     }
 }

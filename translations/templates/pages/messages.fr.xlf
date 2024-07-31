@@ -48,7 +48,7 @@
 
         <trans-unit id="QsIj9kp" resname="templates.pages.redirect_to_payment.title">
             <source>templates.pages.redirect_payment.title</source>
-            <target>Bienvenue</target>
+            <target>Bienvenue sur %name%</target>
         </trans-unit>
 
         <trans-unit id="wSc8oud" resname="templates.pages.redirect_to_payment.text">

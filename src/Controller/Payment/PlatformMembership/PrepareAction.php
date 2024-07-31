@@ -7,6 +7,7 @@ namespace App\Controller\Payment\PlatformMembership;
 use App\Entity\PlatformOffer;
 use App\Entity\User;
 use App\Payment\PayumManager;
+use App\Repository\ConfigurationRepository;
 use App\Repository\PlatformOfferRepository;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,10 +58,12 @@ final class PrepareAction extends AbstractController
         'en' => '/en/subcription',
         'fr' => '/fr/abonnement',
     ], name: 'redirect_to_payment')]
-    public function redirectToPayment(PlatformOfferRepository $platformOfferRepository): Response
+    public function redirectToPayment(PlatformOfferRepository $platformOfferRepository, ConfigurationRepository $configurationRepository): Response
     {
         $offers = $platformOfferRepository->findBy(['active' => true]);
+        $lowOffer = $platformOfferRepository->findLowOffer();
+        $platformName = $configurationRepository->getInstanceConfigurationOrCreate()->getPlatformName();
 
-        return $this->render('pages/redirect_to_payment.html.twig', compact('offers'));
+        return $this->render('pages/redirect_to_payment.html.twig', compact('offers', 'lowOffer', 'platformName'));
     }
 }

@@ -5,11 +5,21 @@
 {% block body %}
     <div class="">
         {% include 'components/layout/_title_3.html.twig' with {
-            name: (i18n_prefix ~ '.title')|trans
+            name: (i18n_prefix ~ '.title')|trans({'%name%': platformName})
         } %}
         {% include 'components/layout/_text.html.twig' with {
             text: (i18n_prefix ~ '.text')|trans
         } %}
+
+        <div class="col-md-6 col-lg-4 col-xl-4 mx-lg-auto">
+            <p class="text-gray fw-bolder fs-6 text-lg-center">
+                {{ (i18n_prefix ~ '.membership')|trans }}
+                <span class="text-gray fs-6 fw-normal">
+                            {{ (i18n_prefix ~ '.membership.start')|trans }}
+                    {{ lowOffer.actualPrice|format_currency(lowOffer.currency) }}
+                        </span>
+            </p>
+        </div>
         <div class="d-grid col col-lg-4 mx-auto">
             <button
                 type="button"
