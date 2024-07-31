@@ -15,7 +15,7 @@ jobs:
         BUILD_CONTEXT: .
         BUILD_TARGET: app_php
         REGISTRY_JSON_KEY: ${{ secrets.GITHUB_TOKEN }}
-        IMAGE_REPOSITORY: ghcr.io/Apes-HDF
+        IMAGE_REPOSITORY: ghcr.io/Tipimi-fr
          
   build-push-caddy:
     # Same Dockerfile as php, with a build target which is after
@@ -30,4 +30,4 @@ jobs:
         BUILD_CONTEXT: .
         BUILD_TARGET: app_caddy
         REGISTRY_JSON_KEY: ${{ secrets.GITHUB_TOKEN }}
-        IMAGE_REPOSITORY: ghcr.io/Apes-HDF
+        IMAGE_REPOSITORY: ghcr.io/Tipimi-fr
