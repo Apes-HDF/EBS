@@ -1,4 +1,4 @@
-{{- if .Values.php.fixtureJob.enabled -}}
+{{- if .Values.php.fixtureJob.enabled }}
 apiVersion: batch/v1
 kind: Job
 metadata:
