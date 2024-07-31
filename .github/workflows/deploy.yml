@@ -44,6 +44,7 @@ jobs:
       project: ${{ steps.meta.outputs.project }}
       namespace: ${{ steps.meta.outputs.namespace }}
       storage_name: ${{ steps.meta.outputs.storage_name }}
+      trusted_host: ${{ steps.meta.outputs.trusted_host }}
     steps:
       - name: Generate metadata
         id: meta
@@ -55,6 +56,9 @@ jobs:
           ENVIRONMENT=prod
           IMAGE_TAG=${{ github.ref_name }}
           RELEASE_NAME=prod
+          TRUSTED_HOST=$(echo ${{ vars.DOMAIN }} | sed 's/\./\\\\\\\\./g')
+
+          echo "trusted_host=${TRUSTED_HOST}" >> $GITHUB_OUTPUT
           echo "context=${CONTEXT}" >> $GITHUB_OUTPUT
           echo "environment=${ENVIRONMENT}" >> $GITHUB_OUTPUT
           echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
@@ -129,6 +133,7 @@ jobs:
             --set=php.storage.usePathStyleEndpoint=true \
             --set=php.storage.key="${{ secrets.storage-key }}" \
             --set=php.storage.secret="${{ secrets.storage-secret-key }}" \
+            --set=php.trustedHosts[2]=${{ needs.meta.outputs.trusted_host }} \
             --values ./helm/chart/values-${{ needs.meta.outputs.context }}.yml \
             | sed --unbuffered '/USER-SUPPLIED VALUES/,$d' ; then
                 echo "Deployment has failed!"
