@@ -128,6 +128,7 @@ jobs:
             --set=sms.dsn="${{ secrets.sms-dsn }}" \
             --set=payum.apikey="${{ secrets.payum-apikey }}" \
             --set=mailer.dsn="${{ secrets.mailer-dsn }}" \
+            --set=sms.dsn="${{ secrets.sms-dsn }}" \
             --set=php.storage.bucket="${{ vars.STORAGE_BUCKET }}" \
             --set=php.storage.endpoint="https://storage.googleapis.com" \
             --set=php.storage.region="eu-west-1" \
