@@ -27,6 +27,9 @@ on:
       mailer-dsn:
         description: Mailer DSN
         required: true
+      sms-dsn:
+        description: SMS DSN
+        required: true
 
 
 jobs:
@@ -123,6 +126,7 @@ jobs:
             --set=postgresql.url="${{ secrets.database-url }}" \
             --set=payum.apikey="${{ secrets.payum-apikey }}" \
             --set=mailer.dsn="${{ secrets.mailer-dsn }}" \
+            --set=sms.dsn="${{ secrets.sms-dsn }}" \
             --set=php.storage.bucket="${{ vars.STORAGE_BUCKET }}" \
             --set=php.storage.endpoint="https://storage.googleapis.com" \
             --set=php.storage.region="eu-west-1" \
