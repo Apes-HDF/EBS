@@ -39,8 +39,6 @@ final class CreateGroupAction extends AbstractController
     use FlashTrait;
     use GroupTrait;
 
-    public const MAX_ELEMENT_BY_PAGE = 20;
-
     public function __construct(
         private readonly QueryBus $queryBus,
         private readonly GroupRepository $groupRepository,
@@ -61,6 +59,16 @@ final class CreateGroupAction extends AbstractController
     )]
     public function createGroup(Request $request, #[CurrentUser] User $user): Response
     {
+        // Admin must use the admin interface
+        if ($user->isAdmin()) {
+            return $this->redirect(
+                $this->adminUrlGenerator
+                    ->setController(GroupCrudController::class)
+                    ->set('crudAction', Crud::PAGE_NEW)
+                    ->generateUrl()
+            );
+        }
+
         $configuration = $this->configurationRepository->getInstanceConfigurationOrCreate();
         if (!$configuration->isGroupsCreationForAll()) {
             throw $this->createAccessDeniedException('Cannot create group with current settings.');
