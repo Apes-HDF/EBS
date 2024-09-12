@@ -17,7 +17,7 @@ final class ProductDocumentNormalizer implements NormalizerInterface
      */
     public function __construct(
         #[Autowire(service: ObjectNormalizer::class)]
-        private readonly NormalizerInterface $normalizer
+        private readonly NormalizerInterface $normalizer,
     ) {
     }
 
@@ -28,7 +28,7 @@ final class ProductDocumentNormalizer implements NormalizerInterface
      *
      * @throws ExceptionInterface
      */
-    public function normalize(mixed $object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var array<string, mixed> $data */
         $data = $this->normalizer->normalize($object, $format, $context);
@@ -46,7 +46,7 @@ final class ProductDocumentNormalizer implements NormalizerInterface
     /**
      * @param array<mixed> $context
      */
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof ProductDocument;
     }

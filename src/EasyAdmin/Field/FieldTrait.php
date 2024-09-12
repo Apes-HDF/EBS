@@ -15,7 +15,7 @@ trait FieldTrait
     /**
      * Render the boolean without switch: ✅ ❌.
      */
-    public function getSimpleBooleanField(string $propertyName, string $label = null): BooleanField
+    public function getSimpleBooleanField(string $propertyName, ?string $label = null): BooleanField
     {
         return BooleanField::new($propertyName, $label)
             ->renderAsSwitch(false)

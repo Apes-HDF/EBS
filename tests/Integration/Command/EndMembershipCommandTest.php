@@ -31,7 +31,7 @@ final class EndMembershipCommandTest extends KernelTestCase
         self::assertEmailCount(1);
         self::assertNotificationCount(1);
         $output = $commandTester->getDisplay();
-        self::assertStringContainsString(sprintf('%d deletion', 1), $output);
+        self::assertStringContainsString(\sprintf('%d deletion', 1), $output);
 
         // already deleted
         $commandTester->execute([]);
@@ -39,6 +39,6 @@ final class EndMembershipCommandTest extends KernelTestCase
         self::assertEmailCount(1); // not +1
         self::assertNotificationCount(1);
         $output = $commandTester->getDisplay();
-        self::assertStringContainsString(sprintf('%d deletion', 0), $output);
+        self::assertStringContainsString(\sprintf('%d deletion', 0), $output);
     }
 }

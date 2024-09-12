@@ -26,7 +26,7 @@ final class IndexProductsCommandTest extends KernelTestCase
         $commandTester->execute([]);
         $commandTester->assertCommandIsSuccessful();
         $output = $commandTester->getDisplay();
-        self::assertStringContainsString(sprintf('%d product(s) indexed', TestReference::PRODUCTS_INDEXABLE_COUNT), $output);
+        self::assertStringContainsString(\sprintf('%d product(s) indexed', TestReference::PRODUCTS_INDEXABLE_COUNT), $output);
 
         // check if the search is OK
         // sleep(2); // wait a little to be sure the indexing process is OK

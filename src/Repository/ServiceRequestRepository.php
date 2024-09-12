@@ -35,7 +35,7 @@ final class ServiceRequestRepository extends ServiceEntityRepository
     /**
      * Return an object or throws an exception if not found.
      */
-    public function get(mixed $id, int|null $lockMode = null, int|null $lockVersion = null): ServiceRequest
+    public function get(mixed $id, ?int $lockMode = null, ?int $lockVersion = null): ServiceRequest
     {
         return $this->find($id, $lockMode, $lockVersion) ?? throw new \LogicException('Service request not found.');
     }
@@ -101,15 +101,15 @@ final class ServiceRequestRepository extends ServiceEntityRepository
      */
     public function getActionSoon(string $property, int $days = 1): Query
     {
-        $from = new \DateTimeImmutable(sprintf('+%d days midnight', $days));
+        $from = new \DateTimeImmutable(\sprintf('+%d days midnight', $days));
         $to = $from->modify('+ 1 day'); // just add one day for the end limit
 
         $qb = $this
             ->createQueryBuilder('sr')
             ->innerJoin('sr.owner', 'o')
             ->innerJoin('sr.recipient', 'g')
-            ->andWhere(sprintf('sr.%s >= :from', $property))
-            ->andWhere(sprintf('sr.%s < :to', $property))
+            ->andWhere(\sprintf('sr.%s >= :from', $property))
+            ->andWhere(\sprintf('sr.%s < :to', $property))
             ->setParameter('from', $from->format('Y-m-d'))
             ->setParameter('to', $to->format('Y-m-d'))
             ->andWhere('sr.status = :status')

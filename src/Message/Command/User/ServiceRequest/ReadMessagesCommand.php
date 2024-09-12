@@ -18,6 +18,6 @@ final class ReadMessagesCommand
 
         // user who read the messages
         public readonly Uuid $readerId,
-     ) {
+    ) {
     }
 }

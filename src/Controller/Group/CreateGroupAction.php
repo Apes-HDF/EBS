@@ -50,7 +50,7 @@ final class CreateGroupAction extends AbstractController
     ) {
     }
 
-    #[isGranted(User::ROLE_USER)]
+    #[IsGranted(User::ROLE_USER)]
     #[Route([
         'en' => MyAccountAction::BASE_URL_EN.'/groups/create-my-group',
         'fr' => MyAccountAction::BASE_URL_FR.'/groupes/creer-mon-groupe',

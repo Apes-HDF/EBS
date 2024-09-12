@@ -29,7 +29,7 @@ class PlatformOfferRepository extends ServiceEntityRepository
     /**
      * Return an object or throws an exception if not found.
      */
-    public function get(mixed $id, int|null $lockMode = null, int|null $lockVersion = null): PlatformOffer
+    public function get(mixed $id, ?int $lockMode = null, ?int $lockVersion = null): PlatformOffer
     {
         return $this->find($id, $lockMode, $lockVersion) ?? throw new \LogicException('Platform offer not found.');
     }

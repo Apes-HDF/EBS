@@ -17,8 +17,8 @@ use Webmozart\Assert\Assert;
 final class GetUserServicesQueryHandler
 {
     public function __construct(
-      private readonly ProductRepository $productRepository,
-      private readonly UserRepository $userRepository,
+        private readonly ProductRepository $productRepository,
+        private readonly UserRepository $userRepository,
     ) {
     }
 

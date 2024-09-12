@@ -186,7 +186,7 @@ final class UserManager
         try {
             $this->userStorage->delete((string) $user->getAvatar());
         } catch (FilesystemException $e) {
-            $this->logger->warning(sprintf('Unable to avatar of user (%s) image %s: %s', $user->getId(), $user->getAvatar(), $e->getMessage()));
+            $this->logger->warning(\sprintf('Unable to avatar of user (%s) image %s: %s', $user->getId(), $user->getAvatar(), $e->getMessage()));
         }
         $user->deleteAvatar();
         $this->save($user, true);

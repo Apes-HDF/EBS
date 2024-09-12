@@ -15,6 +15,6 @@ final class TryAutoFinalizeCommand
     public function __construct(
         // related service request
         public readonly Uuid $requestServiceId,
-     ) {
+    ) {
     }
 }

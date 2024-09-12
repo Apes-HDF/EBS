@@ -266,10 +266,10 @@ class Group implements \Stringable
         return $this;
     }
 
-     public function getMembership(): GroupMembership
-     {
-         return $this->membership;
-     }
+    public function getMembership(): GroupMembership
+    {
+        return $this->membership;
+    }
 
     public function setMembership(GroupMembership $membership): void
     {

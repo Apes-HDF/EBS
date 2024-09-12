@@ -7,7 +7,7 @@ namespace App\Tests\Functional\Controller\Group;
 use App\Test\ContainerRepositoryTrait;
 use App\Test\KernelTrait;
 use App\Tests\TestReference;
-use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
+use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class GroupControllerTest extends WebTestCase
 {
-    use RefreshDatabaseTrait;
+    use ReloadDatabaseTrait;
     use KernelTrait;
     use ContainerRepositoryTrait;
 
@@ -59,7 +59,7 @@ final class GroupControllerTest extends WebTestCase
 
         $form = $client->getCrawler()->selectButton('group_select_form_submit')->form();
         $client->submit($form, [
-           $form->getName().'[q]' => 'Groupe 2',
+            $form->getName().'[q]' => 'Groupe 2',
         ]);
 
         self::assertSame(1, $client->getCrawler()->filter('.group-test')->count());
@@ -80,7 +80,7 @@ final class GroupControllerTest extends WebTestCase
 
         $form = $client->getCrawler()->selectButton('group_select_form_submit')->form();
         $client->submit($form, [
-           $form->getName().'[q]' => 'sarah',
+            $form->getName().'[q]' => 'sarah',
         ]);
 
         self::assertSame(1, $client->getCrawler()->filter('.group-test')->count());

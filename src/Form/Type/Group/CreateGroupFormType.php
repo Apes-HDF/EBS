@@ -27,7 +27,7 @@ class CreateGroupFormType extends AbstractType
     public function __construct(
         private readonly Security $security,
         private readonly ConfigurationRepository $configurationRepository,
-        private readonly GroupRepository $groupRepository
+        private readonly GroupRepository $groupRepository,
     ) {
     }
 

@@ -27,19 +27,19 @@ final class PlatformOfferCrudControllerTest extends WebTestCase
         // list+custom filters
         $filters = '&filters[type]='.(OfferType::MONTHLY->isMonthly() ? '1' : '0');
 
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', PlatformOfferCrudController::class.'&'.$filters));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', PlatformOfferCrudController::class.'&'.$filters));
         self::assertResponseIsSuccessful();
 
         // edit
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', PlatformOfferCrudController::class, TestReference::PLATFORM_OFFER_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', PlatformOfferCrudController::class, TestReference::PLATFORM_OFFER_1));
         self::assertResponseIsSuccessful();
 
         // detail
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', PlatformOfferCrudController::class, TestReference::PLATFORM_OFFER_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', PlatformOfferCrudController::class, TestReference::PLATFORM_OFFER_1));
         self::assertResponseIsSuccessful();
 
         // new
-        $crawler = $client->request('GET', sprintf(TestReference::ADMIN_URL, 'new', PlatformOfferCrudController::class));
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'new', PlatformOfferCrudController::class));
         self::assertResponseIsSuccessful();
 
         $form = $crawler->selectButton(TestReference::ACTION_SAVE_AND_RETURN)->form();

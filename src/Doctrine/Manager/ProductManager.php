@@ -66,7 +66,7 @@ class ProductManager
         try {
             $this->productStorage->delete($image);
         } catch (FilesystemException $e) {
-            $this->logger->warning(sprintf('Unable to delete product (%s) image %s: %s', $product->getId(), $image, $e->getMessage()));
+            $this->logger->warning(\sprintf('Unable to delete product (%s) image %s: %s', $product->getId(), $image, $e->getMessage()));
         }
 
         $product->deleteImage($image);

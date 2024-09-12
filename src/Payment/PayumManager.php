@@ -21,7 +21,7 @@ final class PayumManager
 {
     public function __construct(
         private readonly Payum $payum,
-        #[Autowire('%env(string:PAYUM_GATEWAY)%')] private readonly string $payumGateway
+        #[Autowire('%env(string:PAYUM_GATEWAY)%')] private readonly string $payumGateway,
     ) {
     }
 

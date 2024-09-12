@@ -31,10 +31,10 @@ final class CreateGroupActionTest extends WebTestCase
 
         $form = $crawler->selectButton('create_group_form_submit')->form();
         $client->submit($form, [
-             $form->getName().'[name]' => 'Groupe 1',
-             $form->getName().'[type]' => 'public',
-             $form->getName().'[servicesEnabled]' => false,
-         ]);
+            $form->getName().'[name]' => 'Groupe 1',
+            $form->getName().'[type]' => 'public',
+            $form->getName().'[servicesEnabled]' => false,
+        ]);
         self::assertResponseRedirects();
         self::assertTrue(u($client->getResponse()->headers->get('Location'))->startsWith('http://localhost/admin'));
 

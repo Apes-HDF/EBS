@@ -98,7 +98,7 @@ final class GroupOfferCrudController extends AbstractCrudController implements G
 
         /** @var User $user */
         $user = $this->getUser();
-        $qb->andWhere(sprintf('%s.group IN (:groups)', $qb->getRootAliases()[0] ?? ''))
+        $qb->andWhere(\sprintf('%s.group IN (:groups)', $qb->getRootAliases()[0] ?? ''))
             ->setParameter(':groups', $user->getMyGroupsAsAdmin());
 
         return $qb;

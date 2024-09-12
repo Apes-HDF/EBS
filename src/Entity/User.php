@@ -605,10 +605,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
         $this->category = $category;
     }
 
-     public function getDescription(): ?string
-     {
-         return $this->description;
-     }
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
 
     public function setDescription(?string $description): void
     {
@@ -833,7 +833,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
             UserType::USER => UserCrudController::class,
             UserType::ADMIN => AdministratorCrudController::class,
             UserType::PLACE => PlaceCrudController::class,
-            default => throw new \LogicException('No type assigned to user yet.')
+            default => throw new \LogicException('No type assigned to user yet.'),
         };
     }
 

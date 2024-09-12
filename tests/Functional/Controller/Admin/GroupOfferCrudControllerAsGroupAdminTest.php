@@ -26,11 +26,11 @@ final class GroupOfferCrudControllerAsGroupAdminTest extends WebTestCase
 
         // list+custom filters
         $filters = '&filters[group]='.TestReference::GROUP_1;
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', GroupOfferCrudController::class.'&'.$filters));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', GroupOfferCrudController::class.'&'.$filters));
         self::assertResponseIsSuccessful();
 
         // new (groups are restricted)
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'new', GroupOfferCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'new', GroupOfferCrudController::class));
         self::assertResponseIsSuccessful();
     }
 }

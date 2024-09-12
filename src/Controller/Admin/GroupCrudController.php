@@ -67,7 +67,7 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
         private readonly TranslatorInterface $translator,
         private readonly FilterFactory $filterFactory,
         private readonly SluggerInterface $slugger,
-        private readonly ConfigurationRepository $configurationRepository
+        private readonly ConfigurationRepository $configurationRepository,
     ) {
     }
 
@@ -212,7 +212,7 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
 
         /** @var User $user */
         $user = $this->getUser();
-        $qb->andWhere(sprintf('%s.id IN (:groups)', $qb->getRootAliases()[0] ?? ''))
+        $qb->andWhere(\sprintf('%s.id IN (:groups)', $qb->getRootAliases()[0] ?? ''))
             ->setParameter(':groups', $user->getMyGroupsAsAdmin());
 
         return $qb;

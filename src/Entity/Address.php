@@ -148,7 +148,7 @@ class Address implements \Stringable
      * OpenStreetMap identifier, usefull to create link to maps.
      */
     #[ORM\Column(type: Types::BIGINT, nullable: true)]
-    private int $osmId;
+    private string $osmId;
 
     public function __toString(): string
     {
@@ -340,12 +340,12 @@ class Address implements \Stringable
         return $this;
     }
 
-    public function getOsmId(): int
+    public function getOsmId(): string
     {
         return $this->osmId;
     }
 
-    public function setOsmId(int $osmId): Address
+    public function setOsmId(string $osmId): Address
     {
         $this->osmId = $osmId;
 

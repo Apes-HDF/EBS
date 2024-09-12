@@ -29,7 +29,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 /**
  * @see UserGroupControllerTest
  */
-#[isGranted(User::ROLE_USER)]
+#[IsGranted(User::ROLE_USER)]
 final class UserGroupController extends AbstractController
 {
     use SecurityTrait;
@@ -39,7 +39,7 @@ final class UserGroupController extends AbstractController
 
     public function __construct(
         private readonly QueryBus $queryBus,
-        private readonly CommandBus $commandBus
+        private readonly CommandBus $commandBus,
     ) {
     }
 

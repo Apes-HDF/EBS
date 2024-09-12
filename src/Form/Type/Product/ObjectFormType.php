@@ -24,7 +24,7 @@ final class ObjectFormType extends AbstractProductFormType
     public function __construct(
         MediaManager $mediaManager,
         private readonly GroupRepository $groupRepository,
-        private readonly Security $security
+        private readonly Security $security,
     ) {
         parent::__construct($mediaManager, $security);
     }

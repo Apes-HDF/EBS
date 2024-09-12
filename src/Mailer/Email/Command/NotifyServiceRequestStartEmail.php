@@ -27,7 +27,7 @@ final class NotifyServiceRequestStartEmail implements EmailInterface
     public function __construct(
         private readonly TranslatorInterface $translator,
         #[Autowire('%brand%')]
-        private readonly string $brand
+        private readonly string $brand,
     ) {
     }
 

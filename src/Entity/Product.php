@@ -487,9 +487,9 @@ class Product implements \Stringable, ImagesInterface
         $resultArray = [];
         $today = CarbonImmutable::today(); // start of day 00:00:00
         $unavailabilities = $this->getAvailabilities()->filter(
-            fn (ProductAvailability $pa) => $pa->getMode()->isUnavailable() && // of the good type
-                ($serviceRequest === null || $pa->getServiceRequest() !== $serviceRequest) && // exclude the dates of the current service request (modify dates)
-                $pa->getEndAt() >= $today // passed dates are useless but the start date can be in the past
+            fn (ProductAvailability $pa) => $pa->getMode()->isUnavailable() // of the good type
+                && ($serviceRequest === null || $pa->getServiceRequest() !== $serviceRequest) // exclude the dates of the current service request (modify dates)
+                && $pa->getEndAt() >= $today // passed dates are useless but the start date can be in the past
         );
 
         foreach ($unavailabilities as $unavailability) {

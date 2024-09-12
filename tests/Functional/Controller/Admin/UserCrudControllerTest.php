@@ -22,19 +22,19 @@ final class UserCrudControllerTest extends WebTestCase
         $this->loginAsAdmin($client);
 
         // list
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', UserCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', UserCrudController::class));
 
         // list + filters
         $filters = '&filters[group]='.TestReference::GROUP_1;
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', UserCrudController::class).'&'.$filters);
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', UserCrudController::class).'&'.$filters);
         self::assertResponseIsSuccessful();
 
         // edit
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', UserCrudController::class, TestReference::USER_17));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', UserCrudController::class, TestReference::USER_17));
         self::assertResponseIsSuccessful();
 
         // detail
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', UserCrudController::class, TestReference::USER_16));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', UserCrudController::class, TestReference::USER_16));
         self::assertResponseIsSuccessful();
     }
 
@@ -45,7 +45,7 @@ final class UserCrudControllerTest extends WebTestCase
     {
         $client = self::createClient();
         $this->loginAsAdmin($client);
-        $crawler = $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', UserCrudController::class, TestReference::USER_17));
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', UserCrudController::class, TestReference::USER_17));
         self::assertResponseIsSuccessful();
 
         $form = $crawler->selectButton(TestReference::ACTION_SAVE)->form();
@@ -63,7 +63,7 @@ final class UserCrudControllerTest extends WebTestCase
     {
         $client = self::createClient();
         $this->loginAsAdmin($client);
-        $crawler = $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', UserCrudController::class, TestReference::USER_17));
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', UserCrudController::class, TestReference::USER_17));
         self::assertResponseIsSuccessful();
 
         $form = $crawler->selectButton(TestReference::ACTION_SAVE)->form();
@@ -80,9 +80,9 @@ final class UserCrudControllerTest extends WebTestCase
     {
         $client = self::createClient();
         $this->loginAsAdmin($client);
-        $crawler = $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', UserCrudController::class));
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', UserCrudController::class));
 
-        $dataId = sprintf("[data-id='%s']", TestReference::USER_17);
+        $dataId = \sprintf("[data-id='%s']", TestReference::USER_17);
         self::assertSelectorTextContains($dataId, 'action.promoteToAdmin');
 
         $link = $crawler->filter('.action-promoteToAdmin')->link();

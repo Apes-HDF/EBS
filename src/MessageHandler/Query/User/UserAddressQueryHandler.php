@@ -15,7 +15,7 @@ final class UserAddressQueryHandler
     private const WITH_LIMIT = 3;
 
     public function __construct(
-        private readonly GeoProviderInterface $geoProvider
+        private readonly GeoProviderInterface $geoProvider,
     ) {
     }
 

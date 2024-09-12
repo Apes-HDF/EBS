@@ -34,7 +34,7 @@ final class GroupRepository extends ServiceEntityRepository
     /**
      * Return an object or throws an exception if not found.
      */
-    public function get(mixed $id, int|null $lockMode = null, int|null $lockVersion = null): Group
+    public function get(mixed $id, ?int $lockMode = null, ?int $lockVersion = null): Group
     {
         return $this->find($id, $lockMode, $lockVersion) ?? throw new \LogicException('Group not found.');
     }

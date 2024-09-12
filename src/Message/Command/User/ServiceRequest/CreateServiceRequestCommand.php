@@ -28,6 +28,6 @@ final class CreateServiceRequestCommand
         public readonly \DateTimeImmutable $endAt,
 
         public ?string $message,
-     ) {
+    ) {
     }
 }

@@ -29,7 +29,7 @@ use function Symfony\Component\String\u;
 /**
  * @see ServiceRequestStatusWorkflowControllerTest
  */
-#[isGranted(User::ROLE_USER)]
+#[IsGranted(User::ROLE_USER)]
 class ServiceRequestStatusWorkflowController extends AbstractController
 {
     use FlashTrait;

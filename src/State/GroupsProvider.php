@@ -17,18 +17,18 @@ class GroupsProvider implements ProviderInterface
 {
     public function __construct(
         readonly private GroupRepository $groupRepository,
-        readonly private UserRepository $userRepository
+        readonly private UserRepository $userRepository,
     ) {
     }
 
-    public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null // @phpstan-ignore-line
+    public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
-        if (isset($context['filters']['user'])) {
+        if (isset($context['filters']['user'])) { // @phpstan-ignore-line
             $user = $this->userRepository->find($context['filters']['user']);
 
-            return $this->groupRepository->getGroupsByEnabledServices($context['filters']['services_enabled'] === 'true', $user);
+            return $this->groupRepository->getGroupsByEnabledServices($context['filters']['services_enabled'] === 'true', $user); // @phpstan-ignore-line
         }
 
-        return $this->groupRepository->getGroupsByEnabledServices($context['filters']['services_enabled'] === 'true');
+        return $this->groupRepository->getGroupsByEnabledServices($context['filters']['services_enabled'] === 'true'); // @phpstan-ignore-line
     }
 }

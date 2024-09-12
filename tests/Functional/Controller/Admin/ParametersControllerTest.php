@@ -29,7 +29,7 @@ final class ParametersControllerTest extends WebTestCase
         $this->loginAsAdmin($client);
 
         // form
-        $crawler = $client->request('GET', sprintf(TestReference::ADMIN_URL_CUSTOM_CONTROLLER, 'admin_parameters'));
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL_CUSTOM_CONTROLLER, 'admin_parameters'));
         self::assertResponseIsSuccessful();
 
         $form = $crawler->selectButton('parameters_form_submit')->form();
