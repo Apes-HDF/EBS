@@ -51,6 +51,7 @@
         "snc/redis-bundle": "^4.3",
         "stof/doctrine-extensions-bundle": "^1.7",
         "symfony/asset": "6.4.*",
+        "symfony/brevo-notifier": "6.4.*",
         "symfony/cache": "6.4.*",
         "symfony/clock": "6.4.*",
         "symfony/console": "6.4.*",

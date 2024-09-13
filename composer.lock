@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "66ed0749f68e437c6d15a770e30ee54f",
+    "content-hash": "f923f481246dcd1703ff8df8ada5ccc3",
     "packages": [
         {
             "name": "alcohol/iso4217",
@@ -8791,6 +8791,76 @@
                 }
             ],
             "time": "2024-05-31T14:49:08+00:00"
+        },
+        {
+            "name": "symfony/brevo-notifier",
+            "version": "v6.4.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/brevo-notifier.git",
+                "reference": "6c5ccdabaea84d8f88517960563ffdba78c83925"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/brevo-notifier/zipball/6c5ccdabaea84d8f88517960563ffdba78c83925",
+                "reference": "6c5ccdabaea84d8f88517960563ffdba78c83925",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/http-client": "^5.4|^6.0|^7.0",
+                "symfony/notifier": "^6.4|^7.0"
+            },
+            "require-dev": {
+                "symfony/event-dispatcher": "^5.4|^6.0|^7.0"
+            },
+            "type": "symfony-notifier-bridge",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Notifier\\Bridge\\Brevo\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pierre Tanguy",
+                    "homepage": "https://github.com/petanguy"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Brevo Notifier Bridge",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "brevo",
+                "notifier"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/brevo-notifier/tree/v6.4.8"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-05-31T14:51:39+00:00"
         },
         {
             "name": "symfony/cache",
