@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Controller\i18nTrait;
 use App\EasyAdmin\Field\FieldTrait;
 use App\EasyAdmin\Filter\EnumFilter;
 use App\EasyAdmin\Filter\UuidFilter;
@@ -15,8 +16,10 @@ use App\Enum\Product\ProductType;
 use App\Enum\Product\ProductVisibility;
 use App\Flysystem\EasyAdminHelper;
 use App\Flysystem\MediaManager;
+use App\Form\Type\Product\AbstractProductFormType;
 use App\Helper\CsvExporter;
 use App\Repository\CategoryRepository;
+use App\Repository\GroupRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -54,6 +57,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 abstract class AbstractProductCrudController extends AbstractCrudController implements AdminSecuredCrudControllerInterface
 {
     use FieldTrait;
+    use i18nTrait;
 
     abstract public function getProductType(): ProductType;
 
@@ -74,6 +78,7 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
         private readonly TranslatorInterface $translator,
         private readonly FilterFactory $filterFactory,
         private readonly SluggerInterface $slugger,
+        protected readonly GroupRepository $groupRepository,
     ) {
     }
 
@@ -87,6 +92,9 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
             ->setFormThemes([
                 '@EasyAdmin/crud/form_theme.html.twig',
                 'easy_admin/crud/form_theme.html.twig',
+            ])
+            ->setFormOptions([
+                'validation_groups' => [AbstractProductFormType::class],
             ])
         ;
     }
@@ -241,7 +249,8 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
             ->setFormType(EnumType::class)
             ->setFormTypeOption('class', ProductVisibility::class)
             ->setChoices(ProductVisibility::getAsArray());
-        $groupsField = CollectionField::new('groups');
+        $groupsField = AssociationField::new('groups')->onlyOnForms();
+        $groupsFieldList = CollectionField::new('groups')->hideOnForm();
 
         $ownerField = AssociationField::new('owner');
         $categoryField = AssociationField::new('category')
@@ -300,6 +309,7 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
             'statusField',
             'visibilityField',
             'groupsField',
+            'groupsFieldList',
             'ownerField',
             'categoryField',
             'nameField',

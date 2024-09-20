@@ -291,6 +291,18 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
             ];
 
             if ($this->configurationRepository->getInstanceConfigurationOrCreate()->getServicesEnabled()) {
+                $i18prefix = $this->getI18nPrefix(self::class);
+                /** @var Group|null $group */
+                $group = $this->getContext()?->getEntity()?->getInstance();
+                if (null !== $group) {
+                    foreach ($group->getParentsRecursively() as $parent) {
+                        if (!$parent->getServicesEnabled()) {
+                            $servicesEnabledField->setDisabled();
+                            $servicesEnabledField->setHelp($i18prefix.'.field.services_enabled.parent_disabled');
+                            break;
+                        }
+                    }
+                }
                 array_splice($fields, 3, 0, [$servicesEnabledField]);
             }
 

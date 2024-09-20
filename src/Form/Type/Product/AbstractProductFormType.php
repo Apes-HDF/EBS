@@ -95,7 +95,7 @@ abstract class AbstractProductFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'validation_groups' => self::class,
+            'validation_groups' => [self::class],
         ]);
     }
 }

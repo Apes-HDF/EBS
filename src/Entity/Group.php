@@ -8,6 +8,7 @@ use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use App\Doctrine\Behavior\TimestampableEntity;
@@ -39,6 +40,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             input: false,
             processor: GroupChildServicesEnabledProcessor::class
         ),
+        new Get(),
     ]
 )]
 class Group implements \Stringable
@@ -411,5 +413,35 @@ class Group implements \Stringable
     public function hasActiveOffers(): bool
     {
         return !$this->getActiveOffers()->isEmpty();
+    }
+
+    /**
+     * @return list<Group>
+     */
+    public function getParentsRecursively(): array
+    {
+        $parents = [];
+        $parent = $this->getParent();
+        if (null !== $parent) {
+            $parents = $parent->getParentsRecursively();
+            $parents[] = $parent;
+        }
+
+        return $parents;
+    }
+
+    /**
+     * @return list<Group>
+     */
+    public function getChildrenRecursively(): array
+    {
+        $result = [];
+        $children = $this->getChildren();
+        foreach ($children as $child) {
+            $result = array_merge($result, $child->getChildrenRecursively());
+            $result[] = $child;
+        }
+
+        return $result;
     }
 }

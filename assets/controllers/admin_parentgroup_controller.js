@@ -4,6 +4,17 @@ import { Controller} from '@hotwired/stimulus'
 export default class extends Controller {
   static targets = ['servicesEnabledField', 'parentField', 'idField']
 
+  connect() {
+    const parentFields = document.querySelectorAll('[data-label="Parent"]')
+    const trs = Array.from(parentFields)
+      .map(e => e.firstElementChild)
+      .filter(e => e.tagName === 'A')
+      .map(e => e.closest('tr'))
+    for (const tr of trs) {
+      this.checkDisabledServices(tr)
+    }
+  }
+
   parentFieldTargetConnected(element) {
     const observer = new MutationObserver( ( ) => {
       if (element.tomselect) {
@@ -43,7 +54,43 @@ export default class extends Controller {
         const params = new URLSearchParams(this.servicesEnabledFieldTarget.getAttribute('data-toggle-url'))
         this.disableServicesForChildGroups(params.get('entityId'))
       }
+      const parentFields = document.querySelectorAll('[data-label="Parent"]')
+      const trs = Array.from(parentFields)
+        .map(e => e.firstElementChild)
+        .filter(e => e.tagName === 'A')
+        .map(e => e.closest('tr'))
+      for (const tr of trs) {
+        this.checkDisabledServices(tr)
+      }
     })
+  }
+
+  async checkDisabledServices(tr) {
+    const id = tr.getAttribute('data-id')
+    const url = `/api/groups/${id}`
+
+    const response = await fetch(url, {method: 'GET'})
+    if (!response.ok) {
+      return
+    }
+    const group = await response.json()
+
+    let disabledTr = false
+    for (const parentUrl of group.parentsRecursively) {
+      const parentResponse = await fetch(parentUrl, { method: 'GET' })
+      if (!response.ok) {
+        return
+      }
+      const parent = await parentResponse.json()
+      if (!parent.servicesEnabled) {
+        tr.querySelector('[data-admin-parentgroup-target="servicesEnabledField"]').disabled = true
+        disabledTr = true
+        break
+      }
+    }
+    if (!disabledTr) {
+      tr.querySelector('[data-admin-parentgroup-target="servicesEnabledField"]').disabled = false
+    }
   }
 
   async disableServicesForChildGroups(groupId) {
@@ -59,7 +106,7 @@ export default class extends Controller {
       return
     }
     const data = await response.json()
-    const groupChild = data.children
+    const groupChild = data.childrenRecursively
 
     const groupChildId = groupChild.map(group => {
       return group.split('/')[3]
@@ -70,6 +117,7 @@ export default class extends Controller {
       const params = new URLSearchParams(toggle.getAttribute('data-toggle-url'))
       if(groupChildId.includes(params.get('entityId'))) {
         toggle.checked = false
+        toggle.disabled = true
       }
     })
 

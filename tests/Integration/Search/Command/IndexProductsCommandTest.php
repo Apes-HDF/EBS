@@ -45,13 +45,14 @@ final class IndexProductsCommandTest extends KernelTestCase
         $searchDto = new Search('');
 
         // all documents when not logged (-1 because of a restricted product)
+        // services are now restricted and do not appear here with default filters
         $results = $meilisearch->search($searchDto);
-        self::assertSame(TestReference::PRODUCTS_INDEXABLE_COUNT - 1, $results->getHitsCount());
+        self::assertSame(TestReference::PRODUCTS_VISIBLE_COUNT - 1, $results->getHitsCount());
 
         // all documents when logged with a user with access to the restricted product
         $searchDto->user = $this->getUserRepository()->get(TestReference::PLACE_APES);
         $results = $meilisearch->search($searchDto);
-        self::assertSame(TestReference::PRODUCTS_INDEXABLE_COUNT, $results->getHitsCount());
+        self::assertSame(TestReference::PRODUCTS_VISIBLE_COUNT, $results->getHitsCount());
 
         // keyword search
         $searchDto->user = null;
@@ -60,7 +61,7 @@ final class IndexProductsCommandTest extends KernelTestCase
         self::assertSame(3, $results->getHitsCount());
 
         // typo tolerance example
-        $searchDto->q = 'histiore';
+        $searchDto->q = 'jumeles';
         $results = $meilisearch->search($searchDto);
         self::assertSame(1, $results->getHitsCount());
     }

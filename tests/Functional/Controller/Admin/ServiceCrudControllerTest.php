@@ -42,7 +42,6 @@ final class ServiceCrudControllerTest extends WebTestCase
         $form = $crawler->selectButton(TestReference::ACTION_SAVE_AND_RETURN)->form();
         $client->submit($form, [
             $form->getName().'[name]' => 'Object public',
-            $form->getName().'[visibility]' => 'public',
             $form->getName().'[status]' => 'active',
             $form->getName().'[owner]' => TestReference::ADMIN_LOIC,
             $form->getName().'[description]' => 'very nice object',

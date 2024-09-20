@@ -44,8 +44,8 @@ final class ServiceFormType extends AbstractProductFormType
             ]);
 
         // only if the user is connected and has groups
+        $groups = $this->groupRepository->getUserGroupsWithEnabledServices($user);
         if (!$user->getUserGroupsConfirmed()->isEmpty()) {
-            $groups = $this->groupRepository->getUserGroupsWithEnabledServices($user);
             $builder
                 ->add('visibility', ChoiceType::class, [
                     'label' => 'product.form.visibility',
@@ -66,10 +66,14 @@ final class ServiceFormType extends AbstractProductFormType
                     'class' => Group::class,
                     'query_builder' => $groups,
                     'label' => [] === $groups->getQuery()->getResult() ? $i18nPrefix.'.form.no_groups' : $i18nPrefix.'.form.groups',
+                    'label_attr' => [] === $groups->getQuery()->getResult() ? ['class' => 'text-danger fs-6 fw-normal'] : [],
                     'expanded' => true,
                     'multiple' => true,
                     'required' => false,
                 ]);
+        }
+        if ($groups->getQuery()->getResult() === []) {
+            $builder->get('submit')->setDisabled(true);
         }
     }
 

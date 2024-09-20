@@ -126,8 +126,7 @@ final class GroupRepository extends ServiceEntityRepository
 
     public function disableServicesForChildGroup(Group $group): void
     {
-        /** @var Group $child */
-        foreach ($group->getChildren() as $child) {
+        foreach ($group->getChildrenRecursively() as $child) {
             $child->setServicesEnabled(false);
             $this->getEntityManager()->persist($child);
         }
