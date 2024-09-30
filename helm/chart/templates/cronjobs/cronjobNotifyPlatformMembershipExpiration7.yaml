@@ -1,0 +1,148 @@
+{{- if .Values.dailyCronjobs.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "plateforme-ebs" . }}-cronjob-notify-ms-e-7
+  labels:
+    {{- include "plateforme-ebs.labels" . | nindent 4 }}
+spec:
+  schedule: '10 21 * * *'
+  jobTemplate:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+      labels:
+        {{- include "plateforme-ebs.selectorLabels" . | nindent 8 }}
+    spec:
+      template:
+        spec:
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          serviceAccountName: {{ include "plateforme-ebs.serviceAccountName" . }}
+          restartPolicy: Never
+          containers:
+            - name: {{ .Chart.Name }}-cronjob-notify-ms-e-7
+              image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag | default .Chart.AppVersion }}"
+              imagePullPolicy: {{ .Values.php.image.pullPolicy }}
+              command: ['/bin/sh', '-c']
+              args: ['bin/console app:notify-platform-membership-expiration 7 --env=prod']
+              env:
+                - name: API_ENTRYPOINT_HOST
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: php-host
+                - name: JWT_PASSPHRASE
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: php-jwt-passphrase
+                - name: JWT_PUBLIC_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: php-jwt-public-key
+                - name: JWT_SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: php-jwt-secret-key
+                - name: TRUSTED_HOSTS
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: php-trusted-hosts
+                - name: TRUSTED_PROXIES
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: php-trusted-proxies
+                - name: APP_ENV
+                  value: "prod"
+                - name: APP_DEBUG
+                  value: "0"
+                - name: APP_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: php-app-secret
+                - name: CORS_ALLOW_ORIGIN
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: php-cors-allow-origin
+                - name: DATABASE_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: database-url
+                - name: MERCURE_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: mercure-url
+                - name: MERCURE_PUBLIC_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: mercure-public-url
+                - name: MERCURE_JWT_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: mercure-jwt-secret
+                - name: STORAGE_BUCKET
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: php-storage-bucket
+                - name: STORAGE_ENDPOINT
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: php-storage-endpoint
+                - name: STORAGE_REGION
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: php-storage-region
+                - name: STORAGE_USE_PATH_STYLE_ENDPOINT
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: php-storage-use-path-style-endpoint
+                - name: STORAGE_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: php-storage-key
+                - name: STORAGE_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: php-storage-secret
+              lifecycle:
+                preStop:
+                  exec:
+                    command: ["/bin/sh", "-c", "/bin/sleep 1; kill -QUIT 1"]
+              startupProbe:
+                exec:
+                  command:
+                    - docker-healthcheck
+                failureThreshold: 40
+                periodSeconds: 3
+              readinessProbe:
+                exec:
+                  command:
+                    - docker-healthcheck
+                periodSeconds: 3
+              livenessProbe:
+                exec:
+                  command:
+                    - docker-healthcheck
+                periodSeconds: 3
+              resources:
+                {{- toYaml .Values.resources.fixtures | nindent 16 }}
+{{- end }}

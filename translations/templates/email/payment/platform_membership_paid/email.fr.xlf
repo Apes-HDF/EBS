@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="n6g8FMV" resname="templates.email.payment.platform_membership_paid.h1">
+            <source>emplates.email.payment.platform_membership_paid.h1</source>
+            <target>Bonjour !</target>
+        </trans-unit>
+
+        <trans-unit id="8yoMsLT" resname="templates.email.payment.platform_membership_paid.p1">
+            <source>templates.email.payment.platform_membership_paid.p1</source>
+            <target>Votre adhésion à la plateforme %platform% a bien été pris en compte le %startAt%.
+                    Il expirera le %endAt%</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

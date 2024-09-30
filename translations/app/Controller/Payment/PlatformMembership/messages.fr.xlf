@@ -7,7 +7,7 @@
     <body>
         <trans-unit id="HkHjuo7" resname="app.controller.payment.platform_membership.done_action.flash.success">
             <source>app.controller.payment.platform_membership.done_action.flash.success</source>
-            <target>Paiement réussi. Vous êtes désormais membre de la plateforme %platform%.</target>
+            <target>Paiement réussi. Vous êtes désormais membre de la plateforme %platform%. Veuillez renseigner votre adresse afin de pouvoir utiliser les différents services.</target>
         </trans-unit>
 
         <trans-unit id="iikpmn8" resname="app.controller.payment.platform_membership.done_action.status.new">

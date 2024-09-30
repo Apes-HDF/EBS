@@ -6,11 +6,11 @@ namespace App\Controller\Payment\PlatformMembership;
 
 use App\Controller\FlashTrait;
 use App\Controller\i18nTrait;
-use App\Doctrine\Manager\UserManager;
 use App\Entity\PaymentToken;
 use App\Entity\PlatformOffer;
 use App\Entity\User;
-use Carbon\CarbonImmutable;
+use App\Message\Command\Payment\PlatformMembershipPaidCommand;
+use App\MessageBus\CommandBusInterface;
 use Payum\Core\Payum;
 use Payum\Core\Request\GetHumanStatus;
 use Psr\Log\LoggerInterface;
@@ -19,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -33,6 +33,14 @@ final class DoneAction extends AbstractController
 
     public const ROUTE_NAME = 'app_platform_payment_done';
 
+    public function __construct(
+        private readonly CommandBusInterface $commandBus,
+        private readonly Payum $payum,
+        private readonly TranslatorInterface $translator,
+        private readonly LoggerInterface $logger,
+    ) {
+    }
+
     /**
      * @see https://github.com/Payum/Payum/blob/master/docs/symfony/get-it-started.md#payment-is-done
      */
@@ -41,40 +49,36 @@ final class DoneAction extends AbstractController
         name: self::ROUTE_NAME,
         requirements: ['id' => Requirement::UUID_V6],
     )]
-    public function __invoke(Request $request, #[MapEntity(expr: 'repository.findOneActive(id)')] PlatformOffer $platformOffer, #[CurrentUser] User $user, Payum $payum, TranslatorInterface $translator, UserManager $userManager, LoggerInterface $logger): Response
+    public function __invoke(Request $request, #[MapEntity(expr: 'repository.findOneActive(id)')] PlatformOffer $platformOffer, #[CurrentUser] User $user): Response
     {
         try {
             /** @var PaymentToken $token */
-            $token = $payum->getHttpRequestVerifier()->verify($request);
+            $token = $this->payum->getHttpRequestVerifier()->verify($request);
         } catch (\Exception $e) {
-            $logger->error($e->getMessage());
+            $this->logger->error($e->getMessage());
             throw new UnprocessableEntityHttpException('Cannot verify Payum token.');
         }
 
-        $gateway = $payum->getGateway($token->getGatewayName());
-        $status = new GetHumanStatus($token);
-        $gateway->execute($status);
+        /** @var GetHumanStatus $status */
+        $status = $this->commandBus->dispatch(new PlatformMembershipPaidCommand($platformOffer->getId(), $user->getId(), $token));
 
         // Not captured
         if (!$status->isCaptured()) {
-            $this->addFlashWarning($translator->trans($this->getI18nPrefix().'.status.'.$status->getValue()));
+            $this->addFlashWarning($this->translator->trans($this->getI18nPrefix().'.status.'.$status->getValue()));
+
+            return $this->redirectToRoute('app_user_my_account');
         }
 
-        $user
-            ->setMembershipPaid(true)
-            ->setStartAt(CarbonImmutable::today())
-            ->setPayedAt(CarbonImmutable::now())
-        ;
-        if (($offerType = $platformOffer->getType())->isRecurring()) {
-            $user->setEndAt(new CarbonImmutable($offerType->getEndAtInterval()));
-        }
-
-        $userManager->save($user, true);
-
-        $this->addFlashSuccess($translator->trans($this->getI18nPrefix().'.flash.success', [
+        $this->addFlashSuccess($this->translator->trans($this->getI18nPrefix().'.flash.success', [
             '%platform%' => $platformOffer->getConfiguration()?->getPlatformName()],
         ));
+
         $request->getSession()->remove('payment_in_progress');
+
+        $group = $user->getMyGroupsAsInvited()->first();
+        if ($group !== false) {
+            return $this->redirectToRoute('app_group_show_logged', $group->getRoutingParameters());
+        }
 
         return $this->redirectToRoute('app_user_my_account');
     }

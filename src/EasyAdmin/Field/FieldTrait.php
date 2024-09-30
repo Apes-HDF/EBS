@@ -30,6 +30,7 @@ trait FieldTrait
         return [
             'information' => FormField::addPanel('panel.information', 'fas fa-info-circle'),
             'tech_information' => FormField::addPanel('panel.tech_information', 'fas fa-history'),
+            'payment_information' => FormField::addPanel('panel.payment_information', 'fas fa-dollar-sign'),
         ];
     }
 }

@@ -17,6 +17,8 @@ use App\Form\Type\User\ChangeLoginFormType;
 use App\Form\Type\User\ChangePasswordFormType;
 use App\Form\Type\User\EditProfileFormType;
 use App\Repository\UserRepository;
+use App\Validator\Constraints\User\MembershipPaid;
+use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -26,6 +28,7 @@ use libphonenumber\PhoneNumberUtil;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
@@ -42,7 +45,8 @@ use function Symfony\Component\String\u;
 #[ORM\Table(name: '`user`')] // we also need escaping here
 #[ORM\EntityListeners([UserListener::class])]
 #[UniqueEntity('email', groups: [AccountCreateStep1FormType::class, ChangeLoginFormType::class, 'Default'])]
-class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageInterface
+#[MembershipPaid]
+class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageInterface, EquatableInterface
 {
     use UserConfirmationTrait;
     use UserLostPasswordTrait;
@@ -271,6 +275,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
      */
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $membershipPaid = false;
+
+    #[ORM\ManyToOne(targetEntity: PlatformOffer::class)]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    private ?PlatformOffer $platformOffer = null;
 
     /**
      * Starting date of a paying membership. The starting date of a free membership
@@ -991,5 +999,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
         }
 
         return $this;
+    }
+
+    public function expiresIn(): ?int
+    {
+        $today = Carbon::today();
+        if ($this->endAt === null || $this->endAt < $today) {
+            return null;
+        }
+
+        $endAt = new Carbon($this->endAt);
+
+        return $today->diffInDays($endAt);
+    }
+
+    public function getPlatformOffer(): ?PlatformOffer
+    {
+        return $this->platformOffer;
+    }
+
+    public function setPlatformOffer(?PlatformOffer $platformOffer): void
+    {
+        $this->platformOffer = $platformOffer;
+    }
+
+    public function isEqualTo(UserInterface $user): bool
+    {
+        if (!$user instanceof self) {
+            return false;
+        }
+
+        return $this->email === $user->getUserIdentifier() && $this->password === $user->getPassword();
     }
 }

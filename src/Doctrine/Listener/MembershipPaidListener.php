@@ -24,8 +24,10 @@ final class MembershipPaidListener
 
     public function onKernelException(ExceptionEvent $event): void
     {
-        /** @var User $user */
         $user = $this->security->getUser();
+        if (!$user instanceof User) {
+            return;
+        }
         $config = $this->configurationRepository->getInstanceConfigurationOrCreate();
         $session = $event->getRequest()->getSession();
         /** @var bool $isPaymentInProgress */

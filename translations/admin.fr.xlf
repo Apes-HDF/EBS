@@ -373,6 +373,11 @@
             <target>Nombre de groupes</target>
         </trans-unit>
 
+        <trans-unit id="mFV6gsn" resname="Membership Paid">
+            <source>Membership Paid</source>
+            <target>Abonnement à la plateforme payé</target>
+        </trans-unit>
+
     </body>
   </file>
 </xliff>

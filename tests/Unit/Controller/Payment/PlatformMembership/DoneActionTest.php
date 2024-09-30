@@ -2,22 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Controller\Payment;
+namespace App\Tests\Unit\Controller\Payment\PlatformMembership;
 
-use App\Controller\Payment\Group\DoneAction;
-use App\Entity\Group;
-use App\Entity\GroupOffer;
+use App\Controller\Payment\PlatformMembership\DoneAction;
 use App\Entity\PaymentToken;
+use App\Entity\PlatformOffer;
 use App\Entity\User;
 use App\MessageBus\CommandBusInterface;
-use App\Repository\GroupOfferRepository;
-use App\Tests\TestReference;
 use Payum\Core\Payum;
 use Payum\Core\Request\GetHumanStatus;
 use Payum\Core\Security\HttpRequestVerifierInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
@@ -26,54 +24,8 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class DoneActionTest extends TestCase
+class DoneActionTest extends TestCase
 {
-    private function getUuid(): Uuid
-    {
-        return Uuid::v6();
-    }
-
-    private function getGroupOffer(): GroupOffer
-    {
-        $group = (new Group())
-            ->setId($this->getUuid())
-            ->setSlug('group');
-
-        return (new GroupOffer())  // @phpstan-ignore-line
-            ->setId($this->getUuid())
-            ->setGroup($group);
-    }
-
-    private function getUser(): User
-    {
-        return (new User())
-            ->setId($this->getUuid());
-    }
-
-    /**
-     * @return CommandBusInterface&MockObject
-     */
-    private function getCommandBus(): MockObject
-    {
-        return $this->getMockBuilder(CommandBusInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-    }
-
-    /**
-     * @return GroupOfferRepository&MockObject
-     */
-    private function getGroupOfferRepo(): GroupOfferRepository
-    {
-        $groupOfferRepo = $this->getMockBuilder(GroupOfferRepository::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $groupOfferRepo->method('find')
-            ->willReturn($this->getGroupOffer());
-
-        return $groupOfferRepo;
-    }
-
     /**
      * Too complicated, the controller should be refactored.
      */
@@ -96,15 +48,15 @@ final class DoneActionTest extends TestCase
             ->getMock();
 
         $doneAction = new DoneAction(
-            $this->getGroupOfferRepo(),
+            $this->getCommandBus(),
             $payum,
             $translator,
-            $this->getCommandBus()
+            $this->getLogger(),
         );
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Cannot verify Payum token');
 
-        $doneAction->__invoke(new Request(), TestReference::UUID_404, $this->getUser());
+        $doneAction->__invoke(new Request(), $this->getPlatformOffer(), $this->getUser());
     }
 
     /**
@@ -132,10 +84,10 @@ final class DoneActionTest extends TestCase
         $comandBus->method('dispatch')->willReturn(new GetHumanStatus(new PaymentToken()));
 
         $doneAction = new DoneAction(
-            $this->getGroupOfferRepo(),
+            $this->getCommandBus(),
             $payum,
             $translator,
-            $comandBus
+            $this->getLogger(),
         );
 
         // set session!
@@ -156,6 +108,42 @@ final class DoneActionTest extends TestCase
 
         $this->expectException(\Error::class); // or more mock are needed. To clean up later
 
-        $doneAction->__invoke(new Request(), TestReference::UUID_404, $this->getUser());
+        $doneAction->__invoke(new Request(), $this->getPlatformOffer(), $this->getUser());
+    }
+
+    /**
+     * @return CommandBusInterface&MockObject
+     */
+    private function getCommandBus(): MockObject
+    {
+        return $this->getMockBuilder(CommandBusInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    private function getLogger(): MockObject&LoggerInterface
+    {
+        return $this->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    private function getUser(): User
+    {
+        return (new User())
+            ->setId($this->getUuid());
+    }
+
+    private function getUuid(): Uuid
+    {
+        return Uuid::v6();
+    }
+
+    private function getPlatformOffer(): PlatformOffer
+    {
+        $platformOffer = new PlatformOffer();
+        $platformOffer->setId($this->getUuid());
+
+        return $platformOffer;
     }
 }

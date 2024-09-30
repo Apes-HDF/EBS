@@ -6,9 +6,11 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\Enum\User\UserType;
+use Carbon\Carbon;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -146,5 +148,33 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ])
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function getExpiredMembership(): Query
+    {
+        $today = Carbon::today();
+        $qb = $this
+            ->createQueryBuilder('u')
+            ->andWhere('u.endAt < :date')
+            ->setParameter('date', $today->format('Y-m-d'))
+        ;
+
+        return $qb->getQuery();
+    }
+
+    public function getExpiring(int $days): Query
+    {
+        $from = new \DateTimeImmutable(\sprintf('+%d days midnight', $days));
+        $to = $from->modify('+ 1 day'); // just add one day for the end limit
+
+        $qb = $this
+            ->createQueryBuilder('u')
+            ->andWhere('u.endAt >= :from')
+            ->andWhere('u.endAt < :to')
+            ->setParameter('from', $from->format('Y-m-d'))
+            ->setParameter('to', $to->format('Y-m-d'))
+        ;
+
+        return $qb->getQuery();
     }
 }
