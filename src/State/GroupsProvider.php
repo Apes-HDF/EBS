@@ -26,7 +26,9 @@ class GroupsProvider implements ProviderInterface
         if (isset($context['filters']['user'])) { // @phpstan-ignore-line
             $user = $this->userRepository->find($context['filters']['user']);
 
-            return $this->groupRepository->getGroupsByEnabledServices($context['filters']['services_enabled'] === 'true', $user); // @phpstan-ignore-line
+            $admin = (bool) ($context['filters']['admin'] ?? true); // @phpstan-ignore-line
+
+            return $this->groupRepository->getGroupsByEnabledServices($context['filters']['services_enabled'] === 'true', $user, $admin); // @phpstan-ignore-line
         }
 
         return $this->groupRepository->getGroupsByEnabledServices($context['filters']['services_enabled'] === 'true'); // @phpstan-ignore-line

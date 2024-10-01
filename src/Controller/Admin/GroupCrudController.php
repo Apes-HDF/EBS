@@ -303,7 +303,7 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
                         }
                     }
                 }
-                array_splice($fields, 3, 0, [$servicesEnabledField]);
+                array_splice($fields, 4, 0, [$servicesEnabledField]);
             }
 
             return $fields;
@@ -328,7 +328,7 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
         ];
 
         if ($this->configurationRepository->getInstanceConfigurationOrCreate()->getServicesEnabled()) {
-            array_splice($fields, 2, 0, [$servicesEnabledField]);
+            array_splice($fields, 3, 0, [$servicesEnabledField]);
         }
 
         return $fields;

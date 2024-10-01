@@ -78,6 +78,11 @@ final class ServiceCrudController extends AbstractProductCrudController
             /** @var ChoiceField $statusField */
             $statusField->setChoices(ProductStatus::cases());
 
+            $i18prefix = $this->getI18nPrefix(self::class);
+
+            /** @var AssociationField $groupsField */
+            $groupsField->setHelp($i18prefix.'.field.groups.help');
+
             if ($pageName === Crud::PAGE_NEW) {
                 return [$nameField, $ownerField, $categoryField, $statusField, $groupsField, $descriptionField, $imageField, $durationField];
             }
@@ -85,7 +90,6 @@ final class ServiceCrudController extends AbstractProductCrudController
             $product = $this->getContext()?->getEntity()?->getInstance();
             $owner = $product?->getOwner();
             if (null !== $owner && !$owner->getUserGroupsConfirmedWithServices()->isEmpty()) {
-                /** @var AssociationField $groupsField */
                 $groupsField->setQueryBuilder(function (QueryBuilder $queryBuilder) use ($owner) {
                     return $queryBuilder
                         ->join('entity.userGroups', 'ug')
@@ -98,9 +102,7 @@ final class ServiceCrudController extends AbstractProductCrudController
                     ;
                 });
             } else {
-                $i18prefix = $this->getI18nPrefix(self::class);
-                /** @var AssociationField $groupsField */
-                $groupsField->setHelp($i18prefix.'.field.groups.help')->setDisabled();
+                $groupsField->setDisabled();
             }
 
             return [$nameField, $ownerField, $categoryField, $statusField, $groupsField, $descriptionField, $imageField, $durationField];
@@ -114,6 +116,7 @@ final class ServiceCrudController extends AbstractProductCrudController
             $categoryField,
             $statusField,
             $visibilityField,
+            $groupsFieldList,
             $nameField,
             $descriptionField,
             $durationField,

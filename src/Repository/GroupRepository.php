@@ -90,7 +90,7 @@ final class GroupRepository extends ServiceEntityRepository
     /**
      * @return Group[]
      */
-    public function getGroupsByEnabledServices(bool $servicesEnabled, ?User $user = null): array
+    public function getGroupsByEnabledServices(bool $servicesEnabled, ?User $user = null, bool $admin = true): array
     {
         $qb = $this->createQueryBuilder('g')
             ->andWhere('g.servicesEnabled = :servicesEnabled')
@@ -100,10 +100,15 @@ final class GroupRepository extends ServiceEntityRepository
             $qb
                 ->leftJoin('g.userGroups', 'gu')
                 ->andWhere('gu.user = :user')
-                ->andWhere('gu.mainAdminAccount = :mainAdminAccount OR gu.membership = :membership')
-                ->setParameter('user', $user)
-                ->setParameter('mainAdminAccount', true)
-                ->setParameter('membership', UserMembership::ADMIN);
+                ->setParameter('user', $user);
+
+            if ($admin) {
+                $qb
+                    ->andWhere('gu.mainAdminAccount = :mainAdminAccount OR gu.membership = :membership')
+                    ->setParameter('mainAdminAccount', true)
+                    ->setParameter('membership', UserMembership::ADMIN)
+                ;
+            }
         }
 
         /** @var Group[] */

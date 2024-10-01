@@ -252,7 +252,12 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
         $groupsField = AssociationField::new('groups')->onlyOnForms();
         $groupsFieldList = CollectionField::new('groups')->hideOnForm();
 
-        $ownerField = AssociationField::new('owner');
+        $ownerField = AssociationField::new('owner')
+            ->setFormTypeOption('attr', [
+                'data-controller' => 'admin-parentgroup',
+                'data-admin-parentgroup-target' => 'ownerField',
+            ])
+            ->addWebpackEncoreEntries('admin');
         $categoryField = AssociationField::new('category')
             ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
                 return $this->categoryRepository->addTypeFilter($queryBuilder, $this->getProductType());
