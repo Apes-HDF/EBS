@@ -84,7 +84,7 @@ class DoneActionTest extends TestCase
         $comandBus->method('dispatch')->willReturn(new GetHumanStatus(new PaymentToken()));
 
         $doneAction = new DoneAction(
-            $this->getCommandBus(),
+            $comandBus,
             $payum,
             $translator,
             $this->getLogger(),
@@ -95,6 +95,7 @@ class DoneActionTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $session->method('getFlashBag')->willReturn(new FlashBag());
+        $session->method('remove')->with('payment_in_progress')->willReturn(true);
 
         $requesStack = $this->getMockBuilder(RequestStack::class)
             ->disableOriginalConstructor()
@@ -106,9 +107,13 @@ class DoneActionTest extends TestCase
         $container->method('get')->willReturn($requesStack);
         $doneAction->setContainer($container);
 
+        $request = new Request();
+        $request->setSession($session);
+        $requesStack->push($request);
+
         $this->expectException(\Error::class); // or more mock are needed. To clean up later
 
-        $doneAction->__invoke(new Request(), $this->getPlatformOffer(), $this->getUser());
+        $doneAction->__invoke($request, $this->getPlatformOffer(), $this->getUser());
     }
 
     /**

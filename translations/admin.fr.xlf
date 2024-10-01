@@ -327,6 +327,11 @@
             <target>Informations</target>
         </trans-unit>
 
+        <trans-unit id="n4CnzfH" resname="panel.payment_information">
+            <source>panel.payment_information</source>
+            <target>Informations sur l'abonnement</target>
+        </trans-unit>
+
         <!-- Files and images -->
         <trans-unit id="AHzY4cd" resname="images.help">
             <source>images.help</source>
@@ -376,6 +381,11 @@
         <trans-unit id="mFV6gsn" resname="Membership Paid">
             <source>Membership Paid</source>
             <target>Abonnement à la plateforme payé</target>
+        </trans-unit>
+
+        <trans-unit id="hgruegV" resname="Platform Offer">
+            <source>Platform Offer</source>
+            <target>Tarif d'adhésion</target>
         </trans-unit>
 
     </body>

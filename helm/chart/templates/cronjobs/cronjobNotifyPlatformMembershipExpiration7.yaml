@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "plateforme-ebs" . }}-cronjob-notify-ms-e-7
+  name: {{ include "plateforme-ebs" . }}-cronjob-notify-pms-e-7
   labels:
     {{- include "plateforme-ebs.labels" . | nindent 4 }}
 spec:
@@ -23,7 +23,7 @@ spec:
           serviceAccountName: {{ include "plateforme-ebs.serviceAccountName" . }}
           restartPolicy: Never
           containers:
-            - name: {{ .Chart.Name }}-cronjob-notify-ms-e-7
+            - name: {{ .Chart.Name }}-cronjob-notify-pms-e-7
               image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag | default .Chart.AppVersion }}"
               imagePullPolicy: {{ .Values.php.image.pullPolicy }}
               command: ['/bin/sh', '-c']

@@ -359,7 +359,7 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
         $vacationModeField = BooleanField::new('vacationMode');
         $addressField = AssociationField::new('address');
         $groupsCountField = AssociationField::new('userGroups')->setLabel('Groups number');
-        $membershipPaidField = BooleanField::new('membershipPaid');
+        $membershipPaidField = $this->getSimpleBooleanField('membershipPaid');
         $startAt = DateField::new('startAt');
         $endAt = DateField::new('endAt');
         $expiresInField = IntegerField::new('expiresIn')

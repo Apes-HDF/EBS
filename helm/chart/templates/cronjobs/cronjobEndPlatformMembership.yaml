@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "plateforme-ebs" . }}-cronjob-end-membership
+  name: {{ include "plateforme-ebs" . }}-cronjob-end-p-membership
   labels:
     {{- include "plateforme-ebs.labels" . | nindent 4 }}
 spec:
@@ -23,7 +23,7 @@ spec:
           serviceAccountName: {{ include "plateforme-ebs.serviceAccountName" . }}
           restartPolicy: Never
           containers:
-            - name: {{ .Chart.Name }}-cronjob-end-membership
+            - name: {{ .Chart.Name }}-cronjob-end-p-membership
               image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag | default .Chart.AppVersion }}"
               imagePullPolicy: {{ .Values.php.image.pullPolicy }}
               command: ['/bin/sh', '-c']

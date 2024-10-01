@@ -62,6 +62,7 @@ final class DoneAction extends AbstractController
         /** @var GetHumanStatus $status */
         $status = $this->commandBus->dispatch(new PlatformMembershipPaidCommand($platformOffer->getId(), $user->getId(), $token));
 
+        $request->getSession()->remove('payment_in_progress');
         // Not captured
         if (!$status->isCaptured()) {
             $this->addFlashWarning($this->translator->trans($this->getI18nPrefix().'.status.'.$status->getValue()));
@@ -72,8 +73,6 @@ final class DoneAction extends AbstractController
         $this->addFlashSuccess($this->translator->trans($this->getI18nPrefix().'.flash.success', [
             '%platform%' => $platformOffer->getConfiguration()?->getPlatformName()],
         ));
-
-        $request->getSession()->remove('payment_in_progress');
 
         $group = $user->getMyGroupsAsInvited()->first();
         if ($group !== false) {
