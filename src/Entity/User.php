@@ -18,6 +18,7 @@ use App\Form\Type\User\ChangePasswordFormType;
 use App\Form\Type\User\EditProfileFormType;
 use App\Repository\UserRepository;
 use App\Validator\Constraints\User\MembershipPaid;
+use App\Validator\Constraints\User\UniqueUser;
 use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -44,7 +45,8 @@ use function Symfony\Component\String\u;
 #[ORM\Index(columns: ['lost_password_token'])]
 #[ORM\Table(name: '`user`')] // we also need escaping here
 #[ORM\EntityListeners([UserListener::class])]
-#[UniqueEntity('email', groups: [AccountCreateStep1FormType::class, ChangeLoginFormType::class, 'Default'])]
+#[UniqueUser(groups: [AccountCreateStep1FormType::class, ChangeLoginFormType::class])]
+#[UniqueEntity('email', groups: ['Default'])]
 #[MembershipPaid]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageInterface, EquatableInterface
 {

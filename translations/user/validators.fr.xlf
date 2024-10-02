@@ -11,6 +11,11 @@
             <target>Veuillez remplir ce champ</target>
         </trans-unit>
 
+        <trans-unit id="abcdef" resname="validator.user.unique.message">
+            <source>validator.user.unique.message</source>
+            <target>Cette valeur est déjà utilisée.</target>
+        </trans-unit>
+
     </body>
   </file>
 </xliff>

@@ -9,7 +9,7 @@ final class TestReference
     // common
     public const UUID_404 = '1ed7a2a8-0a77-6dbc-a404-040404040404'; // valid UUID for 404 pages
     public const VALIDATION_ERROR_BLANK = 'This value should not be blank';
-    public const VALIDATION_ERROR_ALREADY_USED = 'This value is already used';
+    public const VALIDATION_ERROR_ALREADY_USED = 'validator.user.unique.message';
 
     // EasyAdmin
     public const ADMIN_URL = '/admin?crudAction=%s&crudControllerFqcn=%s';
