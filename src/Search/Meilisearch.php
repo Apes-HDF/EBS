@@ -309,6 +309,9 @@ class Meilisearch
         if ($product === null) {
             return null;
         }
+        if ($product->getOwner()->isInVacation()) {
+            return null;
+        }
 
         // enrich with the distance to the geoPoint if it is available
         if (\array_key_exists('_geoDistance', $hit)) {

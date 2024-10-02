@@ -64,5 +64,16 @@ final class IndexProductsCommandTest extends KernelTestCase
         $searchDto->q = 'jumeles';
         $results = $meilisearch->search($searchDto);
         self::assertSame(1, $results->getHitsCount());
+
+        // test vacation
+
+        $searchDto->user = null;
+        $searchDto->q = '';
+        $user16 = $this->getUserRepository()->get(TestReference::USER_16);
+        $user16->setVacationMode(true);
+        $this->getUserManager()->save($user16);
+        $results = $meilisearch->search($searchDto);
+        // two objects are now hidden
+        self::assertSame(TestReference::PRODUCTS_VISIBLE_COUNT - 3, $results->getHitsCount());
     }
 }
