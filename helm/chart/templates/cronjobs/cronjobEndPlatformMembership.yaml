@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "plateforme-ebs.labels" . | nindent 4 }}
 spec:
-  schedule: '40 9 * * *'
+  schedule: '30 10 * * *'
   jobTemplate:
     metadata:
       annotations:
