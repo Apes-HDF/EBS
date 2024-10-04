@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "plateforme-ebs.labels" . | nindent 4 }}
 spec:
-  schedule: '30 10 * * *'
+  schedule: '45 15 * * *'
   jobTemplate:
     metadata:
       annotations:
@@ -78,6 +78,23 @@ spec:
                     secretKeyRef:
                       name: {{ include "plateforme-ebs" . }}
                       key: database-url
+                - name: MAILER_DSN
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: mailer-dsn
+                {{- if .Values.meilisearch.enabled }}
+                - name: MEILISEARCH_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ printf "%s-%s" (include "meilisearch.fullname" .Subcharts.meilisearch ) "master-key" }}
+                      key: MEILI_MASTER_KEY
+                - name: MEILISEARCH_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "plateforme-ebs" . }}
+                      key: meilisearch-url
+                {{- end }}
                 - name: MERCURE_URL
                   valueFrom:
                     configMapKeyRef:
@@ -93,6 +110,11 @@ spec:
                     secretKeyRef:
                       name: {{ include "plateforme-ebs" . }}
                       key: mercure-jwt-secret
+                - name: SMS_DSN
+                  valueFrom:
+                      secretKeyRef:
+                          name: {{ include "plateforme-ebs" . }}
+                          key: sms-dsn
                 - name: STORAGE_BUCKET
                   valueFrom:
                     configMapKeyRef:
