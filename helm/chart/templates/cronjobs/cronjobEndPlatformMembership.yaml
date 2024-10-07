@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "plateforme-ebs.labels" . | nindent 4 }}
 spec:
-  schedule: '30 14 * * *'
+  schedule: '17 1 * * *'
   timeZone: "Europe/Paris"
   jobTemplate:
     metadata:

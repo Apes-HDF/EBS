@@ -77,6 +77,9 @@ class EndPlatformMembershipCommand extends Command
                 $user->getEmail(),
             ));
 
+            // save it here for the mail before setting it back to null
+            $endAt = $user->getEndAt();
+
             $user->setMembershipPaid(false)
                 ->setEndAt(null)
                 ->setPayedAt(null)
@@ -85,7 +88,7 @@ class EndPlatformMembershipCommand extends Command
 
             $this->userManager->save($user, true);
 
-            $this->appMailer->send(EndPlatformMembershipMail::class, compact('user', 'platform'));
+            $this->appMailer->send(EndPlatformMembershipMail::class, compact('user', 'platform', 'endAt'));
             $this->sendSms($user, EndPlatformMembershipMail::class, ['%platform%' => $platform]);
             ++$count;
         }
