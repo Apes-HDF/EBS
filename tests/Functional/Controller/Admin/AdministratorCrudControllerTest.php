@@ -20,7 +20,7 @@ final class AdministratorCrudControllerTest extends WebTestCase
     {
         $client = self::createClient();
         $this->loginAsUser16($client);
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', AdministratorCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', AdministratorCrudController::class));
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
@@ -33,19 +33,19 @@ final class AdministratorCrudControllerTest extends WebTestCase
         $this->loginAsAdmin($client);
 
         // list
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', AdministratorCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', AdministratorCrudController::class));
         self::assertResponseIsSuccessful();
 
         // edit
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', AdministratorCrudController::class, TestReference::ADMIN_CAMILLE));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', AdministratorCrudController::class, TestReference::ADMIN_CAMILLE));
         self::assertResponseIsSuccessful();
 
         // detail
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', AdministratorCrudController::class, TestReference::ADMIN_CAMILLE));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', AdministratorCrudController::class, TestReference::ADMIN_CAMILLE));
         self::assertResponseIsSuccessful();
 
         // new
-        $crawler = $client->request('GET', sprintf(TestReference::ADMIN_URL, 'new', AdministratorCrudController::class));
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'new', AdministratorCrudController::class));
         self::assertResponseIsSuccessful();
 
         $form = $crawler->selectButton(TestReference::ACTION_SAVE_AND_RETURN)->form();
@@ -69,7 +69,7 @@ final class AdministratorCrudControllerTest extends WebTestCase
     {
         $client = self::createClient();
         $this->loginAsAdmin($client);
-        $crawler = $client->request('GET', sprintf(TestReference::ADMIN_URL, 'new', AdministratorCrudController::class));
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'new', AdministratorCrudController::class));
         self::assertResponseIsSuccessful();
 
         $form = $crawler->selectButton(TestReference::ACTION_SAVE_AND_RETURN)->form();
@@ -93,7 +93,7 @@ final class AdministratorCrudControllerTest extends WebTestCase
     {
         $client = self::createClient();
         $this->loginAsAdmin($client);
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'connectAs', AdministratorCrudController::class, TestReference::ADMIN_CAMILLE));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'connectAs', AdministratorCrudController::class, TestReference::ADMIN_CAMILLE));
         self::assertResponseRedirects();
         $client->followRedirects();
         self::assertResponseRedirects();
@@ -107,10 +107,10 @@ final class AdministratorCrudControllerTest extends WebTestCase
         $client = self::createClient();
         $this->loginAsAdmin($client);
 
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', AdministratorCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', AdministratorCrudController::class));
         self::assertResponseIsSuccessful();
 
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'export', AdministratorCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'export', AdministratorCrudController::class));
         self::assertResponseIsSuccessful();
     }
 
@@ -118,7 +118,7 @@ final class AdministratorCrudControllerTest extends WebTestCase
     {
         $client = self::createClient();
         $this->loginAsAdmin($client);
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'delete', AdministratorCrudController::class, TestReference::PLACE_7));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'delete', AdministratorCrudController::class, TestReference::PLACE_7));
         self::assertResponseRedirects();
         $client->followRedirects();
         self::assertResponseRedirects();
@@ -133,7 +133,7 @@ final class AdministratorCrudControllerTest extends WebTestCase
     {
         $client = self::createClient();
         $this->loginAsAdmin($client);
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'delete', AdministratorCrudController::class, TestReference::ADMIN_CAMILLE));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'delete', AdministratorCrudController::class, TestReference::ADMIN_CAMILLE));
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 }

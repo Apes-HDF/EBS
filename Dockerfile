@@ -5,7 +5,7 @@
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=8.1
-ARG CADDY_VERSION=2
+ARG CADDY_VERSION=2.8.4
 
 # yarn build
 FROM gmolaire/yarn AS yarn_build
@@ -24,7 +24,7 @@ RUN yarn build
 FROM php:${PHP_VERSION}-fpm-alpine AS app_php
 
 # needed for security update until base image is updated
-RUN apk upgrade libcurl curl openssl openssl-dev libressl libcrypto3 libssl3
+#RUN apk upgrade libcurl curl openssl openssl-dev libressl libcrypto3 libssl3
 
 # Allow to use development versions of Symfony
 ARG STABILITY="stable"
@@ -188,7 +188,7 @@ RUN rm -f .env.local.php
 # Temporary fix for https://github.com/dunglas/mercure/issues/770
 # https://github.com/dunglas/symfony-docker/pull/407/files
 
-FROM caddy:2.7-builder-alpine AS app_caddy_builder
+FROM caddy:2.8.4-builder-alpine AS app_caddy_builder
 
 # RUN xcaddy build \
 #	--with github.com/dunglas/mercure \
@@ -204,7 +204,7 @@ RUN xcaddy build \
 FROM caddy:${CADDY_VERSION} AS app_caddy
 
 # needed for security update until base image is updated
-RUN apk upgrade libcurl curl openssl openssl-dev libressl libcrypto1.1 libssl1.1 libcrypto3 libssl3
+#RUN apk upgrade libcurl curl openssl openssl-dev libressl libcrypto1.1 libssl1.1 libcrypto3 libssl3
 
 WORKDIR /srv/app
 

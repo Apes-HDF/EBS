@@ -19,6 +19,7 @@ use App\Message\Query\Security\GetUserByTokenQuery;
 use App\MessageBus\CommandBus;
 use App\MessageBus\QueryBus;
 use App\MessageHandler\Command\Security\AccountCreateStep1CommandHandler;
+use App\Repository\ConfigurationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,6 +42,7 @@ final class AccountCreateController extends AbstractController
         private readonly QueryBus $queryBus,
         private readonly CommandBus $commandBus,
         private readonly Security $security,
+        private readonly ConfigurationRepository $configurationRepository,
     ) {
         $this->i18nPrefix = $this->getI18nPrefix();
     }
@@ -97,6 +99,7 @@ final class AccountCreateController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $configuration = $this->configurationRepository->getInstanceConfigurationOrCreate();
         // nominal case: user found and token not expired
         $form = $this->createForm(AccountCreateStep2FormType::class, $user->setStep2Defaults())->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -110,13 +113,26 @@ final class AccountCreateController extends AbstractController
             // page group.
             $group = $user->getMyGroupsAsInvited()->first();
             if ($group !== false) {
-                $this->addFlashSuccess($this->i18nPrefix.'.step2.with_invitation.flash.success');
+                // If platform needs payment, redirect to payment
+                if ($configuration->getPaidMembership()) {
+                    $successMessage = $this->i18nPrefix.'.step2.with_invitation.global_paid_membership.flash.success';
+                    $this->addFlashSuccess($successMessage);
+
+                    return $this->redirectToRoute('redirect_to_payment');
+                }
+                $successMessage = $this->i18nPrefix.'.step2.with_invitation.flash.success';
+                $this->addFlashSuccess($successMessage);
 
                 return $this->redirectToRoute('app_group_show_logged', $group->getRoutingParameters());
             }
 
+            if ($configuration->getPaidMembership()) {
+                $successMessage = $this->i18nPrefix.'.step2.global_paid_membership.flash.success';
+            } else {
+                $successMessage = $this->i18nPrefix.'.step2.flash.success';
+            }
             // otherwise go to the address form
-            $this->addFlashSuccess($this->i18nPrefix.'.step2.flash.success');
+            $this->addFlashSuccess($successMessage);
 
             return $this->redirectToRoute(MyAccountAction::ROUTE);
         }

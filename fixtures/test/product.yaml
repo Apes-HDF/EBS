@@ -8,6 +8,7 @@ App\Entity\Product:
 
     service (template, extends product):
         type: !php/enum App\Enum\Product\ProductType::SERVICE
+        visibility: !php/enum App\Enum\Product\ProductVisibility::RESTRICTED
 
     # Loic —————————————————————————————————————————————————————————————————————
     loic_object_1 (extends object):

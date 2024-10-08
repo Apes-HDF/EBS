@@ -20,7 +20,7 @@ final class GroupFilter implements FilterInterface
 {
     use FilterTrait;
 
-    public static function new(string $propertyName, string $label = null): self
+    public static function new(string $propertyName, ?string $label = null): self
     {
         return (new self())
             ->setFilterFqcn(__CLASS__)
@@ -37,7 +37,7 @@ final class GroupFilter implements FilterInterface
         /** @var Group $group */
         $group = $filterDataDto->getValue();
         $queryBuilder
-            ->innerJoin(sprintf('%s.userGroups', $filterDataDto->getEntityAlias()), 'ug')
+            ->innerJoin(\sprintf('%s.userGroups', $filterDataDto->getEntityAlias()), 'ug')
             ->andWhere('ug.group = :group')
             ->setParameter(':group', $group->getId())
         ;

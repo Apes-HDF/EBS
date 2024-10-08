@@ -27,7 +27,7 @@ final class GroupCrudControllerAsGroupAdminTest extends WebTestCase
         $this->loginAsUser16($client);
 
         // list
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', GroupCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', GroupCrudController::class));
         self::assertResponseIsSuccessful();
     }
 }

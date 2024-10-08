@@ -25,15 +25,15 @@ class MenuCrudControllerTest extends WebTestCase
         $menu = $menuRepo->getByCode('menu');
 
         // list
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', MenuCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', MenuCrudController::class));
         self::assertResponseIsSuccessful();
 
         // edit
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', MenuCrudController::class, $menu->getId()));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', MenuCrudController::class, $menu->getId()));
         self::assertResponseIsSuccessful();
 
         // detail
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', MenuCrudController::class, $menu->getId()));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', MenuCrudController::class, $menu->getId()));
         self::assertResponseIsSuccessful();
     }
 }

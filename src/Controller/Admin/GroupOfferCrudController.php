@@ -10,12 +10,12 @@ use App\EasyAdmin\Field\FieldTrait;
 use App\EasyAdmin\Filter\EnumFilter;
 use App\EasyAdmin\Filter\UserGroup\MyGroupFilter;
 use App\EasyAdmin\Filter\UuidFilter;
-use App\EasyAdmin\Form\Type\GroupOfferTypeType;
+use App\EasyAdmin\Form\Type\OfferTypeType;
 use App\Entity\GroupOffer;
 use App\Entity\User;
 use App\Enum\Group\GroupMembership;
-use App\Enum\Group\GroupOfferType;
 use App\Enum\Group\UserMembership;
+use App\Enum\OfferType;
 use App\Security\Checker\AuthorizationChecker;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -65,7 +65,7 @@ final class GroupOfferCrudController extends AbstractCrudController implements G
         return $filters
             ->add(UuidFilter::new('id'))
             ->add(MyGroupFilter::new('group'))
-            ->add(EnumFilter::new('membership', GroupOfferTypeType::class))
+            ->add(EnumFilter::new('membership', OfferTypeType::class))
             ->add('name')
             ->add('active')
         ;
@@ -98,7 +98,7 @@ final class GroupOfferCrudController extends AbstractCrudController implements G
 
         /** @var User $user */
         $user = $this->getUser();
-        $qb->andWhere(sprintf('%s.group IN (:groups)', $qb->getRootAliases()[0] ?? ''))
+        $qb->andWhere(\sprintf('%s.group IN (:groups)', $qb->getRootAliases()[0] ?? ''))
             ->setParameter(':groups', $user->getMyGroupsAsAdmin());
 
         return $qb;
@@ -129,8 +129,8 @@ final class GroupOfferCrudController extends AbstractCrudController implements G
         $nameField = TextField::new('name');
         $typeField = ChoiceField::new('type')
             ->setFormType(EnumType::class)
-            ->setFormTypeOption('class', GroupOfferType::class)
-            ->setChoices(GroupOfferType::getAsArray());
+            ->setFormTypeOption('class', OfferType::class)
+            ->setChoices(OfferType::getAsArray());
 
         $priceField = MoneyField::new('price')
             ->setCurrencyPropertyPath('currency')
@@ -149,7 +149,7 @@ final class GroupOfferCrudController extends AbstractCrudController implements G
         }
 
         if ($pageName === Crud::PAGE_NEW || $pageName === Crud::PAGE_EDIT) {
-            $typeField->setChoices(GroupOfferType::cases());
+            $typeField->setChoices(OfferType::cases());
 
             return [
                 $groupField,

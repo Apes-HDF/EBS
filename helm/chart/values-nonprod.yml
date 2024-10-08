@@ -1,0 +1,38 @@
+imagePullSecrets:
+  - name: regcred
+
+ingress:
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+  hosts:
+    - host: toset
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: toset
+      hosts:
+        - toset
+
+meilisearch:
+  persistence:
+    enabled: true
+    storageClass: "standard"
+    size: "1Gi"
+
+redis:
+  master:
+    persistence:
+      enabled: true
+      storageClass: "standard"
+      size: "1Gi"
+
+postgresql:
+  url: change_me
+
+php:
+  fixtureJob:
+    enabled: true
+  fixtureCron:
+    enabled: true

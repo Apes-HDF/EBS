@@ -28,13 +28,13 @@ abstract class AbstractUserProductSelectFormType extends AbstractType
         return $builder
             ->setMethod('GET')
             ->add('product', EntityType::class, [
-               'class' => Product::class,
+                'class' => Product::class,
                 'query_builder' => function (EntityRepository $entityRepository) {
                     $qb = $entityRepository->createQueryBuilder('p')
                         ->from(ServiceRequest::class, 'sr')
                         ->andWhere('p = sr.product');
 
-                    return $qb->andWhere(sprintf('sr.%s = :user', $this->isOwner() ? 'owner' : 'recipient'))
+                    return $qb->andWhere(\sprintf('sr.%s = :user', $this->isOwner() ? 'owner' : 'recipient'))
                         ->setParameter('user', $this->security->getUser());
                 },
                 'required' => false,

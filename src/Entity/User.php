@@ -17,6 +17,9 @@ use App\Form\Type\User\ChangeLoginFormType;
 use App\Form\Type\User\ChangePasswordFormType;
 use App\Form\Type\User\EditProfileFormType;
 use App\Repository\UserRepository;
+use App\Validator\Constraints\User\MembershipPaid;
+use App\Validator\Constraints\User\UniqueUser;
+use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -26,6 +29,7 @@ use libphonenumber\PhoneNumberUtil;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
@@ -41,8 +45,10 @@ use function Symfony\Component\String\u;
 #[ORM\Index(columns: ['lost_password_token'])]
 #[ORM\Table(name: '`user`')] // we also need escaping here
 #[ORM\EntityListeners([UserListener::class])]
-#[UniqueEntity('email', groups: [AccountCreateStep1FormType::class, ChangeLoginFormType::class, 'Default'])]
-class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageInterface
+#[UniqueUser(groups: [AccountCreateStep1FormType::class, ChangeLoginFormType::class])]
+#[UniqueEntity('email', groups: ['Default'])]
+#[MembershipPaid]
+class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageInterface, EquatableInterface
 {
     use UserConfirmationTrait;
     use UserLostPasswordTrait;
@@ -51,6 +57,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
     final public const ROLE_USER = 'ROLE_USER';
     final public const ROLE_ADMIN = 'ROLE_ADMIN';
     final public const ROLE_GROUP_ADMIN = 'ROLE_GROUP_ADMIN';
+    final public const MEMBERSHIP_PAID = 'MEMBERSHIP_PAID';
 
     private const EMAIL_MAX_LENGTH = 180;
     private const NAME_LENGTH = 180;
@@ -266,6 +273,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
     public bool $gdpr = true;
 
     /**
+     * Paid for membership of the platform.
+     */
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    private bool $membershipPaid = false;
+
+    #[ORM\ManyToOne(targetEntity: PlatformOffer::class)]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    private ?PlatformOffer $platformOffer = null;
+
+    /**
+     * Starting date of a paying membership. The starting date of a free membership
+     * is stored in the creation date.
+     */
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    protected ?\DateTimeImmutable $startAt = null;
+
+    /**
+     * Ending date of the paying membership. If it only set for recurring membership.
+     * For one-shot payments, only the start date is filled.
+     */
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    protected ?\DateTimeImmutable $endAt = null;
+
+    /**
+     * Date of the last payment of this membership.
+     */
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    protected ?\DateTimeImmutable $payedAt = null;
+
+    /**
      * Local cache to store groups (extracted from related userGroups).
      *
      * @var Collection<int, Group>|null
@@ -474,6 +511,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
             }
         }
 
+        if ($this->isMembershipPaid()) {
+            $roles[] = self::MEMBERSHIP_PAID;
+        }
+
         return array_unique($roles);
     }
 
@@ -574,10 +615,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
         $this->category = $category;
     }
 
-     public function getDescription(): ?string
-     {
-         return $this->description;
-     }
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
 
     public function setDescription(?string $description): void
     {
@@ -672,6 +713,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
     }
 
     /**
+     * @return Collection<int, UserGroup>
+     */
+    public function getUserGroupsConfirmedWithServices(): Collection
+    {
+        /** @var Collection<int, UserGroup> $collection */
+        $collection = $this->userGroups->filter(fn (UserGroup $userGroup) => !$userGroup->getMembership()->isInvited() && $userGroup->getGroup()->getServicesEnabled());
+
+        return $collection;
+    }
+
+    /**
      * @return array<int, string>
      */
     public function getUserGroupsIds(): array
@@ -714,6 +766,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
         return $this;
     }
 
+    public function isMembershipPaid(): bool
+    {
+        return $this->membershipPaid;
+    }
+
+    public function setMembershipPaid(bool $membershipPaid): self
+    {
+        $this->membershipPaid = $membershipPaid;
+
+        return $this;
+    }
+
+    public function getStartAt(): ?\DateTimeImmutable
+    {
+        return $this->startAt;
+    }
+
+    public function setStartAt(?\DateTimeImmutable $startAt): self
+    {
+        $this->startAt = $startAt;
+
+        return $this;
+    }
+
+    public function getEndAt(): ?\DateTimeImmutable
+    {
+        return $this->endAt;
+    }
+
+    public function setEndAt(?\DateTimeImmutable $endAt): self
+    {
+        $this->endAt = $endAt;
+
+        return $this;
+    }
+
+    public function getPayedAt(): ?\DateTimeImmutable
+    {
+        return $this->payedAt;
+    }
+
+    public function setPayedAt(?\DateTimeImmutable $payedAt): self
+    {
+        $this->payedAt = $payedAt;
+
+        return $this;
+    }
+
     // —— end of basic 'etters —————————————————————————————————————————————————
 
     public function promoteToAdmin(): self
@@ -743,7 +843,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
             UserType::USER => UserCrudController::class,
             UserType::ADMIN => AdministratorCrudController::class,
             UserType::PLACE => PlaceCrudController::class,
-            default => throw new \LogicException('No type assigned to user yet.')
+            default => throw new \LogicException('No type assigned to user yet.'),
         };
     }
 
@@ -770,15 +870,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
      *
      * @return Collection<int,Group>
      */
-    public function getMyGroupsAsAdmin(): Collection
+    public function getMyGroupsAsAdmin(bool $enabledServices = false): Collection
     {
         $adminUserGroups = $this->userGroups->filter(
             static fn (UserGroup $userGroup) => $userGroup->getMembership()->isAdmin() || $userGroup->isMainAdminAccount()
         );
 
-        return new ArrayCollection(
+        $groups = new ArrayCollection(
             array_map(static fn (UserGroup $userGroup) => $userGroup->getGroup(), $adminUserGroups->toArray())
         );
+
+        if ($enabledServices) {
+            return $groups->filter(
+                static fn (Group $group) => $group->getServicesEnabled()
+            );
+        }
+
+        return $groups;
     }
 
     /**
@@ -893,5 +1001,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
         }
 
         return $this;
+    }
+
+    public function expiresIn(): ?int
+    {
+        $today = Carbon::today();
+        if ($this->endAt === null || $this->endAt < $today) {
+            return null;
+        }
+
+        $endAt = new Carbon($this->endAt);
+
+        return $today->diffInDays($endAt);
+    }
+
+    public function getPlatformOffer(): ?PlatformOffer
+    {
+        return $this->platformOffer;
+    }
+
+    public function setPlatformOffer(?PlatformOffer $platformOffer): void
+    {
+        $this->platformOffer = $platformOffer;
+    }
+
+    public function isEqualTo(UserInterface $user): bool
+    {
+        if (!$user instanceof self) {
+            return false;
+        }
+
+        return $this->email === $user->getUserIdentifier() && $this->password === $user->getPassword();
     }
 }

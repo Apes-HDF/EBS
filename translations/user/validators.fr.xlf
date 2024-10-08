@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+
+        <trans-unit id="qTjiw69" resname="validator.user.membership_paid">
+            <source>validator.user.membership_paid</source>
+            <target>Veuillez remplir ce champ</target>
+        </trans-unit>
+
+        <trans-unit id="abcdef" resname="validator.user.unique.message">
+            <source>validator.user.unique.message</source>
+            <target>Cette valeur est déjà utilisée.</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

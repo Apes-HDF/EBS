@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="dMFTkCX" resname="templates.email.command.end_platform_membership.h1">
+            <source>emplates.email.command.end_platform_membership.h1</source>
+            <target>Bonjour !</target>
+        </trans-unit>
+
+        <trans-unit id="nAjYzR4" resname="templates.email.command.end_platform_membership.p1">
+            <source>templates.email.command.end_platform_membership.p1</source>
+            <target>Votre adhésion à la plateforme %platform% a expiré le %endAt%.
+            Connectez-vous à votre compte pour renouveler votre adhésion. </target>
+        </trans-unit>
+
+        <trans-unit id="kcvM4iP" resname="templates.email.command.end_platform_membership.loginLink">
+            <source>templates.email.command.end_platform_membership.loginLink</source>
+            <target>Me connecter</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>

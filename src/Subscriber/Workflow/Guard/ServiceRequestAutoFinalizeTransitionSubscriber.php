@@ -16,7 +16,7 @@ use Symfony\Component\Workflow\Event\GuardEvent;
 final class ServiceRequestAutoFinalizeTransitionSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        public readonly Security $security
+        public readonly Security $security,
     ) {
     }
 

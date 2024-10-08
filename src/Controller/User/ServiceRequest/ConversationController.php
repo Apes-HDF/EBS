@@ -27,7 +27,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 /**
  * @see ConversationControllerTest
  */
-#[isGranted(User::ROLE_USER)]
+#[IsGranted(User::ROLE_USER)]
 class ConversationController extends AbstractController
 {
     use FlashTrait;

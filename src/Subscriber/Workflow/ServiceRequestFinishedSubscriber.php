@@ -54,7 +54,7 @@ final class ServiceRequestFinishedSubscriber implements EventSubscriberInterface
         $this->createSystemMessage($serviceRequest, $serviceRequest->getFinalizedAt());
     }
 
-    private function createSystemMessage(ServiceRequest $serviceRequest, \DateTimeImmutable $createdAt = null): void
+    private function createSystemMessage(ServiceRequest $serviceRequest, ?\DateTimeImmutable $createdAt = null): void
     {
         $systemMessage = $this->messageManager->createSystemMessage(
             $serviceRequest,

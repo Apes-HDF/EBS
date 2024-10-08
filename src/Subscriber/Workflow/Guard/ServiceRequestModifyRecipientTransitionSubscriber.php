@@ -17,7 +17,7 @@ use Symfony\Component\Workflow\Event\GuardEvent;
 final class ServiceRequestModifyRecipientTransitionSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        public readonly Security $security
+        public readonly Security $security,
     ) {
     }
 

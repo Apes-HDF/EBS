@@ -5,7 +5,8 @@
     {% if not group.activeOffers.isEmpty %}
         {% include 'components/group/_first_offer.html.twig' with {group} %}
         {% include 'components/group/_modal_offers.html.twig' with {
-            offers: group.activeOffers
+            offers: group.activeOffers,
+            prepare_path: 'app_payment_prepare'
         } %}
 
     {# 2.1.2 otherwise it is a free group #}

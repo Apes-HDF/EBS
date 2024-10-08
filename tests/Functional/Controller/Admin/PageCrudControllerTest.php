@@ -21,15 +21,15 @@ final class PageCrudControllerTest extends WebTestCase
         $this->loginAsAdmin($client);
 
         // list
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', PageCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', PageCrudController::class));
         self::assertResponseIsSuccessful();
 
         // edit
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', PageCrudController::class, TestReference::PAGE_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', PageCrudController::class, TestReference::PAGE_1));
         self::assertResponseIsSuccessful();
 
         // detail
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', PageCrudController::class, TestReference::PAGE_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', PageCrudController::class, TestReference::PAGE_1));
         self::assertResponseIsSuccessful();
 
         $client->clickLink('page.action.link');
@@ -38,7 +38,7 @@ final class PageCrudControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
 
         // new
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'new', PageCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'new', PageCrudController::class));
         self::assertResponseIsSuccessful();
     }
 }

@@ -70,20 +70,20 @@ final class IndexProductsCommand extends Command
 
         foreach ($query->toIterable() as $product) {
             /** @var Product $product */
-            $io->comment(sprintf('  > adding product %s to batch', $product->getId()));
+            $io->comment(\sprintf('  > adding product %s to batch', $product->getId()));
             $toIndex[] = $product;
             if ((\count($toIndex) % $batchSize) === 0) {
                 $this->meilisearch->indexProducts($toIndex, $swapIndex);
-                $io->note(sprintf('  > indexing %d product(s) from batch', \count($toIndex)));
+                $io->note(\sprintf('  > indexing %d product(s) from batch', \count($toIndex)));
                 $toIndex = [];
             }
             ++$count;
         }
 
         $this->meilisearch->indexProducts($toIndex, $swapIndex);
-        $io->note(sprintf('  > indexing %d remaining product(s) from batch', \count($toIndex)));
+        $io->note(\sprintf('  > indexing %d remaining product(s) from batch', \count($toIndex)));
 
-        $io->note(sprintf(' -> %d product(s) indexed.', $count));
+        $io->note(\sprintf(' -> %d product(s) indexed.', $count));
         $io->note('  -> DONE');
         $io->newLine();
 

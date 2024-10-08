@@ -58,6 +58,9 @@ final class CreateGroupInvitationMessageHandler
             $user = $this->userManager->getStep1User($message->email);
             $this->userManager->save($user, true);
             $isNewUser = true;
+        } elseif (!$user->isEmailConfirmed()) {
+            $this->userManager->refreshConfirmationToken($user);
+            $isNewUser = true;
         }
 
         // now create the invitation to the group.

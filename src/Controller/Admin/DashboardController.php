@@ -22,15 +22,18 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * All /admin routes are protected at the security.yaml level.
+ * ROLE_ADMIN inherits the ROLE_GROUP_ADMIN role.
+ *
+ * @see security.yaml
  */
-#[Security("is_granted('".User::ROLE_ADMIN."') or is_granted('".User::ROLE_GROUP_ADMIN."')")]
+#[IsGranted(User::ROLE_GROUP_ADMIN)]
 final class DashboardController extends AbstractDashboardController
 {
     public const DOMAIN = 'admin';
@@ -60,7 +63,7 @@ final class DashboardController extends AbstractDashboardController
         private readonly AdminUrlGenerator $adminUrlGenerator,
         private readonly AuthorizationChecker $authorizationChecker,
         private readonly UserRepository $userRepository,
-        private readonly ServiceRequestRepository $requestRepository
+        private readonly ServiceRequestRepository $requestRepository,
     ) {
     }
 
@@ -159,8 +162,8 @@ final class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('menu.pages', 'fas fa-hat-wizard', Page::class)->setPermission(User::ROLE_ADMIN);
 
         yield MenuItem::subMenu('menu.categories', 'fa-solid fa-folder')->setSubItems([
-             MenuItem::linkToUrl('menu.objects', 'fa-solid fa-box', $categoryObjectUrl)->setPermission(User::ROLE_ADMIN),
-             MenuItem::linkToUrl('menu.services', 'fa-regular fa-handshake', $categoryServiceUrl)->setPermission(User::ROLE_ADMIN),
+            MenuItem::linkToUrl('menu.objects', 'fa-solid fa-box', $categoryObjectUrl)->setPermission(User::ROLE_ADMIN),
+            MenuItem::linkToUrl('menu.services', 'fa-regular fa-handshake', $categoryServiceUrl)->setPermission(User::ROLE_ADMIN),
         ])->setPermission(User::ROLE_ADMIN);
 
         // —————————————————————————————————————————————————————————————————————

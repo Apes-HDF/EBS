@@ -8,6 +8,8 @@ use App\Doctrine\Behavior\TimestampableEntity;
 use App\Enum\ConfigurationType;
 use App\Message\Command\Admin\ParametersFormCommand;
 use App\Repository\ConfigurationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -26,12 +28,24 @@ class Configuration
     protected ConfigurationType $type = ConfigurationType::INSTANCE;
 
     /**
+     * @var Collection<int, PlatformOffer>
+     */
+    #[ORM\OneToMany(mappedBy: 'configuration', targetEntity: PlatformOffer::class, orphanRemoval: true)]
+    #[ORM\OrderBy(['price' => 'ASC'])]
+    private Collection $offers;
+
+    /**
      * Associative array to store parameters.
      *
      * @var array<string, array<string,mixed>>
      */
     #[ORM\Column(type: 'json')]
     private array $configuration = [];
+
+    public function __construct()
+    {
+        $this->offers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -76,21 +90,35 @@ class Configuration
     /** end of basic getters and setters ------------------------------------------------ */
 
     /**
-     * @return bool[]
+     * @return array<string, bool|string>
      */
-    public function getServices(): array
+    public function getGlobals(): array
     {
-        /** @var array<string, bool> $services */
-        $services = $this->configuration['services'] ?? [];
+        /** @var array<string, bool|string> $globals */
+        $globals = $this->configuration['global'] ?? [];
 
-        return $services;
+        return $globals;
+    }
+
+    public function getPlatformName(): string
+    {
+        $globals = $this->getGlobals();
+
+        return (string) ($globals['globalName'] ?? '');
     }
 
     public function getServicesEnabled(): bool
     {
-        $services = $this->getServices();
+        $globals = $this->getGlobals();
 
-        return $services['servicesEnabled'];
+        return (bool) $globals['globalServicesEnabled'];
+    }
+
+    public function getPaidMembership(): bool
+    {
+        $globals = $this->getGlobals();
+
+        return (bool) $globals['globalPaidMembership'];
     }
 
     /**

@@ -109,30 +109,13 @@
     }
 }
 
-p > strong {
-    > a {
+.page-content {
+    a {
         color: $blue-500;;
-        position: relative;
         text-decoration: none;
-        transition: .5s;
-
-        &:after {
-            background-color: $blue-500;
-            content: "";
-            height: 2px;
-            left: 0;
-            position: absolute;
-            top: 100%;
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform .5s;
-            width: 100%;
-        }
-
-        &:hover:after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
+    }
+    a:hover {
+        text-decoration: underline;
     }
 }
 

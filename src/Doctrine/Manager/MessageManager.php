@@ -43,7 +43,7 @@ final class MessageManager
         ServiceRequest $serviceRequest,
         string $messageTemplate,
         array $messageParameters = [],
-        \DateTimeImmutable $createdAt = null,
+        ?\DateTimeImmutable $createdAt = null,
     ): Message {
         $message = (new Message())
             ->setServiceRequest($serviceRequest)
@@ -61,7 +61,7 @@ final class MessageManager
         return $message;
     }
 
-    public function createFromRecipientMessage(ServiceRequest $serviceRequest, string $message, \DateTimeImmutable $createdAt = null): Message
+    public function createFromRecipientMessage(ServiceRequest $serviceRequest, string $message, ?\DateTimeImmutable $createdAt = null): Message
     {
         $message = (new Message())
             ->setServiceRequest($serviceRequest)

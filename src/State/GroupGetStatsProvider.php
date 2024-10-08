@@ -15,11 +15,11 @@ use App\Repository\GroupRepository;
 final class GroupGetStatsProvider implements ProviderInterface
 {
     public function __construct(
-        readonly private GroupRepository $groupRepository
+        readonly private GroupRepository $groupRepository,
     ) {
     }
 
-    public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null // @phpstan-ignore-line
+    public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
         $groupStats = new GroupResource();
         $groupStats->count = $this->groupRepository->count([]);

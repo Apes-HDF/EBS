@@ -8,6 +8,7 @@ use App\Entity\Group;
 use App\Entity\User;
 use App\Entity\UserGroup;
 use App\Enum\Group\GroupType;
+use App\Enum\Group\UserMembership;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -33,7 +34,7 @@ final class GroupRepository extends ServiceEntityRepository
     /**
      * Return an object or throws an exception if not found.
      */
-    public function get(mixed $id, int|null $lockMode = null, int|null $lockVersion = null): Group
+    public function get(mixed $id, ?int $lockMode = null, ?int $lockVersion = null): Group
     {
         return $this->find($id, $lockMode, $lockVersion) ?? throw new \LogicException('Group not found.');
     }
@@ -77,6 +78,64 @@ final class GroupRepository extends ServiceEntityRepository
 
         // alpha sort
         return $qb->orderBy('g.name', 'ASC')->getQuery();
+    }
+
+    public function getUserGroupsWithEnabledServices(User $user): QueryBuilder
+    {
+        return $this->getUserGroups($user)
+            ->andWhere('g.servicesEnabled = :enabled')
+            ->setParameter('enabled', true);
+    }
+
+    /**
+     * @return Group[]
+     */
+    public function getGroupsByEnabledServices(bool $servicesEnabled, ?User $user = null, bool $admin = true): array
+    {
+        $qb = $this->createQueryBuilder('g')
+            ->andWhere('g.servicesEnabled = :servicesEnabled')
+            ->setParameter('servicesEnabled', $servicesEnabled);
+
+        if ($user instanceof User) {
+            $qb
+                ->leftJoin('g.userGroups', 'gu')
+                ->andWhere('gu.user = :user')
+                ->setParameter('user', $user);
+
+            if ($admin) {
+                $qb
+                    ->andWhere('gu.mainAdminAccount = :mainAdminAccount OR gu.membership = :membership')
+                    ->setParameter('mainAdminAccount', true)
+                    ->setParameter('membership', UserMembership::ADMIN)
+                ;
+            }
+        }
+
+        /** @var Group[] */
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param Group[] $groups
+     */
+    public function disableServicesForAllGroups(array $groups): void
+    {
+        foreach ($groups as $group) {
+            $group->setServicesEnabled(false);
+            $this->getEntityManager()->persist($group);
+        }
+        $this->getEntityManager()->flush();
+    }
+
+    public function disableServicesForChildGroup(Group $group): void
+    {
+        foreach ($group->getChildrenRecursively() as $child) {
+            $child->setServicesEnabled(false);
+            $this->getEntityManager()->persist($child);
+        }
+        $this->getEntityManager()->flush();
     }
 
     public function getUserGroups(User $user): QueryBuilder

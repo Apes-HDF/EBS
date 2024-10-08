@@ -31,7 +31,7 @@ final class ProductAvailabilityRepository extends ServiceEntityRepository
     /**
      * Return product availability or throws an exception if not found.
      */
-    public function get(mixed $id, int|null $lockMode = null, int|null $lockVersion = null): ProductAvailability
+    public function get(mixed $id, ?int $lockMode = null, ?int $lockVersion = null): ProductAvailability
     {
         return $this->find($id, $lockMode, $lockVersion) ?? throw new \LogicException('ProductAvailability not found.');
     }

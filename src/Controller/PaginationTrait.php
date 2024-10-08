@@ -21,7 +21,7 @@ trait PaginationTrait
      *
      * @implements PaginationInterface<int,Product>
      *
-     * @return PaginationInterface<int,Product>
+     * @return PaginationInterface<int,mixed>
      */
     private function paginate(SearchResult $searchResult): PaginationInterface
     {

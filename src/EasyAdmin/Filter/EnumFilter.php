@@ -18,7 +18,7 @@ final class EnumFilter implements FilterInterface
 {
     use FilterTrait;
 
-    public static function new(string $propertyName, string $formType, string $label = null): self
+    public static function new(string $propertyName, string $formType, ?string $label = null): self
     {
         return (new self())
             ->setFilterFqcn(__CLASS__)
@@ -32,7 +32,7 @@ final class EnumFilter implements FilterInterface
      */
     public function apply(QueryBuilder $queryBuilder, FilterDataDto $filterDataDto, ?FieldDto $fieldDto, EntityDto $entityDto): void
     {
-        $queryBuilder->andWhere(sprintf('%s.%s = :value', $filterDataDto->getEntityAlias(), $filterDataDto->getProperty()))
+        $queryBuilder->andWhere(\sprintf('%s.%s = :value', $filterDataDto->getEntityAlias(), $filterDataDto->getProperty()))
             ->setParameter('value', $filterDataDto->getValue());
     }
 }

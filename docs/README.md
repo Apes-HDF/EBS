@@ -21,16 +21,21 @@ Access `https://localhost` in your browser and accept the security risk.
 
 You should have access now to:
 
-* Main project : https://localhost
-* Meilisearch : http://localhost:7700/
+* The main frontend: https://localhost
+* The Meilisearch UI: http://localhost:7700/
 
-To access the dev tools, run=
+Note that you can also use the [online meilisearch-ui](https://meilisearch-ui.riccox.com).
+Be careful it is not an official Meilisearch website, use only for dev data, do not
+send cloud credentials.
+
+To access the dev tools, run:
 
     make start-dev
 
 You should have access now to:
 
 * Adminer : http://localhost:8989/?pgsql=database&username=app&db=app&ns=public&select=group
+* Mailcatcher : http://localhost:1081/
 * Maildev : http://localhost:1080
 
 ## Makefile

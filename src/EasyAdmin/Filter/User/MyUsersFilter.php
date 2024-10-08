@@ -20,7 +20,7 @@ final class MyUsersFilter implements FilterInterface
 {
     use FilterTrait;
 
-    public static function new(string $propertyName, string $label = null): self
+    public static function new(string $propertyName, ?string $label = null): self
     {
         return (new self())
             ->setFilterFqcn(__CLASS__)

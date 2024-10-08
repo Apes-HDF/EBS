@@ -21,7 +21,7 @@ class DuplicateProductCommandHandler
     public function __construct(
         private readonly ProductRepository $productRepository,
         private readonly ProductManager $productManager,
-        private readonly AuthorizationCheckerInterface $authorizationChecker
+        private readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {
     }
 

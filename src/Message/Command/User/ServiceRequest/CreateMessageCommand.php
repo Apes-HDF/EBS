@@ -21,6 +21,6 @@ final class CreateMessageCommand
 
         // content of the message
         public string $message,
-     ) {
+    ) {
     }
 }

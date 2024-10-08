@@ -45,6 +45,6 @@ abstract class AbstractFormCommand
             }
         }
 
-        throw new \UnexpectedValueException(sprintf('Invalid property name, it should start with "%s"', implode(', ', $this->getSections())));
+        throw new \UnexpectedValueException(\sprintf('Invalid property name, it should start with "%s"', implode(', ', $this->getSections())));
     }
 }

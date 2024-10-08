@@ -28,7 +28,7 @@ final class CreateAccountStep1Email implements EmailInterface
     public function __construct(
         private readonly TranslatorInterface $translator,
         #[Autowire('%brand%')]
-        private readonly string $brand
+        private readonly string $brand,
     ) {
     }
 
@@ -53,8 +53,8 @@ final class CreateAccountStep1Email implements EmailInterface
             ->to($user->getEmail())
             ->priority(Email::PRIORITY_HIGH)
             ->subject($this->translator->trans($subjectKey, [
-                    '%brand%' => $this->brand,
-                    '%group%' => $group?->getName(),
+                '%brand%' => $this->brand,
+                '%group%' => $group?->getName(),
             ], AppMailer::TR_DOMAIN))
             ->htmlTemplate('email/security/create_account_step1.html.twig')
             ->context($context)

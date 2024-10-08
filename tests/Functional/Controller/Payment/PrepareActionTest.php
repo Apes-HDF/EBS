@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\Payment;
 
-use App\Controller\Payment\PrepareAction;
+use App\Controller\Payment\Group\PrepareAction;
 use App\Test\KernelTrait;
 use App\Tests\TestReference;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;

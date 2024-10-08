@@ -58,8 +58,8 @@ final class ServiceRequestModifiedByOwnerSubscriber implements EventSubscriberIn
             $serviceRequest,
             self::MESSAGE_SYSTEM_MODIFIED_BY_OWNER.'.'.$product->getType()->value,
             [
-               '%startAt%' => $serviceRequest->getStartAt()->format($dateFormat),
-               '%endAt%' => $serviceRequest->getEndAt()->format($dateFormat),
+                '%startAt%' => $serviceRequest->getStartAt()->format($dateFormat),
+                '%endAt%' => $serviceRequest->getEndAt()->format($dateFormat),
             ]
         );
         $this->messageManager->save($systemMessage, true);

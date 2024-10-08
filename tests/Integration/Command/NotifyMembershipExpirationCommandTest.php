@@ -27,7 +27,7 @@ final class NotifyMembershipExpirationCommandTest extends KernelTestCase
         ]);
         $commandTester->assertCommandIsSuccessful();
         $output = $commandTester->getDisplay();
-        self::assertStringContainsString(sprintf('%d notification', 1), $output);
+        self::assertStringContainsString(\sprintf('%d notification', 1), $output);
         self::assertMatchesRegularExpression('/Groupe 1 - adhésion payante of[\s\/\\n]*Camille/', $output);
         self::assertEmailCount(1);
         self::assertNotificationCount(1);
@@ -38,7 +38,7 @@ final class NotifyMembershipExpirationCommandTest extends KernelTestCase
         ]);
         $commandTester->assertCommandIsSuccessful();
         $output = $commandTester->getDisplay();
-        self::assertStringContainsString(sprintf('%d notification', 1), $output);
+        self::assertStringContainsString(\sprintf('%d notification', 1), $output);
         self::assertStringContainsString('Groupe 7 of Sarah', $output);
         self::assertEmailCount(2); // cumulative
         self::assertNotificationCount(2);

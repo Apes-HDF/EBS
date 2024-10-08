@@ -144,6 +144,23 @@ final class AddressControllerTest extends WebTestCase
     }
 
     /**
+     * Step1 form submitted without entering data.
+     */
+    public function testStep1FormNothingFilledFailure(): void
+    {
+        $client = self::createClient();
+        $this->loginAsUser16($client);
+
+        $crawler = $client->request('GET', self::ROUTE_STEP1);
+        self::assertResponseIsSuccessful();
+
+        $form = $crawler->selectButton(self::STEP1_FORM_ID.'_submit')->form();
+        $client->submit($form);
+        self::assertResponseIsUnprocessable();
+        self::assertSelectorTextContains('body', 'This value should not be blank');
+    }
+
+    /**
      * Step2 direct access is forbidden.
      */
     public function testStep2DirectAccessFailure(): void

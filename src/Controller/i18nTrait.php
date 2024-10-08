@@ -14,7 +14,7 @@ trait i18nTrait
      * Get the i18n prefix of a given class to have a consistent key naming in i18n
      * files.
      */
-    public function getI18nPrefix(string $class = null): string
+    public function getI18nPrefix(?string $class = null): string
     {
         $class = $class ?? $this::class;
 

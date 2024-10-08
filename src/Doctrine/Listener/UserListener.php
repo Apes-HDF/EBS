@@ -19,7 +19,7 @@ use function Symfony\Component\String\u;
 final class UserListener
 {
     public function __construct(
-        private readonly UserManager $userManager
+        private readonly UserManager $userManager,
     ) {
     }
 

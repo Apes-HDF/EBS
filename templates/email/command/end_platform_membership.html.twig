@@ -1,0 +1,11 @@
+{% trans_default_domain 'email' %}
+
+{% set i18n_prefix = _self|i18n_prefix %}
+
+<p>{{ (i18n_prefix ~ '.h1')|trans }}</p>
+
+<p>{{ (i18n_prefix ~ '.p1')|trans({'%endAt%': endAt|date('d-m-Y H:i:s'), '%platform%': platform}) }}</p>
+
+<a href="{{ url('app_login') }}">{{ (i18n_prefix ~ '.loginLink')|trans }}</a>
+
+<p>{{ brand }}</p>

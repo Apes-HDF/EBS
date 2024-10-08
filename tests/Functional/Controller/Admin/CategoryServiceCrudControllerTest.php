@@ -21,19 +21,19 @@ final class CategoryServiceCrudControllerTest extends WebTestCase
         $this->loginAsAdmin($client);
 
         // list
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', CategoryServiceCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', CategoryServiceCrudController::class));
         self::assertResponseIsSuccessful();
 
         // edit
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', CategoryServiceCrudController::class, TestReference::CATEGORY_SERVICE_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', CategoryServiceCrudController::class, TestReference::CATEGORY_SERVICE_1));
         self::assertResponseIsSuccessful();
 
         // detail
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', CategoryServiceCrudController::class, TestReference::CATEGORY_SERVICE_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', CategoryServiceCrudController::class, TestReference::CATEGORY_SERVICE_1));
         self::assertResponseIsSuccessful();
 
         // new
-        $crawler = $client->request('GET', sprintf(TestReference::ADMIN_URL, 'new', CategoryServiceCrudController::class));
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'new', CategoryServiceCrudController::class));
         self::assertResponseIsSuccessful();
 
         $form = $crawler->selectButton(TestReference::ACTION_SAVE_AND_RETURN)->form();

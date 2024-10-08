@@ -84,7 +84,7 @@ final class NotifyServiceRequestDatesCommand extends Command
                 $serviceRequest->getStartAt() :
                 $serviceRequest->getEndAt()
             ;
-            $io->comment(sprintf('  > notifying owner and recipient for service request %s (%s) starting on %s.',
+            $io->comment(\sprintf('  > notifying owner and recipient for service request %s (%s) starting on %s.',
                 $serviceRequest->getId(),
                 $serviceRequest->getStatus()->value,
                 $referenceDate->format('Y-m-d')
@@ -106,7 +106,7 @@ final class NotifyServiceRequestDatesCommand extends Command
             ++$count;
         }
 
-        $io->note(sprintf(' > %d notification(s) sent.', $count * 2)); // owner and recipient
+        $io->note(\sprintf(' > %d notification(s) sent.', $count * 2)); // owner and recipient
 
         $this->memoryReport($io);
         $this->done($io);

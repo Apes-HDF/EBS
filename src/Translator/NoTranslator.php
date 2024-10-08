@@ -21,7 +21,7 @@ final class NoTranslator implements TranslatorInterface, TranslatorBagInterface,
      * @param TranslatorInterface&TranslatorBagInterface&LocaleAwareInterface $translator
      */
     public function __construct(
-        private readonly TranslatorInterface $translator
+        private readonly TranslatorInterface $translator,
     ) {
     }
 
@@ -31,12 +31,12 @@ final class NoTranslator implements TranslatorInterface, TranslatorBagInterface,
      *
      * @param array<mixed> $parameters
      */
-    public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null): string
+    public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
     {
         // to find EasyAdmin translations codes, uncomment this
-//        if ($domain === 'EasyAdminBundle') {
-//            dump($id);
-//        }
+        //        if ($domain === 'EasyAdminBundle') {
+        //            dump($id);
+        //        }
 
         return $id;
     }
@@ -46,7 +46,7 @@ final class NoTranslator implements TranslatorInterface, TranslatorBagInterface,
         return $this->translator->getCatalogues();
     }
 
-    public function getCatalogue(string $locale = null): MessageCatalogueInterface
+    public function getCatalogue(?string $locale = null): MessageCatalogueInterface
     {
         return $this->translator->getCatalogue($locale);
     }

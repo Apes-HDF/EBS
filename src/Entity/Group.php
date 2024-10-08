@@ -7,10 +7,16 @@ namespace App\Entity;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
 use App\Doctrine\Behavior\TimestampableEntity;
 use App\Enum\Group\GroupMembership;
 use App\Enum\Group\GroupType;
 use App\Repository\GroupRepository;
+use App\State\GroupsProvider;
+use App\State\Processor\GroupChildServicesEnabledProcessor;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -26,6 +32,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(columns: ['type'])]
 #[ApiFilter(OrderFilter::class, properties: ['name'])]
 #[AppAssert\Constraints\Group\GroupParentNotSelf]
+#[ApiResource(
+    operations: [
+        new GetCollection(provider: GroupsProvider::class),
+        new Patch(
+            uriTemplate: '/groups/{id}/disable_child_services',
+            input: false,
+            processor: GroupChildServicesEnabledProcessor::class
+        ),
+        new Get(),
+    ]
+)]
 class Group implements \Stringable
 {
     use TimestampableEntity;
@@ -122,6 +139,9 @@ class Group implements \Stringable
      */
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'groups')]
     private Collection $products;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $servicesEnabled = false;
 
     public function __construct()
     {
@@ -248,10 +268,10 @@ class Group implements \Stringable
         return $this;
     }
 
-     public function getMembership(): GroupMembership
-     {
-         return $this->membership;
-     }
+    public function getMembership(): GroupMembership
+    {
+        return $this->membership;
+    }
 
     public function setMembership(GroupMembership $membership): void
     {
@@ -340,6 +360,16 @@ class Group implements \Stringable
         return $this;
     }
 
+    public function getServicesEnabled(): bool
+    {
+        return $this->servicesEnabled;
+    }
+
+    public function setServicesEnabled(bool $servicesEnabled): void
+    {
+        $this->servicesEnabled = $servicesEnabled;
+    }
+
     // End of basic 'etters ----------------------------------------------------
 
     /**
@@ -383,5 +413,35 @@ class Group implements \Stringable
     public function hasActiveOffers(): bool
     {
         return !$this->getActiveOffers()->isEmpty();
+    }
+
+    /**
+     * @return list<Group>
+     */
+    public function getParentsRecursively(): array
+    {
+        $parents = [];
+        $parent = $this->getParent();
+        if (null !== $parent) {
+            $parents = $parent->getParentsRecursively();
+            $parents[] = $parent;
+        }
+
+        return $parents;
+    }
+
+    /**
+     * @return list<Group>
+     */
+    public function getChildrenRecursively(): array
+    {
+        $result = [];
+        $children = $this->getChildren();
+        foreach ($children as $child) {
+            $result = array_merge($result, $child->getChildrenRecursively());
+            $result[] = $child;
+        }
+
+        return $result;
     }
 }

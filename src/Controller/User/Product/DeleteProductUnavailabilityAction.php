@@ -35,9 +35,9 @@ final class DeleteProductUnavailabilityAction extends AbstractController
     }
 
     #[Route(path: [
-            'en' => MyAccountAction::BASE_URL_EN.'/products/unavailability/{id}/delete',
-            'fr' => MyAccountAction::BASE_URL_FR.'/produits/indisponibilite/{id}/supprimer',
-        ],
+        'en' => MyAccountAction::BASE_URL_EN.'/products/unavailability/{id}/delete',
+        'fr' => MyAccountAction::BASE_URL_FR.'/produits/indisponibilite/{id}/supprimer',
+    ],
         name: 'app_user_product_delete_availability',
         requirements: [
             'id' => Requirement::UUID_V6,

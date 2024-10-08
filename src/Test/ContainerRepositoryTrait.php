@@ -15,6 +15,7 @@ use App\Repository\MenuItemRepository;
 use App\Repository\MenuRepository;
 use App\Repository\MessageRepository;
 use App\Repository\PaymentRepository;
+use App\Repository\PlatformOfferRepository;
 use App\Repository\ProductAvailabilityRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ServiceRequestRepository;
@@ -112,5 +113,10 @@ trait ContainerRepositoryTrait
     public function getServiceRequestRepository(): ServiceRequestRepository
     {
         return self::getContainer()->get(ServiceRequestRepository::class);
+    }
+
+    public function getPlatformOfferRepository(): PlatformOfferRepository
+    {
+        return self::getContainer()->get(PlatformOfferRepository::class);
     }
 }

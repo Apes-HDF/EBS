@@ -64,7 +64,7 @@ final class NotifyMembershipExpirationCommand extends Command
         $days = $input->getArgument('days');
         $days = max(1, (int) $days);
 
-        $io->section(sprintf('Getting membership expiring in %d days...', $days));
+        $io->section(\sprintf('Getting membership expiring in %d days...', $days));
         $query = $this->userGroupRepository->getExpiring($days);
         $io->section('Sending notificaitons...');
         $count = 0;
@@ -72,7 +72,7 @@ final class NotifyMembershipExpirationCommand extends Command
             /** @var UserGroup $userGroup */
             $user = $userGroup->getUser();
             $group = $userGroup->getGroup();
-            $io->comment(sprintf('  > notifying membership for %s of %s/%s (%s) (%s)',
+            $io->comment(\sprintf('  > notifying membership for %s of %s/%s (%s) (%s)',
                 $group->getName(),
                 $user->getDisplayName(),
                 $userGroup->getEndAt()?->format('Y-m-d'),
@@ -88,7 +88,7 @@ final class NotifyMembershipExpirationCommand extends Command
             ++$count;
         }
 
-        $io->note(sprintf(' > %d notification(s) sent.', $count));
+        $io->note(\sprintf(' > %d notification(s) sent.', $count));
 
         $this->memoryReport($io);
         $this->done($io);

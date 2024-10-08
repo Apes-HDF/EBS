@@ -5,7 +5,7 @@
 {% block title %}{{ page is not null ? page.name : brand }}{% endblock %}
 
 {% block body %}
-    <div class="px-3 px-lg-0 mt-4">
+    <div class="px-3 px-lg-0 mt-4 page-content">
         {% if page is not null %}
             {{ page.content|raw }}
         {% else %}

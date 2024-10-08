@@ -190,7 +190,7 @@ class Meilisearch
     /**
      * Search with a main query and various filtery.
      */
-    public function search(Search $searchDto, ProductType $productType = null): SearchResult
+    public function search(Search $searchDto, ?ProductType $productType = null): SearchResult
     {
         $searchParams = [];
         $searchParams = $this->withFilters($searchParams, $searchDto, $productType);
@@ -240,13 +240,13 @@ class Meilisearch
 
         // place filter
         if ($searchDto->place !== null) {
-            $filters[] = sprintf('ownerId = %s', $searchDto->place->getId());
+            $filters[] = \sprintf('ownerId = %s', $searchDto->place->getId());
         }
 
         // geo filter
         if ($searchDto->hasProximity()) {
             Assert::isInstanceOf($searchDto->city, Address::class);
-            $filters[] = sprintf('_geoRadius(%s, %s, %d)',
+            $filters[] = \sprintf('_geoRadius(%s, %s, %d)',
                 $searchDto->city->getLatitude(),
                 $searchDto->city->getLongitude(),
                 (int) $searchDto->distance * 1000 // the distance is in meters, not kilometers
@@ -271,7 +271,7 @@ class Meilisearch
         // the proximity search has the priority to sort results
         if ($searchDto->hasProximity()) {
             Assert::isInstanceOf($searchDto->city, Address::class);
-            $searchParams['sort'] = [sprintf('_geoPoint(%s, %s):asc',
+            $searchParams['sort'] = [\sprintf('_geoPoint(%s, %s):asc',
                 $searchDto->city->getLatitude(),
                 $searchDto->city->getLongitude()),
             ];
@@ -307,6 +307,9 @@ class Meilisearch
     {
         $product = $this->productRepository->find($hit['id'] ?? ''); // don't use null as it raises a doctrine exception
         if ($product === null) {
+            return null;
+        }
+        if ($product->getOwner()->isInVacation()) {
             return null;
         }
 

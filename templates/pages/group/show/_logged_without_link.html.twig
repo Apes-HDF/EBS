@@ -20,7 +20,8 @@
 
         {% include 'components/group/_first_offer.html.twig' with {group} %}
         {% include 'components/group/_modal_offers.html.twig' with {
-            offers: group.activeOffers
+            offers: group.activeOffers,
+            prepare_path: 'app_payment_prepare'
         } %}
 
     {# 1.3 group is not correclty configured, it doesn't have any offer configured yet. #}

@@ -4,8 +4,9 @@ App\Entity\Configuration:
 
     features (extends configuration_template):
         configuration:
-            services:
-                servicesEnabled: true
+            global:
+                globalServicesEnabled: true
+                globalPaidMembership: false
             notificationsSender:
                 notificationsSenderEmail: info@example.com 
                 notificationsSenderName: Contact

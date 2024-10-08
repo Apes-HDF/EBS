@@ -7,7 +7,7 @@ namespace App\Tests\Functional\Controller\Security;
 use App\Test\ContainerRepositoryTrait;
 use App\Test\KernelTrait;
 use App\Tests\TestReference;
-use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
+use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\String\ByteString;
 
@@ -17,7 +17,7 @@ use Symfony\Component\String\ByteString;
 final class AccountCreateActionStep2UserTest extends WebTestCase
 {
     use ContainerRepositoryTrait;
-    use RefreshDatabaseTrait;
+    use ReloadDatabaseTrait;
     use KernelTrait;
 
     private const ROUTE = '/fr/compte/creer-mon-compte-etape-2/';

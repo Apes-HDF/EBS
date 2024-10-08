@@ -4,7 +4,6 @@ This page documents the settings that can be configured as environment varibles
 for the production environment.
 Defaults value are shown in the [.env](../.env) file.
 
-
 ## Application
 
 | name         | default value | 
@@ -47,7 +46,7 @@ For example, to use a standart SMTP server use:
 
 Where mailer is the DSN of your SMTP server and 1025 the port to use.
 
-Yo use Gmail with a secret key use:
+To use Gmail with a secret key use:
 
     MAILER_DSN=gmail://email@example.com:secretkey@default
 
@@ -58,14 +57,19 @@ Twilio, Sendgrid, Mailingblue...
 
     SMS_DSN=null://null
 
-This is the main parameter to send DNS. If you leave `null://null`, nothing will
-be send without errors. It can be useful when having issues with your SMS provider
-and wanting to disable it temporarly.
+This is the main parameter to send DNS. If you leave `null://null`, no SMS will
+be sent.
+It may be useful when having issues with your SMS provider and wanting to disable it temporarily.
 
-For example, to use a service like Twilio, the parameters should look like:
+Below are the supported value templates to use depending on your SMS provider.
 
-    SMS_DSN=twilio://AccountSID:AuthToken@default?from=%2BFROMNUMBER
+### Brevo
 
+    SMS_DSN=brevo://API_KEY@default?sender=PHONE_NUMBER
+
+### Twilio
+
+    SMS_DSN=twilio://AccountSID:AuthToken@default?from=PHONE_NUMBER
 
 ## Meilisearch
 

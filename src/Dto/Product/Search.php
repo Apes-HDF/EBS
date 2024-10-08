@@ -14,7 +14,7 @@ use App\Form\Type\Product\SearchFormType;
  */
 final class Search
 {
-    public function __construct(string $q, int $page = 1, User $user = null)
+    public function __construct(string $q, int $page = 1, ?User $user = null)
     {
         $this->q = $q;
         $this->page = $page;
@@ -78,9 +78,9 @@ final class Search
      */
     public function hasProximity(): bool
     {
-        return $this->hasCity() &&
-            ($this->city?->hasLocality() ?? false) &&
-            $this->hasDistance()
+        return $this->hasCity()
+            && ($this->city?->hasLocality() ?? false)
+            && $this->hasDistance()
         ;
     }
 

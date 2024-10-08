@@ -22,24 +22,24 @@ final class GroupCrudControllerTest extends WebTestCase
         $this->loginAsAdmin($client);
 
         // list
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', GroupCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', GroupCrudController::class));
         self::assertResponseIsSuccessful();
 
         // list + filter
         $filters = 'filters[type]=private&filter[membership]=free';
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', GroupCrudController::class.'&'.$filters));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', GroupCrudController::class.'&'.$filters));
         self::assertResponseIsSuccessful();
 
         // edit
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', GroupCrudController::class, TestReference::GROUP_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', GroupCrudController::class, TestReference::GROUP_1));
         self::assertResponseIsSuccessful();
 
         // detail
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', GroupCrudController::class, TestReference::GROUP_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', GroupCrudController::class, TestReference::GROUP_1));
         self::assertResponseIsSuccessful();
 
         // new
-        $crawler = $client->request('GET', sprintf(TestReference::ADMIN_URL, 'new', GroupCrudController::class));
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'new', GroupCrudController::class));
         self::assertResponseIsSuccessful();
 
         $form = $crawler->selectButton(TestReference::ACTION_SAVE_AND_RETURN)->form();
@@ -78,7 +78,7 @@ final class GroupCrudControllerTest extends WebTestCase
         $this->loginAsAdmin($client);
 
         // custom invite
-        $crawler = $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'invite', GroupCrudController::class, $groupId));
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'invite', GroupCrudController::class, $groupId));
         self::assertResponseIsSuccessful();
 
         $form = $crawler->selectButton('group_invitation_form_submit')->form();
@@ -102,8 +102,8 @@ final class GroupCrudControllerTest extends WebTestCase
         $client = self::createClient();
         $this->loginAsAdmin($client);
 
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', GroupCrudController::class));
-        $dataId = sprintf("[data-id='%s']", TestReference::GROUP_1);
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', GroupCrudController::class));
+        $dataId = \sprintf("[data-id='%s']", TestReference::GROUP_1);
         $offersListlink = $client->getCrawler()->filter($dataId.' .action-offersList')->link();
         $client->click($offersListlink);
         self::assertResponseRedirects();
@@ -115,7 +115,7 @@ final class GroupCrudControllerTest extends WebTestCase
         $client = self::createClient();
         $this->loginAsAdmin($client);
 
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'export', GroupCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'export', GroupCrudController::class));
         self::assertResponseIsSuccessful();
     }
 }

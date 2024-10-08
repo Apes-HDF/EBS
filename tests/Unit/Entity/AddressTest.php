@@ -27,6 +27,6 @@ final class AddressTest extends TestCase
         self::assertSame('nominatim', $address->setProvidedBy('nominatim')->getProvidedBy());
         self::assertSame('copyright', $address->setAttribution('copyright')->getAttribution());
         self::assertSame('way', $address->setOsmType('way')->getOsmType());
-        self::assertSame(12345, $address->setOsmId(12345)->getOsmId());
+        self::assertSame('12345', $address->setOsmId('12345')->getOsmId());
     }
 }

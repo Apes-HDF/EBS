@@ -25,7 +25,7 @@ final class PaymentRepository extends ServiceEntityRepository
         parent::__construct($registry, self::ENTITY_CLASS);
     }
 
-    public function get(mixed $id, int|null $lockMode = null, int|null $lockVersion = null): Payment
+    public function get(mixed $id, ?int $lockMode = null, ?int $lockVersion = null): Payment
     {
         return $this->find($id, $lockMode, $lockVersion) ?? throw new \LogicException('Payment not found.');
     }

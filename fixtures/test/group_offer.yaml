@@ -4,11 +4,11 @@ App\Entity\GroupOffer:
     # Templates
     group_offer_group_1_template (template, extends group_offer_template):
         group: '@group_1'
-        type: !php/enum App\Enum\Group\GroupOfferType::YEARLY
+        type: !php/enum App\Enum\OfferType::YEARLY
     
     group_offer_group_7_template (template, extends group_offer_template):
         group: '@group_7'
-        type: !php/enum App\Enum\Group\GroupOfferType::YEARLY    
+        type: !php/enum App\Enum\OfferType::YEARLY    
     
     # Group 1    
     group_offer_group_1_10 (extends group_offer_group_1_template):

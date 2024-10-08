@@ -33,7 +33,7 @@ class GeoProvider implements GeoProviderInterface
             /** @var AddressCollection $collection */
             $collection = $this->nominatimGeocoder->geocodeQuery($query);
         } catch (Exception $e) {
-            throw new \RuntimeException(sprintf('Unable to get geoloc of %s: %s', $text, $e->getMessage()));
+            throw new \RuntimeException(\sprintf('Unable to get geoloc of %s: %s', $text, $e->getMessage()));
         }
 
         return $collection;

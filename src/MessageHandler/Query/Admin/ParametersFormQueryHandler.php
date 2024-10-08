@@ -13,7 +13,7 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 final class ParametersFormQueryHandler
 {
     public function __construct(
-        private readonly ConfigurationRepository $configurationRepository
+        private readonly ConfigurationRepository $configurationRepository,
     ) {
     }
 

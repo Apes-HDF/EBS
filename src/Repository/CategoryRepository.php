@@ -8,7 +8,6 @@ use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Enum\Product\ProductType;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -16,7 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
 /**
- * #@extends ServiceEntityRepository<Category>.
+ * @extends NestedTreeRepository<Category>.
  *
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
  * @method Category|null findOneBy(array $criteria, array $orderBy = null)

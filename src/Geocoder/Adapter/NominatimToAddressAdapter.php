@@ -31,7 +31,7 @@ final class NominatimToAddressAdapter
         $address->setOsmType((string) $nominatimAddress->getOSMType());
 
         if ($nominatimAddress->getOSMId() !== null) {
-            $address->setOsmId($nominatimAddress->getOSMId());
+            $address->setOsmId((string) $nominatimAddress->getOSMId());
         }
     }
 }

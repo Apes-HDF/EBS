@@ -19,7 +19,7 @@ final class DevToolsControllerTest extends WebTestCase
     {
         $client = self::createClient();
         $this->loginAsAdmin($client);
-        $client->request('GET', sprintf(TestReference::ADMIN_URL_CUSTOM_CONTROLLER, 'admin_dev_tools'));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL_CUSTOM_CONTROLLER, 'admin_dev_tools'));
         self::assertResponseIsSuccessful();
     }
 }

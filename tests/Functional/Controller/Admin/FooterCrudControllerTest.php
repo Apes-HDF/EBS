@@ -25,15 +25,15 @@ class FooterCrudControllerTest extends WebTestCase
         $menu = $menuRepo->getByCode('footer');
 
         // list
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', FooterCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', FooterCrudController::class));
         self::assertResponseIsSuccessful();
 
         // edit
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', FooterCrudController::class, $menu->getId()));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', FooterCrudController::class, $menu->getId()));
         self::assertResponseIsSuccessful();
 
         // detail
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', FooterCrudController::class, $menu->getId()));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', FooterCrudController::class, $menu->getId()));
         self::assertResponseIsSuccessful();
     }
 }

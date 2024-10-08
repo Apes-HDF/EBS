@@ -29,7 +29,7 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @see ServiceRequestControllerTest
  */
-#[isGranted(User::ROLE_USER)]
+#[IsGranted(User::ROLE_USER)]
 class ServiceRequestController extends AbstractController
 {
     use FlashTrait;

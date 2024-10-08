@@ -45,7 +45,7 @@ final class AddressController extends AbstractController
     /**
      * @see UserAddressQueryHandler
      */
-    #[isGranted(User::ROLE_USER)]
+    #[IsGranted(User::ROLE_USER)]
     #[Route(path: [
         'en' => MyAccountAction::BASE_URL_EN.'/my-address/step-1',
         'fr' => MyAccountAction::BASE_URL_FR.'/mon-adresse/etape-1',
@@ -75,7 +75,7 @@ final class AddressController extends AbstractController
         return $this->render('pages/account/address/step1.html.twig', compact('form'));
     }
 
-    #[isGranted(User::ROLE_USER)]
+    #[IsGranted(User::ROLE_USER)]
     #[Route(path: [
         'en' => MyAccountAction::BASE_URL_EN.'/my-address/step-2',
         'fr' => MyAccountAction::BASE_URL_FR.'/mon-adresse/etape-2',
