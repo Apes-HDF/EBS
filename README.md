@@ -23,7 +23,13 @@ Le code est disponible sous licence AGPL (Affero General Public License). Voir l
 ## Interface d’administration
 La plateforme dispose d’une interface d’administration, utilisant EasyAdmin, accessible aux  utilisateur·rice·s  disposant du rôle “administrateur·rice”.
 
-Les administrateur·rice·s peuvent être ajoutés ou supprimés via l’interface d’administration.  
+Les administrateur·rice·s peuvent être ajoutés ou supprimés via l’interface d’administration. 
+
+
+## Paiement de l'adhésion à la plateforme
+Il est possible d'activer ou désactiver cette fonctionnalité dans l'interface d’administration.
+Si le paiement d'une adhésion à la plateforme est activé, il faut renseigner les tarifs d'adhésion (unique, mensuel, annuel), et le paiement devra se faire par l’utilisateur·rice après la création de son compte afin d'accéder aux fonctionnalités proposées (création d'objets, demandes d'emprunts etc.)
+Si l’adhésion a une date de fin, lors de l’expiration de celle-ci, l’utilisateur·rice devra payer à nouveau son adhésion afin d'utiliser la plateforme.
 
 ## Utilisateur·rice·s
 Les utilisateur·rice·s peuvent s’inscrire librement sur la plateforme avec une adresse e-mail valide. 
@@ -80,7 +86,7 @@ L’utilisateur·rice peut également renseigner des périodes d’indisponibili
 La plateforme propose un traitement similaire aux objets et aux services. 
 
 Les objets et services peuvent être consultés par les administrateur·rice·s dans l’interface d’administration.
-Les services peuvent être activés ou désactivés pour l'instance, via l'espace d'administration.
+Les services peuvent être activés ou désactivés pour l'instance, et/ou par groupe et sous-groupe via l'espace d'administration.
 
 
 ### Catégories
@@ -159,6 +165,8 @@ La plateforme gère l’envoi de notifications automatiques par e-mail et SMS po
 | Nouveau gérant·e ou administrateur·rice de groupe             | E-mail et SMS  |
 | Invitation dans un groupe                     | E-mail et SMS  |
 | Rappel expiration d’adhésion à 1 groupe J-7 J | E-mail et SMS  |
+| Confirmation du paiement de l'adhésion à la platefome | E-mail |
+| Expiration d’adhésion à la platefome | E-mail |
 
 
 L’envoi d’email devra être configuré pour chaque instance avec un service tiers dédié (envoi serveur, Mailgun, Sendinblue, Mailchimp, …) 
@@ -187,12 +195,14 @@ L’interface d’administration permet de configurer les liens du menu. Le pied
 ## Fonctionnalités configurables
 Les options suivantes peuvent être configurées manuellement dans l’espace d’administration : 
 - Activation des services
+- Activation du paiement de l'adhésion et configuration des tarifs
 - Gestion des administrateur·rice·s de l’instance
 - Expéditeur des notifications (e-mail, nom)
 - Activation du lien de contact dans le menu
 - Activation des groupes
 - Création de groupe : Ouverte à tous ou uniquement par les administrateur·rice·s de l'instance
 - Création de groupe payante ou gratuite (NB : le paiement se fait hors de la plateforme)
+- Accès à la fonctionnalité Services pour un groupe ou sous-groupe
 - Conversations d’emprunt visibles ou masquées dans l’espace d’administration
 
 
