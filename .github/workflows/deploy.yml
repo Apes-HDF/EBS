@@ -9,9 +9,9 @@ on:
       payum-apikey:
         description: Payum API Key
         required: true
-      sms-dsn:
-        description: SMS DSN
-        required: true
+      # sms-dsn:
+      #   description: SMS DSN
+      #   required: true
       mailer-dsn:
         description: MAILER DSN
       storage-key:
