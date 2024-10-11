@@ -3,9 +3,6 @@ name: Deploy
 on:
   workflow_call:
     secrets:
-      kubeconfig:
-        description: kubeconfig stored as a base64 encrypted secret
-        required: true
       domain:
         description: Main project deploy domain used in URLs
         required: true
