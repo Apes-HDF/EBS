@@ -260,9 +260,19 @@
             <target>Paramètres de l'instance</target>
         </trans-unit>
 
-        <trans-unit id="e1qNBMp" resname="parameters.services.h2">
-            <source>parameters.services.h2</source>
+        <trans-unit id="e1qNBMp" resname="parameters.global.h2">
+            <source>parameters.global.h2</source>
+            <target>Paramètres généraux de la plateforme</target>
+        </trans-unit>
+
+        <trans-unit id="z9SxLWb" resname="parameters.services.h3">
+            <source>parameters.services.h3</source>
             <target>Services</target>
+        </trans-unit>
+
+        <trans-unit id="z2cGYub" resname="parameters.paid_membership.h3">
+            <source>parameters.paid_membership.h3</source>
+            <target>Adhésion payante</target>
         </trans-unit>
 
         <trans-unit id="eNqNAUs" resname="parameters.senders.h2">
@@ -317,6 +327,11 @@
             <target>Informations</target>
         </trans-unit>
 
+        <trans-unit id="n4CnzfH" resname="panel.payment_information">
+            <source>panel.payment_information</source>
+            <target>Informations sur l'abonnement</target>
+        </trans-unit>
+
         <!-- Files and images -->
         <trans-unit id="AHzY4cd" resname="images.help">
             <source>images.help</source>
@@ -361,6 +376,16 @@
         <trans-unit id="D4hiuPj" resname="Groups number">
             <source>Groups number</source>
             <target>Nombre de groupes</target>
+        </trans-unit>
+
+        <trans-unit id="mFV6gsn" resname="Membership Paid">
+            <source>Membership Paid</source>
+            <target>Abonnement à la plateforme payé</target>
+        </trans-unit>
+
+        <trans-unit id="hgruegV" resname="Platform Offer">
+            <source>Platform Offer</source>
+            <target>Tarif d'adhésion</target>
         </trans-unit>
 
     </body>

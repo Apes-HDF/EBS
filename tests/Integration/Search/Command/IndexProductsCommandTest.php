@@ -26,7 +26,7 @@ final class IndexProductsCommandTest extends KernelTestCase
         $commandTester->execute([]);
         $commandTester->assertCommandIsSuccessful();
         $output = $commandTester->getDisplay();
-        self::assertStringContainsString(sprintf('%d product(s) indexed', TestReference::PRODUCTS_INDEXABLE_COUNT), $output);
+        self::assertStringContainsString(\sprintf('%d product(s) indexed', TestReference::PRODUCTS_INDEXABLE_COUNT), $output);
 
         // check if the search is OK
         // sleep(2); // wait a little to be sure the indexing process is OK
@@ -45,13 +45,14 @@ final class IndexProductsCommandTest extends KernelTestCase
         $searchDto = new Search('');
 
         // all documents when not logged (-1 because of a restricted product)
+        // services are now restricted and do not appear here with default filters
         $results = $meilisearch->search($searchDto);
-        self::assertSame(TestReference::PRODUCTS_INDEXABLE_COUNT - 1, $results->getHitsCount());
+        self::assertSame(TestReference::PRODUCTS_VISIBLE_COUNT - 1, $results->getHitsCount());
 
         // all documents when logged with a user with access to the restricted product
         $searchDto->user = $this->getUserRepository()->get(TestReference::PLACE_APES);
         $results = $meilisearch->search($searchDto);
-        self::assertSame(TestReference::PRODUCTS_INDEXABLE_COUNT, $results->getHitsCount());
+        self::assertSame(TestReference::PRODUCTS_VISIBLE_COUNT, $results->getHitsCount());
 
         // keyword search
         $searchDto->user = null;
@@ -60,8 +61,19 @@ final class IndexProductsCommandTest extends KernelTestCase
         self::assertSame(3, $results->getHitsCount());
 
         // typo tolerance example
-        $searchDto->q = 'histiore';
+        $searchDto->q = 'jumeles';
         $results = $meilisearch->search($searchDto);
         self::assertSame(1, $results->getHitsCount());
+
+        // test vacation
+
+        $searchDto->user = null;
+        $searchDto->q = '';
+        $user16 = $this->getUserRepository()->get(TestReference::USER_16);
+        $user16->setVacationMode(true);
+        $this->getUserManager()->save($user16);
+        $results = $meilisearch->search($searchDto);
+        // two objects are now hidden
+        self::assertSame(TestReference::PRODUCTS_VISIBLE_COUNT - 3, $results->getHitsCount());
     }
 }

@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Payment;
+namespace App\Controller\Payment\Group;
 
 use App\Controller\User\MyAccountAction;
 use App\Entity\User;
 use App\Payment\PayumManager;
 use App\Repository\GroupOfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-// use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;

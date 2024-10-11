@@ -28,7 +28,7 @@ final class GroupInvitationEmail implements EmailInterface
     public function __construct(
         private readonly TranslatorInterface $translator,
         #[Autowire('%brand%')]
-        private readonly string $brand
+        private readonly string $brand,
     ) {
     }
 
@@ -46,8 +46,8 @@ final class GroupInvitationEmail implements EmailInterface
             ->to($user->getEmail())
             ->priority(Email::PRIORITY_HIGH)
             ->subject($this->translator->trans($this->getI18nPrefix().'.subject', [
-                    '%brand%' => $this->brand,
-                    '%group%' => $group->getName(),
+                '%brand%' => $this->brand,
+                '%group%' => $group->getName(),
             ], AppMailer::TR_DOMAIN))
             ->htmlTemplate('email/admin/group/group_invitation.html.twig')
             ->context($context)

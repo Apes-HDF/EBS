@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class ValidationProcessor implements ProcessorInterface
 {
     public function __construct(
-        private readonly ValidatorInterface $validator
+        private readonly ValidatorInterface $validator,
     ) {
     }
 
@@ -20,7 +20,7 @@ final class ValidationProcessor implements ProcessorInterface
         /** @var ConstraintViolationList $violations */
         $violations = $this->validator->validate($object);
         if ($violations->count() > 0) {
-            $message = sprintf("Error when validating fixture \"%s\", violation(s) detected:\n%s", $id, $violations);
+            $message = \sprintf("Error when validating fixture \"%s\", violation(s) detected:\n%s", $id, $violations);
             throw new \DomainException($message);
         }
     }

@@ -6,10 +6,25 @@
     </header>
     <body>
 
-        <!-- notification sender section -->
+        <!-- global section -->
+        <trans-unit id="qlPklB7" resname="parameter.global_name">
+            <source>parameter.global_name</source>
+            <target>Nom de la plateforme</target>
+        </trans-unit>
+
         <trans-unit id="qlPbwB3" resname="parameter.services">
             <source>parameter.services</source>
             <target>Services activés</target>
+        </trans-unit>
+
+        <trans-unit id="swXqmJ4" resname="parameter.paid_membership">
+            <source>parameter.paid_membership</source>
+            <target>Adhésion à la plateforme payante</target>
+        </trans-unit>
+
+        <trans-unit id="qsLAkx6" resname="parameter.set_price">
+            <source>parameter.set_price</source>
+            <target>Configurer le tarif</target>
         </trans-unit>
 
         <!-- notification sender section -->

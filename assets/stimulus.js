@@ -1,5 +1,4 @@
 import { startStimulusApp } from '@symfony/stimulus-bridge'
-import { Application } from '@hotwired/stimulus'
 
 import PasswordVisibility from 'stimulus-password-visibility'
 import Carousel from 'stimulus-carousel'
@@ -15,7 +14,5 @@ export const app = startStimulusApp(require.context(
 // register any custom, 3rd party controllers here
 // app.register('some_controller_name', SomeImportedController);
 
-const application = Application.start()
-application.register('carousel', Carousel)
-application.register('password-visibility', PasswordVisibility)
-
+app.register('carousel', Carousel)
+app.register('password-visibility', PasswordVisibility)

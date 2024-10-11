@@ -33,7 +33,7 @@ final class GetServiceRequestByIdQueryHandler
         }
 
         if (!$this->security->isGranted(ServiceRequestVoter::VIEW, $serviceRequest)) {
-            throw new AccessDeniedException(sprintf('Access to service request "%s" denied (not owner or recipient).', $message->id));
+            throw new AccessDeniedException(\sprintf('Access to service request "%s" denied (not owner or recipient).', $message->id));
         }
 
         return $serviceRequest;

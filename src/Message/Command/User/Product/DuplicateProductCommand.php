@@ -18,6 +18,6 @@ final class DuplicateProductCommand
 
         // optionnal attribute to test
         public readonly ?string $attribute,
-     ) {
+    ) {
     }
 }

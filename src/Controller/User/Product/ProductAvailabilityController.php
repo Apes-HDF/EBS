@@ -35,13 +35,13 @@ final class ProductAvailabilityController extends AbstractController
     public const ROUTE = 'app_user_product_availabilities';
 
     public function __construct(
-      public readonly ProductRepository $productRepository,
-      private readonly QueryBus $queryBus,
-      private readonly CommandBus $commandBus,
+        public readonly ProductRepository $productRepository,
+        private readonly QueryBus $queryBus,
+        private readonly CommandBus $commandBus,
     ) {
     }
 
-    #[isGranted(User::ROLE_USER)]
+    #[IsGranted(User::ROLE_USER)]
     #[Route(path: [
         'en' => MyAccountAction::BASE_URL_EN.'/my-products/{id}/availabilities',
         'fr' => MyAccountAction::BASE_URL_FR.'/mes-produits/{id}/disponibilites',

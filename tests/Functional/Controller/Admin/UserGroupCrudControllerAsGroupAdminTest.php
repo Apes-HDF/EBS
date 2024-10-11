@@ -26,11 +26,11 @@ final class UserGroupCrudControllerAsGroupAdminTest extends WebTestCase
 
         // list+custom filters
         $filters = '&filters[group]='.TestReference::GROUP_1.'&filters[user]='.TestReference::ADMIN_CAMILLE;
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', UserGroupCrudController::class.'&'.$filters));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', UserGroupCrudController::class.'&'.$filters));
         self::assertResponseIsSuccessful();
 
         // new (groups & users are restricted)
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'new', UserGroupCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'new', UserGroupCrudController::class));
         self::assertResponseIsSuccessful();
     }
 }

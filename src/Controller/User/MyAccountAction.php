@@ -32,7 +32,7 @@ final class MyAccountAction extends AbstractController
     ) {
     }
 
-    #[isGranted(User::ROLE_USER)]
+    #[IsGranted(User::ROLE_USER)]
     #[Route(path: [
         'en' => self::BASE_URL_EN,
         'fr' => self::BASE_URL_FR,

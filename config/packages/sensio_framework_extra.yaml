@@ -1,7 +1,0 @@
-# https://stackoverflow.com/q/69809320/633864
-sensio_framework_extra:
-    router:
-        annotations: false
-    request:
-        converters: false
-        auto_convert: false

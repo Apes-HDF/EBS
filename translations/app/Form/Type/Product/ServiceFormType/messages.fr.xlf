@@ -5,11 +5,15 @@
       <tool tool-id="symfony" tool-name="Symfony" />
     </header>
     <body>
-        <trans-unit id="" resname="app.form.type.product.service_form_type.form.groups">
+        <trans-unit id="pLw9zsf" resname="app.form.type.product.service_form_type.form.groups">
             <source>app.form.type.product.service_form_type.form.groups</source>
             <target>Visible dans mes groupes :</target>
         </trans-unit>
 
+        <trans-unit id="bMv5dw8" resname="app.form.type.product.service_form_type.form.no_groups">
+            <source>app.form.type.product.service_form_type.form.no_groups</source>
+            <target>Vous n'avez aucun groupe avec la disponibilité des services activée</target>
+        </trans-unit>
     </body>
   </file>
 </xliff>

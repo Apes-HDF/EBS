@@ -22,7 +22,7 @@ final class TryAutoFinalizeCommandHandler
     public function __construct(
         private readonly ServiceRequestRepository $serviceRequestRepository,
         private readonly ServiceRequestManager $serviceRequestManager,
-        private readonly ServiceRequestStatusWorkflow $serviceRequestStatusWorkflow
+        private readonly ServiceRequestStatusWorkflow $serviceRequestStatusWorkflow,
     ) {
     }
 

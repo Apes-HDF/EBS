@@ -29,7 +29,7 @@ final class NotifyServiceRequestDatesCommandTest extends KernelTestCase
         ]);
         $commandTester->assertCommandIsSuccessful();
         $output = $commandTester->getDisplay();
-        self::assertStringContainsString(sprintf('%d notification(s)', 2), $output); // owner + recipient
+        self::assertStringContainsString(\sprintf('%d notification(s)', 2), $output); // owner + recipient
         self::assertStringContainsString('DONE', $output);
         self::assertEmailCount(2);
         self::assertNotificationCount(2);
@@ -40,7 +40,7 @@ final class NotifyServiceRequestDatesCommandTest extends KernelTestCase
         ]);
         $commandTester->assertCommandIsSuccessful();
         $output = $commandTester->getDisplay();
-        self::assertStringContainsString(sprintf('%d notification(s)', 2), $output);
+        self::assertStringContainsString(\sprintf('%d notification(s)', 2), $output);
         self::assertStringContainsString('DONE', $output);
         self::assertEmailCount(4); // cumulative results
         self::assertNotificationCount(4);

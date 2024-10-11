@@ -51,7 +51,7 @@ final class ProductVoter extends Voter
             self::DUPLICATE => $this->canDuplicate($subject, $user),
             self::BORROW => $this->canBorrow($subject, $user),
             self::DELETE => $this->canDelete($subject, $user),
-            default => throw new \LogicException('This code should not be reached!')
+            default => throw new \LogicException('This code should not be reached!'),
         };
     }
 

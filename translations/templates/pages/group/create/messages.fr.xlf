@@ -26,6 +26,11 @@
             <target>Type</target>
         </trans-unit>
 
+        <trans-unit id="BOAMpGn" resname="templates.pages.group.create.form.servicesEnabled">
+                    <source>templates.pages.group.create.form.servicesEnabled</source>
+                    <target>Activer la disponibilité des services pour le groupe</target>
+                </trans-unit>
+
         <trans-unit id="qBmcBDh" resname="templates.pages.group.create.form.membership">
             <source>templates.pages.group.create.form.membership</source>
             <target>Tarif</target>

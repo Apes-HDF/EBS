@@ -69,7 +69,7 @@ final class EndMembershipCommand extends Command
             /** @var UserGroup $userGroup */
             $user = $userGroup->getUser();
             $group = $userGroup->getGroup();
-            $io->comment(sprintf('  > deleting membership for %s of %s (%s) (%s)',
+            $io->comment(\sprintf('  > deleting membership for %s of %s (%s) (%s)',
                 $group->getName(),
                 $user->getDisplayName(),
                 $userGroup->getMembership()->value,
@@ -88,7 +88,7 @@ final class EndMembershipCommand extends Command
             ++$count;
         }
 
-        $io->note(sprintf(' > %d deletion(s) done.', $count));
+        $io->note(\sprintf(' > %d deletion(s) done.', $count));
         $this->memoryReport($io);
         $this->done($io);
 

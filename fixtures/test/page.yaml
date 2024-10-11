@@ -68,7 +68,7 @@ App\Entity\Page:
             <p>&nbsp;</p>
             <hr />
             <h2>D&eacute;p&ocirc;t</h2>
-            <p>Toutes les informations sur le projet et le code sont disponibles sur <strong><u><a href="https://github.com/Apes-HDF/EBS">le d&eacute;p&ocirc;t public</a></u></strong>.</p>
+            <p>Toutes les informations sur le projet et le code sont disponibles sur <strong><a href="https://github.com/Apes-HDF/EBS">le d&eacute;p&ocirc;t public</a></strong>.</p>
             <p>&nbsp;</p>
             <hr />
             <h2>D&eacute;mo</h2>

@@ -30,7 +30,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 /**
  * @see UserProductsControllerTest
  */
-#[isGranted(User::ROLE_USER)]
+#[IsGranted(User::ROLE_USER)]
 #[Route(name: 'app_user_')]
 final class UserProductsController extends AbstractController
 {
@@ -49,7 +49,7 @@ final class UserProductsController extends AbstractController
     /**
      * @implements PaginationInterface<int,Product>
      *
-     * @return PaginationInterface<int,Product>
+     * @return PaginationInterface<int,mixed>
      */
     private function paginate(Query $query, int $page): PaginationInterface
     {

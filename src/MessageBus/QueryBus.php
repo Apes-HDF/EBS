@@ -12,7 +12,7 @@ final class QueryBus implements QueryBusInterface
     use HandleTrait;
 
     public function __construct(
-        MessageBusInterface $queryBus
+        MessageBusInterface $queryBus,
     ) {
         $this->messageBus = $queryBus;
     }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="cmeQr4r" resname="templates.email.command.notify_membership_expiration.h1">
+            <source>templates.email.command.notify_membership_expiration.h1</source>
+            <target>Bonjour !</target>
+        </trans-unit>
+
+        <trans-unit id="YUhVmRj" resname="templates.email.command.notify_membership_expiration.p1">
+            <source>templates.email.command.notify_membership_expiration.p1</source>
+            <target>Votre adhésion à la plateform %platform% expire dans %days% jour(s).</target>
+        </trans-unit>
+
+    </body>
+  </file>
+</xliff>
