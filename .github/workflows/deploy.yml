@@ -32,9 +32,6 @@ on:
       database-url:
         description: Database URL
         required: true
-      mailer-dsn:
-        description: Mailer DSN
-        required: true
 
 
 jobs:
