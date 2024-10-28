@@ -53,7 +53,7 @@ jobs:
           # Tags are deployed in prod
           CONTEXT=prod
           ENVIRONMENT=prod
-          IMAGE_TAG=${{ github.ref_name }}
+          IMAGE_TAG=sha-${GITHUB_SHA::7}
           RELEASE_NAME=prod
           echo "context=${CONTEXT}" >> $GITHUB_OUTPUT
           echo "environment=${ENVIRONMENT}" >> $GITHUB_OUTPUT
