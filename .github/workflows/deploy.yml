@@ -55,7 +55,7 @@ jobs:
           # Tags are deployed in prod
           CONTEXT=prod
           ENVIRONMENT=prod
-          IMAGE_TAG=${{ github.ref_name }}
+          IMAGE_TAG=sha-${GITHUB_SHA::7}
           RELEASE_NAME=prod
           TRUSTED_HOST=$(echo ${{ vars.DOMAIN }} | sed 's/\./\\\\\\\\./g')
 
