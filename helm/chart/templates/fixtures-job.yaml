@@ -33,18 +33,14 @@ spec:
           command: ['/bin/sh', '-c']
           args: ['
             set -ex;
-            echo no fixtures job at the moment
+            bin/console doctrine:database:drop --if-exists --force;
+            bin/console doctrine:database:create --if-not-exists;
+            bin/console doctrine:schema:create;
+            bin/console doctrine:schema:validate;
+            bin/console messenger:setup-transports;
+            bin/console hautelook:fixtures:load --no-interaction -vv --no-bundles;
+            bin/console app:index-products;
           ']
-          # if [ "$APP_ENV" != "prod" ]; then
-          #   composer install --prefer-dist --no-progress --no-suggest --no-interaction;
-          # fi;
-          # bin/console doctrine:database:drop --if-exists --force;
-          # bin/console doctrine:database:create --if-not-exists;
-          # bin/console doctrine:schema:create;
-          # bin/console doctrine:schema:validate;
-          # bin/console messenger:setup-transports;
-          # bin/console hautelook:fixtures:load --no-interaction -vv --no-bundles;
-          # bin/console app:index-products;
           env:
             - name: API_ENTRYPOINT_HOST
               valueFrom:

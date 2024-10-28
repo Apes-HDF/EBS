@@ -86,7 +86,7 @@ class UserGroupRepository extends ServiceEntityRepository
      */
     public function getExpiring(int $days): Query
     {
-        $from = new \DateTimeImmutable(sprintf('+%d days midnight', $days));
+        $from = new \DateTimeImmutable(\sprintf('+%d days midnight', $days));
         $to = $from->modify('+ 1 day'); // just add one day for the end limit
 
         $qb = $this

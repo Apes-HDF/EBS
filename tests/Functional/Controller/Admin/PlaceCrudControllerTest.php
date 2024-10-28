@@ -22,15 +22,15 @@ final class PlaceCrudControllerTest extends WebTestCase
         $this->loginAsAdmin($client);
 
         // list
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', PlaceCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', PlaceCrudController::class));
         self::assertResponseIsSuccessful();
 
         // edit
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', PlaceCrudController::class, TestReference::PLACE_7));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', PlaceCrudController::class, TestReference::PLACE_7));
         self::assertResponseIsSuccessful();
 
         // detail
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', PlaceCrudController::class, TestReference::PLACE_7));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', PlaceCrudController::class, TestReference::PLACE_7));
         self::assertResponseIsSuccessful();
     }
 }

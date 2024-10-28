@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 final class AuthorizationChecker
 {
     public function __construct(
-        public readonly AuthorizationCheckerInterface $authorizationChecker
+        public readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {
     }
 

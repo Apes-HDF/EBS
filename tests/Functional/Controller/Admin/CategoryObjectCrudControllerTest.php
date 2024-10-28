@@ -28,11 +28,11 @@ final class CategoryObjectCrudControllerTest extends WebTestCase
         $this->loginAsAdmin($client);
 
         // list
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', CategoryObjectCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', CategoryObjectCrudController::class));
         self::assertResponseIsSuccessful();
 
         // edit
-        $crawler = $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', CategoryObjectCrudController::class, TestReference::CATEGORY_OBJECT_1));
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', CategoryObjectCrudController::class, TestReference::CATEGORY_OBJECT_1));
         self::assertResponseIsSuccessful();
 
         // upload
@@ -48,7 +48,7 @@ final class CategoryObjectCrudControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
 
         // delete file
-        $crawler = $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', CategoryObjectCrudController::class, TestReference::CATEGORY_OBJECT_1));
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', CategoryObjectCrudController::class, TestReference::CATEGORY_OBJECT_1));
         self::assertResponseIsSuccessful();
         $form = $crawler->selectButton(self::SAVE_AND_CONTINUE_BUTTON_NAME)->form();
         /** @var ChoiceFormField $choiceFormField */
@@ -60,21 +60,21 @@ final class CategoryObjectCrudControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
 
         // detail
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', CategoryObjectCrudController::class, TestReference::CATEGORY_OBJECT_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', CategoryObjectCrudController::class, TestReference::CATEGORY_OBJECT_1));
         self::assertResponseIsSuccessful();
 
         // new
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'new', CategoryObjectCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'new', CategoryObjectCrudController::class));
         self::assertResponseIsSuccessful();
 
         // move up
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'moveUp', CategoryObjectCrudController::class, TestReference::CATEGORY_OBJECT_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'moveUp', CategoryObjectCrudController::class, TestReference::CATEGORY_OBJECT_1));
         self::assertResponseRedirects();
         $client->followRedirect();
         self::assertResponseIsSuccessful();
 
         // move down
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'moveDown', CategoryObjectCrudController::class, TestReference::CATEGORY_OBJECT_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'moveDown', CategoryObjectCrudController::class, TestReference::CATEGORY_OBJECT_1));
         self::assertResponseRedirects();
         $client->followRedirect();
         self::assertResponseIsSuccessful();

@@ -27,8 +27,8 @@ class FooterItemCrudControllerTest extends WebTestCase
 
         $this->loginAsAdmin($client);
 
-        $dataId = sprintf("[data-id='%s']", TestReference::MENU_FOOTER_ITEM_FIRST);
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', MenuItemFooterCrudController::class));
+        $dataId = \sprintf("[data-id='%s']", TestReference::MENU_FOOTER_ITEM_FIRST);
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', MenuItemFooterCrudController::class));
 
         self::assertSelectorTextNotContains($dataId, 'menu.action.up_item');
         self::assertSelectorTextContains($dataId, 'menu.action.down_item');
@@ -49,8 +49,8 @@ class FooterItemCrudControllerTest extends WebTestCase
         $client->followRedirects();
         $this->loginAsAdmin($client);
 
-        $dataId = sprintf("[data-id='%s']", TestReference::MENU_FOOTER_ITEM_LAST);
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', MenuItemFooterCrudController::class));
+        $dataId = \sprintf("[data-id='%s']", TestReference::MENU_FOOTER_ITEM_LAST);
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', MenuItemFooterCrudController::class));
 
         self::assertSelectorTextContains($dataId, 'menu.action.up_item');
         $upLink = $client->getCrawler()->filter($dataId.' .action-up')->link();
@@ -65,21 +65,21 @@ class FooterItemCrudControllerTest extends WebTestCase
         $this->loginAsAdmin($client);
 
         // list
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', MenuItemFooterCrudController::class));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', MenuItemFooterCrudController::class));
         self::assertResponseIsSuccessful();
 
         // edit
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', MenuItemFooterCrudController::class, TestReference::MENU_FOOTER_ITEM_FIRST));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', MenuItemFooterCrudController::class, TestReference::MENU_FOOTER_ITEM_FIRST));
         self::assertResponseIsSuccessful();
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', MenuItemFooterCrudController::class, TestReference::MENU_FOOTER_ITEM_LAST));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', MenuItemFooterCrudController::class, TestReference::MENU_FOOTER_ITEM_LAST));
         self::assertResponseIsSuccessful();
 
         // detail
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', MenuItemFooterCrudController::class, TestReference::MENU_FOOTER_ITEM_FIRST));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', MenuItemFooterCrudController::class, TestReference::MENU_FOOTER_ITEM_FIRST));
         self::assertResponseIsSuccessful();
 
         // new icon link
-        $crawler = $client->request('GET', sprintf(TestReference::ADMIN_URL, 'new', MenuItemMenuSocialNetwordFooterCrudController::class));
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'new', MenuItemMenuSocialNetwordFooterCrudController::class));
         self::assertResponseIsSuccessful();
 
         $form = $crawler->selectButton(TestReference::ACTION_SAVE_AND_RETURN)->form();
@@ -92,7 +92,7 @@ class FooterItemCrudControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
 
         // new text link
-        $crawler = $client->request('GET', sprintf(TestReference::ADMIN_URL, 'new', NewMenuFooterLinkController::class));
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'new', NewMenuFooterLinkController::class));
         self::assertResponseIsSuccessful();
 
         $form = $crawler->selectButton(TestReference::ACTION_SAVE_AND_RETURN)->form();

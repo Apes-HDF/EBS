@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace App\EasyAdmin\Form\Type;
 
 use App\Controller\Admin\DashboardController;
-use App\Enum\Group\GroupOfferType;
+use App\Enum\OfferType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Form type for the GroupOfferType enumeration.
+ * Form type for the OfferType enumeration.
  */
-class GroupOfferTypeType extends AbstractType
+class OfferTypeType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'choices' => GroupOfferType::getAsArray(),
+            'choices' => OfferType::getAsArray(),
             'translation_domain' => DashboardController::DOMAIN,
         ]);
     }

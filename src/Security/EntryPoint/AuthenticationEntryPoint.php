@@ -23,11 +23,11 @@ use function Symfony\Component\String\u;
 class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
 {
     public function __construct(
-        private readonly UrlGeneratorInterface $urlGenerator
+        private readonly UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
-    public function start(Request $request, AuthenticationException $authException = null): RedirectResponse
+    public function start(Request $request, ?AuthenticationException $authException = null): RedirectResponse
     {
         /** @var string $route */
         $route = $request->attributes->get('_route');

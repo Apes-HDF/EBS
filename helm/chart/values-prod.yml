@@ -29,4 +29,10 @@ redis:
       size: "1Gi"
 
 postgresql:
-  enabled: false
+  url: change_me
+
+php:
+  fixtureJob:
+    enabled: true
+  fixtureCron:
+    enabled: true

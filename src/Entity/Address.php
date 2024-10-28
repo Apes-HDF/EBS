@@ -45,7 +45,7 @@ class Address implements \Stringable
     #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
-    private string $address;
+    private ?string $address = null;
 
     /**
      * Additional information for the address, eg: APT 555.
@@ -90,7 +90,7 @@ class Address implements \Stringable
     #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
-    private string $locality = '';
+    private ?string $locality = '';
 
     /**
      * Postal code, eg: "59160".
@@ -98,7 +98,7 @@ class Address implements \Stringable
     #[ORM\Column(type: Types::STRING, length: 10, nullable: false)]
     #[Assert\NotBlank]
     #[Assert\Length(max: 20)]
-    private string $postalCode;
+    private ?string $postalCode = null;
 
     /**
      * ISO code of the country, eg: "FR".
@@ -108,7 +108,7 @@ class Address implements \Stringable
     #[ORM\Column(type: Types::STRING, length: 2, nullable: false)]
     #[Assert\NotBlank]
     #[Assert\Country]
-    private string $country;
+    private ?string $country = null;
 
     /**
      * Latitude of the address (north/south), eg: "50.6322562".
@@ -148,7 +148,7 @@ class Address implements \Stringable
      * OpenStreetMap identifier, usefull to create link to maps.
      */
     #[ORM\Column(type: Types::BIGINT, nullable: true)]
-    private int $osmId;
+    private string $osmId;
 
     public function __toString(): string
     {
@@ -167,12 +167,12 @@ class Address implements \Stringable
         return $this;
     }
 
-    public function getAddress(): string
+    public function getAddress(): ?string
     {
         return $this->address;
     }
 
-    public function setAddress(string $address): self
+    public function setAddress(?string $address): self
     {
         $this->address = $address;
 
@@ -227,7 +227,7 @@ class Address implements \Stringable
         return $this;
     }
 
-    public function getLocality(): string
+    public function getLocality(): ?string
     {
         return $this->locality;
     }
@@ -237,7 +237,7 @@ class Address implements \Stringable
         return $this->locality !== '';
     }
 
-    public function setLocality(string $locality): self
+    public function setLocality(?string $locality): self
     {
         $this->locality = $locality;
 
@@ -256,24 +256,24 @@ class Address implements \Stringable
         return $this;
     }
 
-    public function getPostalCode(): string
+    public function getPostalCode(): ?string
     {
         return $this->postalCode;
     }
 
-    public function setPostalCode(string $postalCode): self
+    public function setPostalCode(?string $postalCode): self
     {
         $this->postalCode = $postalCode;
 
         return $this;
     }
 
-    public function getCountry(): string
+    public function getCountry(): ?string
     {
         return $this->country;
     }
 
-    public function setCountry(string $country): self
+    public function setCountry(?string $country): self
     {
         $this->country = $country;
 
@@ -340,12 +340,12 @@ class Address implements \Stringable
         return $this;
     }
 
-    public function getOsmId(): int
+    public function getOsmId(): string
     {
         return $this->osmId;
     }
 
-    public function setOsmId(int $osmId): Address
+    public function setOsmId(string $osmId): Address
     {
         $this->osmId = $osmId;
 
@@ -378,7 +378,7 @@ class Address implements \Stringable
         return $this;
     }
 
-    public function getSubAndLocality(): string
+    public function getSubAndLocality(): ?string
     {
         if (u($this->subLocality)->isEmpty()) {
             return $this->locality;

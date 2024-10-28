@@ -25,19 +25,19 @@ final class GroupOfferCrudControllerTest extends WebTestCase
 
         // list+custom filters
         $filters = '&filters[group]='.TestReference::GROUP_1;
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', GroupOfferCrudController::class.'&'.$filters));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', GroupOfferCrudController::class.'&'.$filters));
         self::assertResponseIsSuccessful();
 
         // edit
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', GroupOfferCrudController::class, TestReference::GROUP_OFFER_GROUP_1_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', GroupOfferCrudController::class, TestReference::GROUP_OFFER_GROUP_1_1));
         self::assertResponseIsSuccessful();
 
         // detail
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', GroupOfferCrudController::class, TestReference::GROUP_OFFER_GROUP_1_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', GroupOfferCrudController::class, TestReference::GROUP_OFFER_GROUP_1_1));
         self::assertResponseIsSuccessful();
 
         // new
-        $crawler = $client->request('GET', sprintf(TestReference::ADMIN_URL, 'new', GroupOfferCrudController::class));
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'new', GroupOfferCrudController::class));
         self::assertResponseIsSuccessful();
 
         $form = $crawler->selectButton(TestReference::ACTION_SAVE_AND_RETURN)->form();

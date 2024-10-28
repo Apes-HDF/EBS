@@ -23,11 +23,11 @@ final class PaymentCrudControllerTest extends WebTestCase
 
         // list + filters
         $filters = '&filters[user]='.TestReference::USER_16;
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', PaymentCrudController::class).'&'.$filters);
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', PaymentCrudController::class).'&'.$filters);
         self::assertResponseIsSuccessful();
 
         // detail
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', PaymentCrudController::class, TestReference::PAYMENT_USER_16_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', PaymentCrudController::class, TestReference::PAYMENT_USER_16_1));
         self::assertResponseIsSuccessful();
     }
 }

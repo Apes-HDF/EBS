@@ -127,12 +127,12 @@ class Menu implements ImageInterface, \Stringable
     public function removeItem(MenuItem $item): self
     {
         $this->items->removeElement($item);
-//        if ($this->items->removeElement($item)) {
+        //        if ($this->items->removeElement($item)) {
         // set the owning side to null (unless already changed)
-//            if ($item->getMenu() === $this) {
-//                $item->setMenu(null);
-//            }
-//        }
+        //            if ($item->getMenu() === $this) {
+        //                $item->setMenu(null);
+        //            }
+        //        }
 
         return $this;
     }

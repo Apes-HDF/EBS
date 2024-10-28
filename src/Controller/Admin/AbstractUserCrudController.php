@@ -17,6 +17,7 @@ use App\Flysystem\MediaManager;
 use App\Helper\CsvExporter;
 use App\Mailer\AppMailer;
 use App\Mailer\Email\Admin\PromoteToAdmin\PromoteToAdminEmail;
+use App\Repository\ConfigurationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -37,10 +38,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Factory\FormFactory;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
@@ -89,6 +92,7 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
         #[Autowire('%user_base_path%')]
         private readonly string $userBasePath,
         AppMailer $mailer,
+        private readonly ConfigurationRepository $configurationRepository,
     ) {
         $this->mailer = $mailer;
     }
@@ -355,6 +359,20 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
         $vacationModeField = BooleanField::new('vacationMode');
         $addressField = AssociationField::new('address');
         $groupsCountField = AssociationField::new('userGroups')->setLabel('Groups number');
+        $membershipPaidField = $this->getSimpleBooleanField('membershipPaid');
+        $startAt = DateField::new('startAt');
+        $endAt = DateField::new('endAt');
+        $expiresInField = IntegerField::new('expiresIn')
+            ->formatValue(function ($value) {
+                return $value !== null ? $this->translator->trans($this->getI18nPrefix().'.expires_in.formatted_value', ['%days%' => $value], 'admin') : '';
+            })
+            ->setFormTypeOptions([
+                'attr' => ['readonly' => 'readonly'],
+                'required' => false,
+            ])
+        ;
+        $payedAt = DateTimeField::new('payedAt');
+        $offerField = AssociationField::new('platformOffer');
 
         return compact(
             'idField',
@@ -378,6 +396,12 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
             'vacationModeField',
             'addressField',
             'groupsCountField',
+            'membershipPaidField',
+            'startAt',
+            'endAt',
+            'expiresInField',
+            'payedAt',
+            'offerField',
         );
     }
 
@@ -444,5 +468,10 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
         $this->userManager->addEmailNormalizeSubmitEvent($builder);
 
         return $builder;
+    }
+
+    public function platformRequiresGlobalPayment(): bool
+    {
+        return $this->configurationRepository->getInstanceConfigurationOrCreate()->getPaidMembership();
     }
 }

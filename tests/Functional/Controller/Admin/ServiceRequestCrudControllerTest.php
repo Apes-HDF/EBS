@@ -8,14 +8,14 @@ use App\Controller\Admin\ServiceRequestCrudController;
 use App\Test\ContainerRepositoryTrait;
 use App\Test\KernelTrait;
 use App\Tests\TestReference;
-use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
+use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ServiceRequestCrudControllerTest extends WebTestCase
 {
     use KernelTrait;
-    use RefreshDatabaseTrait;
+    use ReloadDatabaseTrait;
     use ContainerRepositoryTrait;
 
     /**
@@ -28,15 +28,15 @@ final class ServiceRequestCrudControllerTest extends WebTestCase
 
         // list + filter
         $filters = 'filters[status]=new';
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', ServiceRequestCrudController::class.'&'.$filters));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', ServiceRequestCrudController::class.'&'.$filters));
         self::assertResponseIsSuccessful();
 
         // detail
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', ServiceRequestCrudController::class, TestReference::SERVICE_REQUEST_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', ServiceRequestCrudController::class, TestReference::SERVICE_REQUEST_1));
         self::assertResponseIsSuccessful();
 
         // conversation
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'conversation', ServiceRequestCrudController::class, TestReference::SERVICE_REQUEST_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'conversation', ServiceRequestCrudController::class, TestReference::SERVICE_REQUEST_1));
         self::assertResponseIsSuccessful();
     }
 
@@ -52,7 +52,7 @@ final class ServiceRequestCrudControllerTest extends WebTestCase
         $configurationRepo->getInstanceConfiguration()?->setConfiguration($config);
 
         // conversation page not allowed if confidentiality conversation admin access is set to false
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'conversation', ServiceRequestCrudController::class, TestReference::SERVICE_REQUEST_1));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'conversation', ServiceRequestCrudController::class, TestReference::SERVICE_REQUEST_1));
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 }

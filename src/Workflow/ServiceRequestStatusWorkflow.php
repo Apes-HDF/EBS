@@ -31,7 +31,7 @@ final class ServiceRequestStatusWorkflow
     public const WORKFLOW_SERVICE_REQUEST_COMPLETED_AUTO_FINALIZE_EVENT = 'workflow.service_request_status.completed.autoFinalize';
 
     public function __construct(
-        private readonly WorkflowInterface $serviceRequestStatusStateMachine
+        private readonly WorkflowInterface $serviceRequestStatusStateMachine,
     ) {
     }
 
@@ -66,7 +66,7 @@ final class ServiceRequestStatusWorkflow
 
     private function getException(ServiceRequest $sr, ServiceRequestStatusTransition $transition): \LogicException
     {
-        return new \LogicException(sprintf(self::EXCEPTION_MESSAGE, $transition->name, $sr->getId(), $sr->getStatus()->value));
+        return new \LogicException(\sprintf(self::EXCEPTION_MESSAGE, $transition->name, $sr->getId(), $sr->getStatus()->value));
     }
 
     public function canAccept(ServiceRequest $sr): bool

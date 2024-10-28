@@ -51,6 +51,6 @@ jobs:
             - name: Twig Linter
               run: docker compose exec -T php ./vendor/bin/twigcs templates/ --exclude vendor
             - name: Install eslint
-              run: docker run --rm -w "/usr/app" -v "${PWD}":/usr/app gmolaire/yarn yarn add eslint
+              run: docker run --rm -w "/usr/app" -v "${PWD}":/usr/app gmolaire/yarn yarn add eslint@8.57.0
             - name: Run eslint on javascript files
               run: docker run --rm -w "/usr/app" -v "${PWD}":/usr/app gmolaire/yarn yarn lint

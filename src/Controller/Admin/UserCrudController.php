@@ -48,16 +48,27 @@ final class UserCrudController extends AbstractUserCrudController
             'vacationModeField' => $vacationModeField,
             'addressField' => $addressField,
             'groupsCountField' => $groupsCountField,
+            'membershipPaidField' => $membershipPaidField,
+            'startAt' => $startAt,
+            'endAt' => $endAt,
+            'expiresInField' => $expiresInField,
+            'payedAt' => $payedAt,
+            'offerField' => $offerField,
         ] = $this->getFields($pageName);
 
         if ($pageName === Crud::PAGE_INDEX) {
-            return [$emailField, $firstNameField, $lastNameField, $enabledField, $emailConfirmedField, $avatarField, $createdAt, $updatedAt, $loginAt, $groupsCountField];
+            $listFields = [$emailField, $firstNameField, $lastNameField, $enabledField, $emailConfirmedField, $avatarField, $createdAt, $updatedAt, $loginAt, $groupsCountField];
+            if ($this->platformRequiresGlobalPayment()) {
+                $listFields[] = $membershipPaidField;
+            }
+
+            return $listFields;
         }
 
         $panels = $this->getPanels();
 
         if ($pageName === Crud::PAGE_NEW || $pageName === Crud::PAGE_EDIT) {
-            return [
+            $editFields = [
                 $panels['information'],
                 $emailField,
                 $firstNameField,
@@ -74,9 +85,21 @@ final class UserCrudController extends AbstractUserCrudController
                 $enabledField,
                 $emailConfirmedField,
             ];
+            if ($this->platformRequiresGlobalPayment()) {
+                $editFields = array_merge($editFields, [
+                    $panels['payment_information'],
+                    $membershipPaidField,
+                    $offerField,
+                    $startAt,
+                    $endAt,
+                    $payedAt,
+                ]);
+            }
+
+            return $editFields;
         }
 
-        return [
+        $showFields = [
             $panels['information'],
             $emailField,
             $firstNameField,
@@ -97,5 +120,17 @@ final class UserCrudController extends AbstractUserCrudController
             $updatedAt,
             $loginAt,
         ];
+        if ($this->platformRequiresGlobalPayment()) {
+            $showFields = array_merge($showFields, [
+                $panels['payment_information'],
+                $membershipPaidField,
+                $startAt,
+                $endAt,
+                $payedAt,
+                $expiresInField,
+            ]);
+        }
+
+        return $showFields;
     }
 }

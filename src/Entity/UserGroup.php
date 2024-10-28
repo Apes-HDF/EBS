@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Doctrine\Behavior\TimestampableEntity;
 use App\Enum\Group\UserMembership;
 use App\Repository\UserGroupRepository;
@@ -16,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserGroupRepository::class)]
 #[ORM\UniqueConstraint(columns: ['user', 'group'])]
+#[ApiResource]
 class UserGroup
 {
     use TimestampableEntity;

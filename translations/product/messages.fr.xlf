@@ -105,6 +105,11 @@
             <target>Uniquement mes groupes</target>
         </trans-unit>
 
+        <trans-unit id="BaSmLK9" resname="product.service.form.visibility">
+            <source>product.service.form.visibility</source>
+            <target>Uniquement mes groupes</target>
+        </trans-unit>
+
         <!-- product forms -->
         <trans-unit id="X4i3dq6" resname="new_product.available">
             <source>new_product.available</source>

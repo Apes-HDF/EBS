@@ -7,6 +7,7 @@ metadata:
     {{- include "plateforme-ebs.labels" . | nindent 4 }}
 spec:
   schedule: '0 0 * * *'
+  timeZone: "Europe/Paris"
   jobTemplate:
     metadata:
       annotations:
@@ -23,19 +24,20 @@ spec:
           serviceAccountName: {{ include "plateforme-ebs.serviceAccountName" . }}
           restartPolicy: Never
           containers:
-            - name: {{ .Chart.Name }}-cronjob-notify-ms-e-7
+            - name: {{ .Chart.Name }}-cronjob-fixture-reset
               image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag | default .Chart.AppVersion }}"
               imagePullPolicy: {{ .Values.php.image.pullPolicy }}
               command: ['/bin/sh', '-c']
-              args: ['          
-                bin/console doctrine:database:drop --if-exists --force;
-                bin/console doctrine:database:create --if-not-exists;
-                bin/console doctrine:schema:create;
-                bin/console doctrine:schema:validate;
-                bin/console messenger:setup-transports;
-                bin/console hautelook:fixtures:load --no-interaction -vv --no-bundles;
-                bin/console app:index-products;
-                ']
+              args: ['            
+              set -ex;
+              bin/console doctrine:database:drop --if-exists --force;
+              bin/console doctrine:database:create --if-not-exists;
+              bin/console doctrine:schema:create;
+              bin/console doctrine:schema:validate;
+              bin/console messenger:setup-transports;
+              bin/console hautelook:fixtures:load --no-interaction -vv --no-bundles;
+              bin/console app:index-products;'
+            ]
               env:
                 - name: API_ENTRYPOINT_HOST
                   valueFrom:

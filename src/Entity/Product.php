@@ -39,7 +39,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Patch(
             uriTemplate: '/product/{id}/switchStatus',
-            openapiContext: ['summary' => 'Swicth the status of the product'],
+            openapiContext: ['summary' => 'Switch the status of the product'],
             normalizationContext: ['groups' => [ProductSwitchProcessor::class]],
             security: "is_granted('".ProductVoter::EDIT."', object)",
             input: false,
@@ -156,7 +156,7 @@ class Product implements \Stringable, ImagesInterface
      */
     #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'products')]
     #[Assert\When(
-        expression: '!this.getVisibility().isPublic()',
+        expression: '!this.getVisibility().isPublic() && !this.getOwner().getUserGroupsConfirmedWithServices().isEmpty()',
         constraints: [
             new Assert\Count(min: 1, minMessage: 'app.entity.product.groups.constraints.count.min_message'),
         ],
@@ -487,9 +487,9 @@ class Product implements \Stringable, ImagesInterface
         $resultArray = [];
         $today = CarbonImmutable::today(); // start of day 00:00:00
         $unavailabilities = $this->getAvailabilities()->filter(
-            fn (ProductAvailability $pa) => $pa->getMode()->isUnavailable() && // of the good type
-                ($serviceRequest === null || $pa->getServiceRequest() !== $serviceRequest) && // exclude the dates of the current service request (modify dates)
-                $pa->getEndAt() >= $today // passed dates are useless but the start date can be in the past
+            fn (ProductAvailability $pa) => $pa->getMode()->isUnavailable() // of the good type
+                && ($serviceRequest === null || $pa->getServiceRequest() !== $serviceRequest) // exclude the dates of the current service request (modify dates)
+                && $pa->getEndAt() >= $today // passed dates are useless but the start date can be in the past
         );
 
         foreach ($unavailabilities as $unavailability) {

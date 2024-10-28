@@ -6,5 +6,7 @@ twig:
 
 fos_ck_editor:
     configs:
+        default:
+            versionCheck: false
         main_config:
             toolbar: full

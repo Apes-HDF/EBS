@@ -17,9 +17,20 @@
                     {{ form_row(form.name) }}
                     {{ form_row(form.type) }}
                     {{ form_row(form.membership) }}
-                    {% if form.parent is defined and form.parent is not null %}
-                        {{ form_row(form.parent) }}
-                    {% endif %}
+
+                    <div {{ stimulus_controller('parentgroup') }}>
+                        {% if form.servicesEnabled is defined %}
+                            <div
+                                {{ stimulus_target('parentgroup', 'servicesField') }}
+                                data-product-route-value="{{ path('app_group_list') }}"
+                            >
+                                {{ form_widget(form.servicesEnabled) }}
+                            </div>
+                        {% endif %}
+                        {% if form.parent is defined and form.parent is not null %}
+                            {{ form_row(form.parent) }}
+                        {% endif %}
+                    </div>
                     {{ form_widget(form.submit) }}
                 {{ form_end(form) }}
             </div>

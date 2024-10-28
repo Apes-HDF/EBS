@@ -245,7 +245,7 @@ abstract class AbstractCategoryCrudController extends AbstractCrudController imp
             $idField,
             $createdAt,
             $updatedAt,
-       ];
+        ];
     }
 
     public function moveUp(AdminContext $context): Response

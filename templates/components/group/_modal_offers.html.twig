@@ -27,7 +27,7 @@
                                     </span>
                                 </div>
                                 <div class="col col-lg-5 d-flex align-items-center justify-content-center mt-3 mt-lg-0">
-                                    <form action="{{ path('app_payment_prepare', {id: offer.id}) }}" method="post">
+                                    <form action="{{ path(prepare_path, {id: offer.id}) }}" method="post">
                                         <input type="hidden" name="token" value="{{ csrf_token('payment_prepare') }}"/>
                                         <input class="btn btn-primary" type="submit"
                                                value="{{ (i18n_prefix ~ '.payment_prepare.form.submit')|trans }}">

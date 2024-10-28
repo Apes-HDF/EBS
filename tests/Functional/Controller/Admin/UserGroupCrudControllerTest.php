@@ -25,11 +25,11 @@ final class UserGroupCrudControllerTest extends WebTestCase
 
         // list+custom filters
         $filters = '&filters[group]='.TestReference::GROUP_1;
-        $client->request('GET', sprintf(TestReference::ADMIN_URL, 'index', UserGroupCrudController::class.'&'.$filters));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL, 'index', UserGroupCrudController::class.'&'.$filters));
         self::assertResponseIsSuccessful();
 
         // detail
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', UserGroupCrudController::class, TestReference::USER_GROUP_LOIC_GROUP_7));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', UserGroupCrudController::class, TestReference::USER_GROUP_LOIC_GROUP_7));
         self::assertResponseIsSuccessful();
     }
 
@@ -49,7 +49,7 @@ final class UserGroupCrudControllerTest extends WebTestCase
     {
         $client = self::createClient();
         $this->loginAsSarah($client);
-        $client->request('GET', sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', UserGroupCrudController::class, TestReference::USER_GROUP_LOIC_GROUP_7));
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'edit', UserGroupCrudController::class, TestReference::USER_GROUP_LOIC_GROUP_7));
 
         $form = $client->getCrawler()->selectButton('ea[newForm][btn]')->form();
         $client->submit($form, [

@@ -37,7 +37,7 @@ final class MyLendingsAction extends AbstractController
     ) {
     }
 
-    #[isGranted(User::ROLE_USER)]
+    #[IsGranted(User::ROLE_USER)]
     #[Route(path: [
         'en' => MyAccountAction::BASE_URL_EN.'/my-lendings',
         'fr' => MyAccountAction::BASE_URL_FR.'/mes-prets',

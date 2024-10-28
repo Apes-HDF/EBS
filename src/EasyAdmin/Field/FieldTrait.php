@@ -15,7 +15,7 @@ trait FieldTrait
     /**
      * Render the boolean without switch: ✅ ❌.
      */
-    public function getSimpleBooleanField(string $propertyName, string $label = null): BooleanField
+    public function getSimpleBooleanField(string $propertyName, ?string $label = null): BooleanField
     {
         return BooleanField::new($propertyName, $label)
             ->renderAsSwitch(false)
@@ -30,6 +30,7 @@ trait FieldTrait
         return [
             'information' => FormField::addPanel('panel.information', 'fas fa-info-circle'),
             'tech_information' => FormField::addPanel('panel.tech_information', 'fas fa-history'),
+            'payment_information' => FormField::addPanel('panel.payment_information', 'fas fa-dollar-sign'),
         ];
     }
 }

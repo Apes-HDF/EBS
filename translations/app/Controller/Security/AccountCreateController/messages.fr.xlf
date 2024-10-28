@@ -15,9 +15,19 @@
             <target>Votre compte a bien été créé. Veuillez renseigner votre adresse afin de pouvoir utiliser les différents services.</target>
         </trans-unit>
 
-        <trans-unit id="" resname="app.controller.security.account_create_controller.step2.with_invitation.flash.success">
+        <trans-unit id="jaHXivi" resname="app.controller.security.account_create_controller.step2.global_paid_membership.flash.success">
+            <source>app.controller.security.account_create_controller.step2.global_paid_membership.flash.success</source>
+            <target>Votre compte a bien été créé. Pour accéder à la plateforme, veuillez payer l'adhésion.</target>
+        </trans-unit>
+
+        <trans-unit id="ueGTY73" resname="app.controller.security.account_create_controller.step2.with_invitation.flash.success">
             <source>app.controller.security.account_create_controller.step2.with_invitation.flash.success</source>
             <target>Votre compte a bien été créé. Vous pouvez accepter l'invitation sur la page du groupe.</target>
+        </trans-unit>
+
+        <trans-unit id="MWzA9dr" resname="app.controller.security.account_create_controller.step2.with_invitation.global_paid_membership.flash.success">
+            <source>app.controller.security.account_create_controller.step2.with_invitation.global_paid_membership.flash.success</source>
+            <target>Votre compte a bien été créé. Pour accéder à la plateforme, veuillez payer l'adhésion. Vous pourrez alors accepter l'invitation sur la page du groupe.</target>
         </trans-unit>
 
         <trans-unit id="jDAjgu1" resname="app.controller.security.account_create_controller.step2.user_not_found.warning">

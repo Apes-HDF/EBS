@@ -33,10 +33,13 @@ php:
     usePathStyleEndpoint: true
     publicKey: ""
     secret: ""
-  fixtureJob:
-    enabled: false
   fixtureCron:
     enabled: false
+  fixtureJob:
+    enabled: false
+
+dailyCronjobs:
+  enabled: true
 
 maildev:
   enabled: false
@@ -47,9 +50,6 @@ mailer:
 
 sms:
   dsn: "null://null"
-
-dailyCronjobs:
-  enabled: true
 
 consumer:
   # We don't use async for now so consumer isn't needed
@@ -80,6 +80,7 @@ postgresql:
         username: "example"
         password: "!ChangeMe!"
         database: "api"
+        postgresPassword: "!ChangeMe!"
   # Persistent Volume Storage configuration.
   # ref: https://kubernetes.io/docs/user-guide/persistent-volumes
   pullPolicy: IfNotPresent
