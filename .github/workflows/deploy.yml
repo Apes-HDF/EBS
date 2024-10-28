@@ -136,8 +136,8 @@ jobs:
             --set=php.storage.key="${{ secrets.storage-key }}" \
             --set=php.storage.secret="${{ secrets.storage-secret-key }}" \
             --set=php.trustedHosts[2]=${{ needs.meta.outputs.trusted_host }} \
-            --set=php.fixtureJob=false
-            --set=php.fixtureCron=false
+            --set=php.fixtureJob.enabled=false
+            --set=php.fixtureCron.enabled=false
             --values ./helm/chart/values-${{ needs.meta.outputs.context }}.yml \
             | sed --unbuffered '/USER-SUPPLIED VALUES/,$d' ; then
                 echo "Deployment has failed!"
