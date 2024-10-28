@@ -68,6 +68,6 @@ final class ConfigurationRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()->getOneOrNullResult();
 
-        return $config['configuration']['global']['globalServicesEnabled'];
+        return $config['configuration']['global']['globalServicesEnabled'] ?? false;
     }
 }
