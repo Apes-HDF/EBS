@@ -140,7 +140,7 @@ class Group implements \Stringable
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'groups')]
     private Collection $products;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $servicesEnabled = false;
 
     public function __construct()
