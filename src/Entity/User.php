@@ -275,7 +275,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
     /**
      * Paid for membership of the platform.
      */
-    #[ORM\Column(type: 'boolean', nullable: false)]
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $membershipPaid = false;
 
     #[ORM\ManyToOne(targetEntity: PlatformOffer::class)]

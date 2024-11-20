@@ -1,0 +1,7 @@
+App\Entity\MigrationVersions:
+    migration_version (template):
+        executedAt: <date_create('today')>
+        executionTime: 0
+    
+    migration_version_1 (extends migration_version):
+        version: 'DoctrineMigrations\Version20241106085124'
