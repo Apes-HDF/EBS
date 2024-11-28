@@ -124,9 +124,8 @@ cs: fix-php stan
 load-fixtures: drop-db ## Build the DB, control the schema validity, load fixtures and check the migration status (deb)
 	$(eval env ?= 'dev')
 	@$(SYMFONY) doctrine:database:create --if-not-exists --env=$(env)
-	@$(SYMFONY) doctrine:schema:create --env=$(env)
-	@$(SYMFONY) doctrine:schema:validate --env=$(env)
 	@$(SYMFONY) doctrine:migrations:migrate --env=$(env) --no-interaction
+	@$(SYMFONY) doctrine:schema:validate --env=$(env)
 	@$(SYMFONY) messenger:setup-transports --env=$(env)
 	@$(SYMFONY) hautelook:fixtures:load --no-interaction -vv --no-bundles --env=$(env)
 	@$(SYMFONY) app:index-products --env=$(env)
