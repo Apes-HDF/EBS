@@ -83,7 +83,11 @@ final class ParametersFormCommand extends AbstractFormCommand
     {
         $instanceConfiguration = $configuration->getConfiguration();
         foreach (array_keys(get_class_vars($this::class)) as $classVar) {
-            $this->{$classVar} = $instanceConfiguration[$this->getSection($classVar)][$classVar]; // @phpstan-ignore-line
+            $configValue = $instanceConfiguration[$this->getSection($classVar)][$classVar] ?? null;
+            if ($configValue === null) {
+                continue;
+            }
+            $this->{$classVar} = $configValue; // @phpstan-ignore-line
         }
 
         return $this;

@@ -33,7 +33,7 @@ jobs:
             - name: Create test database
               run: docker compose exec -T php bin/console -e test doctrine:database:create
             - name: Create database schema
-              run: docker compose exec -T php bin/console -e test doctrine:schema:create 
+              run: docker compose exec -T php bin/console -e test doctrine:migrations:migrate 
             - name: Setup Messenger
               run: docker compose exec -T php bin/console -e test messenger:setup-transports
             - name: Initializing Fixtures
