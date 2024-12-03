@@ -32,7 +32,7 @@ spec:
               set -ex;
               bin/console doctrine:database:drop --if-exists --force;
               bin/console doctrine:database:create --if-not-exists;
-              bin/console doctrine:schema:create;
+              bin/console doctrine:migrations:migrate --no-interaction;
               bin/console doctrine:schema:validate;
               bin/console messenger:setup-transports;
               bin/console hautelook:fixtures:load --no-interaction -vv --no-bundles;
