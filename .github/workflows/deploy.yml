@@ -125,7 +125,6 @@ jobs:
             --set=ingress.tls[0].hosts[0]=${{ vars.DOMAIN }} \
             --set=postgresql.url="${{ secrets.database-url }}" \
             --set=postgresql.enabled='${{ github.event_name == 'pull_request' }}' \
-            --set=sms.dsn="${{ secrets.sms-dsn }}" \
             --set=payum.apikey="${{ secrets.payum-apikey }}" \
             --set=mailer.dsn="${{ secrets.mailer-dsn }}" \
             --set=sms.dsn="${{ secrets.sms-dsn }}" \
