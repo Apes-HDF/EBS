@@ -29,6 +29,7 @@ final class SmsNotifier
         $this->logger->info('SMS Notification');
         if (!$user->canBeNotifiedBySms()) {
             $this->logger->warning('User cannot be notified by SMS');
+
             return null;
         }
 
