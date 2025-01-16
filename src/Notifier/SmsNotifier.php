@@ -46,10 +46,13 @@ final class SmsNotifier
         }
 
         try {
-            return $this->texter->send(new SmsMessage(
+            $response = $this->texter->send(new SmsMessage(
                 phone: $phoneNumber,
                 subject: $subject
             ));
+            $this->logger->info('SMS Sent Successfully');
+
+            return $response;
         } catch (\Exception $e) {
             // OK, the sms cannot be delivered, but this is not critical as the an
             // email is always sent
@@ -57,6 +60,5 @@ final class SmsNotifier
 
             return null;
         }
-        $this->logger->info('SMS Sent Successfully');
     }
 }
