@@ -26,7 +26,9 @@ final class SmsNotifier
 
     public function notify(User $user, string $subject): ?SentMessage
     {
+        $this->logger->info('SMS Notification');
         if (!$user->canBeNotifiedBySms()) {
+            $this->logger->warning('User cannot be notified by SMS');
             return null;
         }
 
@@ -54,5 +56,6 @@ final class SmsNotifier
 
             return null;
         }
+        $this->logger->info('SMS Sent Successfully');
     }
 }
