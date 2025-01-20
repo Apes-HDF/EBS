@@ -70,6 +70,10 @@ App\Entity\Page:
             <h2>D&eacute;p&ocirc;t</h2>
             <p>Toutes les informations sur le projet et le code sont disponibles sur <strong><a href="https://github.com/Apes-HDF/EBS">le d&eacute;p&ocirc;t public</a></strong>.</p>
             <p>&nbsp;</p>
+            <p>Lien utiles :</p>
+            <p>- <a href="https://movilab.org/wiki/EBS_-_%C3%A9change_de_biens_et_services">Fiche Movilab</a></p>
+            <p>- <a href="https://www.youtube.com/watch?v=Ywsplw5PbNA">Webinaire de pr&eacute;sentation du logiciel EBS</a></p>
+            <p>&nbsp;</p>
             <hr />
             <h2>D&eacute;mo</h2>
             <p>Vous pouvez tester la plateforme sur cet environnement de d&eacute;mo.</p>
@@ -85,17 +89,17 @@ App\Entity\Page:
             <tbody>
             <tr>
             <td>Admin</td>
-            <td>sarah@example.com</td>
+            <td>'sarah@example.com'</td>
             <td>apesebs</td>
             </tr>
             <tr>
             <td>Utilisateur de type individuel</td>
-            <td>loic@example.com</td>
+            <td>'loic@example.com'</td>
             <td>apesebs</td>
             </tr>
             <tr>
             <td>Utilisateur de type lieu</td>
-            <td>compte+lieu@apes-hdf.org</td>
+            <td>'compte+lieu@apes-hdf.org'</td>
             <td>apesebs</td>
             </tr>
             </tbody>
