@@ -65,7 +65,9 @@ Below are the supported value templates to use depending on your SMS provider.
 
 ### Brevo
 
-    SMS_DSN=brevo://API_KEY@default?sender=PHONE_NUMBER
+    SMS_DSN=brevo://API_KEY@default?sender=PHONE_NUMBER OR NAME
+
+You might also need to authorise your server's IP Address in Brevo's settings (section Security/Authorized IPs). 
 
 ### Twilio
 
