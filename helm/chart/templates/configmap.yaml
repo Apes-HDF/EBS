@@ -10,7 +10,7 @@ data:
   php-app-env: {{ .Values.php.appEnv | quote }}
   php-app-debug: {{ .Values.php.appDebug | quote }}
   php-cors-allow-origin: {{ .Values.php.corsAllowOrigin | quote }}
-  php-trusted-hosts: {{ .Values.php.trustedHosts | quote }}
+  php-trusted-hosts: {{ join "|" .Values.php.trustedHosts | quote }}  
   php-trusted-proxies: "{{ join "," .Values.php.trustedProxies }}"
   mercure-url: "http://{{ include "plateforme-ebs" . }}/.well-known/mercure"
   mercure-public-url: {{ .Values.mercure.publicUrl | default "http://127.0.0.1/.well-known/mercure" | quote }}

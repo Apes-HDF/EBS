@@ -9,11 +9,6 @@ on:
       payum-apikey:
         description: Payum API Key
         required: true
-      sms-dsn:
-         description: SMS DSN
-         required: true
-      mailer-dsn:
-        description: MAILER DSN
       storage-key:
         description: storage key
         required: true
@@ -28,6 +23,12 @@ on:
         required: true
       database-url:
         description: Database URL
+        required: true
+      mailer-dsn:
+        description: Mailer DSN
+        required: true
+      sms-dsn:
+        description: SMS DSN
         required: true
 
 
@@ -44,6 +45,7 @@ jobs:
       project: ${{ steps.meta.outputs.project }}
       namespace: ${{ steps.meta.outputs.namespace }}
       storage_name: ${{ steps.meta.outputs.storage_name }}
+      trusted_host: ${{ steps.meta.outputs.trusted_host }}
     steps:
       - name: Generate metadata
         id: meta
@@ -55,6 +57,9 @@ jobs:
           ENVIRONMENT=prod
           IMAGE_TAG=sha-${GITHUB_SHA::7}
           RELEASE_NAME=prod
+          TRUSTED_HOST=$(echo ${{ vars.DOMAIN }} | sed 's/\./\\\\\\\\./g')
+
+          echo "trusted_host=${TRUSTED_HOST}" >> $GITHUB_OUTPUT
           echo "context=${CONTEXT}" >> $GITHUB_OUTPUT
           echo "environment=${ENVIRONMENT}" >> $GITHUB_OUTPUT
           echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
@@ -120,15 +125,18 @@ jobs:
             --set=ingress.tls[0].hosts[0]=${{ vars.DOMAIN }} \
             --set=postgresql.url="${{ secrets.database-url }}" \
             --set=postgresql.enabled='${{ github.event_name == 'pull_request' }}' \
-            --set=sms.dsn="${{ secrets.sms-dsn }}" \
             --set=payum.apikey="${{ secrets.payum-apikey }}" \
             --set=mailer.dsn="${{ secrets.mailer-dsn }}" \
+            --set=sms.dsn="${{ secrets.sms-dsn }}" \
             --set=php.storage.bucket="${{ vars.STORAGE_BUCKET }}" \
             --set=php.storage.endpoint="https://storage.googleapis.com" \
             --set=php.storage.region="eu-west-1" \
             --set=php.storage.usePathStyleEndpoint=true \
             --set=php.storage.key="${{ secrets.storage-key }}" \
             --set=php.storage.secret="${{ secrets.storage-secret-key }}" \
+            --set=php.trustedHosts[2]=${{ needs.meta.outputs.trusted_host }} \
+            --set=php.fixtureJob.enabled=false \
+            --set=php.fixtureCron.enabled=false \
             --values ./helm/chart/values-${{ needs.meta.outputs.context }}.yml \
             | sed --unbuffered '/USER-SUPPLIED VALUES/,$d' ; then
                 echo "Deployment has failed!"

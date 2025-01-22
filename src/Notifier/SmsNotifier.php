@@ -26,7 +26,10 @@ final class SmsNotifier
 
     public function notify(User $user, string $subject): ?SentMessage
     {
+        $this->logger->info('SMS Notification');
         if (!$user->canBeNotifiedBySms()) {
+            $this->logger->warning('User cannot be notified by SMS');
+
             return null;
         }
 
@@ -43,10 +46,13 @@ final class SmsNotifier
         }
 
         try {
-            return $this->texter->send(new SmsMessage(
+            $response = $this->texter->send(new SmsMessage(
                 phone: $phoneNumber,
                 subject: $subject
             ));
+            $this->logger->info('SMS Sent Successfully');
+
+            return $response;
         } catch (\Exception $e) {
             // OK, the sms cannot be delivered, but this is not critical as the an
             // email is always sent

@@ -61,13 +61,13 @@ final class ConfigurationRepository extends ServiceEntityRepository
 
     public function getServicesParameter(): bool
     {
-        /** @var array{configuration: array{ global: array{ globalServicesEnabled: bool }}} $config */
+        /** @var array{configuration: array{ global: array{ globalServicesEnabled: bool|null }}} $config */
         $config = $this
             ->createQueryBuilder('c')
             ->select('c.configuration')
             ->setMaxResults(1)
             ->getQuery()->getOneOrNullResult();
 
-        return $config['configuration']['global']['globalServicesEnabled'];
+        return $config['configuration']['global']['globalServicesEnabled'] ?? false;
     }
 }

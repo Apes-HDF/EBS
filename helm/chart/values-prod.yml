@@ -33,6 +33,6 @@ postgresql:
 
 php:
   fixtureJob:
-    enabled: true
+    enabled: false
   fixtureCron:
-    enabled: true
+    enabled: false
