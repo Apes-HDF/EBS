@@ -61,6 +61,22 @@ final class EditProfileFormType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => self::I18N_PREFIX.'.submit',
                 'attr' => ['class' => 'btn-sm btn-primary'],
+            ])
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'query_builder' => fn (CategoryRepository $er) => $er->getHierarchy(),
+                'group_by' => fn (Category $category) => $this->translator->trans(self::I18N_PREFIX.'.'.$category->getType()->value),
+                'label' => self::I18N_PREFIX.'.category',
+                'label_attr' => ['class' => 'text-black fs-6 fw-normal'],
+                'choice_label' => 'getNameWithIndent',
+                'expanded' => false,
+                'required' => false,
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => self::I18N_PREFIX.'.description',
+                'label_attr' => ['class' => 'text-black fs-6 fw-normal'],
+                'attr' => ['style' => 'height: 120px'],
+                'required' => false,
             ]);
 
         if ($user->isPlace()) {
@@ -93,22 +109,6 @@ final class EditProfileFormType extends AbstractType
                     'attr' => [
                         'class' => 'form-control-sm',
                     ],
-                ])
-                ->add('category', EntityType::class, [
-                    'class' => Category::class,
-                    'query_builder' => fn (CategoryRepository $er) => $er->getHierarchy(),
-                    'group_by' => fn (Category $category) => $this->translator->trans(self::I18N_PREFIX.'.'.$category->getType()->value),
-                    'label' => self::I18N_PREFIX.'.category',
-                    'label_attr' => ['class' => 'text-black fs-6 fw-normal'],
-                    'choice_label' => 'getNameWithIndent',
-                    'expanded' => false,
-                    'required' => false,
-                ])
-                ->add('description', TextareaType::class, [
-                    'label' => self::I18N_PREFIX.'.description',
-                    'label_attr' => ['class' => 'text-black fs-6 fw-normal'],
-                    'attr' => ['style' => 'height: 120px'],
-                    'required' => false,
                 ]);
         }
 
