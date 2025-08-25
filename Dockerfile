@@ -4,6 +4,7 @@
 
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
+
 ARG PHP_VERSION=8.1.32
 ARG CADDY_VERSION=2.10.0
 
@@ -189,6 +190,7 @@ FROM caddy:${CADDY_VERSION}-builder-alpine AS app_caddy_builder
 # https://github.com/dunglas/symfony-docker/pull/407/files
 
 # FROM caddy:2.9.1-builder-alpine AS app_caddy_builder
+
 
 # RUN xcaddy build \
 #	--with github.com/dunglas/mercure \
