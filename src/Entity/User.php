@@ -61,6 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
 
     private const EMAIL_MAX_LENGTH = 180;
     private const NAME_LENGTH = 180;
+    private const DESCRIPTION_LENGTH = 255;
     private const PHONE_LENGTH = 15;
     private const SCHEDULE_LENGTH = 180;
 
@@ -241,6 +242,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
      * User's description.
      */
     #[ORM\Column(type: 'string', nullable: true, )]
+    #[Assert\Length(max: self::DESCRIPTION_LENGTH)]
     private ?string $description = null;
 
     /**
