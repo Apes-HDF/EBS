@@ -4,7 +4,7 @@
 
 php:
   image:
-    repository: "ghcr.io/tipimi-fr/ebs-php" # CHANGE ME
+    repository: "CHANGE/ME" # CHANGE ME
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
@@ -57,7 +57,7 @@ consumer:
 
 caddy:
   image:
-    repository: "ghcr.io/tipimi-fr/ebs-caddy" # CHANGE ME
+    repository: "CHANGE/ME" # CHANGE ME
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""

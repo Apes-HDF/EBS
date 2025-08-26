@@ -39,6 +39,8 @@ jobs:
     outputs:
       context: ${{ steps.meta.outputs.context }}
       environment: ${{ steps.meta.outputs.environment }}
+      php_image_repo: ${{ steps.meta.outputs.php_image_repo }}
+      caddy_image_repo: ${{ steps.meta.outputs.caddy_image_repo }}
       image_tag: ${{ steps.meta.outputs.image_tag }}
       release_name: ${{ steps.meta.outputs.release_name }}
       url: ${{ steps.meta.outputs.url }}
@@ -51,10 +53,12 @@ jobs:
         id: meta
         run: |
           set -xo pipefail
-          PROJECT=tipimi-ebs
+          PROJECT=${{ vars.PROJECT_NAME }}
           # Tags are deployed in prod
           CONTEXT=prod
           ENVIRONMENT=prod
+          PHP_IMAGE_REPO=${{ vars.IMAGE_REPO }}/${{ vars.IMAGE_NAME_PHP }}
+          CADDY_IMAGE_REPO=${{ vars.IMAGE_REPO }}/${{ vars.IMAGE_NAME_CADDY }}
           IMAGE_TAG=sha-${GITHUB_SHA::7}
           RELEASE_NAME=prod
           TRUSTED_HOST=$(echo ${{ vars.DOMAIN }} | sed 's/\./\\\\\\\\./g')
@@ -63,6 +67,8 @@ jobs:
           echo "context=${CONTEXT}" >> $GITHUB_OUTPUT
           echo "environment=${ENVIRONMENT}" >> $GITHUB_OUTPUT
           echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
+          echo "php_image_repo=${PHP_IMAGE_REPO}" >> $GITHUB_OUTPUT
+          echo "caddy_image_repo=${CADDY_IMAGE_REPO}" >> $GITHUB_OUTPUT
           echo "release_name=${RELEASE_NAME}" >> $GITHUB_OUTPUT
           echo "namespace=${CONTEXT}-${PROJECT}" >> $GITHUB_OUTPUT
 
@@ -118,7 +124,9 @@ jobs:
             --atomic \
             --debug \
             --namespace ${{ needs.meta.outputs.namespace }} \
+            --set=php.image.repository=${{ needs.meta.outputs.php_image_repo }} \
             --set=php.image.tag=${{ needs.meta.outputs.image_tag }} \
+            --set=caddy.image.repository=${{ needs.meta.outputs.caddy_image_repo }} \
             --set=caddy.image.tag=${{ needs.meta.outputs.image_tag }} \
             --set=ingress.hosts[0].host=${{ vars.DOMAIN }} \
             --set=ingress.tls[0].secretName=${{ needs.meta.outputs.release_name }}-tls \
