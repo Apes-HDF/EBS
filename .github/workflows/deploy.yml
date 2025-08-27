@@ -53,12 +53,12 @@ jobs:
         id: meta
         run: |
           set -xo pipefail
-          PROJECT=${{ env.PROJECT_NAME }}
+          PROJECT=${{ vars.PROJECT_NAME }}
           # Tags are deployed in prod
           CONTEXT=prod
           ENVIRONMENT=prod
-          PHP_IMAGE_REPO=${{ env.IMAGE_REPO }}/${{ env.IMAGE_NAME_PHP }}
-          CADDY_IMAGE_REPO=${{ env.IMAGE_REPO }}/${{ env.IMAGE_NAME_CADDY }}
+          PHP_IMAGE_REPO=${{ vars.IMAGE_REPO }}/${{ vars.IMAGE_NAME_PHP }}
+          CADDY_IMAGE_REPO=${{ vars.IMAGE_REPO }}/${{ vars.IMAGE_NAME_CADDY }}
           IMAGE_TAG=sha-${GITHUB_SHA::7}
           RELEASE_NAME=prod
           TRUSTED_HOST=$(echo ${{ vars.DOMAIN }} | sed 's/\./\\\\\\\\./g')

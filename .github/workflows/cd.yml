@@ -1,8 +1,5 @@
 name: CD
 
-env:
-  IMAGE_NAME_PHP: ebs-php
-  IMAGE_NAME_CADDY: ebs-caddy
 
 on:
   push:
@@ -21,6 +18,17 @@ permissions:
   packages: write
 
 jobs:
+  # remove-deploy-label:
+  #   name: Remove deploy label
+  #   if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'deploy')
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: mondeja/remove-labels-gh-action@v1
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         labels: |
+  #           deploy
+
   build:
     name: Build
     uses: ./.github/workflows/build.yml

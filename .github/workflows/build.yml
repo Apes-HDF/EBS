@@ -5,21 +5,19 @@ on:
 
 jobs:
   build-push-php:
-    environment: PROD
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
     - name: Build/Push
       uses: coopTilleuls/action-docker-build-push@v10
       with:
-        IMAGE_NAME: ${{ env.IMAGE_NAME_PHP }}
+        IMAGE_NAME: ${{ vars.IMAGE_NAME_PHP }}
         BUILD_CONTEXT: .
         BUILD_TARGET: app_php
         REGISTRY_JSON_KEY: ${{ secrets.GITHUB_TOKEN }}
-        IMAGE_REPOSITORY: ${{ env.IMAGE_REPO }}
+        IMAGE_REPOSITORY: ${{ vars.IMAGE_REPO }}
          
   build-push-caddy:
-    environment: PROD
     # Same Dockerfile as php, with a build target which is after
     needs: [build-push-php]
     runs-on: ubuntu-latest
@@ -28,8 +26,8 @@ jobs:
     - name: Build/Push
       uses: coopTilleuls/action-docker-build-push@v10
       with:
-        IMAGE_NAME: ${{ env.IMAGE_NAME_CADDY }}
+        IMAGE_NAME: ${{ vars.IMAGE_NAME_CADDY }}
         BUILD_CONTEXT: .
         BUILD_TARGET: app_caddy
         REGISTRY_JSON_KEY: ${{ secrets.GITHUB_TOKEN }}
-        IMAGE_REPOSITORY: ${{ env.IMAGE_REPO }}
+        IMAGE_REPOSITORY: ${{ vars.IMAGE_REPO }}
