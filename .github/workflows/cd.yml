@@ -30,12 +30,12 @@ jobs:
   #           deploy
 
   build:
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     name: Build
     uses: ./.github/workflows/build.yml
 
   deploy:
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     name: Deploy
     needs: [ build ]
     uses: ./.github/workflows/deploy.yml
