@@ -5,6 +5,7 @@ on:
 
 jobs:
   build-push-php:
+    environment: PROD
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -18,6 +19,7 @@ jobs:
         IMAGE_REPOSITORY: ${{ vars.IMAGE_REPO }}
          
   build-push-caddy:
+    environment: PROD
     # Same Dockerfile as php, with a build target which is after
     needs: [build-push-php]
     runs-on: ubuntu-latest
