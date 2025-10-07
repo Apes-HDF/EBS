@@ -82,12 +82,12 @@
 
         <trans-unit id="XDrRuh9" resname="templates.pages.group.show.type.yearly">
             <source>templates.pages.group.show.type.yearly</source>
-            <target>Adhésion annuel</target>
+            <target>Adhésion annuelle</target>
         </trans-unit>
 
         <trans-unit id="HmhwWPE" resname="templates.pages.group.show.type.monthly">
             <source>templates.pages.group.show.type.monthly</source>
-            <target>Adhésion mensuel</target>
+            <target>Adhésion mensuelle</target>
         </trans-unit>
 
         <trans-unit id="Vtr2GJU" resname="templates.pages.group.show.type.oneshot">
