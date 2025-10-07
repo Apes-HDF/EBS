@@ -30,6 +30,7 @@ spec:
               command: ['/bin/sh', '-c']
               args: ['            
               set -ex;
+              rm fixtures/prod && ln -s fixtures/test fixtures/prod;
               bin/console doctrine:database:drop --if-exists --force;
               bin/console doctrine:database:create --if-not-exists;
               bin/console doctrine:migrations:migrate --no-interaction;
