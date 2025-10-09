@@ -35,8 +35,8 @@ dependencies:
     repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     condition: external-dns.enabled
   - name: redis
-    version: ~17.4.0
-    repository: https://charts.bitnami.com/bitnami/
+    version: 0.5.2
+    repository: oci://ghcr.io/cloudpirates-io/helm-charts
     condition: redis.enabled
   - name: meilisearch
     version: ~0.1.46

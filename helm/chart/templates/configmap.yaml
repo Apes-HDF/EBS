@@ -19,7 +19,7 @@ data:
   meilisearch-url: "http://{{ include "meilisearch.fullname" .Subcharts.meilisearch }}:7700"
   {{- end }}
   {{- if .Values.redis.enabled }}
-  redis-url: "redis://{{ printf "%s-master" (include "common.names.fullname" .Subcharts.redis) }}"
+  redis-url: "redis://{{ printf "%s" (include "common.fullname" .Subcharts.redis) }}"
   {{- end }}
   payum-gateway: {{ .Values.payum.gateway | quote }}
   php-storage-bucket: {{ .Values.php.storage.bucket | quote }}

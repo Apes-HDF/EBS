@@ -22,11 +22,10 @@ meilisearch:
     size: "1Gi"
 
 redis:
-  master:
-    persistence:
-      enabled: true
-      storageClass: "standard"
-      size: "1Gi"
+  persistence:
+    enabled: true
+    storageClass: "standard"
+    size: "1Gi"
 
 postgresql:
   url: change_me
