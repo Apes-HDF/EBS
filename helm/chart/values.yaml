@@ -114,26 +114,26 @@ external-dns:
   rbac:
     create: true
 
-# https://artifacthub.io/packages/helm/bitnami/redis
 redis:
   enabled: true
   auth:
     enabled: false
-  master:
-    startupProbe:
-      enabled: true
-      initialDelaySeconds: 1
-      periodSeconds: 1
-    livenessProbe:
-      initialDelaySeconds: 0
-    readinessProbe:
-      initialDelaySeconds: 0
-  replica:
-    replicaCount: 0
+  # master:
+  #   startupProbe:
+  #     enabled: true
+  #     initialDelaySeconds: 1
+  #     periodSeconds: 1
+  livenessProbe:
+    initialDelaySeconds: 0
+  readinessProbe:
+    initialDelaySeconds: 0
+  replicaCount: 1
 
 # https://github.com/meilisearch/meilisearch-kubernetes/blob/main/charts/meilisearch/README.md
 meilisearch:
   enabled: true
+  image:
+    tag: v0.30.0
   environment:
     MEILI_ENV: 'production'
   resources:
