@@ -8,12 +8,12 @@
 
         <trans-unit id="Xwpl7p9" resname="templates.pages.redirect_to_payment.type.yearly">
             <source>templates.pages.redirect_to_payment.type.yearly</source>
-            <target>Adhésion annuel</target>
+            <target>Adhésion annuelle</target>
         </trans-unit>
 
         <trans-unit id="HJFwmkE" resname="templates.pages.redirect_to_payment.type.monthly">
             <source>templates.pages.redirect_to_payment.type.monthly</source>
-            <target>Adhésion mensuel</target>
+            <target>Adhésion mensuelle</target>
         </trans-unit>
 
         <trans-unit id="Pwx2GJU" resname="templates.pages.redirect_to_payment.type.oneshot">
