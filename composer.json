@@ -41,7 +41,7 @@
         "nelmio/cors-bundle": "^2.2",
         "nesbot/carbon": "^2.66",
         "nyholm/psr7": "^1.0",
-        "odolbeau/phone-number-bundle": "^3.9",
+        "odolbeau/phone-number-bundle": "^4.2",
         "payum/offline": "^1.7",
         "payum/payum-bundle": "^2.5",
         "php-http/message": "^1.16",
