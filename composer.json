@@ -99,7 +99,7 @@
         "twig/twig": "^2.12|^3.0",
         "webbaard/payum-mollie": "^1.0",
         "webmozart/assert": "^1.11",
-        "willdurand/geocoder-bundle": "^5.18"
+        "willdurand/geocoder-bundle": "^6.0"
     },
     "config": {
         "allow-plugins": {
