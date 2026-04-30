@@ -16,8 +16,8 @@ use App\Repository\UserRepository;
 class GroupsProvider implements ProviderInterface
 {
     public function __construct(
-        readonly private GroupRepository $groupRepository,
-        readonly private UserRepository $userRepository,
+        private readonly GroupRepository $groupRepository,
+        private readonly UserRepository $userRepository,
     ) {
     }
 

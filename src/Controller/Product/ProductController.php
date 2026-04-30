@@ -103,8 +103,7 @@ final class ProductController extends AbstractController
             }
 
             return $this->render('pages/product/show.html.twig', compact('slug', 'id', 'product'));
-        } else {
-            throw new GoneHttpException();
         }
+        throw new GoneHttpException();
     }
 }

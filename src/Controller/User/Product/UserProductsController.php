@@ -94,8 +94,7 @@ final class UserProductsController extends AbstractController
 
         if ($this->configurationRepository->getServicesParameter()) {
             return $this->render('pages/account/product/list.html.twig', compact('pagination', 'form'));
-        } else {
-            throw new GoneHttpException('there is no services');
         }
+        throw new GoneHttpException('there is no services');
     }
 }

@@ -15,7 +15,7 @@ use App\Repository\GroupRepository;
 final class GroupGetStatsProvider implements ProviderInterface
 {
     public function __construct(
-        readonly private GroupRepository $groupRepository,
+        private readonly GroupRepository $groupRepository,
     ) {
     }
 
