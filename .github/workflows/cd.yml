@@ -5,10 +5,6 @@ on:
   push:
     branches:
       - main
-    tags: 
-      - '*'
-  pull_request:
-    types: [ opened, reopened, synchronize, labeled ]
   workflow_dispatch: ~
 
 permissions:
@@ -18,25 +14,11 @@ permissions:
   packages: write
 
 jobs:
-  # remove-deploy-label:
-  #   name: Remove deploy label
-  #   if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'deploy')
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: mondeja/remove-labels-gh-action@v1
-  #       with:
-  #         token: ${{ secrets.GITHUB_TOKEN }}
-  #         labels: |
-  #           deploy
-
   build:
-    # we run the CD only on pull requests from the same repo
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     name: Build
     uses: ./.github/workflows/build.yml
 
   deploy:
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     name: Deploy
     needs: [ build ]
     uses: ./.github/workflows/deploy.yml
