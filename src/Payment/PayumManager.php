@@ -80,16 +80,16 @@ final class PayumManager
                     'groupOfferId' => (string) $offer->getId(),
                 ],
             ];
-        } else {
-            return [
-                // method must be set as the default value is not retrieved from the gateway configuration
-                'method' => PaymentMethod::CREDITCARD->value,
-                'metadata' => [
-                    'platformId' => (string) $offer->getConfiguration()?->getId(),
-                    'platformOfferId' => (string) $offer->getId(),
-                ],
-            ];
         }
+
+        return [
+            // method must be set as the default value is not retrieved from the gateway configuration
+            'method' => PaymentMethod::CREDITCARD->value,
+            'metadata' => [
+                'platformId' => (string) $offer->getConfiguration()?->getId(),
+                'platformOfferId' => (string) $offer->getId(),
+            ],
+        ];
     }
 
     /**

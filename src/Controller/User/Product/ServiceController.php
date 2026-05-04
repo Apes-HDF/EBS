@@ -69,9 +69,8 @@ final class ServiceController extends AbstractController
             }
 
             return $this->render('pages/product/new_service.html.twig', compact('form', 'product'));
-        } else {
-            throw new GoneHttpException();
         }
+        throw new GoneHttpException();
     }
 
     #[Route([
@@ -96,8 +95,7 @@ final class ServiceController extends AbstractController
             }
 
             return $this->render('pages/product/edit_service.html.twig', compact('form', 'product'));
-        } else {
-            throw new GoneHttpException();
         }
+        throw new GoneHttpException();
     }
 }

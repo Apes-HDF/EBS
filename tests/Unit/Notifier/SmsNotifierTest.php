@@ -6,14 +6,14 @@ namespace App\Tests\Unit\Notifier;
 
 use App\Entity\User;
 use App\Notifier\SmsNotifier;
-use Monolog\Test\TestCase;
+use Monolog\Test\MonologTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\Notifier\Exception\TransportException;
 use Symfony\Component\Notifier\TexterInterface;
 
-final class SmsNotifierTest extends TestCase
+final class SmsNotifierTest extends MonologTestCase
 {
     public function testNotify(): void
     {

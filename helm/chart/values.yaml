@@ -85,7 +85,8 @@ postgresql:
   # ref: https://kubernetes.io/docs/user-guide/persistent-volumes
   pullPolicy: IfNotPresent
   image:
-    repository: bitnami/postgresql
+    registry: docker.io
+    repository: bitnamilegacy/postgresql
     tag: 14
   primary:
     persistence:

@@ -110,6 +110,9 @@
             "php-http/discovery": true
         },
         "optimize-autoloader": true,
+        "platform": {
+            "php": "8.2.0"
+        },
         "preferred-install": {
             "*": "dist"
         },

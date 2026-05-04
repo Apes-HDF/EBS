@@ -5,7 +5,7 @@
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=8.2
-ARG CADDY_VERSION=2.10.2
+ARG CADDY_VERSION=2.11.2
 
 # yarn build
 FROM node AS yarn_build
@@ -15,7 +15,7 @@ RUN mkdir -p /usr/app/vendor/symfony
 RUN curl -L https://github.com/symfony/ux-autocomplete/archive/v2.7.1.tar.gz -o ux-autocomplete.tar.gz
 RUN tar -xzvf ux-autocomplete.tar.gz --directory /usr/app/vendor/symfony
 RUN mv /usr/app/vendor/symfony/ux-autocomplete-2.7.1 /usr/app/vendor/symfony/ux-autocomplete
-COPY package.json yarn.lock .
+COPY package.json yarn.lock ./
 RUN yarn install
 COPY . .
 RUN yarn build
@@ -183,32 +183,19 @@ RUN set -eux; \
 RUN rm -f .env.local.php
 
 # Build Caddy with the Mercure and Vulcain modules
-FROM caddy:${CADDY_VERSION}-builder-alpine AS app_caddy_builder
-
-# Temporary fix for https://github.com/dunglas/mercure/issues/770
-# https://github.com/dunglas/symfony-docker/pull/407/files
-
-# FROM caddy:2.9.1-builder-alpine AS app_caddy_builder
-
-
-# RUN xcaddy build \
-#	--with github.com/dunglas/mercure \
-#	--with github.com/dunglas/mercure/caddy \
-#	--with github.com/dunglas/vulcain \
-#	--with github.com/dunglas/vulcain/caddy
-
-RUN xcaddy build \
-	--with github.com/dunglas/mercure/caddy \
-	--with github.com/dunglas/vulcain/caddy
-
 # Caddy image
 FROM caddy:${CADDY_VERSION} AS app_caddy
+
+ARG TARGETARCH
+
+WORKDIR /srv/app
+
+ADD --chmod=500 "https://caddyserver.com/api/download?os=linux&arch=$TARGETARCH&p=github.com/dunglas/mercure/caddy&p=github.com/dunglas/vulcain/caddy" /usr/bin/caddy
+
+COPY --from=app_php /srv/app/public public/
+COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
 
 # needed for security update until base image is updated
 #RUN apk upgrade libcurl curl openssl openssl-dev libressl libcrypto1.1 libssl1.1 libcrypto3 libssl3
 
 WORKDIR /srv/app
-
-COPY --from=app_caddy_builder /usr/bin/caddy /usr/bin/caddy
-COPY --from=app_php /srv/app/public public/
-COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
