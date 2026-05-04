@@ -12,6 +12,11 @@ updates:
     commit-message:
       prefix: "chore" # Prefix for commit messages
     open-pull-requests-limit: 10
+    cooldown:
+      default-days: 3
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 1
     groups:
       symfony:
         patterns:
@@ -25,12 +30,22 @@ updates:
     schedule:
         interval: "weekly"
     open-pull-requests-limit: 10
+    cooldown:
+      default-days: 3
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 1
 
 
   - package-ecosystem: "github-actions"
     directory: "/"
-    commit-message: 
+    commit-message:
         prefix: "chore"
     schedule:
         interval: "weekly"
     open-pull-requests-limit: 5
+    cooldown:
+      default-days: 3
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 1
