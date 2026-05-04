@@ -86,7 +86,7 @@ postgresql:
   pullPolicy: IfNotPresent
   image:
     registry: docker.io
-    repository: bitnamilegacy/postgresql
+    repository: postgres
     tag: 14
   primary:
     persistence:

@@ -43,7 +43,7 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 RUN chmod +x /usr/local/bin/install-php-extensions
 
 # persistent / runtime deps
-RUN apk add --no-cache \
+RUN apk update && apk upgrade && apk add --no-cache \
 		acl \
 		fcgi \
 		file \
