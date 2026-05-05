@@ -65,6 +65,10 @@ jobs:
         run: |
           export RELEASE_NAME=pr-$(jq --raw-output .pull_request.number $GITHUB_EVENT_PATH)
           echo "Uninstalling release $RELEASE_NAME in namespace ${{ needs.meta.outputs.namespace }}..."
+          if ! helm status $RELEASE_NAME --namespace ${{ needs.meta.outputs.namespace }} &>/dev/null ; then
+            echo "Release $RELEASE_NAME not found, nothing to uninstall."
+            exit 0
+          fi
           if ! helm uninstall $RELEASE_NAME --namespace ${{ needs.meta.outputs.namespace }} --wait ; then
             echo "HELM Uninstall has failed !"
             echo "Please ask the SRE team to manually clean remaining objects"
