@@ -23,6 +23,9 @@ on:
         required: true
       database-url:
         description: Database URL
+        required: false
+      pg-password:
+        description: PostgreSQL password for CNPG cluster
         required: true
       mailer-dsn:
         description: Mailer DSN
@@ -150,6 +153,7 @@ jobs:
             --set=ingress.tls[0].secretName=${{ needs.meta.outputs.release_name }}-tls \
             --set=ingress.tls[0].hosts[0]=${{ needs.meta.outputs.url }} \
             --set=payum.apikey="${{ secrets.payum-apikey }}" \
+            --set=cnpg.credentials.password="${{ secrets.pg-password }}" \
             --set=mailer.dsn="${{ secrets.mailer-dsn }}" \
             --set=sms.dsn="${{ secrets.sms-dsn }}" \
             --set=php.storage.bucket="${{ needs.meta.outputs.storage_name }}" \

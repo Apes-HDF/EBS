@@ -45,6 +45,6 @@ jobs:
       storage-secret-key: ${{ secrets.STORAGE_SECRET_KEY}}
       project-id: ${{ secrets.PROJECT_ID }}
       workload-identity-provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-      database-url: ${{ secrets.DATABASE_URL }}
+      pg-password: ${{ secrets.PG_PASSWORD }}
       mailer-dsn: ${{ secrets.MAILER_DSN }}
       sms-dsn: ${{ secrets.SMS_DSN }}
