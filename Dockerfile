@@ -196,6 +196,6 @@ COPY --from=app_php /srv/app/public public/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
 
 # needed for security update until base image is updated
-RUN apk upgrade --no-cache libcurl curl openssl openssl-dev libressl libcrypto1.1 libssl1.1 libcrypto3 libssl3 nghttp2-libs
+RUN apk upgrade --no-cache libcurl curl openssl openssl-dev libcrypto3 libssl3 nghttp2-libs
 
 WORKDIR /srv/app
