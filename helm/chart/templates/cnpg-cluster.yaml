@@ -24,6 +24,8 @@ spec:
       owner: {{ .Values.cnpg.owner | quote }}
       secret:
         name: {{ include "plateforme-ebs.cnpgClusterName" . }}-credentials
+      postInitApplicationSQL:
+        - ALTER ROLE {{ .Values.cnpg.owner }} CREATEDB;
   storage:
     size: {{ .Values.cnpg.storage.size | quote }}
     {{- if .Values.cnpg.storage.storageClass }}
