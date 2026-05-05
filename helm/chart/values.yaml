@@ -69,34 +69,30 @@ mercure:
   jwtSecret: "!ChangeThisMercureHubJWTSecretKey!"
   extraDirectives: cors_origins http://ghcr.io https://ghcr.io
 
-# Full configuration: https://github.com/bitnami/charts/tree/master/bitnami/postgresql
-postgresql:
+# CloudNativePG cluster configuration.
+# The CNPG operator must be pre-installed in the cluster.
+# See: https://cloudnative-pg.io/documentation/current/installation_upgrade/
+cnpg:
   enabled: true
-  # If bringing your own PostgreSQL, the full uri to use
-  # url: postgresql://plateforme-ebs:!ChangeMe!@database:5432/api?serverVersion=13&charset=utf8
-  global:
-    postgresql:
-      auth:
-        username: "example"
-        password: "!ChangeMe!"
-        database: "api"
-        postgresPassword: "!ChangeMe!"
-  # Persistent Volume Storage configuration.
-  # ref: https://kubernetes.io/docs/user-guide/persistent-volumes
-  pullPolicy: IfNotPresent
-  image:
-    registry: docker.io
-    repository: bitnamilegacy/postgresql
-    tag: 14
-  primary:
-    persistence:
-      enabled: true
-      storageClass: standard
-      size: 1Gi
-    resources:
-      requests:
-        memory: 50Mi
-        cpu: 1m
+  instances: 1
+  postgresql:
+    version: "16"
+  database: app
+  owner: app
+  credentials:
+    password: "!ChangeMe!"
+  storage:
+    size: 1Gi
+    storageClass: standard
+  resources:
+    requests:
+      memory: 50Mi
+      cpu: 1m
+
+# External PostgreSQL URL, used when cnpg.enabled is false.
+# url: postgresql://app:!ChangeMe!@database:5432/app?serverVersion=16&charset=utf8
+postgresql:
+  url: ""
 
 payum:
   # @see https://my.mollie.com/dashboard/org_XXXXXXXX/developers/api-keys

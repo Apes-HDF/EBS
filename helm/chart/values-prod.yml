@@ -27,8 +27,9 @@ redis:
     storageClass: "standard"
     size: "1Gi"
 
-postgresql:
-  url: change_me
+cnpg:
+  credentials:
+    password: change_me
 
 php:
   fixtureJob:
