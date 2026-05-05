@@ -66,7 +66,7 @@ jobs:
             RELEASE_NAME=prod
             TRUSTED_HOST=$(echo ${{ vars.DOMAIN }} | sed 's/\./\\\\\\\\./g')
             URL=${{ vars.DOMAIN }}
-            STORAGE_NAME=${{ vars.STORAGE_BUCKET }}
+            STORAGE_NAME=${{ vars.PROD_STORAGE_BUCKET }}
           else
             CONTEXT=nonprod
             ENVIRONMENT=nonprod
@@ -76,7 +76,7 @@ jobs:
                 STORAGE_NAME=${{ vars.STORAGE_BUCKET }}-pr
             else
                 RELEASE_NAME=${{ github.ref_name }}
-                STORAGE_NAME=${{ vars.STORAGE_BUCKET }}-main
+                STORAGE_NAME=${{ vars.NONPROD_STORAGE_BUCKET }}-main
             fi
             URL=${RELEASE_NAME}.${{ vars.NONPROD_DOMAIN }}
           fi
