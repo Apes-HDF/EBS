@@ -78,7 +78,7 @@ jobs:
                 RELEASE_NAME=${{ github.ref_name }}
                 STORAGE_NAME=${{ vars.STORAGE_BUCKET }}-main
             fi
-            URL=${RELEASE_NAME}.${{ vars.NONPROD_DOMAIN }}
+            URL=${RELEASE_NAME}.${{ vars.DOMAIN }}
           fi
           PHP_IMAGE_REPO=${{ vars.IMAGE_REPO }}/${{ vars.IMAGE_NAME_PHP }}
           CADDY_IMAGE_REPO=${{ vars.IMAGE_REPO }}/${{ vars.IMAGE_NAME_CADDY }}
