@@ -79,6 +79,7 @@ jobs:
                 STORAGE_NAME=${{ vars.NONPROD_STORAGE_BUCKET }}-main
             fi
             URL=${RELEASE_NAME}.${{ vars.NONPROD_DOMAIN }}
+            TRUSTED_HOST=$(echo ${URL} | sed 's/\./\\\\\\\\./g')
           fi
           PHP_IMAGE_REPO=${{ vars.IMAGE_REPO }}/${{ vars.IMAGE_NAME_PHP }}
           CADDY_IMAGE_REPO=${{ vars.IMAGE_REPO }}/${{ vars.IMAGE_NAME_CADDY }}
