@@ -58,7 +58,7 @@ jobs:
             PROJECT=${{ vars.PROJECT_NAME }}
             # Tags are deployed in prod
             CONTEXT=prod
-            ENVIRONMENT=prod
+            ENVIRONMENT=PROD
             IMAGE_TAG=${{ github.ref_name }}
             RELEASE_NAME=prod
             TRUSTED_HOST=$(echo ${{ vars.DOMAIN }} | sed 's/\./\\\\\\\\./g')
@@ -66,7 +66,7 @@ jobs:
             STORAGE_NAME=${{ vars.STORAGE_BUCKET }}
           else
             CONTEXT=nonprod
-            ENVIRONMENT=nonprod
+            ENVIRONMENT=NONPROD
             IMAGE_TAG=sha-${GITHUB_SHA::7}
             if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
                 RELEASE_NAME=pr-$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
