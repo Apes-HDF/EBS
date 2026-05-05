@@ -24,7 +24,7 @@ RUN yarn build
 FROM php:${PHP_VERSION}-fpm-alpine AS app_php
 
 # needed for security update until base image is updated
-#RUN apk upgrade libcurl curl openssl openssl-dev libressl libcrypto3 libssl3
+RUN apk upgrade --no-cache libcurl curl openssl openssl-dev libressl libcrypto3 libssl3 nghttp2-libs
 
 # Allow to use development versions of Symfony
 ARG STABILITY="stable"
