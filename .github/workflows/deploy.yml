@@ -57,8 +57,8 @@ jobs:
         id: meta
         run: |
           set -xo pipefail
+          PROJECT=${{ vars.PROJECT_NAME }}
           if [[ "${{ github.ref_name }}" == "main" ]]; then
-            PROJECT=${{ vars.PROJECT_NAME }}
             # Tags are deployed in prod
             CONTEXT=prod
             ENVIRONMENT=prod
