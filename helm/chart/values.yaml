@@ -80,7 +80,9 @@ cnpg:
   database: app
   owner: app
   credentials:
-    password: "!ChangeMe!"
+    # IMPORTANT: use only alphanumeric characters. Special characters (@, #, %, :)
+    # will break the DATABASE_URL parsing by PHP's parse_url().
+    password: "ChangeMe"
   storage:
     size: 1Gi
     storageClass: standard
