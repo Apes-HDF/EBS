@@ -1,0 +1,75 @@
+name: Cleanup
+
+on:
+  pull_request:
+    types: [ closed ]
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+  
+jobs:
+  meta:
+    name: Meta
+    runs-on: ubuntu-latest
+    outputs:
+      context: ${{ steps.meta.outputs.context }}
+      environment: ${{ steps.meta.outputs.environment }}
+      namespace: ${{ steps.meta.outputs.namespace }}
+
+    steps:
+    - name: Generate metadata
+      id: meta
+      run: |
+        set -xo pipefail
+        PROJECT=plateforme-ebs
+        CONTEXT=nonprod
+        ENVIRONMENT=nonprod
+
+        echo "context=${CONTEXT}" >> $GITHUB_OUTPUT
+        echo "environment=${ENVIRONMENT}" >> $GITHUB_OUTPUT
+        echo "namespace=${CONTEXT}-${PROJECT}" >> $GITHUB_OUTPUT
+
+
+  cleanup:
+    name: Cleanup
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ needs.meta.outputs.environment }}
+    needs: ["meta"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: GKE Auth
+        uses: 'google-github-actions/auth@v2'
+        with:
+          project_id: '${{ secrets.PROJECT_ID }}'
+          workload_identity_provider: '${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}'
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.PROJECT_ID }}
+
+      - name: Connect cluster
+        run: |
+          gcloud components install gke-gcloud-auth-plugin
+          gcloud auth login --cred-file=$CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE
+          gcloud container clusters get-credentials ${{ vars.CLUSTER_NAME }} --region europe-west1 --project ${{ secrets.PROJECT_ID }}
+          kubectl config view
+
+      - name: Uninstall helm release
+        id: uninstall_helm_release
+        run: |
+          export RELEASE_NAME=pr-$(jq --raw-output .pull_request.number $GITHUB_EVENT_PATH)
+          echo "Uninstalling release $RELEASE_NAME in namespace ${{ needs.meta.outputs.namespace }}..."
+          if ! helm uninstall $RELEASE_NAME --namespace ${{ needs.meta.outputs.namespace }} --wait ; then
+            echo "HELM Uninstall has failed !"
+            echo "Please ask the SRE team to manually clean remaining objects"
+            exit 1
+          fi
+          echo "HELM uninstall successfull"
+          echo "Cleaning remaining PVC..."
+          kubectl delete pvc -l app.kubernetes.io/instance=$RELEASE_NAME --namespace ${{ needs.meta.outputs.namespace }}

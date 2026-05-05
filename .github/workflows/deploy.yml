@@ -23,6 +23,9 @@ on:
         required: true
       database-url:
         description: Database URL
+        required: false
+      pg-password:
+        description: PostgreSQL password for CNPG cluster
         required: true
       mailer-dsn:
         description: Mailer DSN
@@ -55,15 +58,32 @@ jobs:
         run: |
           set -xo pipefail
           PROJECT=${{ vars.PROJECT_NAME }}
-          # Tags are deployed in prod
-          CONTEXT=prod
-          ENVIRONMENT=prod
+          if [[ "${{ github.ref_name }}" == "main" ]]; then
+            # Tags are deployed in prod
+            CONTEXT=prod
+            ENVIRONMENT=prod
+            IMAGE_TAG=${{ github.ref_name }}
+            RELEASE_NAME=prod
+            TRUSTED_HOST=$(echo ${{ vars.DOMAIN }} | sed 's/\./\\\\\\\\./g')
+            URL=${{ vars.DOMAIN }}
+            STORAGE_NAME=${{ vars.PROD_STORAGE_BUCKET }}
+          else
+            CONTEXT=nonprod
+            ENVIRONMENT=nonprod
+            IMAGE_TAG=sha-${GITHUB_SHA::7}
+            if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
+                RELEASE_NAME=pr-$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+                STORAGE_NAME=${{ vars.STORAGE_BUCKET }}-pr
+            else
+                RELEASE_NAME=${{ github.ref_name }}
+                STORAGE_NAME=${{ vars.NONPROD_STORAGE_BUCKET }}-main
+            fi
+            URL=${RELEASE_NAME}.${{ vars.NONPROD_DOMAIN }}
+            TRUSTED_HOST=$(echo ${URL} | sed 's/\./\\\\\\\\./g')
+          fi
           PHP_IMAGE_REPO=${{ vars.IMAGE_REPO }}/${{ vars.IMAGE_NAME_PHP }}
           CADDY_IMAGE_REPO=${{ vars.IMAGE_REPO }}/${{ vars.IMAGE_NAME_CADDY }}
-          IMAGE_TAG=sha-${GITHUB_SHA::7}
-          RELEASE_NAME=prod
-          TRUSTED_HOST=$(echo ${{ vars.DOMAIN }} | sed 's/\./\\\\\\\\./g')
-
+          echo "url=${URL}" >> $GITHUB_OUTPUT
           echo "trusted_host=${TRUSTED_HOST}" >> $GITHUB_OUTPUT
           echo "context=${CONTEXT}" >> $GITHUB_OUTPUT
           echo "environment=${ENVIRONMENT}" >> $GITHUB_OUTPUT
@@ -72,6 +92,7 @@ jobs:
           echo "caddy_image_repo=${CADDY_IMAGE_REPO}" >> $GITHUB_OUTPUT
           echo "release_name=${RELEASE_NAME}" >> $GITHUB_OUTPUT
           echo "namespace=${CONTEXT}-${PROJECT}" >> $GITHUB_OUTPUT
+          echo "storage_name=${STORAGE_NAME}" >> $GITHUB_OUTPUT
 
   deploy:
     name: Deploy
@@ -129,15 +150,14 @@ jobs:
             --set=php.image.tag=${{ needs.meta.outputs.image_tag }} \
             --set=caddy.image.repository=${{ needs.meta.outputs.caddy_image_repo }} \
             --set=caddy.image.tag=${{ needs.meta.outputs.image_tag }} \
-            --set=ingress.hosts[0].host=${{ vars.DOMAIN }} \
+            --set=ingress.hosts[0].host=${{ needs.meta.outputs.url }} \
             --set=ingress.tls[0].secretName=${{ needs.meta.outputs.release_name }}-tls \
-            --set=ingress.tls[0].hosts[0]=${{ vars.DOMAIN }} \
-            --set=postgresql.url="${{ secrets.database-url }}" \
-            --set=postgresql.enabled='${{ github.event_name == 'pull_request' }}' \
+            --set=ingress.tls[0].hosts[0]=${{ needs.meta.outputs.url }} \
             --set=payum.apikey="${{ secrets.payum-apikey }}" \
+            --set=cnpg.credentials.password="${{ secrets.pg-password }}" \
             --set=mailer.dsn="${{ secrets.mailer-dsn }}" \
             --set=sms.dsn="${{ secrets.sms-dsn }}" \
-            --set=php.storage.bucket="${{ vars.STORAGE_BUCKET }}" \
+            --set=php.storage.bucket="${{ needs.meta.outputs.storage_name }}" \
             --set=php.storage.endpoint="https://storage.googleapis.com" \
             --set=php.storage.region="eu-west-1" \
             --set=php.storage.usePathStyleEndpoint=true \
