@@ -10,6 +10,7 @@ ARG CADDY_VERSION=2.11.2
 # yarn build
 FROM node AS yarn_build
 WORKDIR /usr/app
+RUN corepack enable && corepack prepare yarn@1.22.22 --activate
 RUN apt-get update && apt-get install tar
 RUN mkdir -p /usr/app/vendor/symfony
 RUN curl -L https://github.com/symfony/ux-autocomplete/archive/v2.7.1.tar.gz -o ux-autocomplete.tar.gz
