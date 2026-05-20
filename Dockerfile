@@ -8,7 +8,7 @@ ARG PHP_VERSION=8.2
 ARG CADDY_VERSION=2.11.2
 
 # yarn build
-FROM node AS yarn_build
+FROM node:22 AS yarn_build
 WORKDIR /usr/app
 RUN corepack enable && corepack prepare yarn@1.22.22 --activate
 RUN apt-get update && apt-get install tar
