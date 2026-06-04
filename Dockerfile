@@ -5,7 +5,7 @@
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=8.2
-ARG CADDY_VERSION=2.11.2
+ARG CADDY_VERSION=2.11.4
 
 # yarn build
 FROM node:22 AS yarn_build
