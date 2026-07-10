@@ -116,7 +116,7 @@ jobs:
           workload_identity_provider: '${{ secrets.workload-identity-provider }}'
 
       - name: Setup gcloud
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v3
         with:
           project_id: ${{ secrets.project-id }}
 
