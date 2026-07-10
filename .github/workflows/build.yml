@@ -9,7 +9,7 @@ jobs:
     timeout-minutes: 15
     steps:
     - name: Build/Push
-      uses: coopTilleuls/action-docker-build-push@v10
+      uses: coopTilleuls/action-docker-build-push@v12
       with:
         IMAGE_NAME: ${{ vars.IMAGE_NAME_PHP }}
         BUILD_CONTEXT: .
@@ -24,7 +24,7 @@ jobs:
     timeout-minutes: 15
     steps:
     - name: Build/Push
-      uses: coopTilleuls/action-docker-build-push@v10
+      uses: coopTilleuls/action-docker-build-push@v12
       with:
         IMAGE_NAME: ${{ vars.IMAGE_NAME_CADDY }}
         BUILD_CONTEXT: .
