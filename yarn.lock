@@ -1072,17 +1072,17 @@
     error-stack-parser "^2.0.0"
     string-width "^4.2.3"
 
-"@orchidjs/sifter@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@orchidjs/sifter/-/sifter-1.0.3.tgz#43f42519472282eb632d0a1589184f044d64129b"
-  integrity sha512-zCZbwKegHytfsPm8Amcfh7v/4vHqTAaOu6xFswBYcn8nznBOuseu6COB2ON7ez0tFV0mKL0nRNnCiZZA+lU9/g==
+"@orchidjs/sifter@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@orchidjs/sifter/-/sifter-1.1.0.tgz#b36154ad0cda4898305d1ac44f318b41048a0438"
+  integrity sha512-mYwHCfr736cIWWdhhSZvDbf90AKt2xyrJspKFC3qyIJG1LtrJeJunYEqCGG4Aq2ijENbc4WkOjszcvNaIAS/pQ==
   dependencies:
-    "@orchidjs/unicode-variants" "^1.0.4"
+    "@orchidjs/unicode-variants" "^1.1.2"
 
-"@orchidjs/unicode-variants@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@orchidjs/unicode-variants/-/unicode-variants-1.0.4.tgz#6d2f812e3b19545bba2d81caffff1204de9a6a58"
-  integrity sha512-NvVBRnZNE+dugiXERFsET1JlKZfM5lJDEpSMilKW4bToYJ7pxf0Zne78xyXB2ny2c2aHfJ6WLnz1AaTNHAmQeQ==
+"@orchidjs/unicode-variants@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@orchidjs/unicode-variants/-/unicode-variants-1.1.2.tgz#1fd71791a67fdd1591ebe0dcaadd3964537a824e"
+  integrity sha512-5DobW1CHgnBROOEpFlEXytED5OosEWESFvg/VYmH0143oXcijYTprRYJTs+55HzGM4IqxiLFSuqEzu9mPNwVsA==
 
 "@popperjs/core@^2.11.8":
   version "2.11.8"
@@ -4544,13 +4544,13 @@ toidentifier@1.0.1:
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.1.tgz#3be34321a88a820ed1bd80dfaa33e479fbb8dd35"
   integrity sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==
 
-tom-select@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/tom-select/-/tom-select-2.2.2.tgz#8e5f9296e6d80254feccb57f0986bd6c44d126e2"
-  integrity sha512-igGah1yY6yhrnN2h/Ky8I5muw/nE/YQxIsEZoYu5qaA4bsRibvKto3s8QZZosKpOd0uO8fNYhRfAwgHB4IAYew==
+tom-select@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/tom-select/-/tom-select-2.6.2.tgz#07693442309eefa5b57c6beee6005195f3f956a4"
+  integrity sha512-eiXIkk82XzzUTOVQDFpy+ZGejuqdTvMukyUyeZBQaKnqW42UoTiTZnrod/eX0rkqJEc4rZY9DZ3zdjV07i29wQ==
   dependencies:
-    "@orchidjs/sifter" "^1.0.3"
-    "@orchidjs/unicode-variants" "^1.0.4"
+    "@orchidjs/sifter" "^1.1.0"
+    "@orchidjs/unicode-variants" "^1.1.2"
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"
