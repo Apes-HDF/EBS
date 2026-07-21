@@ -31,7 +31,7 @@
         "lint": "eslint assets/ --ext .js"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^6.2.1",
+        "@fortawesome/fontawesome-free": "^7.3.1",
         "flatpickr": "^4.6.13"
     }
 }
