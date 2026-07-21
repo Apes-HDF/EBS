@@ -8,3 +8,7 @@ CVE-2026-32280
 CVE-2026-32281
 CVE-2026-32283
 CVE-2026-33810
+# CVE-2026-39822 : vuln HIGH dans la stdlib Go du binaire caddy.
+# Fixée côté Go (1.26.5+), en attente d'une release caddy patchée.
+# À retirer dès qu'une image caddy à jour est dispo. (juillet 2026)
+CVE-2026-39822
