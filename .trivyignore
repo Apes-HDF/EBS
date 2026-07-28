@@ -16,3 +16,8 @@ CVE-2026-39822
 # Fixée dans grpc 1.82.1, mais dépend d'une release caddy recompilée (caddy déjà à sa dernière version 2.11.4).
 # À retirer dès qu'une image caddy patchée est dispo. (juillet 2026)
 GHSA-hrxh-6v49-42gf
+# GHSA-r277-6w6q-xmqw : vuln CRITICAL (auth bypass) dans kin-openapi, binaire caddy.
+# Fixée dans kin-openapi 0.144.0 mais aucune release caddy ne l'embarque (caddy déjà à sa dernière version 2.11.4).
+# Déjà présente en prod, ignorée pour ne pas bloquer les déploiements (juillet 2026).
+# ⚠️ CRITICAL auth bypass — à retirer EN PRIORITÉ dès qu'une image caddy patchée est dispo.
+GHSA-r277-6w6q-xmqw
