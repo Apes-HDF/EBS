@@ -21,3 +21,7 @@ GHSA-hrxh-6v49-42gf
 # Déjà présente en prod, ignorée pour ne pas bloquer les déploiements (juillet 2026).
 # ⚠️ CRITICAL auth bypass — à retirer EN PRIORITÉ dès qu'une image caddy patchée est dispo.
 GHSA-r277-6w6q-xmqw
+# CVE-2026-56852 : vuln HIGH dans golang.org/x/text du binaire caddy.
+# Fixée dans golang.org/x/text 0.39.0, mais dépend d'une release caddy recompilée.
+# À retirer quand le binaire caddy sera régénéré avec les libs Go à jour. (juillet 2026, validé Paul)
+CVE-2026-56852
