@@ -1,61 +1,66 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
-
+# Dependabot configuration, Symfony project.
+# See https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+#
+# Two settings are not decorative:
+#  - `applies-to: version-updates` on every group. Without it, security updates
+#    would be grouped and delayed instead of landing as individual, immediate
+#    pull requests — the opposite of the intended behavior.
+#  - `cooldown` only applies to version updates, it never delays security ones.
 version: 2
 updates:
-  - package-ecosystem: "composer" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: composer
+    directory: /
     schedule:
-      interval: "weekly"
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
     commit-message:
-      prefix: "chore" # Prefix for commit messages
-    open-pull-requests-limit: 10
+      prefix: "chore(deps)"
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
     groups:
       symfony:
-        patterns:
-          - "symfony/*"
-    ignore:
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-major"
+        applies-to: version-updates
+        patterns: ["symfony/*", "doctrine/*"]
+        update-types: ["minor", "patch"]
+      dev:
+        applies-to: version-updates
+        dependency-type: development
+        patterns: ["*"]
+      prod-minor-patch:
+        applies-to: version-updates
+        dependency-type: production
+        update-types: ["minor", "patch"]
 
-
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: npm
+    directory: /
+    schedule: { interval: weekly, day: monday }
+    open-pull-requests-limit: 3
     commit-message:
-        prefix: "chore" # Prefix for commit messages
-    schedule:
-        interval: "weekly"
-    open-pull-requests-limit: 10
-    ignore:
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-major"
+      prefix: "chore(deps)"
+    cooldown: { default-days: 7, semver-major-days: 30 }
+    groups:
+      npm-dev:
+        applies-to: version-updates
+        dependency-type: development
+        patterns: ["*"]
+      npm-prod:
+        applies-to: version-updates
+        dependency-type: production
+        update-types: ["minor", "patch"]
 
-
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    commit-message: 
-        prefix: "chore"
-    schedule:
-        interval: "weekly"
-    open-pull-requests-limit: 5
-    ignore:
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-major"
-
-
-  - package-ecosystem: "docker"
-    directory: "/"
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: monthly }
     commit-message:
-        prefix: "chore"
-    schedule:
-        interval: "weekly"
-    open-pull-requests-limit: 10
-    ignore:
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-major"
+      prefix: "chore(deps)"
+    groups:
+      actions: { patterns: ["*"] }
+
+  - package-ecosystem: docker
+    directory: /
+    schedule: { interval: weekly, day: monday }
+    commit-message:
+      prefix: "chore(deps)"
+    cooldown: { default-days: 7, semver-major-days: 30 }
