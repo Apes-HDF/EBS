@@ -13,7 +13,7 @@
         "eslint": "^8.33.0",
         "regenerator-runtime": "^0.14.1",
         "sass": "^1.56.1",
-        "sass-loader": "^13.0.0",
+        "sass-loader": "^17.0.0",
         "stimulus-carousel": "^5.0.1",
         "stimulus-password-visibility": "^2.0.0",
         "tom-select": "^2.6.2",
