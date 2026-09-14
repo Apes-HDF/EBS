@@ -130,7 +130,8 @@ meilisearch:
     requests:
       memory: 40Mi
   persistence:
-      storageClass: 'sbs-default'
+    enabled: true
+    storageClass: 'sbs-default'
 
 imagePullSecrets: []
 nameOverride: ""
