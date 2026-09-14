@@ -116,6 +116,8 @@ redis:
   readinessProbe:
     initialDelaySeconds: 0
   replicaCount: 1
+  persistence:
+    storageClass: 'sbs-default'
 
 # https://github.com/meilisearch/meilisearch-kubernetes/blob/main/charts/meilisearch/README.md
 meilisearch:
@@ -127,6 +129,8 @@ meilisearch:
   resources:
     requests:
       memory: 40Mi
+  persistence:
+      storageClass: 'sbs-default'
 
 imagePullSecrets: []
 nameOverride: ""
