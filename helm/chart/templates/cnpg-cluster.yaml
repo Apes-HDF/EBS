@@ -1,15 +1,4 @@
 {{- if .Values.cnpg.enabled }}
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ include "plateforme-ebs.cnpgClusterName" . }}-credentials
-  labels:
-    {{- include "plateforme-ebs.labels" . | nindent 4 }}
-type: kubernetes.io/basic-auth
-stringData:
-  username: {{ .Values.cnpg.owner | quote }}
-  password: {{ .Values.cnpg.credentials.password | quote }}
----
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:

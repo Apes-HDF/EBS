@@ -5,7 +5,6 @@ metadata:
   labels:
     {{- include "plateforme-ebs.labels" . | nindent 4 }}
 data:
-  payum-gateway: {{ .Values.payum.gateway | quote }}
   php-host: {{ .Values.php.host | quote }}
   php-app-env: {{ .Values.php.appEnv | quote }}
   php-app-debug: {{ .Values.php.appDebug | quote }}
@@ -21,8 +20,4 @@ data:
   {{- if .Values.redis.enabled }}
   redis-url: "redis://{{ printf "%s" (include "common.fullname" .Subcharts.redis) }}"
   {{- end }}
-  payum-gateway: {{ .Values.payum.gateway | quote }}
-  php-storage-bucket: {{ .Values.php.storage.bucket | quote }}
-  php-storage-endpoint: {{ .Values.php.storage.endpoint | quote }}
-  php-storage-region: {{ .Values.php.storage.region | quote }}
   php-storage-use-path-style-endpoint: {{ .Values.php.storage.usePathStyleEndpoint | quote }}

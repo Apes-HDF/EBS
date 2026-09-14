@@ -27,10 +27,6 @@ redis:
     storageClass: "standard"
     size: "1Gi"
 
-cnpg:
-  credentials:
-    password: change_me
-
 php:
   fixtureJob:
     enabled: false

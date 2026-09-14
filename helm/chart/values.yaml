@@ -27,12 +27,10 @@ php:
     publicKey: ""
     passphrase: ""
   storage:
-    bucket: ""
-    endpoint: ""
-    region: ""
+    # bucket/endpoint/region/key/secret come from the "bucket-credentials" Secret,
+    # provisioned by infra (Tofu) in the release namespace -- not by this chart, see
+    # templates/deployment.yaml.
     usePathStyleEndpoint: true
-    publicKey: ""
-    secret: ""
   fixtureCron:
     enabled: false
   fixtureJob:
@@ -44,12 +42,10 @@ dailyCronjobs:
 maildev:
   enabled: false
 
-mailer:
-  # is set automaticaly if maildev is enabled
-  dsn: change_me
-
-sms:
-  dsn: "null://null"
+# MAILER_DSN, SMS_DSN, PAYUM_APIKEY and PAYUM_GATEWAY come from the "external-secrets" Secret,
+# provisioned by infra (Tofu) from Scaleway Secret Manager in the release namespace -- not by
+# this chart, see templates/deployment.yaml. MAILER_DSN is the only exception: it's overridden
+# with the bundled maildev subchart's DSN when maildev.enabled is true (local dev).
 
 consumer:
   # We don't use async for now so consumer isn't needed
@@ -70,8 +66,11 @@ mercure:
   extraDirectives: cors_origins http://ghcr.io https://ghcr.io
 
 # CloudNativePG cluster configuration.
-# The CNPG operator must be pre-installed in the cluster.
+# The CNPG operator must be pre-installed in the cluster, along with the External Secrets
+# Operator (ESO): the owner role's password is generated once by ESO (templates/cnpg-app-secret.yaml)
+# and never committed to git.
 # See: https://cloudnative-pg.io/documentation/current/installation_upgrade/
+# and https://external-secrets.io/latest/introduction/getting-started/
 cnpg:
   enabled: true
   instances: 1
@@ -79,10 +78,6 @@ cnpg:
     version: "16"
   database: app
   owner: app
-  credentials:
-    # IMPORTANT: use only alphanumeric characters. Special characters (@, #, %, :)
-    # will break the DATABASE_URL parsing by PHP's parse_url().
-    password: "ChangeMe"
   storage:
     size: 1Gi
     storageClass: standard
@@ -95,12 +90,6 @@ cnpg:
 # url: postgresql://app:!ChangeMe!@database:5432/app?serverVersion=16&charset=utf8
 postgresql:
   url: ""
-
-payum:
-  # @see https://my.mollie.com/dashboard/org_XXXXXXXX/developers/api-keys
-  # even it's a fake key it must start with 'test_' or 'live_' and must be at least 30 characters long
-  gateway: "mollie"
-  apikey: "test_FRabcdefghijklmnopqrstuvwxyzab"
 
 external-dns:
   enabled: false

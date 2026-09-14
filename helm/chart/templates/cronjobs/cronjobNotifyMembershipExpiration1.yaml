@@ -77,13 +77,18 @@ spec:
                 - name: DATABASE_URL
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plateforme-ebs" . }}
+                      name: {{ include "plateforme-ebs.databaseSecretName" . }}
                       key: database-url
                 - name: MAILER_DSN
                   valueFrom:
                     secretKeyRef:
+                      {{- if .Values.maildev.enabled }}
                       name: {{ include "plateforme-ebs" . }}
                       key: mailer-dsn
+                      {{- else }}
+                      name: external-secrets
+                      key: MAILER_DSN
+                      {{- end }}
                 {{- if .Values.meilisearch.enabled }}
                 - name: MEILISEARCH_API_KEY
                   valueFrom:
@@ -114,23 +119,26 @@ spec:
                 - name: SMS_DSN
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plateforme-ebs" . }}
-                      key: sms-dsn
+                      name: external-secrets
+                      key: SMS_DSN
+                # bucket-credentials : provisionné côté infra (Tofu, opentofu-scaleway-infra-mut,
+                # app_bucket.tf), pas par ce chart -- convention de nommage fixe partagée par tous les
+                # sites ArgoCD avec create_bucket = true.
                 - name: STORAGE_BUCKET
                   valueFrom:
-                    configMapKeyRef:
-                      name: {{ include "plateforme-ebs" . }}
-                      key: php-storage-bucket
+                    secretKeyRef:
+                      name: bucket-credentials
+                      key: BUCKET_APP
                 - name: STORAGE_ENDPOINT
                   valueFrom:
-                    configMapKeyRef:
-                      name: {{ include "plateforme-ebs" . }}
-                      key: php-storage-endpoint
+                    secretKeyRef:
+                      name: bucket-credentials
+                      key: AWS_ENDPOINT_URL
                 - name: STORAGE_REGION
                   valueFrom:
-                    configMapKeyRef:
-                      name: {{ include "plateforme-ebs" . }}
-                      key: php-storage-region
+                    secretKeyRef:
+                      name: bucket-credentials
+                      key: AWS_DEFAULT_REGION
                 - name: STORAGE_USE_PATH_STYLE_ENDPOINT
                   valueFrom:
                     configMapKeyRef:
@@ -139,13 +147,13 @@ spec:
                 - name: STORAGE_KEY
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plateforme-ebs" . }}
-                      key: php-storage-key
+                      name: bucket-credentials
+                      key: AWS_ACCESS_KEY_ID
                 - name: STORAGE_SECRET
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plateforme-ebs" . }}
-                      key: php-storage-secret
+                      name: bucket-credentials
+                      key: AWS_SECRET_ACCESS_KEY
               lifecycle:
                 preStop:
                   exec:
