@@ -31,3 +31,52 @@ jobs:
         BUILD_TARGET: app_caddy
         REGISTRY_JSON_KEY: ${{ secrets.GITHUB_TOKEN }}
         IMAGE_REPOSITORY: ${{ vars.IMAGE_REPO }}
+
+  # Push miroir vers le registry Scaleway, en plus du push ghcr.io ci-dessus, le temps des tests de
+  # bascule vers le cluster Scaleway (cf ApplicationSet ArgoCD, opentofu-scaleway-infra-mut/
+  # 2_environments/3_k8s_objects/argocd_pr_sites.tf, qui lit les tags "sha-xxxxxxx" sur ce registry).
+  build-push-scaleway:
+    strategy:
+      matrix:
+        include:
+        - target: app_php
+          image_name: ${{ vars.IMAGE_NAME_PHP }}
+        - target: app_caddy
+          image_name: ${{ vars.IMAGE_NAME_CADDY }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v4
+
+    - name: Login to Scaleway Container Registry
+      uses: docker/login-action@v4
+      with:
+        registry: rg.fr-par.scw.cloud
+        username: ${{ secrets.SCW_USERNAME }}
+        password: ${{ secrets.SCW_SECRET_KEY }}
+
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v6
+      with:
+        images: rg.fr-par.scw.cloud/infra-mut-cr-scw/${{ matrix.image_name }}
+        tags: |
+          type=raw,value=prod-{{sha}},enable=${{ github.ref_type == 'tag' }}
+          type=raw,value=nonprod-{{sha}},enable=${{ github.event_name != 'pull_request' && github.ref_type != 'tag' }}
+          type=sha,enable=${{ github.event_name == 'pull_request' }}
+
+    - name: Build/Push
+      uses: docker/build-push-action@v7
+      with:
+        context: .
+        target: ${{ matrix.target }}
+        tags: ${{ steps.meta.outputs.tags }}
+        push: true
+        cache-from: |
+          type=gha,scope=${{ github.ref }}-${{ matrix.target }}
+          type=gha,scope=refs/heads/main-${{ matrix.target }}
+        cache-to: |
+          type=gha,scope=${{ github.ref }}-${{ matrix.target }},mode=max
