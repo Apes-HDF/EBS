@@ -1,0 +1,79 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-app
+  labels:
+    {{- include "plateforme-ebs.labels" . | nindent 4 }}
+spec:
+  # Matches the Deployment (caddy/php/consumer containers) and the CronJobs, both use
+  # plateforme-ebs.selectorLabels. The fixtures Job has its own selector labels
+  # (plateforme-ebs.selectorLabelsFixtures) and isn't covered here.
+  podSelector:
+    matchLabels:
+      {{- include "plateforme-ebs.selectorLabels" . | nindent 6 }}
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # HTTP traffic from the shared Traefik Gateway (httproute.yaml).
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              service: ingress
+      ports:
+        - protocol: TCP
+          port: 80
+  egress:
+    # DNS resolution
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # This release's CNPG database
+    - to:
+        - podSelector:
+            matchLabels:
+              cnpg.io/cluster: {{ include "plateforme-ebs.cnpgClusterName" . }}
+      ports:
+        - protocol: TCP
+          port: 5432
+    {{- if .Values.redis.enabled }}
+    # This release's Redis (cache)
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: redis
+              app.kubernetes.io/instance: {{ .Release.Name }}
+      ports:
+        - protocol: TCP
+          port: 6379
+    {{- end }}
+    {{- if .Values.meilisearch.enabled }}
+    # This release's Meilisearch (search engine)
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: meilisearch
+              app.kubernetes.io/instance: {{ .Release.Name }}
+      ports:
+        - protocol: TCP
+          port: 7700
+    {{- end }}
+    # Mailer (MAILER_DSN), object storage (bucket-credentials), Payum, SMS -- no stable in-cluster
+    # CIDR to scope these to more tightly.
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+      ports:
+        - protocol: TCP
+          port: 443
+        - protocol: TCP
+          port: 465

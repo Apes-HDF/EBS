@@ -1,30 +1,20 @@
 imagePullSecrets:
   - name: regcred
 
-ingress:
-  className: nginx
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-production
-  hosts:
-    - host: toset
-      paths:
-        - path: /
-          pathType: Prefix
-  tls:
-    - secretName: toset
-      hosts:
-        - toset
+route:
+  enabled: true
+  host: plateforme-ebs.lt-mut-prod-scw.les-tilleuls.solutions
 
 meilisearch:
   persistence:
     enabled: true
-    storageClass: "standard"
+    storageClass: "sbs-default"
     size: "1Gi"
 
 redis:
   persistence:
     enabled: true
-    storageClass: "standard"
+    storageClass: "sbs-default"
     size: "1Gi"
 
 php:

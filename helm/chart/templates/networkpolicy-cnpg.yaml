@@ -1,0 +1,95 @@
+{{- if .Values.cnpg.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "plateforme-ebs.cnpgClusterName" . }}
+  labels:
+    {{- include "plateforme-ebs.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      cnpg.io/cluster: {{ include "plateforme-ebs.cnpgClusterName" . }}
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              {{- include "plateforme-ebs.selectorLabels" . | nindent 14 }}
+      ports:
+        - protocol: TCP
+          port: 5432
+    # Instances streaming-replicating to each other (only matters once instances > 1).
+    - from:
+        - podSelector:
+            matchLabels:
+              cnpg.io/cluster: {{ include "plateforme-ebs.cnpgClusterName" . }}
+      ports:
+        - protocol: TCP
+          port: 5432
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: cnpg-operator
+      ports:
+        - protocol: TCP
+          port: 8000
+    # postgres-exporter, scraped by Prometheus (kube-prometheus-stack PodMonitor)
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: infra-prometheus
+      ports:
+        - protocol: TCP
+          port: 9187
+  egress:
+    # Same namespace: instances streaming-replicating to each other (only matters once
+    # instances > 1).
+    - to:
+        - podSelector:
+            matchLabels:
+              cnpg.io/cluster: {{ include "plateforme-ebs.cnpgClusterName" . }}
+      ports:
+        - protocol: TCP
+          port: 5432
+    # DNS resolution
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # Object storage (barman-cloud backups/WAL archiving), no stable in-cluster CIDR to scope
+    # this to more tightly.
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+      ports:
+        - protocol: TCP
+          port: 443
+---
+# Cilium doesn't reliably match kube-apiserver traffic (instance manager reporting cluster
+# status) against a plain NetworkPolicy ipBlock rule -- it needs the "kube-apiserver" entity,
+# only expressible through Cilium's own CRD (cf. rustinelibre-helm-chart's cnpg-*-kube-apiserver
+# policy).
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: {{ include "plateforme-ebs.cnpgClusterName" . }}-kube-apiserver
+  labels:
+    {{- include "plateforme-ebs.labels" . | nindent 4 }}
+spec:
+  endpointSelector:
+    matchLabels:
+      cnpg.io/cluster: {{ include "plateforme-ebs.cnpgClusterName" . }}
+  egress:
+    - toEntities:
+        - kube-apiserver
+{{- end }}
