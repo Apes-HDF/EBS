@@ -55,14 +55,14 @@ jobs:
       uses: docker/login-action@v4
       with:
         registry: rg.fr-par.scw.cloud
-        username: ${{ secrets.SCW_USERNAME }}
-        password: ${{ secrets.SCW_SECRET_KEY }}
+        username: ${{ secrets.REGISTRY_USER }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
 
     - name: Docker meta
       id: meta
       uses: docker/metadata-action@v6
       with:
-        images: rg.fr-par.scw.cloud/infra-mut-cr-scw/${{ matrix.image_name }}
+        images: ${{vars.REGISTRY_NAME}}/${{ matrix.image_name }}
         tags: |
           type=raw,value=prod-{{sha}},enable=${{ github.ref_type == 'tag' }}
           type=raw,value=nonprod-{{sha}},enable=${{ github.event_name != 'pull_request' && github.ref_type != 'tag' }}
