@@ -175,26 +175,6 @@ spec:
                 secretKeyRef:
                   name: bucket-credentials
                   key: AWS_SECRET_ACCESS_KEY
-          lifecycle:
-            preStop:
-              exec:
-                command: ["/bin/sh", "-c", "/bin/sleep 1; kill -QUIT 1"]
-          startupProbe:
-            exec:
-              command:
-                - docker-healthcheck
-            failureThreshold: 40
-            periodSeconds: 3
-          readinessProbe:
-            exec:
-              command:
-                - docker-healthcheck
-            periodSeconds: 3
-          livenessProbe:
-            exec:
-              command:
-                - docker-healthcheck
-            periodSeconds: 3
           resources:
             {{- toYaml .Values.resources.fixtures | nindent 12 }}
       {{- with .Values.nodeSelector }}
