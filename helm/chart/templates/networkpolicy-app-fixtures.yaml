@@ -1,29 +1,19 @@
+{{- if .Values.php.fixtureJob.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-app
+  name: allow-app-fixtures
   labels:
     {{- include "plateforme-ebs.labels" . | nindent 4 }}
 spec:
-  # Matches the Deployment (caddy/php/consumer containers) and the CronJobs, both use
-  # plateforme-ebs.selectorLabels. The fixtures Job has its own selector labels
-  # (plateforme-ebs.selectorLabelsFixtures) and isn't covered here -- see
-  # networkpolicy-app-fixtures.yaml for its egress rules.
+  # The fixtures Job has its own selector labels (plateforme-ebs.selectorLabelsFixtures, not
+  # plateforme-ebs.selectorLabels) so it isn't picked up as a Service endpoint. It needs its own
+  # egress rules, mirroring allow-app, since it isn't covered by that policy's podSelector.
   podSelector:
     matchLabels:
-      {{- include "plateforme-ebs.selectorLabels" . | nindent 6 }}
+      {{- include "plateforme-ebs.selectorLabelsFixtures" . | nindent 6 }}
   policyTypes:
-    - Ingress
     - Egress
-  ingress:
-    # HTTP traffic from the shared Traefik Gateway (httproute.yaml).
-    - from:
-        - namespaceSelector:
-            matchLabels:
-              service: ingress
-      ports:
-        - protocol: TCP
-          port: 80
   egress:
     # DNS resolution
     - to:
@@ -38,7 +28,7 @@ spec:
           port: 53
         - protocol: TCP
           port: 53
-    # This release's CNPG database
+    # This release's CNPG database (doctrine:database:drop/create/migrate)
     - to:
         - podSelector:
             matchLabels:
@@ -47,7 +37,7 @@ spec:
         - protocol: TCP
           port: 5432
     {{- if .Values.redis.enabled }}
-    # This release's Redis (cache)
+    # This release's Redis (messenger:setup-transports)
     - to:
         - podSelector:
             matchLabels:
@@ -58,7 +48,7 @@ spec:
           port: 6379
     {{- end }}
     {{- if .Values.meilisearch.enabled }}
-    # This release's Meilisearch (search engine)
+    # This release's Meilisearch (app:index-products)
     - to:
         - podSelector:
             matchLabels:
@@ -78,3 +68,4 @@ spec:
           port: 443
         - protocol: TCP
           port: 465
+{{- end }}

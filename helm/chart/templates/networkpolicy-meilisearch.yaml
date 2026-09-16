@@ -19,6 +19,11 @@ spec:
         - podSelector:
             matchLabels:
               {{- include "plateforme-ebs.selectorLabels" . | nindent 14 }}
+        {{- if .Values.php.fixtureJob.enabled }}
+        - podSelector:
+            matchLabels:
+              {{- include "plateforme-ebs.selectorLabelsFixtures" . | nindent 14 }}
+        {{- end }}
       ports:
         - protocol: TCP
           port: 7700
