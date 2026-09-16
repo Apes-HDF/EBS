@@ -132,6 +132,12 @@ meilisearch:
   persistence:
     enabled: true
     storageClass: 'sbs-default'
+  auth:
+    # Secret généré une fois via ESO (cf templates/meilisearch-master-key-secret.yaml) plutôt que le
+    # `lookup` par défaut du sous-chart, qui ne fonctionne pas sous ArgoCD (rendu en `helm template`
+    # pur, sans accès au cluster) : cette valeur passe par `tpl` côté sous-chart (secretMasterKeyName),
+    # d'où la syntaxe gotpl ici plutôt qu'un nom en dur.
+    existingMasterKeySecret: '{{ include "meilisearch.fullname" . }}-master-key'
 
 imagePullSecrets: []
 nameOverride: ""
