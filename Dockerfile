@@ -191,7 +191,7 @@ ARG TARGETARCH
 
 WORKDIR /srv/app
 
-ADD --chmod=500 "https://caddyserver.com/api/download?os=linux&arch=$TARGETARCH&p=github.com/dunglas/mercure/caddy&p=github.com/dunglas/vulcain/caddy" /usr/bin/caddy
+ADD --chmod=500 "https://caddyserver.com/api/download?os=linux&arch=$TARGETARCH&p=github.com/dunglas/mercure/caddy@v0.18.4&p=github.com/dunglas/vulcain/caddy" /usr/bin/caddy
 
 COPY --from=app_php /srv/app/public public/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
