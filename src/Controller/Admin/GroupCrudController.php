@@ -50,6 +50,8 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
+ * @extends AbstractCrudController<Group>
+ *
  * @see GroupCrudControllerTest
  * @see GroupCrudControllerAsGroupAdminTest
  */
@@ -96,7 +98,7 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
     {
         $exportAction = Action::new('export')
             ->linkToUrl(function () {
-                /** @var AdminContext $context */
+                /** @var AdminContext<Group> $context */
                 $context = $this->getContext();
 
                 return $this->adminUrlGenerator->setAll($context->getRequest()->query->all())
@@ -182,8 +184,12 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
         ;
     }
 
+    /**
+     * @param AdminContext<Group> $context
+     */
     public function redirectToOffersList(AdminContext $context): Response
     {
+        /** @var Group $group */
         $group = $context->getEntity()->getInstance();
         $this->adminUrlGenerator
                ->unsetAll()
@@ -359,10 +365,12 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
 
     /**
      * For now we export exactly what we see in the list to avoid security problems.
+     *
+     * @param AdminContext<Group> $context
      */
     public function export(AdminContext $context): Response
     {
-        $fields = FieldCollection::new($this->configureFields(Crud::PAGE_INDEX));
+        $fields = new FieldCollection($this->configureFields(Crud::PAGE_INDEX));
         /** @var CrudDto $crud Crud is defined here */
         $crud = $context->getCrud();
 

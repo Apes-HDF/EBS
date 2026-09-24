@@ -63,6 +63,9 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @extends AbstractCrudController<User>
+ */
 abstract class AbstractUserCrudController extends AbstractCrudController implements AdminSecuredCrudControllerInterface
 {
     use FieldTrait;
@@ -152,7 +155,7 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
 
         $exportAction = Action::new('export')
             ->linkToUrl(function () {
-                /** @var AdminContext $context */
+                /** @var AdminContext<User> $context */
                 $context = $this->getContext();
 
                 return $this->adminUrlGenerator->setAll($context->getRequest()->query->all())
@@ -168,7 +171,7 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
 
         $viewPayments = Action::new('payments')
             ->linkToUrl(function () {
-                /** @var AdminContext $context */
+                /** @var AdminContext<User> $context */
                 $context = $this->getContext();
                 /** @var User $user */
                 $user = $context->getEntity()->getInstance();
@@ -193,6 +196,8 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
 
     /**
      * Impersonate action so we can do some more processing before changing user.
+     *
+     * @param AdminContext<User> $context
      */
     public function connectAs(AdminContext $context): Response
     {
@@ -215,6 +220,8 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
     }
 
     /**
+     * @param AdminContext<User> $context
+     *
      * @throws TransportExceptionInterface
      */
     public function promoteToAdmin(AdminContext $context): Response
@@ -270,6 +277,8 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
 
     /**
      * Only display a given user type.
+     *
+     * @param EntityDto<User> $entityDto
      */
     public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
     {
@@ -407,10 +416,12 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
 
     /**
      * For now, we export exactly what we see in the list to avoid security problems.
+     *
+     * @param AdminContext<User> $context
      */
     public function export(AdminContext $context): Response
     {
-        $fields = FieldCollection::new($this->configureFields(Crud::PAGE_INDEX));
+        $fields = new FieldCollection($this->configureFields(Crud::PAGE_INDEX));
         /** @var CrudDto $crud Crud is defined here */
         $crud = $context->getCrud();
         $filters = $this->filterFactory->create($crud->getFiltersConfig(), $fields, $context->getEntity());

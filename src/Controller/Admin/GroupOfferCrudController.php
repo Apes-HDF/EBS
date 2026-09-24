@@ -38,6 +38,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 
 /**
+ * @extends AbstractCrudController<GroupOffer>
+ *
  * @see GroupOfferCrudControllerTest
  * @see GroupOfferCrudControllerAsGroupAdminTest
  */

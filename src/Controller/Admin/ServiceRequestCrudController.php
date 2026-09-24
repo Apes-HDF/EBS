@@ -26,6 +26,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @extends AbstractCrudController<ServiceRequest>
+ */
 final class ServiceRequestCrudController extends AbstractCrudController implements AdminSecuredCrudControllerInterface
 {
     use FieldTrait;

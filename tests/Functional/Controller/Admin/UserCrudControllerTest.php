@@ -52,7 +52,7 @@ final class UserCrudControllerTest extends WebTestCase
         $client->submit($form, [
             $form->getName().'[phone]' => 'foobar',
         ]);
-        self::assertResponseIsSuccessful();
+        self::assertResponseStatusCodeSame(422);
         self::assertSelectorTextContains('div', 'app.controller.admin.abstract_user_crud_controller.field.phone.help');
     }
 

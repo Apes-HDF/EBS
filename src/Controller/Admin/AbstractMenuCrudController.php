@@ -24,6 +24,9 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 use function Symfony\Component\Translation\t;
 
+/**
+ * @extends AbstractCrudController<Menu>
+ */
 abstract class AbstractMenuCrudController extends AbstractCrudController implements AdminSecuredCrudControllerInterface
 {
     use FieldTrait;
