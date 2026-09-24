@@ -25,7 +25,7 @@ final class CmsController extends AbstractController
     /**
      * This is a route without i18n routes enabled.
      */
-    #[Route(path: ['/{_locale}/{slug}'], name: 'page', priority: -1)]
+    #[Route(path: '/{_locale}/{slug}', name: 'page', priority: -1)]
     public function page(string $slug): Response
     {
         $page = $this->pageRepository->findOneBySlug($slug);
