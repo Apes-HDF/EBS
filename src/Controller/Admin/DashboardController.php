@@ -5,11 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\User\MyAccountAction;
-use App\Entity\Group;
-use App\Entity\Page;
-use App\Entity\ServiceRequest;
 use App\Entity\User;
-use App\Entity\UserGroup;
 use App\Enum\User\UserType;
 use App\Repository\GroupRepository;
 use App\Repository\ServiceRequestRepository;
@@ -159,7 +155,7 @@ final class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToUrl('menu.config_menu', 'fa-solid fa-bars', $menuConfigUrl)->setPermission(User::ROLE_ADMIN);
         yield MenuItem::linkToUrl('menu.config_footer', 'fas fa-ellipsis-h', $footerConfigUrl)->setPermission(User::ROLE_ADMIN);
 
-        yield MenuItem::linkToCrud('menu.pages', 'fas fa-hat-wizard', Page::class)->setPermission(User::ROLE_ADMIN);
+        yield MenuItem::linkTo(PageCrudController::class, 'menu.pages', 'fas fa-hat-wizard')->setPermission(User::ROLE_ADMIN);
 
         yield MenuItem::subMenu('menu.categories', 'fa-solid fa-folder')->setSubItems([
             MenuItem::linkToUrl('menu.objects', 'fa-solid fa-box', $categoryObjectUrl)->setPermission(User::ROLE_ADMIN),
@@ -186,8 +182,8 @@ final class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToUrl('menu.places', 'fas fa-location-dot', $url->generateUrl())->setPermission(User::ROLE_ADMIN);
 
         yield MenuItem::subMenu('menu.groups', 'fas fa-users')->setSubItems([
-            MenuItem::linkToCrud('menu.groups', 'fas fa-users', Group::class)->setPermission(User::ROLE_GROUP_ADMIN),
-            MenuItem::linkToCrud('menu.members', 'fas fa-user-friends', UserGroup::class)->setPermission(User::ROLE_GROUP_ADMIN),
+            MenuItem::linkTo(GroupCrudController::class, 'menu.groups', 'fas fa-users')->setPermission(User::ROLE_GROUP_ADMIN),
+            MenuItem::linkTo(UserGroupCrudController::class, 'menu.members', 'fas fa-user-friends')->setPermission(User::ROLE_GROUP_ADMIN),
         ])->setPermission(User::ROLE_GROUP_ADMIN);
 
         $objectUrl = $this->adminUrlGenerator
@@ -211,7 +207,7 @@ final class DashboardController extends AbstractDashboardController
             MenuItem::linkToUrl('menu.services', 'fa-regular fa-handshake', $serviceUrl)->setPermission(User::ROLE_ADMIN),
         ])->setPermission(User::ROLE_ADMIN);
 
-        yield MenuItem::linkToCrud('menu.loans', 'fas fa-link', ServiceRequest::class)->setPermission(User::ROLE_ADMIN);
+        yield MenuItem::linkTo(ServiceRequestCrudController::class, 'menu.loans', 'fas fa-link')->setPermission(User::ROLE_ADMIN);
 
         // —————————————————————————————————————————————————————————————————————
         yield MenuItem::section('menu.public');

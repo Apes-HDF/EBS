@@ -42,7 +42,7 @@ final class ObjectCrudControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL.'&entityId=%s', 'detail', ObjectCrudController::class, TestReference::OBJECT_LOIC_1));
         $link = $crawler->selectLink('action.availability')->link();
-        self::assertSame('http://localhost/admin?crudAction=linkToProductAvailabilityPage&crudControllerFqcn=App%5CController%5CAdmin%5CObjectCrudController&entityId='.TestReference::OBJECT_LOIC_1.'&referrer=?crudAction%3Ddetail%26crudControllerFqcn%3DApp%255CController%255CAdmin%255CObjectCrudController%26entityId%3D'.TestReference::OBJECT_LOIC_1, $client->click($link)->getUri());
+        self::assertSame('http://localhost/admin?crudAction=linkToProductAvailabilityPage&crudControllerFqcn=App%5CController%5CAdmin%5CObjectCrudController&entityId='.TestReference::OBJECT_LOIC_1, $client->click($link)->getUri());
     }
 
     /**

@@ -22,6 +22,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 /**
+ * @extends AbstractCrudController<Payment>
+ *
  * @see PaymentCrudControllerTest
  */
 final class PaymentCrudController extends AbstractCrudController implements AdminSecuredCrudControllerInterface

@@ -48,6 +48,8 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
+ * @extends AbstractCrudController<UserGroup>
+ *
  * @see UserGroupCrudControllerTest
  * @see UserGroupCrudControllerAsGroupAdminTest
  */
@@ -226,11 +228,15 @@ final class UserGroupCrudController extends AbstractCrudController implements Gr
         ];
     }
 
+    /**
+     * @param EntityDto<UserGroup>    $entityDto
+     * @param AdminContext<UserGroup> $context
+     */
     public function createEditForm(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormInterface
     {
-        /** @var UserGroup $previousUserGroup */
-        $previousUserGroup = clone $entityDto->getInstance();
-        $this->previousUserGroup = $previousUserGroup;
+        /** @var UserGroup $userGroup */
+        $userGroup = $entityDto->getInstance();
+        $this->previousUserGroup = clone $userGroup;
 
         return parent::createEditForm($entityDto, $formOptions, $context);
     }

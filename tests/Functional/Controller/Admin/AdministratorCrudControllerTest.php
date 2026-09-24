@@ -81,9 +81,9 @@ final class AdministratorCrudControllerTest extends WebTestCase
             $form->getName().'[plainPassword][second]' => 'a',
             $form->getName().'[enabled]' => true,
         ]);
-        self::assertResponseIsSuccessful(); // no 422 with EA
+        self::assertResponseStatusCodeSame(422);
         self::assertSelectorTextContains('div.field-email', 'This value is not a valid email address');
-        self::assertSelectorTextContains('div', 'This value is too short'); // EA bug: the div class is not correct
+        self::assertSelectorTextContains('div', 'This value is too short');
     }
 
     /**

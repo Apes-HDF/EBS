@@ -38,6 +38,9 @@ use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @extends AbstractCrudController<Category>
+ */
 abstract class AbstractCategoryCrudController extends AbstractCrudController implements AdminSecuredCrudControllerInterface
 {
     use FieldTrait;
@@ -248,6 +251,9 @@ abstract class AbstractCategoryCrudController extends AbstractCrudController imp
         ];
     }
 
+    /**
+     * @param AdminContext<Category> $context
+     */
     public function moveUp(AdminContext $context): Response
     {
         /** @var Category $item */
@@ -257,6 +263,9 @@ abstract class AbstractCategoryCrudController extends AbstractCrudController imp
         return $this->redirectToObjectCrudPage();
     }
 
+    /**
+     * @param AdminContext<Category> $context
+     */
     public function moveDown(AdminContext $context): Response
     {
         /** @var Category $item */

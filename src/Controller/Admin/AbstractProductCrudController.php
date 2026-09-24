@@ -54,6 +54,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @extends AbstractCrudController<Product>
+ */
 abstract class AbstractProductCrudController extends AbstractCrudController implements AdminSecuredCrudControllerInterface
 {
     use FieldTrait;
@@ -131,7 +134,7 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
 
         $exportAction = Action::new('export')
             ->linkToUrl(function () {
-                /** @var AdminContext $context */
+                /** @var AdminContext<Product> $context */
                 $context = $this->getContext();
 
                 return $this->adminUrlGenerator->setAll($context->getRequest()->query->all())
@@ -156,7 +159,7 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
 
     private function redirectToObjectCrudPage(): RedirectResponse
     {
-        $this->adminUrlGenerator->setController(ObjectCrudController::class)->setAction('index')->removeReferrer()->setEntityId(null);
+        $this->adminUrlGenerator->setController(ObjectCrudController::class)->setAction('index')->setEntityId(null);
 
         return $this->redirect($this->adminUrlGenerator->generateUrl());
     }
@@ -166,6 +169,9 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
         return $this->render('/admin/product/availability_product.html.twig');
     }
 
+    /**
+     * @param AdminContext<Product> $context
+     */
     public function changeStatus(AdminContext $context): Response
     {
         /** @var Product $product */
@@ -182,10 +188,12 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
 
     /**
      * For now, we export exactly what we see in the list to avoid security problems.
+     *
+     * @param AdminContext<Product> $context
      */
     public function export(AdminContext $context): Response
     {
-        $fields = FieldCollection::new($this->configureFields(Crud::PAGE_INDEX));
+        $fields = new FieldCollection($this->configureFields(Crud::PAGE_INDEX));
         /** @var CrudDto $crud Crud is defined here */
         $crud = $context->getCrud();
         $filters = $this->filterFactory->create($crud->getFiltersConfig(), $fields, $context->getEntity());
@@ -213,6 +221,9 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
 
     /**
      * Only display a given product type.
+     */
+    /**
+     * @param EntityDto<Product> $entityDto
      */
     public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
     {
