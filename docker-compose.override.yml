@@ -37,7 +37,7 @@ services:
       retries: 5
 
   storage:
-    image: quay.io/minio/minio
+    image: pgsty/silo
     ports:
       - "9001:9000"
       - "9090:9090"
@@ -51,7 +51,7 @@ services:
     command: server /data --console-address ":9090"
     # see https://github.com/minio/minio/issues/18389/
     healthcheck:
-      test: ["CMD", "mc", "ready", "local"]
+      test: ["CMD", "mcli", "ready", "local"]
       interval: 5s
       timeout: 5s
       retries: 5

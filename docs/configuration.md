@@ -124,7 +124,10 @@ For tests, a memory storage is used.
 In the production environment a S3 compatible bucket is used.
 It has been tested with a [min.io](https://min.io/) service, there is a docker setup
 available in the docker compose files.
-Here are the default settings when using the min.io container:
+As MinIO no longer publishes Docker images, the `storage` service uses
+[Silo](https://github.com/pgsty/silo) (`pgsty/silo`), a community-maintained,
+drop-in fork of MinIO.
+Here are the default settings when using the storage container:
 
     STORAGE_BUCKET=images
     STORAGE_ENDPOINT=http://storage:9000
@@ -135,7 +138,7 @@ Here are the default settings when using the min.io container:
 
 If you want to use a managed service, change the values of these parameters to
 match those of your provider.
-Note that when using the min.io with the dev environment is just to test the S3
+Note that when using the storage container with the dev environment is just to test the S3
 configuration. 
 There is config example in the [config/packages/flysystem.yaml](../config/packages/flysystem.yaml)
 
