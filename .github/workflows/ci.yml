@@ -52,7 +52,7 @@ jobs:
               run: docker compose exec -T php ./vendor/bin/phpstan analyse --memory-limit=-1 --error-format=github
             - name: Twig Linter
               run: docker compose exec -T php ./vendor/bin/twigcs templates/ --exclude vendor
-            - name: Install eslint
-              run: docker run --rm -w "/usr/app" -v "${PWD}":/usr/app gmolaire/yarn yarn add eslint@8.57.0
+            - name: Install JS dependencies
+              run: docker run --rm -w "/usr/app" -v "${PWD}":/usr/app gmolaire/yarn yarn install --frozen-lockfile --ignore-engines
             - name: Run eslint on javascript files
               run: docker run --rm -w "/usr/app" -v "${PWD}":/usr/app gmolaire/yarn yarn lint
