@@ -11,6 +11,7 @@
         "bootstrap-icons": "^1.13.1",
         "core-js": "^3.50.0",
         "eslint": "^10.11.0",
+        "globals": "^15.0.0",
         "regenerator-runtime": "^0.14.1",
         "sass": "^1.105.0",
         "sass-loader": "^13.0.0",
@@ -28,7 +29,7 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
-        "lint": "eslint assets/ --ext .js"
+        "lint": "eslint assets/"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^7.3.1",
