@@ -53,6 +53,6 @@ jobs:
             - name: Twig Linter
               run: docker compose exec -T php ./vendor/bin/twigcs templates/ --exclude vendor
             - name: Install JS dependencies
-              run: docker run --rm -w "/usr/app" -v "${PWD}":/usr/app gmolaire/yarn yarn install --frozen-lockfile
+              run: docker run --rm -w "/usr/app" -v "${PWD}":/usr/app gmolaire/yarn yarn install --frozen-lockfile --ignore-engines
             - name: Run eslint on javascript files
               run: docker run --rm -w "/usr/app" -v "${PWD}":/usr/app gmolaire/yarn yarn lint
