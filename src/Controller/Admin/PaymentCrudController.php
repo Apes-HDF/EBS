@@ -23,6 +23,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 /**
  * @see PaymentCrudControllerTest
+ *
+ * @extends AbstractCrudController<Payment>
  */
 final class PaymentCrudController extends AbstractCrudController implements AdminSecuredCrudControllerInterface
 {
