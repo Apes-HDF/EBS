@@ -107,7 +107,7 @@ jobs:
     needs: ["meta"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - name: GKE Auth
         uses: 'google-github-actions/auth@v2'
@@ -116,7 +116,7 @@ jobs:
           workload_identity_provider: '${{ secrets.workload-identity-provider }}'
 
       - name: Setup gcloud
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v3
         with:
           project_id: ${{ secrets.project-id }}
 
@@ -175,7 +175,7 @@ jobs:
           fi
 
       - name: Output deployment URL
-        uses: actions/github-script@v6
+        uses: actions/github-script@v9
         if: github.event_name == 'pull_request'
         env:
           URL: ${{ needs.meta.outputs.url }}

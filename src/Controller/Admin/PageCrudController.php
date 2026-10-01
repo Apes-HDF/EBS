@@ -20,6 +20,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+/**
+ * @extends AbstractCrudController<Page>
+ */
 final class PageCrudController extends AbstractCrudController implements AdminSecuredCrudControllerInterface
 {
     use FieldTrait;
