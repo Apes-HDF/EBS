@@ -50,6 +50,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @see UserGroupCrudControllerTest
  * @see UserGroupCrudControllerAsGroupAdminTest
+ *
+ * @extends AbstractCrudController<UserGroup>
  */
 final class UserGroupCrudController extends AbstractCrudController implements GroupAdminSecuredCrudControllerInterface
 {
@@ -228,9 +230,9 @@ final class UserGroupCrudController extends AbstractCrudController implements Gr
 
     public function createEditForm(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormInterface
     {
-        /** @var UserGroup $previousUserGroup */
-        $previousUserGroup = clone $entityDto->getInstance();
-        $this->previousUserGroup = $previousUserGroup;
+        /** @var UserGroup $userGroup */
+        $userGroup = $entityDto->getInstance();
+        $this->previousUserGroup = clone $userGroup;
 
         return parent::createEditForm($entityDto, $formOptions, $context);
     }

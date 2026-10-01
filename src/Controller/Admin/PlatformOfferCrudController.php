@@ -26,6 +26,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 
+/**
+ * @extends AbstractCrudController<PlatformOffer>
+ */
 final class PlatformOfferCrudController extends AbstractCrudController implements AdminSecuredCrudControllerInterface
 {
     use FlashTrait;
