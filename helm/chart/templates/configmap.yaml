@@ -12,9 +12,6 @@ data:
   php-cors-allow-origin: {{ .Values.php.corsAllowOrigin | quote }}
   php-trusted-hosts: {{ join "|" .Values.php.trustedHosts | quote }}  
   php-trusted-proxies: "{{ join "," .Values.php.trustedProxies }}"
-  mercure-url: "http://{{ include "plateforme-ebs" . }}/.well-known/mercure"
-  mercure-public-url: {{ .Values.mercure.publicUrl | default "http://127.0.0.1/.well-known/mercure" | quote }}
-  mercure-extra-directives: {{ .Values.mercure.extraDirectives | quote }}
   {{- if .Values.meilisearch.enabled }}
   meilisearch-url: "http://{{ include "meilisearch.fullname" .Subcharts.meilisearch }}:7700"
   {{- end }}

@@ -10,10 +10,11 @@
         "bootstrap": "^5.3.8",
         "bootstrap-icons": "^1.13.1",
         "core-js": "^3.50.0",
-        "eslint": "^8.33.0",
+        "eslint": "^10.11.0",
+        "globals": "^15.0.0",
         "regenerator-runtime": "^0.14.1",
         "sass": "^1.105.0",
-        "sass-loader": "^13.0.0",
+        "sass-loader": "^17.0.1",
         "stimulus-carousel": "^5.0.1",
         "stimulus-password-visibility": "^2.0.0",
         "tom-select": "^2.6.2",
@@ -28,7 +29,7 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
-        "lint": "eslint assets/ --ext .js"
+        "lint": "eslint assets/"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^7.3.1",
