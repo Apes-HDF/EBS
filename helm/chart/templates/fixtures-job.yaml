@@ -98,21 +98,6 @@ spec:
                 secretKeyRef:
                   name: {{ include "plateforme-ebs" . }}
                   key: database-url
-            - name: MERCURE_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "plateforme-ebs" . }}
-                  key: mercure-url
-            - name: MERCURE_PUBLIC_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "plateforme-ebs" . }}
-                  key: mercure-public-url
-            - name: MERCURE_JWT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "plateforme-ebs" . }}
-                  key: mercure-jwt-secret
             {{- if .Values.meilisearch.enabled }}
             - name: MEILISEARCH_API_KEY
               valueFrom:

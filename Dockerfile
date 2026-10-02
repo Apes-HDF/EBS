@@ -6,6 +6,11 @@
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=8.2
 ARG CADDY_VERSION=2.11.4
+# Caddy binary version, can be ahead of the base image (CADDY_VERSION)
+ARG CADDY_BUILD_VERSION=2.11.6
+ARG VULCAIN_VERSION=1.4.2
+ARG KIN_OPENAPI_VERSION=0.146.0
+ARG GO_VERSION=1.26
 
 # yarn build
 FROM node:22 AS yarn_build
@@ -183,15 +188,27 @@ RUN set -eux; \
 
 RUN rm -f .env.local.php
 
-# Build Caddy with the Mercure and Vulcain modules
+# Build Caddy with the Vulcain module, using an up-to-date Go toolchain
+FROM golang:${GO_VERSION}-alpine AS app_caddy_builder
+
+ARG CADDY_BUILD_VERSION
+ARG VULCAIN_VERSION
+# Pulled by vulcain, pinned for GHSA-r277-6w6q-xmqw until a vulcain release bumps it
+ARG KIN_OPENAPI_VERSION
+
+RUN go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
+
+RUN xcaddy build v${CADDY_BUILD_VERSION} \
+	--output /usr/bin/caddy \
+	--with github.com/dunglas/vulcain/caddy@v${VULCAIN_VERSION} \
+	--with github.com/getkin/kin-openapi/openapi3@v${KIN_OPENAPI_VERSION}
+
 # Caddy image
 FROM caddy:${CADDY_VERSION} AS app_caddy
 
-ARG TARGETARCH
-
 WORKDIR /srv/app
 
-ADD --chmod=500 "https://caddyserver.com/api/download?os=linux&arch=$TARGETARCH&p=github.com/dunglas/mercure/caddy@v0.18.4&p=github.com/dunglas/vulcain/caddy" /usr/bin/caddy
+COPY --from=app_caddy_builder --chmod=500 /usr/bin/caddy /usr/bin/caddy
 
 COPY --from=app_php /srv/app/public public/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile

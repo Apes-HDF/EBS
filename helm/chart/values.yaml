@@ -62,13 +62,6 @@ caddy:
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
 
-# You may prefer using the managed version in production: https://mercure.rocks
-mercure:
-  publicUrl: https://ghcr.io/.well-known/mercure
-  # Change me!
-  jwtSecret: "!ChangeThisMercureHubJWTSecretKey!"
-  extraDirectives: cors_origins http://ghcr.io https://ghcr.io
-
 # CloudNativePG cluster configuration.
 # The CNPG operator must be pre-installed in the cluster.
 # See: https://cloudnative-pg.io/documentation/current/installation_upgrade/
@@ -209,7 +202,6 @@ resources:
     requests:
       memory: 100Mi
 
-# If you use Mercure, you need the managed or the On Premise version to deploy more than one pod: https://mercure.rocks/docs/hub/cluster
 replicaCount: 1
 
 autoscaling:
