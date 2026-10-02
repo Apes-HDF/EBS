@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\GoneHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Uid\Uuid;
@@ -103,8 +103,7 @@ final class ProductController extends AbstractController
             }
 
             return $this->render('pages/product/show.html.twig', compact('slug', 'id', 'product'));
-        } else {
-            throw new GoneHttpException();
         }
+        throw new GoneHttpException();
     }
 }

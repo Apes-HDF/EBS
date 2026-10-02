@@ -96,21 +96,6 @@ spec:
                       name: {{ include "plateforme-ebs" . }}
                       key: meilisearch-url
                 {{- end }}
-                - name: MERCURE_URL
-                  valueFrom:
-                    configMapKeyRef:
-                      name: {{ include "plateforme-ebs" . }}
-                      key: mercure-url
-                - name: MERCURE_PUBLIC_URL
-                  valueFrom:
-                    configMapKeyRef:
-                      name: {{ include "plateforme-ebs" . }}
-                      key: mercure-public-url
-                - name: MERCURE_JWT_SECRET
-                  valueFrom:
-                    secretKeyRef:
-                      name: {{ include "plateforme-ebs" . }}
-                      key: mercure-jwt-secret
                 - name: SMS_DSN
                   valueFrom:
                       secretKeyRef:

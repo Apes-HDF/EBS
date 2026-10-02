@@ -81,6 +81,13 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+CNPG cluster name
+*/}}
+{{- define "plateforme-ebs.cnpgClusterName" -}}
+{{- printf "%s-postgresql" (include "plateforme-ebs" .) }}
+{{- end }}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "plateforme-ebs.serviceAccountName" -}}

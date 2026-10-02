@@ -6,16 +6,22 @@
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=8.2
 ARG CADDY_VERSION=2.11.4
+# Caddy binary version, can be ahead of the base image (CADDY_VERSION)
+ARG CADDY_BUILD_VERSION=2.11.6
+ARG VULCAIN_VERSION=1.4.2
+ARG KIN_OPENAPI_VERSION=0.146.0
+ARG GO_VERSION=1.26
 
 # yarn build
 FROM node:22 AS yarn_build
 WORKDIR /usr/app
+RUN corepack enable && corepack prepare yarn@1.22.22 --activate
 RUN apt-get update && apt-get install tar
 RUN mkdir -p /usr/app/vendor/symfony
 RUN curl -L https://github.com/symfony/ux-autocomplete/archive/v2.7.1.tar.gz -o ux-autocomplete.tar.gz
 RUN tar -xzvf ux-autocomplete.tar.gz --directory /usr/app/vendor/symfony
 RUN mv /usr/app/vendor/symfony/ux-autocomplete-2.7.1 /usr/app/vendor/symfony/ux-autocomplete
-COPY package.json yarn.lock .
+COPY package.json yarn.lock ./
 RUN yarn install
 COPY . .
 RUN yarn build
@@ -24,7 +30,7 @@ RUN yarn build
 FROM php:${PHP_VERSION}-fpm-alpine AS app_php
 
 # needed for security update until base image is updated
-#RUN apk upgrade libcurl curl openssl openssl-dev libressl libcrypto3 libssl3
+RUN apk upgrade --no-cache libcurl curl openssl openssl-dev libressl libcrypto3 libssl3 nghttp2-libs
 
 # Allow to use development versions of Symfony
 ARG STABILITY="stable"
@@ -182,37 +188,32 @@ RUN set -eux; \
 
 RUN rm -f .env.local.php
 
-# Build Caddy with the Mercure and Vulcain modules
-FROM caddy:${CADDY_VERSION}-builder-alpine AS app_caddy_builder
+# Build Caddy with the Vulcain module, using an up-to-date Go toolchain
+FROM golang:${GO_VERSION}-alpine AS app_caddy_builder
 
-# Temporary fix for https://github.com/dunglas/mercure/issues/770
-# https://github.com/dunglas/symfony-docker/pull/407/files
+ARG CADDY_BUILD_VERSION
+ARG VULCAIN_VERSION
+# Pulled by vulcain, pinned for GHSA-r277-6w6q-xmqw until a vulcain release bumps it
+ARG KIN_OPENAPI_VERSION
 
-# FROM caddy:2.9.1-builder-alpine AS app_caddy_builder
+RUN go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
 
-
-# RUN xcaddy build \
-#	--with github.com/dunglas/mercure \
-#	--with github.com/dunglas/mercure/caddy \
-#	--with github.com/dunglas/vulcain \
-#	--with github.com/dunglas/vulcain/caddy
-
-# mercure/caddy >= v1.0.0 requires Go >= 1.27, newer than what the builder image ships;
-# let go fetch the required toolchain automatically instead of pinning an older mercure/caddy
-ENV GOTOOLCHAIN=auto
-
-RUN xcaddy build \
-	--with github.com/dunglas/mercure/caddy \
-	--with github.com/dunglas/vulcain/caddy
+RUN xcaddy build v${CADDY_BUILD_VERSION} \
+	--output /usr/bin/caddy \
+	--with github.com/dunglas/vulcain/caddy@v${VULCAIN_VERSION} \
+	--with github.com/getkin/kin-openapi/openapi3@v${KIN_OPENAPI_VERSION}
 
 # Caddy image
 FROM caddy:${CADDY_VERSION} AS app_caddy
 
-# needed for security update until base image is updated
-#RUN apk upgrade libcurl curl openssl openssl-dev libressl libcrypto1.1 libssl1.1 libcrypto3 libssl3
-
 WORKDIR /srv/app
 
-COPY --from=app_caddy_builder /usr/bin/caddy /usr/bin/caddy
+COPY --from=app_caddy_builder --chmod=500 /usr/bin/caddy /usr/bin/caddy
+
 COPY --from=app_php /srv/app/public public/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
+
+# needed for security update until base image is updated
+RUN apk upgrade --no-cache libcurl curl openssl openssl-dev libcrypto3 libssl3 nghttp2-libs
+
+WORKDIR /srv/app

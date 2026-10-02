@@ -40,6 +40,8 @@ use Symfony\Component\Form\Extension\Core\Type\EnumType;
 /**
  * @see GroupOfferCrudControllerTest
  * @see GroupOfferCrudControllerAsGroupAdminTest
+ *
+ * @extends AbstractCrudController<GroupOffer>
  */
 final class GroupOfferCrudController extends AbstractCrudController implements GroupAdminSecuredCrudControllerInterface
 {

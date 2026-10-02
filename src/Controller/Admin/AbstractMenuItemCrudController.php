@@ -33,6 +33,9 @@ use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @extends AbstractCrudController<MenuItem>
+ */
 abstract class AbstractMenuItemCrudController extends AbstractCrudController implements AdminSecuredCrudControllerInterface
 {
     abstract public function getEntityLabelInPlural(): string;
@@ -154,6 +157,9 @@ abstract class AbstractMenuItemCrudController extends AbstractCrudController imp
         return $this->redirect($this->adminUrlGenerator->generateUrl());
     }
 
+    /**
+     * @param AdminContext<MenuItem> $context
+     */
     public function moveUpPosition(AdminContext $context): Response
     {
         /** @var MenuItem $item */
@@ -164,6 +170,9 @@ abstract class AbstractMenuItemCrudController extends AbstractCrudController imp
         return $this->redirectToObjectCrudPage();
     }
 
+    /**
+     * @param AdminContext<MenuItem> $context
+     */
     public function moveDownPosition(AdminContext $context): Response
     {
         /** @var MenuItem $item */

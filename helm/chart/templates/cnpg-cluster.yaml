@@ -1,0 +1,38 @@
+{{- if .Values.cnpg.enabled }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "plateforme-ebs.cnpgClusterName" . }}-credentials
+  labels:
+    {{- include "plateforme-ebs.labels" . | nindent 4 }}
+type: kubernetes.io/basic-auth
+stringData:
+  username: {{ .Values.cnpg.owner | quote }}
+  password: {{ .Values.cnpg.credentials.password | quote }}
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: {{ include "plateforme-ebs.cnpgClusterName" . }}
+  labels:
+    {{- include "plateforme-ebs.labels" . | nindent 4 }}
+spec:
+  instances: {{ .Values.cnpg.instances }}
+  bootstrap:
+    initdb:
+      database: {{ .Values.cnpg.database | quote }}
+      owner: {{ .Values.cnpg.owner | quote }}
+      secret:
+        name: {{ include "plateforme-ebs.cnpgClusterName" . }}-credentials
+      postInitApplicationSQL:
+        - ALTER ROLE {{ .Values.cnpg.owner }} CREATEDB;
+  storage:
+    size: {{ .Values.cnpg.storage.size | quote }}
+    {{- if .Values.cnpg.storage.storageClass }}
+    storageClass: {{ .Values.cnpg.storage.storageClass | quote }}
+    {{- end }}
+  {{- with .Values.cnpg.resources }}
+  resources:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}

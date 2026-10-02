@@ -1,6 +1,6 @@
 controllers:
     resource: '../../src/Controller/'
-    type: annotation
+    type: attribute
     # the prefix is only used when i18n are not explicitly defined
     # allowed prefixes are defined by the "kernel.enabled_locales" parameter
     # @see config/packages/framework.yaml
@@ -9,4 +9,4 @@ controllers:
 # No prefix for the root route :) it handles "/" and redirects
 root:
     resource: '../../src/Controller/AppController.php'
-    type: annotation
+    type: attribute

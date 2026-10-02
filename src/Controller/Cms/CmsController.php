@@ -7,7 +7,7 @@ namespace App\Controller\Cms;
 use App\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Simple CMS to display pages with rich content.
@@ -25,7 +25,7 @@ final class CmsController extends AbstractController
     /**
      * This is a route without i18n routes enabled.
      */
-    #[Route(path: ['/{_locale}/{slug}'], name: 'page', priority: -1)]
+    #[Route(path: '/{_locale}/{slug}', name: 'page', priority: -1)]
     public function page(string $slug): Response
     {
         $page = $this->pageRepository->findOneBySlug($slug);
