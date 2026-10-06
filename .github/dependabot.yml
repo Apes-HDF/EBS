@@ -1,24 +1,19 @@
-# Dependabot configuration, Symfony project.
-# See https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+# Dependabot configuration.
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 #
 # Two settings are not decorative:
 #  - `applies-to: version-updates` on every group. Without it, security updates
-#    would be grouped and delayed instead of landing as individual, immediate
-#    pull requests — the opposite of the intended behavior.
+#    would be grouped and delayed instead of arriving as immediate, individual
+#    PRs, which is the opposite of the intended behaviour.
 #  - `cooldown` only applies to version updates, it never delays security ones.
 version: 2
 updates:
   - package-ecosystem: composer
     directory: /
-    schedule:
-      interval: weekly
-      day: monday
+    schedule: { interval: weekly, day: monday }
     open-pull-requests-limit: 5
-    commit-message:
-      prefix: "chore(deps)"
-    cooldown:
-      default-days: 7
-      semver-major-days: 30
+    commit-message: { prefix: "chore(deps)" }
+    cooldown: { default-days: 7, semver-major-days: 30, semver-patch-days: 3 }
     groups:
       symfony:
         applies-to: version-updates
@@ -28,6 +23,7 @@ updates:
         applies-to: version-updates
         dependency-type: development
         patterns: ["*"]
+        update-types: ["minor", "patch"]
       prod-minor-patch:
         applies-to: version-updates
         dependency-type: production
@@ -37,14 +33,14 @@ updates:
     directory: /
     schedule: { interval: weekly, day: monday }
     open-pull-requests-limit: 3
-    commit-message:
-      prefix: "chore(deps)"
-    cooldown: { default-days: 7, semver-major-days: 30 }
+    commit-message: { prefix: "chore(deps)" }
+    cooldown: { default-days: 7, semver-major-days: 30, semver-patch-days: 3 }
     groups:
       npm-dev:
         applies-to: version-updates
         dependency-type: development
         patterns: ["*"]
+        update-types: ["minor", "patch"]
       npm-prod:
         applies-to: version-updates
         dependency-type: production
@@ -53,9 +49,8 @@ updates:
   - package-ecosystem: helm
     directory: /helm/chart
     schedule: { interval: weekly, day: monday }
-    commit-message:
-      prefix: "chore(deps)"
-    cooldown: { default-days: 7, semver-major-days: 30 }
+    commit-message: { prefix: "chore(deps)" }
+    cooldown: { default-days: 7, semver-major-days: 30, semver-patch-days: 3 }
     groups:
       helm:
         applies-to: version-updates
@@ -64,14 +59,14 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule: { interval: monthly }
-    commit-message:
-      prefix: "chore(deps)"
+    commit-message: { prefix: "chore(deps)" }
     groups:
-      actions: { patterns: ["*"] }
+      actions:
+        applies-to: version-updates
+        patterns: ["*"]
 
   - package-ecosystem: docker
     directory: /
     schedule: { interval: weekly, day: monday }
-    commit-message:
-      prefix: "chore(deps)"
-    cooldown: { default-days: 7, semver-major-days: 30 }
+    commit-message: { prefix: "chore(deps)" }
+    cooldown: { default-days: 7, semver-major-days: 30, semver-patch-days: 3 }
