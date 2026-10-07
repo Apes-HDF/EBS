@@ -3,7 +3,9 @@ imagePullSecrets:
 
 route:
   enabled: true
-  host: plateforme-ebs.lt-mut-prod-scw.les-tilleuls.solutions
+  host: ebs.apes-hdf.org
+  extraHosts:
+   - plateforme-ebs.lt-mut-prod-scw.les-tilleuls.solutions
 
 meilisearch:
   persistence:
