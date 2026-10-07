@@ -11,7 +11,7 @@
         "bootstrap-icons": "^1.13.1",
         "core-js": "^3.50.0",
         "eslint": "^10.12.0",
-        "globals": "^15.0.0",
+        "globals": "^17.13.0",
         "regenerator-runtime": "^0.14.1",
         "sass": "^1.105.1",
         "sass-loader": "^17.0.1",
