@@ -650,12 +650,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
     }
 
     /**
+     * Temporary sensitive data must not be stored in the session.
+     *
+     * @return array<string, mixed>
+     */
+    public function __serialize(): array
+    {
+        $data = (array) $this;
+        unset($data["\0".self::class."\0plainPassword"]);
+
+        return $data;
+    }
+
+    /**
      * @see UserInterface
      */
+    #[\Deprecated]
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        $this->plainPassword = null;
+        // credentials are erased in __serialize(), to remove when upgrading to Symfony 8
     }
 
     public function isAdmin(): bool
