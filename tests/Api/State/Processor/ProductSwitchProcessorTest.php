@@ -20,6 +20,8 @@ final class ProductSwitchProcessorTest extends ApiTestCase
     use KernelTrait;
     use ContainerRepositoryTrait;
 
+    protected static ?bool $alwaysBootKernel = true;
+
     private const API_URL = '/api/product/'.TestReference::OBJECT_LOIC_1.'/switchStatus';
 
     /**
@@ -34,7 +36,7 @@ final class ProductSwitchProcessorTest extends ApiTestCase
             '@context' => '/api/contexts/Error',
             '@type' => 'hydra:Error',
             'hydra:title' => 'An error occurred',
-            'hydra:description' => 'Full authentication is required to access this resource.',
+            'hydra:description' => 'Access Denied.',
         ]);
     }
 
@@ -57,7 +59,7 @@ final class ProductSwitchProcessorTest extends ApiTestCase
         $client = self::createClient();
         $this->loginAsUser($client);
         $client->request('PATCH', self::API_URL);
-        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseHeaderSame('content-type', 'application/problem+json');
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
@@ -75,7 +77,7 @@ final class ProductSwitchProcessorTest extends ApiTestCase
 
         // switch
         $response = $client->request('PATCH', self::API_URL);
-        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseHeaderSame('content-type', 'application/ld+json');
         self::assertResponseStatusCodeSame(Response::HTTP_OK);
         $responseArray = $response->toArray();
         self::assertSame($responseArray['status'], 'paused');
