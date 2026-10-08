@@ -116,7 +116,7 @@ final class EditProfileFormType extends AbstractType
         $builder
             ->addEventListener(
                 FormEvents::POST_SUBMIT,
-                [$this, 'onPostSubmit']
+                $this->onPostSubmit(...)
             );
     }
 
