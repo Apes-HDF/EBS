@@ -383,12 +383,12 @@
         ]
     },
     "symfony/ovh-cloud-notifier": {
-        "version": "6.2",
+        "version": "7.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "5.1",
-            "ref": "71809b3735a012a6359e9f48aa373b2680c3da54"
+            "ref": "3021c49f22f8f444550cadb5c1144cbd7a200295"
         }
     },
     "symfony/panther": {
