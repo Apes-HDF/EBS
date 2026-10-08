@@ -147,12 +147,12 @@
         ]
     },
     "odolbeau/phone-number-bundle": {
-        "version": "3.9",
+        "version": "3.10",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "main",
             "version": "3.0",
-            "ref": "4388686329b81291918a948cd42891829fb1de71"
+            "ref": "0d4442802a90dd2d1d6c18618998b43f69af0d95"
         },
         "files": [
             "config/packages/misd_phone_number.yaml"
