@@ -1014,7 +1014,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
 
         $endAt = new Carbon($this->endAt);
 
-        return $today->diffInDays($endAt);
+        return (int) $today->diffInDays($endAt);
     }
 
     public function getPlatformOffer(): ?PlatformOffer
