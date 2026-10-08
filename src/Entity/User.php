@@ -494,6 +494,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
      */
     public function getUserIdentifier(): string
     {
+        \Webmozart\Assert\Assert::stringNotEmpty($this->email);
+
         return $this->email;
     }
 
