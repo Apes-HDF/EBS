@@ -263,12 +263,12 @@
         ]
     },
     "symfony/fake-sms-notifier": {
-        "version": "6.2",
+        "version": "7.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "5.3",
-            "ref": "70edf4dc13e3082d555575325207f0529ddd3bfe"
+            "ref": "8d38ccf27c937259e93a07b889d21a35d2f1cae0"
         }
     },
     "symfony/flex": {

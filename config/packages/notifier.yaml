@@ -1,6 +1,7 @@
 framework:
     notifier:
         texter_transports:
+            fakesms+email: '%env(FAKE_SMS_DSN)%'
             sms_service: '%env(SMS_DSN)%'   # change in your .env.local to test with a real API key 
             # sms_service: 'null://null'    # use this to deactivate totally SMS
 
