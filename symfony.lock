@@ -504,12 +504,12 @@
         ]
     },
     "symfony/twilio-notifier": {
-        "version": "6.2",
+        "version": "7.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "5.0",
-            "ref": "eb697fe6a90b4972a4a544b4f7ea56520d29d9e9"
+            "ref": "295c79af6b41fb4b6aa18f6f63eaa02051ebba5b"
         }
     },
     "symfony/uid": {
