@@ -19,7 +19,7 @@
         "ext-intl": "*",
         "ext-xsl": "*",
         "ext-zip": "*",
-        "api-platform/core": "^3.1",
+        "api-platform/core": "^4.4",
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.13",

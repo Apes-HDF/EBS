@@ -14,6 +14,8 @@ final class GroupResourceTest extends ApiTestCase
 {
     use RefreshDatabaseTrait;
 
+    protected static ?bool $alwaysBootKernel = true;
+
     private const COUNT = TestReference::GROUP_COUNT;
 
     /**
@@ -24,7 +26,7 @@ final class GroupResourceTest extends ApiTestCase
     {
         $client = self::createClient();
         $response = $client->request('GET', '/api/groups/stats');
-        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseHeaderSame('content-type', 'application/ld+json');
         self::assertJsonEquals([
             '@context' => '/api/contexts/Group',
             '@id' => '/api/groups/stats',
