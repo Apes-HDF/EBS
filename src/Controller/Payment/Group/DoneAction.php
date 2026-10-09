@@ -23,6 +23,7 @@ use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Webmozart\Assert\Assert;
 
 #[IsGranted(User::ROLE_USER)]
 final class DoneAction extends AbstractController
@@ -69,7 +70,9 @@ final class DoneAction extends AbstractController
             ));
             $request->getSession()->remove('payment_in_progress');
         } else {
-            $this->addFlashWarning($this->translator->trans($this->getI18nPrefix().'.status.'.$status->getValue()));
+            $statusValue = $status->getValue();
+            Assert::string($statusValue);
+            $this->addFlashWarning($this->translator->trans($this->getI18nPrefix().'.status.'.$statusValue));
         }
 
         return $this->redirectToRoute('app_group_show', $groupOffer->getGroup()->getRoutingParameters());

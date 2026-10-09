@@ -12,12 +12,12 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-final class AcceptGroupInvitationCommandHandler
+final readonly class AcceptGroupInvitationCommandHandler
 {
     public function __construct(
-        private readonly GroupRepository $groupRepository,
-        private readonly UserRepository $userRepository,
-        private readonly UserManager $userManager,
+        private GroupRepository $groupRepository,
+        private UserRepository $userRepository,
+        private UserManager $userManager,
     ) {
     }
 

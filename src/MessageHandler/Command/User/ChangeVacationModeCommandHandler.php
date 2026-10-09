@@ -12,11 +12,11 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Webmozart\Assert\Assert;
 
 #[AsMessageHandler]
-final class ChangeVacationModeCommandHandler
+final readonly class ChangeVacationModeCommandHandler
 {
     public function __construct(
-        private readonly UserManager $userManager,
-        private readonly UserRepository $userRepository,
+        private UserManager $userManager,
+        private UserRepository $userRepository,
     ) {
     }
 

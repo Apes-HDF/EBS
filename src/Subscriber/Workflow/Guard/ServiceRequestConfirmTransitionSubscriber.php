@@ -14,10 +14,10 @@ use Symfony\Component\Workflow\Event\GuardEvent;
 /**
  * Business rule: "only the recipient of the product can trigger the "confirm" transition.".
  */
-final class ServiceRequestConfirmTransitionSubscriber implements EventSubscriberInterface
+final readonly class ServiceRequestConfirmTransitionSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        public readonly Security $security,
+        public Security $security,
     ) {
     }
 

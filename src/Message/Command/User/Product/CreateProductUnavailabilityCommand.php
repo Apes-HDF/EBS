@@ -10,14 +10,14 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @see CreateProductAvailabilityHandler
  */
-final class CreateProductUnavailabilityCommand
+final readonly class CreateProductUnavailabilityCommand
 {
     public function __construct(
-        public readonly Uuid $productId,
+        public Uuid $productId,
 
-        public readonly \DateTimeImmutable $startAt,
+        public \DateTimeImmutable $startAt,
 
-        public readonly \DateTimeImmutable $endAt,
+        public \DateTimeImmutable $endAt,
     ) {
     }
 }

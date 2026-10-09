@@ -10,10 +10,10 @@ use App\Repository\ConfigurationRepository;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-final class ParametersFormQueryHandler
+final readonly class ParametersFormQueryHandler
 {
     public function __construct(
-        private readonly ConfigurationRepository $configurationRepository,
+        private ConfigurationRepository $configurationRepository,
     ) {
     }
 

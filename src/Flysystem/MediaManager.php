@@ -30,9 +30,9 @@ final class MediaManager
      * @param array<string> $uploadImagesAllowedExtensions
      */
     public function __construct(
-        #[Autowire('%upload_images_allowed_extensions%')]
+        #[Autowire(param: 'upload_images_allowed_extensions')]
         public readonly array $uploadImagesAllowedExtensions,
-        #[Autowire('%upload_maxsize_by_file%')]
+        #[Autowire(param: 'upload_maxsize_by_file')]
         public readonly int $uploadMaxsizeByFile,
     ) {
         $this->uploadImagesAllowedExtensionsMsg = implode(', ', $uploadImagesAllowedExtensions);

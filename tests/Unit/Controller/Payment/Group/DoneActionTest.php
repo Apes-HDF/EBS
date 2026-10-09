@@ -39,9 +39,10 @@ final class DoneActionTest extends TestCase
             ->setId($this->getUuid())
             ->setSlug('group');
 
-        return (new GroupOffer())  // @phpstan-ignore-line
-            ->setId($this->getUuid())
-            ->setGroup($group);
+        $groupOffer = new GroupOffer();
+        $groupOffer->setId($this->getUuid());
+
+        return $groupOffer->setGroup($group);
     }
 
     private function getUser(): User

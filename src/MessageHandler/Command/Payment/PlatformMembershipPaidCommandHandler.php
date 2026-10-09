@@ -17,15 +17,15 @@ use Payum\Core\Request\GetHumanStatus;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-final class PlatformMembershipPaidCommandHandler
+final readonly class PlatformMembershipPaidCommandHandler
 {
     public function __construct(
-        private readonly PlatformOfferRepository $platformOfferRepository,
-        private readonly UserRepository $userRepository,
-        private readonly UserManager $userManager,
-        private readonly Payum $payum,
-        private readonly AppMailer $mailer,
-        private readonly ConfigurationRepository $configurationRepository,
+        private PlatformOfferRepository $platformOfferRepository,
+        private UserRepository $userRepository,
+        private UserManager $userManager,
+        private Payum $payum,
+        private AppMailer $mailer,
+        private ConfigurationRepository $configurationRepository,
     ) {
     }
 

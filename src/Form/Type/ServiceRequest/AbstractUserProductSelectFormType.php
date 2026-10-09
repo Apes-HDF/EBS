@@ -14,6 +14,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends AbstractType<array<string, mixed>>
+ */
 abstract class AbstractUserProductSelectFormType extends AbstractType
 {
     abstract public function isOwner(): bool;
@@ -23,9 +26,12 @@ abstract class AbstractUserProductSelectFormType extends AbstractType
     ) {
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): FormBuilderInterface
+    /**
+     * @param FormBuilderInterface<array<string, mixed>|null> $builder
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        return $builder
+        $builder
             ->setMethod('GET')
             ->add('product', EntityType::class, [
                 'class' => Product::class,

@@ -10,11 +10,11 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @see GetUserQueryHandler
  */
-final class GetUserQuery
+final readonly class GetUserQuery
 {
     public function __construct(
         // the member uuid
-        public readonly Uuid $id,
+        public Uuid $id,
     ) {
     }
 }

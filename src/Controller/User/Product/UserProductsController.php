@@ -49,6 +49,8 @@ final class UserProductsController extends AbstractController
     /**
      * @implements PaginationInterface<int,Product>
      *
+     * @param Query<null, Product> $query
+     *
      * @return PaginationInterface<int,mixed>
      */
     private function paginate(Query $query, int $page): PaginationInterface
@@ -69,7 +71,7 @@ final class UserProductsController extends AbstractController
             $category = $form->get('category')->getData();
         }
 
-        /** @var Query $query */
+        /** @var Query<null, Product> $query */
         $query = $this->queryBus->query(new GetUserObjectsQuery($user->getId(), $category?->getId()));
         $pagination = $this->paginate($query, $this->getPage($request));
 
@@ -88,7 +90,7 @@ final class UserProductsController extends AbstractController
             /** @var ?Category $category */
             $category = $form->get('category')->getData();
         }
-        /** @var Query $query */
+        /** @var Query<null, Product> $query */
         $query = $this->queryBus->query(new GetUserServicesQuery($user->getId(), $category?->getId()));
         $pagination = $this->paginate($query, $this->getPage($request));
 

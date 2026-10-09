@@ -10,12 +10,12 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @see DoneCommandHandler
  */
-final class DoneCommand
+final readonly class DoneCommand
 {
     public function __construct(
-        public readonly Uuid $groupOfferId,
-        public readonly Uuid $userId,
-        public readonly PaymentToken $paymentToken,
+        public Uuid $groupOfferId,
+        public Uuid $userId,
+        public PaymentToken $paymentToken,
     ) {
     }
 }

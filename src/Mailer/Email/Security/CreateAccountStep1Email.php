@@ -20,15 +20,15 @@ use Webmozart\Assert\Assert;
  * Email that is send after the step1 of the account creation process or for an
  * invitation to a group.
  */
-final class CreateAccountStep1Email implements EmailInterface
+final readonly class CreateAccountStep1Email implements EmailInterface
 {
     use EmailTrait;
     use i18nTrait;
 
     public function __construct(
-        private readonly TranslatorInterface $translator,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private TranslatorInterface $translator,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 

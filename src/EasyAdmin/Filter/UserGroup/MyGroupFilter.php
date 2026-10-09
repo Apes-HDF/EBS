@@ -23,7 +23,7 @@ final class MyGroupFilter implements FilterInterface
     public static function new(string $propertyName, ?string $label = null): self
     {
         return (new self())
-            ->setFilterFqcn(__CLASS__)
+            ->setFilterFqcn(self::class)
             ->setProperty($propertyName)
             ->setLabel($label)
             ->setFormType(GroupType::class)

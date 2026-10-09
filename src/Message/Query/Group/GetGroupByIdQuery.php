@@ -11,11 +11,11 @@ use Symfony\Component\Uid\Uuid;
  * @see GroupController::show()
  * @see GetGroupByIdQueryHandler
  */
-final class GetGroupByIdQuery
+final readonly class GetGroupByIdQuery
 {
     public function __construct(
         // the group uuid
-        public readonly Uuid $id,
+        public Uuid $id,
     ) {
     }
 }

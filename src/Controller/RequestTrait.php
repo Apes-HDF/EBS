@@ -16,8 +16,9 @@ trait RequestTrait
      */
     public function getPage(Request $request, string $key = 'page'): int
     {
-        $page = $request->query->getInt($key, 1);
-        $page = max($page, 1); // no negative page or 0
+        // getInt() throws a BadRequestException on non-numeric values since Symfony 7
+        $page = $request->query->filter($key, 1, \FILTER_VALIDATE_INT, ['flags' => \FILTER_NULL_ON_FAILURE]);
+        $page = \is_int($page) ? max($page, 1) : 1; // no negative page, 0 or invalid value
 
         // limit max page to 100000 (2 million products)
 

@@ -12,6 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Form type for the ProductStatus enumeration.
+ *
+ * @extends AbstractType<mixed>
  */
 class ProductStatusType extends AbstractType
 {

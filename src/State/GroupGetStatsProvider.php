@@ -12,14 +12,14 @@ use App\Repository\GroupRepository;
 /**
  * @implements ProviderInterface<GroupResource>
  */
-final class GroupGetStatsProvider implements ProviderInterface
+final readonly class GroupGetStatsProvider implements ProviderInterface
 {
     public function __construct(
-        private readonly GroupRepository $groupRepository,
+        private GroupRepository $groupRepository,
     ) {
     }
 
-    public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
+    public function provide(Operation $operation, array $uriVariables = [], array $context = []): GroupResource
     {
         $groupStats = new GroupResource();
         $groupStats->count = $this->groupRepository->count([]);

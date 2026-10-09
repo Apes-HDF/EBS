@@ -8,10 +8,10 @@ use Fidry\AliceDataFixtures\ProcessorInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class ValidationProcessor implements ProcessorInterface
+final readonly class ValidationProcessor implements ProcessorInterface
 {
     public function __construct(
-        private readonly ValidatorInterface $validator,
+        private ValidatorInterface $validator,
     ) {
     }
 

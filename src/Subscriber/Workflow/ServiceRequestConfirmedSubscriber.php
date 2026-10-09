@@ -16,18 +16,18 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Event\Event;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ServiceRequestConfirmedSubscriber implements EventSubscriberInterface
+final readonly class ServiceRequestConfirmedSubscriber implements EventSubscriberInterface
 {
     use SmsNotifierTrait;
     public const MESSAGE_SYSTEM_CONFIRMED = 'message.system.confirmed';
 
     public function __construct(
-        private readonly MessageManager $messageManager,
-        private readonly AppMailer $appMailer,
-        private readonly SmsNotifier $notifier,
-        private readonly TranslatorInterface $translator,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private MessageManager $messageManager,
+        private AppMailer $appMailer,
+        private SmsNotifier $notifier,
+        private TranslatorInterface $translator,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 

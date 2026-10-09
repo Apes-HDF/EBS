@@ -11,12 +11,12 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @see PlatformMembershipPaidCommandHandler
  */
-final class PlatformMembershipPaidCommand
+final readonly class PlatformMembershipPaidCommand
 {
     public function __construct(
-        public readonly Uuid $platformOfferId,
-        public readonly Uuid $userId,
-        public readonly PaymentToken $paymentToken,
+        public Uuid $platformOfferId,
+        public Uuid $userId,
+        public PaymentToken $paymentToken,
     ) {
     }
 }

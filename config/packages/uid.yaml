@@ -1,4 +1,5 @@
 framework:
     uid:
-        # default_uuid_version: 7
-        # time_based_uuid_version: 7
+        # Symfony 7 defaults to v7, routes require v6 (Requirement::UUID_V6)
+        default_uuid_version: 6
+        time_based_uuid_version: 6

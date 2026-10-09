@@ -13,10 +13,10 @@ use Symfony\Component\Workflow\Event\GuardEvent;
 /**
  * Business rule: the autoFinalize transition can only be done if the endAt is passed.
  */
-final class ServiceRequestAutoFinalizeTransitionSubscriber implements EventSubscriberInterface
+final readonly class ServiceRequestAutoFinalizeTransitionSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        public readonly Security $security,
+        public Security $security,
     ) {
     }
 

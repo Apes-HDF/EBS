@@ -23,15 +23,17 @@ abstract class AbstractFormCommand
      *
      * @todo Should be tranform ?
      *
-     * @return array<array<string, mixed>>
+     * @return array<string, array<string, mixed>>
      */
     public function toJsonArray(): array
     {
-        foreach (array_keys(get_class_vars($this::class)) as $classVar) {
+        $array = [];
+        foreach (array_keys(get_class_vars(static::class)) as $classVar) {
             $array[$this->getSection($classVar)][$classVar] = $this->{$classVar}; // @phpstan-ignore-line
         }
 
-        return $array ?? [];
+        /** @var array<string, array<string, mixed>> $array */
+        return $array;
     }
 
     /**

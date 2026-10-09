@@ -62,14 +62,16 @@ class Payment extends BasePayment
 
     public function getMethod(): string
     {
-        return $this->details['method'] ?? 'NA';
+        $method = $this->details['method'] ?? null;
+
+        return \is_string($method) ? $method : 'NA';
     }
 
     public function isPaid(): bool
     {
         // offline payment
         if (\array_key_exists(Constants::FIELD_PAID, $this->details)) {
-            return $this->details[Constants::FIELD_PAID] ?? false;
+            return (bool) ($this->details[Constants::FIELD_PAID] ?? false);
         }
 
         // test and prod mode
@@ -81,11 +83,13 @@ class Payment extends BasePayment
     {
         // offline
         if (\array_key_exists(Constants::FIELD_STATUS, $this->details)) {
-            return $this->details[Constants::FIELD_STATUS] ?? null;
+            $status = $this->details[Constants::FIELD_STATUS];
+        } else {
+            // test and prod mode
+            $payment = $this->details['payment'] ?? null;
+            $status = \is_array($payment) ? ($payment[Constants::FIELD_STATUS] ?? null) : null;
         }
 
-        // test and prod mode
-
-        return $this->details['payment'][Constants::FIELD_STATUS] ?? null;
+        return \is_string($status) ? $status : null;
     }
 }

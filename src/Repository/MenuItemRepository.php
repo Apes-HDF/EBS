@@ -13,11 +13,6 @@ use Gedmo\Sortable\Entity\Repository\SortableRepository;
 
 /**
  * @extends SortableRepository<MenuItem>
- *
- * @method MenuItem|null find($id, $lockMode = null, $lockVersion = null)
- * @method MenuItem|null findOneBy(array $criteria, array $orderBy = null)
- * @method MenuItem[]    findAll()
- * @method MenuItem[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 final class MenuItemRepository extends SortableRepository
 {

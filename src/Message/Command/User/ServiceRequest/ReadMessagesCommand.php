@@ -10,14 +10,14 @@ use Symfony\Component\Uid\Uuid;
  * @see ConversationController
  * @see ReadMessagesCommandCommandHandler
  */
-final class ReadMessagesCommand
+final readonly class ReadMessagesCommand
 {
     public function __construct(
         // related service request
-        public readonly Uuid $requestServiceId,
+        public Uuid $requestServiceId,
 
         // user who read the messages
-        public readonly Uuid $readerId,
+        public Uuid $readerId,
     ) {
     }
 }

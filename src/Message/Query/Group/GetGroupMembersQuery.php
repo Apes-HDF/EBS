@@ -10,12 +10,12 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @see GetGroupMembersHandler
  */
-final class GetGroupMembersQuery
+final readonly class GetGroupMembersQuery
 {
     public function __construct(
         // the group uuid
-        public readonly Uuid $id,
-        public readonly ?string $memberName,
+        public Uuid $id,
+        public ?string $memberName,
     ) {
     }
 }

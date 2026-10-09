@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SortFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\QueryParameter;
 use App\Doctrine\Behavior\TimestampableEntity;
 use App\Enum\Group\GroupMembership;
 use App\Enum\Group\GroupType;
@@ -30,11 +30,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: GroupRepository::class)]
 #[ORM\Table(name: '`group`')] // we need escaping here, as group is a reserved word
 #[ORM\Index(columns: ['type'])]
-#[ApiFilter(OrderFilter::class, properties: ['name'])]
 #[AppAssert\Constraints\Group\GroupParentNotSelf]
 #[ApiResource(
     operations: [
-        new GetCollection(provider: GroupsProvider::class),
+        new GetCollection(
+            provider: GroupsProvider::class,
+            parameters: [
+                'order[name]' => new QueryParameter(filter: new SortFilter(), property: 'name'),
+            ],
+        ),
         new Patch(
             uriTemplate: '/groups/{id}/disable_child_services',
             input: false,

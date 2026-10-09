@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Event\Event;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ServiceRequestModifiedByOwnerSubscriber implements EventSubscriberInterface
+final readonly class ServiceRequestModifiedByOwnerSubscriber implements EventSubscriberInterface
 {
     use i18nTrait;
     use SmsNotifierTrait;
@@ -25,12 +25,12 @@ final class ServiceRequestModifiedByOwnerSubscriber implements EventSubscriberIn
     public const MESSAGE_SYSTEM_MODIFIED_BY_OWNER = 'message.system.modified_by_owner';
 
     public function __construct(
-        private readonly MessageManager $messageManager,
-        private readonly AppMailer $appMailer,
-        private readonly TranslatorInterface $translator,
-        private readonly SmsNotifier $notifier,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private MessageManager $messageManager,
+        private AppMailer $appMailer,
+        private TranslatorInterface $translator,
+        private SmsNotifier $notifier,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 

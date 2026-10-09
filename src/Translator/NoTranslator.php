@@ -15,13 +15,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *
  * @see https://jolicode.com/blog/how-to-properly-manage-translations-in-symfony
  */
-final class NoTranslator implements TranslatorInterface, TranslatorBagInterface, LocaleAwareInterface
+final readonly class NoTranslator implements TranslatorInterface, TranslatorBagInterface, LocaleAwareInterface
 {
     /**
      * @param TranslatorInterface&TranslatorBagInterface&LocaleAwareInterface $translator
      */
     public function __construct(
-        private readonly TranslatorInterface $translator,
+        private TranslatorInterface $translator,
     ) {
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MessageHandler\Query\Group;
 
+use App\Entity\UserGroup;
 use App\Message\Query\Group\GetGroupMembersQuery;
 use App\Repository\GroupRepository;
 use App\Repository\UserGroupRepository;
@@ -19,6 +20,9 @@ class GetGroupMembersHandler
     ) {
     }
 
+    /**
+     * @return Query<null, UserGroup>
+     */
     public function __invoke(GetGroupMembersQuery $message): Query
     {
         $group = $this->groupRepository->get($message->id);

@@ -6,27 +6,17 @@ namespace App\Twig\Extension;
 
 use App\Entity\ImageInterface;
 use App\Entity\ImagesInterface;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
+use Twig\Attribute\AsTwigFunction;
 
-class EntityExtension extends AbstractExtension
+class EntityExtension
 {
-    /**
-     * @return array<TwigFunction>
-     */
-    public function getFunctions(): array
-    {
-        return [
-            new TwigFunction('is_image_entity', $this->isImageEntity(...)),
-            new TwigFunction('is_images_entity', $this->isImagesEntity(...)),
-        ];
-    }
-
+    #[AsTwigFunction(name: 'is_image_entity')]
     public function isImageEntity(object $entity): bool
     {
         return $entity instanceof ImageInterface;
     }
 
+    #[AsTwigFunction(name: 'is_images_entity')]
     public function isImagesEntity(object $entity): bool
     {
         return $entity instanceof ImagesInterface;

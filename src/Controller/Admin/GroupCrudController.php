@@ -146,9 +146,7 @@ final class GroupCrudController extends AbstractCrudController implements GroupA
 
         $offersListIndexPage = Action::new('offersList', 'offers_list')
             ->linkToCrudAction('redirectToOffersList')
-            ->displayIf(static function (Group $group) {
-                return $group->getMembership()->isCharged();
-            });
+            ->displayIf(static fn (Group $group) => $group->getMembership()->isCharged());
 
         $actions
             ->add(Crud::PAGE_INDEX, $exportAction)

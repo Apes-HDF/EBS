@@ -14,10 +14,10 @@ use Symfony\Component\Workflow\Event\GuardEvent;
 /**
  * Business rule: "Only the owner of the product can trigger the "finalize" transition.".
  */
-final class ServiceRequestFinalizeTransitionSubscriber implements EventSubscriberInterface
+final readonly class ServiceRequestFinalizeTransitionSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        public readonly Security $security,
+        public Security $security,
     ) {
     }
 

@@ -15,15 +15,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function Symfony\Component\String\u;
 
-final class ServiceRequestManager
+final readonly class ServiceRequestManager
 {
     public const DOMAIN = 'messages_system';
     public const TRANS_PREFIX = 'src.doctrine.manager.service_request_manager';
 
     public function __construct(
-        private readonly ServiceRequestRepository $serviceRequestRepository,
-        private readonly TranslatorInterface $translator,
-        private readonly EntityManagerInterface $entityManager,
+        private ServiceRequestRepository $serviceRequestRepository,
+        private TranslatorInterface $translator,
+        private EntityManagerInterface $entityManager,
     ) {
     }
 

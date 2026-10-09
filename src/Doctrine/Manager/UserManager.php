@@ -23,7 +23,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\String\ByteString;
 use Webmozart\Assert\Assert;
 
-final class UserManager
+final readonly class UserManager
 {
     public const PASWWORD_MIN_LENGTH = 8;
     public const PASWWORD_MAX_LENGTH = 64;
@@ -35,13 +35,13 @@ final class UserManager
     private const LOST_PASSWORD_TOKEN_EXPIRATION_TIME = '+1 hour';
 
     public function __construct(
-        private readonly UserPasswordHasherInterface $userPasswordHasher,
-        private readonly UserRepository $userRepository,
-        private readonly ClockInterface $clock,
-        private readonly StringHelper $stringHelper,
-        private readonly FilesystemOperator $userStorage,
-        private readonly FileUploader $fileUploader,
-        private readonly LoggerInterface $logger,
+        private UserPasswordHasherInterface $userPasswordHasher,
+        private UserRepository $userRepository,
+        private ClockInterface $clock,
+        private StringHelper $stringHelper,
+        private FilesystemOperator $userStorage,
+        private FileUploader $fileUploader,
+        private LoggerInterface $logger,
     ) {
     }
 
@@ -197,6 +197,10 @@ final class UserManager
     /**
      * Add the email normalization step when submitting a form implying a user so
      * the unique constraint on the email can work properly.
+     *
+     * @template T
+     *
+     * @param FormBuilderInterface<T> $builder
      */
     public function addEmailNormalizeSubmitEvent(FormBuilderInterface $builder): void
     {

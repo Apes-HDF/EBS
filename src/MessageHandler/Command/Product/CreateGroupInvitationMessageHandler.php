@@ -23,20 +23,20 @@ use Webmozart\Assert\Assert;
 /**
  * @see GroupCrudController::invite
  */
-final class CreateGroupInvitationMessageHandler
+final readonly class CreateGroupInvitationMessageHandler
 {
     use SmsNotifierTrait;
 
     public function __construct(
-        private readonly UserManager $userManager,
-        private readonly UserRepository $userRepository,
-        private readonly GroupRepository $groupRepository,
-        private readonly AppMailer $appMailer,
-        private readonly StringHelper $stringHelper,
-        private readonly TranslatorInterface $translator,
-        private readonly SmsNotifier $notifier,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private UserManager $userManager,
+        private UserRepository $userRepository,
+        private GroupRepository $groupRepository,
+        private AppMailer $appMailer,
+        private StringHelper $stringHelper,
+        private TranslatorInterface $translator,
+        private SmsNotifier $notifier,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 

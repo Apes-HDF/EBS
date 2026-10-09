@@ -5,23 +5,16 @@ declare(strict_types=1);
 namespace App\Twig\Extension;
 
 use Symfony\Component\String\UnicodeString;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
+use Twig\Attribute\AsTwigFilter;
 
 use function Symfony\Component\String\u;
 
-class i18nExtension extends AbstractExtension
+class i18nExtension
 {
-    public function getFilters(): array
-    {
-        return [
-            new TwigFilter('i18n_prefix', $this->getI18Prefix(...)),
-        ];
-    }
-
     /**
      * Convert a Twig template name to a i18n prefix to use in XLIFF files.
      */
+    #[AsTwigFilter(name: 'i18n_prefix')]
     public function getI18Prefix(string $temlateName): string
     {
         $temlateName = u($temlateName)->trimSuffix('.html.twig');

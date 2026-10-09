@@ -3,14 +3,12 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Doctrine\Set\DoctrineSetList;
-use Rector\Set\ValueObject\SetList;
-use Rector\Symfony\Set\SensiolabsSetList;
-use Rector\Symfony\Set\SymfonySetList;
 
-return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->import(SetList::PHP_81);
-    $rectorConfig->import(DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES);
-    $rectorConfig->import(SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES);
-    $rectorConfig->import(SensiolabsSetList::FRAMEWORK_EXTRA_61);
-};
+return RectorConfig::configure()
+    // PHP sets up to the minimum version required in composer.json
+    ->withPhpSets()
+    ->withAttributesSets(symfony: true, doctrine: true)
+    // Symfony upgrade sets matching the installed symfony/* version (replaces SymfonySetList::SYMFONY_7x)
+    ->withComposerBased(symfony: true)
+    ->withImportNames(importShortClasses: false, removeUnusedImports: true)
+;

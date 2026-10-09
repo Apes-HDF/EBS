@@ -10,11 +10,11 @@ use Symfony\Component\Uid\Uuid;
  * @see ConversationController
  * @see TryAutoFinalizeCommandHandler
  */
-final class TryAutoFinalizeCommand
+final readonly class TryAutoFinalizeCommand
 {
     public function __construct(
         // related service request
-        public readonly Uuid $requestServiceId,
+        public Uuid $requestServiceId,
     ) {
     }
 }

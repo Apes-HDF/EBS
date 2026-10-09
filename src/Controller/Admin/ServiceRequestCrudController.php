@@ -85,11 +85,9 @@ final class ServiceRequestCrudController extends AbstractCrudController implemen
             ->add(Crud::PAGE_DETAIL, $conversation)
             ->remove(Crud::PAGE_DETAIL, Action::EDIT)
             ->remove(Crud::PAGE_DETAIL, Action::DELETE)
-            ->update(Crud::PAGE_INDEX, Action::DETAIL, function (Action $action) {
-                return $action
-                    ->setCssClass('btn btn-sm btn-primary')
-                    ->setIcon('fa fa-search');
-            })
+            ->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action
+                ->setCssClass('btn btn-sm btn-primary')
+                ->setIcon('fa fa-search'))
         ;
     }
 

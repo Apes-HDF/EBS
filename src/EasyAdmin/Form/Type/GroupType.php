@@ -16,6 +16,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Form type for filtering on a group relation.
+ *
+ * @extends AbstractType<mixed>
  */
 class GroupType extends AbstractType
 {
@@ -37,11 +39,9 @@ class GroupType extends AbstractType
         if (!$this->authorizationChecker->isAdmin()) {
             /** @var User $user */
             $user = $this->security->getUser();
-            $resolver->setDefault('query_builder', function (GroupRepository $repo) use ($user) {
-                return $repo->createQueryBuilder('entity')
-                    ->andWhere('entity.id IN (:groups)')
-                    ->setParameter(':groups', $user->getMyGroupsAsAdmin());
-            });
+            $resolver->setDefault('query_builder', fn (GroupRepository $repo) => $repo->createQueryBuilder('entity')
+                ->andWhere('entity.id IN (:groups)')
+                ->setParameter(':groups', $user->getMyGroupsAsAdmin()));
         }
     }
 

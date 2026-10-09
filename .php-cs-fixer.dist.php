@@ -9,6 +9,10 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude('var')
     ->exclude('tmp')
     ->exclude('node_modules')
+    ->notPath([
+        'config/bundles.php',
+        'config/reference.php',
+    ])
 ;
 
 return (new PhpCsFixer\Config())->setRules([

@@ -14,11 +14,11 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 #[AsMessageHandler]
-final class GetServiceRequestByIdQueryHandler
+final readonly class GetServiceRequestByIdQueryHandler
 {
     public function __construct(
-        private readonly ServiceRequestRepository $serviceRequestRepository,
-        private readonly Security $security,
+        private ServiceRequestRepository $serviceRequestRepository,
+        private Security $security,
     ) {
     }
 

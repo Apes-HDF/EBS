@@ -17,15 +17,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Email sent when a group member is promoted to admin.
  */
-final class AdminPromotionEmail implements EmailInterface
+final readonly class AdminPromotionEmail implements EmailInterface
 {
     use EmailTrait;
     use i18nTrait;
 
     public function __construct(
-        private readonly TranslatorInterface $translator,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private TranslatorInterface $translator,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 

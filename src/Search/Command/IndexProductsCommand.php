@@ -35,7 +35,7 @@ final class IndexProductsCommand extends Command
     public function __construct(
         private readonly ProductRepository $productRepository,
         private readonly Meilisearch $meilisearch,
-        #[Autowire('%kernel.environment%')]
+        #[Autowire(param: 'kernel.environment')]
         private readonly string $environment,
     ) {
         parent::__construct();

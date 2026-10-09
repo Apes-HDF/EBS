@@ -16,7 +16,7 @@ trait i18nTrait
      */
     public function getI18nPrefix(?string $class = null): string
     {
-        $class = $class ?? $this::class;
+        $class ??= $this::class;
 
         // get an array for folders base on the class namespace
         $hierarchy = u($class)->split('\\');

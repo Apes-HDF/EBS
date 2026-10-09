@@ -16,12 +16,12 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 /**
  * @see AccountCreateController
  */
-final class AccountCreateStep1CommandHandler
+final readonly class AccountCreateStep1CommandHandler
 {
     public function __construct(
-        private readonly UserManager $userManager,
-        private readonly AppMailer $appMailer,
-        private readonly UserRepository $userRepository,
+        private UserManager $userManager,
+        private AppMailer $appMailer,
+        private UserRepository $userRepository,
     ) {
     }
 

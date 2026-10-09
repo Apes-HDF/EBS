@@ -11,7 +11,6 @@ use App\Doctrine\Manager\UserManager;
 use App\Entity\User;
 use App\Form\Type\User\EditProfileFormType;
 use App\Repository\UserRepository;
-use App\Tests\Functional\Controller\User\Account\EditProfileActionTest;
 use Doctrine\ORM\EntityManagerInterface;
 use libphonenumber\PhoneNumber;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +25,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @see EditProfileActionTest
+ * @see \App\Tests\Functional\Controller\User\Account\EditProfileActionTest
  */
 final class EditProfileAction extends AbstractController
 {

@@ -21,15 +21,15 @@ use Webmozart\Assert\Assert;
  *
  * @see ServiceRequestAcceptedSubscriber
  */
-final class ServiceRequestAccepted implements EmailInterface
+final readonly class ServiceRequestAccepted implements EmailInterface
 {
     use i18nTrait;
     use EmailTrait;
 
     public function __construct(
-        private readonly TranslatorInterface $translator,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private TranslatorInterface $translator,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 

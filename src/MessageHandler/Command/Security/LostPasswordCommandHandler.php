@@ -19,13 +19,13 @@ use Webmozart\Assert\Assert;
  *
  * @see LostPasswordAction
  */
-final class LostPasswordCommandHandler
+final readonly class LostPasswordCommandHandler
 {
     public function __construct(
-        private readonly UserManager $userManager,
-        private readonly AppMailer $appMailer,
-        private readonly UserRepository $userRepository,
-        private readonly StringHelper $stringHelper,
+        private UserManager $userManager,
+        private AppMailer $appMailer,
+        private UserRepository $userRepository,
+        private StringHelper $stringHelper,
     ) {
     }
 

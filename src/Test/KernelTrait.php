@@ -7,7 +7,6 @@ namespace App\Test;
 use ApiPlatform\Symfony\Bundle\Test\Client;
 use App\Repository\UserRepository;
 use App\Tests\TestReference;
-use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 trait KernelTrait
@@ -16,9 +15,7 @@ trait KernelTrait
 
     public function login(KernelBrowser|Client $client, string $id): void
     {
-        /** @var ContainerInterface $container */
-        $container = $client->getContainer();
-        $this->fixDoctrineBug($container);
+        $this->fixDoctrineBug($client->getContainer());
 
         /** @var UserRepository $userRepository */
         $userRepository = self::getContainer()->get(UserRepository::class);
