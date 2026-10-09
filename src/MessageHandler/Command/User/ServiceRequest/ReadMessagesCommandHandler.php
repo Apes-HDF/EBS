@@ -14,12 +14,12 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
  * Read all messages for a given user.
  */
 #[AsMessageHandler]
-final class ReadMessagesCommandHandler
+final readonly class ReadMessagesCommandHandler
 {
     public function __construct(
-        private readonly ServiceRequestRepository $serviceRequestRepository,
-        private readonly UserRepository $userRepository,
-        private readonly ServiceRequestManager $serviceRequestManager,
+        private ServiceRequestRepository $serviceRequestRepository,
+        private UserRepository $userRepository,
+        private ServiceRequestManager $serviceRequestManager,
     ) {
     }
 

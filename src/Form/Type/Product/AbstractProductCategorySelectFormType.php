@@ -16,6 +16,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Webmozart\Assert\Assert;
 
+/**
+ * @extends AbstractType<array<string, mixed>>
+ */
 abstract class AbstractProductCategorySelectFormType extends AbstractType
 {
     abstract public function getProductType(): ProductType;
@@ -26,12 +29,15 @@ abstract class AbstractProductCategorySelectFormType extends AbstractType
     ) {
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): FormBuilderInterface
+    /**
+     * @param FormBuilderInterface<array<string, mixed>|null> $builder
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $user = $this->security->getUser();
         Assert::isInstanceOf($user, User::class);
 
-        return $builder
+        $builder
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'query_builder' => fn (CategoryRepository $er) => $er->getHierarchy($this->getProductType(), $user),

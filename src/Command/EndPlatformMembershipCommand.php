@@ -32,13 +32,13 @@ class EndPlatformMembershipCommand extends Command
 
     public function __construct(
         private readonly UserRepository $userRepository,
-        #[Autowire('%kernel.environment%')]
+        #[Autowire(param: 'kernel.environment')]
         private readonly string $environment,
         private readonly AppMailer $appMailer,
         private readonly ConfigurationRepository $configurationRepository,
         private readonly TranslatorInterface $translator,
         private readonly SmsNotifier $notifier,
-        #[Autowire('%brand%')]
+        #[Autowire(param: 'brand')]
         private readonly string $brand,
         private readonly UserManager $userManager,
     ) {

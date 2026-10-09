@@ -67,9 +67,9 @@ class Meilisearch
     public function __construct(
         private readonly NormalizerInterface $normalizer,
         private readonly ProductRepository $productRepository,
-        #[Autowire('%meilisearchUrl%')]
+        #[Autowire(param: 'meilisearchUrl')]
         private readonly string $meilisearchUrl,
-        #[Autowire('%meilisearchApiKey%')]
+        #[Autowire(param: 'meilisearchApiKey')]
         private readonly string $meilisearchApiKey,
     ) {
         $this->client = new Client($this->meilisearchUrl, $this->meilisearchApiKey);
@@ -144,7 +144,7 @@ class Meilisearch
 
     public function deleteProduct(Product $product, ?Indexes $index = null): void
     {
-        $index = $index ?? $this->getIndex();
+        $index ??= $this->getIndex();
         $index->deleteDocument((string) $product->getId());
     }
 
@@ -153,7 +153,7 @@ class Meilisearch
      */
     public function indexProduct(Product $product, ?Indexes $index = null): void
     {
-        $index = $index ?? $this->getIndex();
+        $index ??= $this->getIndex();
         $index->addDocuments([$this->normalizeProduct($product)], self::PRIMARY_KEY);
     }
 
@@ -164,8 +164,8 @@ class Meilisearch
      */
     public function indexProducts(array $products, ?Indexes $index = null): void
     {
-        $index = $index ?? $this->getIndex();
-        $documents = array_map(fn (Product $product) => $this->normalizeProduct($product), $products);
+        $index ??= $this->getIndex();
+        $documents = array_map($this->normalizeProduct(...), $products);
         $index->addDocuments($documents, self::PRIMARY_KEY);
     }
 

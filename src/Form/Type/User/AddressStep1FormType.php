@@ -15,6 +15,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Form to modify the main address of a user.
+ *
+ * @extends AbstractType<Address>
  */
 final class AddressStep1FormType extends AbstractType
 {

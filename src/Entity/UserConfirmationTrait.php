@@ -27,7 +27,7 @@ trait UserConfirmationTrait
      * @see UserManager::CONFIRMATION_TOKEN_EXPIRATION_TIME
      */
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    protected ?\DateTimeInterface $confirmationExpiresAt = null;
+    protected ?\DateTimeImmutable $confirmationExpiresAt = null;
 
     public function getConfirmationToken(): ?string
     {
@@ -41,12 +41,12 @@ trait UserConfirmationTrait
         return $this;
     }
 
-    public function getConfirmationExpiresAt(): ?\DateTimeInterface
+    public function getConfirmationExpiresAt(): ?\DateTimeImmutable
     {
         return $this->confirmationExpiresAt;
     }
 
-    public function setConfirmationExpiresAt(?\DateTimeInterface $confirmationExpiresAt): self
+    public function setConfirmationExpiresAt(?\DateTimeImmutable $confirmationExpiresAt): self
     {
         $this->confirmationExpiresAt = $confirmationExpiresAt;
 

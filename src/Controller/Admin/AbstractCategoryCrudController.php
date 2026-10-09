@@ -53,7 +53,7 @@ abstract class AbstractCategoryCrudController extends AbstractCrudController imp
 
     public function getCrudControllerClass(): string
     {
-        return $this::class;
+        return static::class;
     }
 
     public function __construct(
@@ -62,7 +62,7 @@ abstract class AbstractCategoryCrudController extends AbstractCrudController imp
         private readonly EasyAdminHelper $easyAdminHelper,
         private readonly AdminUrlGenerator $adminUrlGenerator,
         private readonly MediaManager $mediaManager,
-        #[Autowire('%category_base_path%')]
+        #[Autowire(param: 'category_base_path')]
         private readonly string $categoryBasePath,
     ) {
     }
@@ -101,9 +101,7 @@ abstract class AbstractCategoryCrudController extends AbstractCrudController imp
         // don't display the delete link if the item has children
         $deleteAction = Action::new('delete', 'menu.action.delete')
             ->linkToCrudAction('delete')
-            ->displayIf(static function (Category $category) {
-                return !$category->hasChildren();
-            })
+            ->displayIf(static fn (Category $category) => !$category->hasChildren())
             ->setCssClass('dropdown-item action-delete text-danger');
 
         return $actions
@@ -168,17 +166,13 @@ abstract class AbstractCategoryCrudController extends AbstractCrudController imp
             ->setChoices(ProductType::getAsArray());
 
         $parentField = AssociationField::new('parent')
-            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
-                return $this->categoryRepository->addTypeFilter($queryBuilder, $this->getCategoryType());
-            })
+            ->setQueryBuilder(fn (QueryBuilder $queryBuilder) => $this->categoryRepository->addTypeFilter($queryBuilder, $this->getCategoryType()))
             ->setLabel('category.parent')
             ->setRequired(false)
         ;
 
         $nameField = TextField::new('name')
-            ->formatValue(static function ($value, Category $category) {
-                return $category->getNameWithIndent();
-            });
+            ->formatValue(static fn ($value, Category $category) => $category->getNameWithIndent());
 
         $enabledField = $this->getSimpleBooleanField('enabled');
 

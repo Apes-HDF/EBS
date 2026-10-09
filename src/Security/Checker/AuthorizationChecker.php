@@ -8,10 +8,10 @@ use App\Entity\User;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-final class AuthorizationChecker
+final readonly class AuthorizationChecker
 {
     public function __construct(
-        public readonly AuthorizationCheckerInterface $authorizationChecker,
+        public AuthorizationCheckerInterface $authorizationChecker,
     ) {
     }
 

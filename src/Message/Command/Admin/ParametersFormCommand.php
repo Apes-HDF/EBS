@@ -82,7 +82,7 @@ final class ParametersFormCommand extends AbstractFormCommand
     public function hydrate(Configuration $configuration): self
     {
         $instanceConfiguration = $configuration->getConfiguration();
-        foreach (array_keys(get_class_vars($this::class)) as $classVar) {
+        foreach (array_keys(get_class_vars(self::class)) as $classVar) {
             $configValue = $instanceConfiguration[$this->getSection($classVar)][$classVar] ?? null;
             if ($configValue === null) {
                 continue;

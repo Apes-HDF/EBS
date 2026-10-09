@@ -17,11 +17,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<ServiceRequest>
- *
- * @method ServiceRequest|null find($id, $lockMode = null, $lockVersion = null)
- * @method ServiceRequest|null findOneBy(array $criteria, array $orderBy = null)
- * @method ServiceRequest[]    findAll()
- * @method ServiceRequest[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 final class ServiceRequestRepository extends ServiceEntityRepository
 {
@@ -60,6 +55,8 @@ final class ServiceRequestRepository extends ServiceEntityRepository
 
     /**
      * @param array<Product>|ArrayCollection<int, Product>|null $products
+     *
+     * @return Query<null, ServiceRequest>
      */
     public function getLendings(User $owner, mixed $products): Query
     {
@@ -74,11 +71,16 @@ final class ServiceRequestRepository extends ServiceEntityRepository
             $qb->andWhere('sr.product IN (:products)')->setParameter('products', $products);
         }
 
-        return $qb->getQuery();
+        /** @var Query<null, ServiceRequest> $query */
+        $query = $qb->getQuery();
+
+        return $query;
     }
 
     /**
      * @param array<Product>|ArrayCollection<int, Product>|null $products
+     *
+     * @return Query<null, ServiceRequest>
      */
     public function getLoans(User $recipient, mixed $products): Query
     {
@@ -93,11 +95,16 @@ final class ServiceRequestRepository extends ServiceEntityRepository
             $qb->andWhere('sr.product IN (:products)')->setParameter('products', $products);
         }
 
-        return $qb->getQuery();
+        /** @var Query<null, ServiceRequest> $query */
+        $query = $qb->getQuery();
+
+        return $query;
     }
 
     /**
      * Get all items having a property set to a given date interval (a day).
+     *
+     * @return Query<null, ServiceRequest>
      */
     public function getActionSoon(string $property, int $days = 1): Query
     {
@@ -116,14 +123,23 @@ final class ServiceRequestRepository extends ServiceEntityRepository
             ->setParameter('status', ServiceRequestStatus::CONFIRMED)
         ;
 
-        return $qb->getQuery();
+        /** @var Query<null, ServiceRequest> $query */
+        $query = $qb->getQuery();
+
+        return $query;
     }
 
+    /**
+     * @return Query<null, ServiceRequest>
+     */
     public function getStartingAtTomorow(): Query
     {
         return $this->getActionSoon('startAt');
     }
 
+    /**
+     * @return Query<null, ServiceRequest>
+     */
     public function getEndingAtTomorow(): Query
     {
         return $this->getActionSoon('endAt');

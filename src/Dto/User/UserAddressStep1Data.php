@@ -13,7 +13,7 @@ use Geocoder\Provider\Nominatim\Model\NominatimAddress;
  *
  * @see AddressController
  */
-final class UserAddressStep1Data
+final readonly class UserAddressStep1Data
 {
     public function __construct(
         /**
@@ -21,12 +21,12 @@ final class UserAddressStep1Data
          *
          * @see AddressStep1FormType
          */
-        public readonly Address $address,
+        public Address $address,
 
         /**
          * Adresses matching the user address found by the Geocoder.
          */
-        public readonly AddressCollection $addresses,
+        public AddressCollection $addresses,
     ) {
     }
 

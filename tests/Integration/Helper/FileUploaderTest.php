@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Integration\Helper;
 
 use App\Helper\FileUploader;
-use League\Flysystem\FilesystemOperator;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -17,7 +16,6 @@ final class FileUploaderTest extends KernelTestCase
     public function testUpload(): void
     {
         self::bootKernel();
-        /** @var FilesystemOperator $storage */
         $storage = self::getContainer()->get('product.storage');
         $helper = new FileUploader();
         $imageName1 = 'apes.png';

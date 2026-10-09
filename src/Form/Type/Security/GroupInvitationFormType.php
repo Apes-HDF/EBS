@@ -14,6 +14,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Form to send a group invitation to a given email.
+ *
+ * @extends AbstractType<User>
  */
 final class GroupInvitationFormType extends AbstractType
 {

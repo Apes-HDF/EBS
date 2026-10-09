@@ -14,10 +14,10 @@ use Symfony\Component\Workflow\Event\GuardEvent;
 /**
  * Business rule: only the owner of the product can trigger the "modifyOwner" transition.
  */
-final class ServiceRequestModifyOwnerTransitionSubscriber implements EventSubscriberInterface
+final readonly class ServiceRequestModifyOwnerTransitionSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        public readonly Security $security,
+        public Security $security,
     ) {
     }
 

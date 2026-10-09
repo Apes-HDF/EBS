@@ -15,15 +15,15 @@ use Webmozart\Assert\Assert;
 /**
  * Centralize all emails proccessing.
  */
-final class AppMailer
+final readonly class AppMailer
 {
     // translation domain
     public const TR_DOMAIN = 'email';
 
     public function __construct(
-        private readonly MailerInterface $mailer,
-        private readonly EmailCollection $emailCollection,
-        private readonly ConfigurationRepository $configurationRepository,
+        private MailerInterface $mailer,
+        private EmailCollection $emailCollection,
+        private ConfigurationRepository $configurationRepository,
     ) {
     }
 

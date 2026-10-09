@@ -8,11 +8,11 @@ use App\MessageHandler\Query\Product\GetProductUnavailabilitiesQueryHandler;
 use Symfony\Component\Uid\Uuid;
 
 /** @see GetProductUnavailabilitiesQueryHandler */
-final class GetProductUnavailabilitiesQuery
+final readonly class GetProductUnavailabilitiesQuery
 {
     public function __construct(
         // product unavailability id
-        public readonly Uuid $id,
+        public Uuid $id,
     ) {
     }
 }

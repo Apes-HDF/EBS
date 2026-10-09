@@ -30,7 +30,7 @@ class MenuItemFooterCrudController extends AbstractMenuItemCrudController
 
     public function getMenuItemsControllerClass(): string
     {
-        return __CLASS__;
+        return self::class;
     }
 
     public function getNewMenuItemLinkController(): string

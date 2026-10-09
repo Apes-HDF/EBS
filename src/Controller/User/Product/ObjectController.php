@@ -39,6 +39,9 @@ final class ObjectController extends AbstractController
     ) {
     }
 
+    /**
+     * @return FormInterface<Product>
+     */
     private function getForm(Product $product, Request $request): FormInterface
     {
         return $this->createForm(ObjectFormType::class, $product)->handleRequest($request);

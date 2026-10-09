@@ -19,6 +19,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * Admin form for the instance parameters.
  *
  * @see ParametersForm
+ *
+ * @extends AbstractType<ParametersFormCommand>
  */
 final class ParametersFormType extends AbstractType
 {

@@ -13,19 +13,19 @@ use function Symfony\Component\String\u;
  * @see UserGroupController
  * @see EndMembershipCommandTest
  */
-final class QuitGroupCommand
+final readonly class QuitGroupCommand
 {
     // private const PUBLIC = 'public'; // put products has public
     public const VACATION = 'vacation'; // put products in vacation mode
 
     public function __construct(
-        public readonly Uuid $groupId,
-        public readonly Uuid $userId,
+        public Uuid $groupId,
+        public Uuid $userId,
         /**
          * If the user has products in this group, it tells if he want to put its
          * product as public or in vacation mode.
          */
-        public readonly ?string $type,
+        public ?string $type,
     ) {
     }
 

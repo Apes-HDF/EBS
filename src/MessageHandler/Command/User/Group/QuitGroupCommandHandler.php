@@ -14,13 +14,13 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-final class QuitGroupCommandHandler
+final readonly class QuitGroupCommandHandler
 {
     public function __construct(
-        private readonly GroupRepository $groupRepository,
-        private readonly UserRepository $userRepository,
-        private readonly ProductRepository $productRepository,
-        private readonly UserManager $userManager,
+        private GroupRepository $groupRepository,
+        private UserRepository $userRepository,
+        private ProductRepository $productRepository,
+        private UserManager $userManager,
     ) {
     }
 

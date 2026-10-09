@@ -20,15 +20,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * (and its email) is already in the database. So we can directly invite the user
  * to access the group page to accept the invitation.
  */
-final class GroupInvitationEmail implements EmailInterface
+final readonly class GroupInvitationEmail implements EmailInterface
 {
     use EmailTrait;
     use i18nTrait;
 
     public function __construct(
-        private readonly TranslatorInterface $translator,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private TranslatorInterface $translator,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 

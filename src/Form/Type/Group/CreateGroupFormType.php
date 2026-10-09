@@ -22,6 +22,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Webmozart\Assert\Assert;
 
+/**
+ * @extends AbstractType<Group>
+ */
 class CreateGroupFormType extends AbstractType
 {
     public function __construct(

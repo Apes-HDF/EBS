@@ -7,7 +7,7 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Patch;
-use ApiPlatform\OpenApi\Model;
+use ApiPlatform\OpenApi\Model\Operation;
 use App\Controller\i18nTrait;
 use App\Doctrine\Behavior\TimestampableEntity;
 use App\Doctrine\Listener\ProductListener;
@@ -40,7 +40,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Patch(
             uriTemplate: '/product/{id}/switchStatus',
-            openapi: new Model\Operation(summary: 'Switch the status of the product'),
+            openapi: new Operation(summary: 'Switch the status of the product'),
             normalizationContext: ['groups' => [ProductSwitchProcessor::class]],
             security: "is_granted('".ProductVoter::EDIT."', object)",
             input: false,
@@ -329,7 +329,7 @@ class Product implements \Stringable, ImagesInterface
      */
     public function setImages(?array $images): self
     {
-        $this->images = array_values(array_filter($images ?? [])); // make sure we don't save null or empty values
+        $this->images = array_values(array_filter($images ?? [], static fn (?string $image): bool => $image !== null && $image !== '')); // make sure we don't save null or empty values
 
         return $this;
     }

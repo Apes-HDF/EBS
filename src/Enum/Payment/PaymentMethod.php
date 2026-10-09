@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Enum\Payment;
 
-use Mollie\Api\Types\PaymentMethod as MolliePaymentMethod;
-
 /**
  * For now we only use the credit card method. This payment method must be activated
  * on the Mollie dashboard.

@@ -11,15 +11,15 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @see GetLendingsQueryHandler
  */
-final class GetLendingsQuery
+final readonly class GetLendingsQuery
 {
     public function __construct(
         // the user uuid
-        public readonly Uuid $userId,
+        public Uuid $userId,
 
         // array of selected products
         /** @var array<Product>|ArrayCollection<int, Product>|null $products */
-        public readonly mixed $products,
+        public mixed $products,
     ) {
     }
 }

@@ -14,10 +14,10 @@ use Symfony\Component\Workflow\Event\GuardEvent;
 /**
  * Business rule: "only the owner of the product can trigger the "accept" transition.".
  */
-final class ServiceRequestAcceptTransitionSubscriber implements EventSubscriberInterface
+final readonly class ServiceRequestAcceptTransitionSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        public readonly Security $security,
+        public Security $security,
     ) {
     }
 

@@ -19,15 +19,15 @@ use Webmozart\Assert\Assert;
 /**
  * Service request is about to start (tomorrow).
  */
-final class NotifyServiceRequestStartEmail implements EmailInterface
+final readonly class NotifyServiceRequestStartEmail implements EmailInterface
 {
     use EmailTrait;
     use i18nTrait;
 
     public function __construct(
-        private readonly TranslatorInterface $translator,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private TranslatorInterface $translator,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 

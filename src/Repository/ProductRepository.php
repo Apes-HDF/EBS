@@ -16,11 +16,6 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @extends ServiceEntityRepository<Product>
- *
- * @method Product|null find($id, $lockMode = null, $lockVersion = null)
- * @method Product|null findOneBy(array $criteria, array $orderBy = null)
- * @method Product[]    findAll()
- * @method Product[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ProductRepository extends ServiceEntityRepository
 {
@@ -57,6 +52,9 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Query<null, Product>
+     */
     public function getUserProductsByType(User $user, ?ProductType $type, ?Uuid $category, ?Group $group): Query
     {
         $qb = $this
@@ -87,11 +85,16 @@ class ProductRepository extends ServiceEntityRepository
             ;
         }
 
-        return $qb->getQuery();
+        /** @var Query<null, Product> $query */
+        $query = $qb->getQuery();
+
+        return $query;
     }
 
     /**
      * Business rules for searchable/indexable products.
+     *
+     * @return Query<null, Product>
      */
     public function getIndexable(?ProductType $type = null): Query
     {
@@ -122,14 +125,23 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter(':type', $type);
         }
 
-        return $qb->getQuery();
+        /** @var Query<null, Product> $query */
+        $query = $qb->getQuery();
+
+        return $query;
     }
 
+    /**
+     * @return Query<null, Product>
+     */
     public function getObjects(): Query
     {
         return $this->getIndexable(ProductType::OBJECT);
     }
 
+    /**
+     * @return Query<null, Product>
+     */
     public function getServices(): Query
     {
         return $this->getIndexable(ProductType::SERVICE);

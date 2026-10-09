@@ -11,14 +11,11 @@ use Symfony\Component\Uid\Uuid;
  */
 final class UserConfirmationTokenExpiredException extends \DomainException
 {
-    /**
+    public function __construct(/**
      * The user uuid.
      */
-    public Uuid $id;
-
-    public function __construct(Uuid $id)
+        public Uuid $id)
     {
-        $this->id = $id;
         parent::__construct('The email confirmation token is expired for this user');
     }
 }

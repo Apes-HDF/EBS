@@ -9,11 +9,11 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @see GetServiceRequestByIdQueryHandler
  */
-final class GetServiceRequestByIdQuery
+final readonly class GetServiceRequestByIdQuery
 {
     public function __construct(
         // the service request uuid
-        public readonly Uuid $id,
+        public Uuid $id,
     ) {
     }
 }

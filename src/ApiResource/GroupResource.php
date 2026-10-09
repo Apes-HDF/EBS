@@ -6,7 +6,7 @@ namespace App\ApiResource;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
-use ApiPlatform\OpenApi\Model;
+use ApiPlatform\OpenApi\Model\Operation;
 use App\State\GroupGetStatsProvider;
 
 #[ApiResource(
@@ -14,7 +14,7 @@ use App\State\GroupGetStatsProvider;
     operations: [
         new Get(
             uriTemplate: '/groups/stats',
-            openapi: new Model\Operation(summary: self::DESCRIPTION),
+            openapi: new Operation(summary: self::DESCRIPTION),
             description: self::DESCRIPTION,
             name: 'group_get_collection_stats',
             provider: GroupGetStatsProvider::class

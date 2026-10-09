@@ -16,11 +16,11 @@ use function Symfony\Component\String\u;
 /**
  * Centralize all SMS proccessing.
  */
-final class SmsNotifier
+final readonly class SmsNotifier
 {
     public function __construct(
-        private readonly TexterInterface $texter,
-        private readonly LoggerInterface $logger,
+        private TexterInterface $texter,
+        private LoggerInterface $logger,
     ) {
     }
 

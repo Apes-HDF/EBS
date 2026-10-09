@@ -48,7 +48,7 @@ use function Symfony\Component\String\u;
 #[UniqueUser(groups: [AccountCreateStep1FormType::class, ChangeLoginFormType::class])]
 #[UniqueEntity('email', groups: ['Default'])]
 #[MembershipPaid]
-class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageInterface, EquatableInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageInterface, EquatableInterface, \Stringable
 {
     use UserConfirmationTrait;
     use UserLostPasswordTrait;
@@ -656,6 +656,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
      */
     public function __serialize(): array
     {
+        /** @var array<string, mixed> $data */
         $data = (array) $this;
         unset($data["\0".self::class."\0plainPassword"]);
 

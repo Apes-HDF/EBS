@@ -17,11 +17,11 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 /**
  * Centralize all Payum proccessing.
  */
-final class PayumManager
+final readonly class PayumManager
 {
     public function __construct(
-        private readonly Payum $payum,
-        #[Autowire('%env(string:PAYUM_GATEWAY)%')] private readonly string $payumGateway,
+        private Payum $payum,
+        #[Autowire('%env(string:PAYUM_GATEWAY)%')] private string $payumGateway,
     ) {
     }
 
@@ -99,7 +99,8 @@ final class PayumManager
      */
     public function getCaptureToken(Payment $payment, string $afterRoute, array $afterParameters): TokenInterface
     {
-        return $this->payum->getTokenFactory()->createCaptureToken(
+        // No non-deprecated alternative in Payum 1.x
+        return $this->payum->getTokenFactory()->createCaptureToken( // @phpstan-ignore method.deprecatedInterface
             $this->payumGateway,
             $payment,
             $afterRoute,

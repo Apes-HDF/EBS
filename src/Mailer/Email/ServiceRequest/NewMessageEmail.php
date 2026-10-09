@@ -18,14 +18,14 @@ use Webmozart\Assert\Assert;
 /**
  * New message sent for a given service conversation.
  */
-final class NewMessageEmail implements EmailInterface
+final readonly class NewMessageEmail implements EmailInterface
 {
     use EmailTrait;
 
     public function __construct(
-        private readonly TranslatorInterface $translator,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private TranslatorInterface $translator,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 

@@ -19,7 +19,7 @@ class PlatformOffer extends AbstractOfferEntity
     #[ORM\ManyToOne(inversedBy: 'offers')]
     #[ORM\OrderBy(['createdAt' => 'ASC'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
-    private ?Configuration $configuration;
+    private ?Configuration $configuration = null;
 
     public function getConfiguration(): ?Configuration
     {

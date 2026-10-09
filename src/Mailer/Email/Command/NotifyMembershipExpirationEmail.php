@@ -19,15 +19,15 @@ use Webmozart\Assert\Assert;
 /**
  * Membership is about to expire.
  */
-final class NotifyMembershipExpirationEmail implements EmailInterface
+final readonly class NotifyMembershipExpirationEmail implements EmailInterface
 {
     use EmailTrait;
     use i18nTrait;
 
     public function __construct(
-        private readonly TranslatorInterface $translator,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private TranslatorInterface $translator,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 

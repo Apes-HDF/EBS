@@ -47,7 +47,7 @@ final class UserTest extends TestCase
         self::assertSame(['ROLE_USER'], $user->getRoles());
         self::assertCount(1, $user->getUserGroups());
         self::assertSame([$group], $user->getMyGroups()->toArray());
-        self::assertSame([$group], $user->getMyGroups()->toArray()); // with local cache
+        self::assertSame([$group], $user->getMyGroups()->toArray()); // @phpstan-ignore staticMethod.alreadyNarrowedType (with local cache)
 
         $user->removeUserGroup($userGroup);
         self::assertCount(0, $user->getUserGroups());

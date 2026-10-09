@@ -16,12 +16,12 @@ use Webmozart\Assert\Assert;
 /**
  * Command that create or modify the main address associated to a user.
  */
-final class UpdateAddressCommandHandler
+final readonly class UpdateAddressCommandHandler
 {
     public function __construct(
-        private readonly UserManager $userManager,
-        private readonly UserRepository $userRepository,
-        private readonly NominatimToAddressAdapter $adapter,
+        private UserManager $userManager,
+        private UserRepository $userRepository,
+        private NominatimToAddressAdapter $adapter,
     ) {
     }
 

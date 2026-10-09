@@ -23,6 +23,9 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @extends AbstractType<User>
+ */
 final class EditProfileFormType extends AbstractType
 {
     public function __construct(

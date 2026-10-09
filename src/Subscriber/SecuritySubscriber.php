@@ -11,11 +11,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 
-final class SecuritySubscriber implements EventSubscriberInterface
+final readonly class SecuritySubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly UserManager $userManager,
-        private readonly UrlGeneratorInterface $router,
+        private UserManager $userManager,
+        private UrlGeneratorInterface $router,
     ) {
     }
 

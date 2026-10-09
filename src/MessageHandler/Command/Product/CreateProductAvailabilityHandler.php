@@ -13,11 +13,11 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Webmozart\Assert\Assert;
 
 #[AsMessageHandler]
-final class CreateProductAvailabilityHandler
+final readonly class CreateProductAvailabilityHandler
 {
     public function __construct(
-        private readonly ProductRepository $productRepository,
-        private readonly ProductAvailabilityRepository $productAvailabilityRepository,
+        private ProductRepository $productRepository,
+        private ProductAvailabilityRepository $productAvailabilityRepository,
     ) {
     }
 

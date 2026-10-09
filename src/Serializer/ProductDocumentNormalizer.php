@@ -9,14 +9,14 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class ProductDocumentNormalizer implements NormalizerInterface
+final readonly class ProductDocumentNormalizer implements NormalizerInterface
 {
     /**
      * @see https://github.com/symfony/symfony/discussions/47601
      */
     public function __construct(
         #[Autowire(service: 'serializer.normalizer.object')]
-        private readonly NormalizerInterface $normalizer,
+        private NormalizerInterface $normalizer,
     ) {
     }
 
