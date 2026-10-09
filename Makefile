@@ -114,6 +114,15 @@ fix-php: ## Fix files with php-cs-fixer
 rector: ## Run rector with current rules in rector.php
 	@$(RECTOR) process src/
 
+rector-dry: ## Show the changes rector would make, without applying them
+	@$(RECTOR) process src/ --dry-run
+
+full-lint: ## Run all linters, applying rector and php-cs-fixer fixes
+full-lint: rector fix-php stan lint-twig lint-twigcs lint-yaml lint-container yarn-lint
+
+full-lint-dry: ## Run all linters without modifying any file
+full-lint-dry: rector-dry lint-php stan lint-twig lint-twigcs lint-yaml lint-container yarn-lint
+
 ci: ## Run pre-commit checks to ensure the CI will be green
 ci: cs lint-yaml lint-container lint-twig lint-twigcs yarn-lint doctrine-validate test-complete
 
