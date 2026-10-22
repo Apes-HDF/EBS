@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\GetCollection;
 use App\Doctrine\Behavior\TimestampableEntity;
 use App\Enum\Group\UserMembership;
 use App\Repository\UserGroupRepository;
@@ -14,24 +12,15 @@ use Carbon\Carbon;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
-use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserGroupRepository::class)]
 #[ORM\UniqueConstraint(columns: ['user', 'group'])]
-#[ApiResource(
-    operations: [
-        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
-        new Get(security: "is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and (object.getUser() == user or user.isGroupAdmin(object.getGroup())))"),
-    ],
-    normalizationContext: ['groups' => [self::API_READ]],
-)]
+#[ApiResource]
 class UserGroup
 {
     use TimestampableEntity;
-
-    final public const API_READ = 'user_group:read';
 
     /**
      * Generates a V6 uuid.
@@ -40,7 +29,6 @@ class UserGroup
     #[ORM\Column(type: 'uuid', unique: true)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
-    #[Groups([self::API_READ])]
     private Uuid $id;
 
     /**
@@ -57,7 +45,6 @@ class UserGroup
     #[ORM\ManyToOne(inversedBy: 'userGroups')]
     #[ORM\JoinColumn(name: '`group`', nullable: false)]
     #[Assert\NotNull]
-    #[Groups([self::API_READ])]
     private Group $group;
 
     /**
@@ -65,7 +52,6 @@ class UserGroup
      */
     #[ORM\Column(name: 'membership', type: 'string', nullable: false, enumType: UserMembership::class)]
     #[Assert\NotNull]
-    #[Groups([self::API_READ])]
     protected UserMembership $membership = UserMembership::INVITATION;
 
     /**
@@ -73,7 +59,6 @@ class UserGroup
      * can't be deleted unless a new main group admin is assigned.
      */
     #[ORM\Column(type: 'boolean', nullable: false)]
-    #[Groups([self::API_READ])]
     protected bool $mainAdminAccount = false;
 
     /**
@@ -81,7 +66,6 @@ class UserGroup
      * is stored in the creation date.
      */
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    #[Groups([self::API_READ])]
     protected ?\DateTimeImmutable $startAt = null;
 
     /**
@@ -89,14 +73,12 @@ class UserGroup
      * For one-shot payments, only the start date is filled.
      */
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    #[Groups([self::API_READ])]
     protected ?\DateTimeImmutable $endAt = null;
 
     /**
      * Date of the last payment of this membership.
      */
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    #[Groups([self::API_READ])]
     protected ?\DateTimeImmutable $payedAt = null;
 
     public function getId(): Uuid
@@ -114,15 +96,6 @@ class UserGroup
     public function getUser(): User
     {
         return $this->user;
-    }
-
-    /**
-     * Only the identifier of the user is exposed by the API, never the full entity.
-     */
-    #[Groups([self::API_READ])]
-    public function getUserId(): Uuid
-    {
-        return $this->user->getId();
     }
 
     public function setUser(User $user): self

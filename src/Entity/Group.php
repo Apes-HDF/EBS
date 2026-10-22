@@ -24,7 +24,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
-use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -35,25 +34,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[AppAssert\Constraints\Group\GroupParentNotSelf]
 #[ApiResource(
     operations: [
-        new GetCollection(
-            security: "is_granted('ROLE_USER')",
-            provider: GroupsProvider::class,
-        ),
+        new GetCollection(provider: GroupsProvider::class),
         new Patch(
             uriTemplate: '/groups/{id}/disable_child_services',
-            security: "is_granted('ROLE_ADMIN') or (is_granted('ROLE_GROUP_ADMIN') and user.isGroupAdmin(object))",
             input: false,
             processor: GroupChildServicesEnabledProcessor::class
         ),
-        new Get(security: "is_granted('ROLE_USER')"),
-    ],
-    normalizationContext: ['groups' => [self::API_READ]],
+        new Get(),
+    ]
 )]
 class Group implements \Stringable
 {
     use TimestampableEntity;
-
-    final public const API_READ = 'group:read';
 
     /**
      * Generates a V6 uuid.
@@ -63,7 +55,6 @@ class Group implements \Stringable
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
     #[ApiProperty(identifier: true)]
-    #[Groups([self::API_READ])]
     private Uuid $id;
 
     /**
@@ -86,7 +77,6 @@ class Group implements \Stringable
     #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
-    #[Groups([self::API_READ])]
     private string $name;
 
     /**
@@ -151,7 +141,6 @@ class Group implements \Stringable
     private Collection $products;
 
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
-    #[Groups([self::API_READ])]
     private bool $servicesEnabled = false;
 
     public function __construct()
@@ -429,7 +418,6 @@ class Group implements \Stringable
     /**
      * @return list<Group>
      */
-    #[Groups([self::API_READ])]
     public function getParentsRecursively(): array
     {
         $parents = [];
@@ -445,7 +433,6 @@ class Group implements \Stringable
     /**
      * @return list<Group>
      */
-    #[Groups([self::API_READ])]
     public function getChildrenRecursively(): array
     {
         $result = [];
