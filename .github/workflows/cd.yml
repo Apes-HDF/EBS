@@ -5,16 +5,13 @@ on:
   push:
     branches:
       - main
-      - staging
   pull_request:
     types: [ opened, reopened, synchronize, labeled ]
   workflow_dispatch: ~
 
 permissions:
   pull-requests: write
-  id-token: write
   contents: read
-  packages: write
 
 jobs:
   remove-deploy-label:
@@ -32,20 +29,3 @@ jobs:
     name: Build
     uses: ./.github/workflows/build.yml
     secrets: inherit
-
-  #deploy:
-  #  if: github.event_name != 'pull_request' || (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'deploy'))
-  #  name: Deploy
-  #  needs: [ build ]
-  #  uses: ./.github/workflows/deploy.yml
-  #  concurrency: ${{ github.ref }}-deploy
-  #  secrets:
-  #    domain: ${{ secrets.DOMAIN }}
-  #    payum-apikey: ${{ secrets.PAYUM_APIKEY }}
-  #    storage-key: ${{ secrets.STORAGE_KEY }}
-  #    storage-secret-key: ${{ secrets.STORAGE_SECRET_KEY}}
-  #    project-id: ${{ secrets.PROJECT_ID }}
-  #    workload-identity-provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-  #    pg-password: ${{ secrets.PG_PASSWORD }}
-  #    mailer-dsn: ${{ secrets.MAILER_DSN }}
-  #    sms-dsn: ${{ secrets.SMS_DSN }}
