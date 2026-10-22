@@ -9,7 +9,8 @@ ARG CADDY_VERSION=2.11.4
 # Caddy binary version, can be ahead of the base image (CADDY_VERSION)
 ARG CADDY_BUILD_VERSION=2.11.6
 ARG VULCAIN_VERSION=1.4.2
-ARG KIN_OPENAPI_VERSION=0.146.0
+ARG KIN_OPENAPI_VERSION=0.149.0
+ARG X_NET_VERSION=0.60.0
 ARG GO_VERSION=1.26
 
 # yarn build
@@ -195,13 +196,16 @@ ARG CADDY_BUILD_VERSION
 ARG VULCAIN_VERSION
 # Pulled by vulcain, pinned for GHSA-r277-6w6q-xmqw until a vulcain release bumps it
 ARG KIN_OPENAPI_VERSION
+# Pulled by caddy, pinned for CVE-2026-78669 until a caddy release bumps it
+ARG X_NET_VERSION
 
 RUN go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
 
 RUN xcaddy build v${CADDY_BUILD_VERSION} \
 	--output /usr/bin/caddy \
 	--with github.com/dunglas/vulcain/caddy@v${VULCAIN_VERSION} \
-	--with github.com/getkin/kin-openapi/openapi3@v${KIN_OPENAPI_VERSION}
+	--with github.com/getkin/kin-openapi/openapi3@v${KIN_OPENAPI_VERSION} \
+	--with golang.org/x/net/http2@v${X_NET_VERSION}
 
 # Caddy image
 FROM caddy:${CADDY_VERSION} AS app_caddy
