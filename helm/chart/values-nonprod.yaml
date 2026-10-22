@@ -1,0 +1,24 @@
+imagePullSecrets:
+  - name: regcred
+
+route:
+  enabled: true
+  host: plateforme-ebs.lt-mut-nonprod-scw.les-tilleuls.solutions
+
+meilisearch:
+  persistence:
+    enabled: true
+    storageClass: "sbs-default"
+    size: "1Gi"
+
+redis:
+  persistence:
+    enabled: true
+    storageClass: "sbs-default"
+    size: "1Gi"
+
+php:
+  fixtureJob:
+    enabled: true
+  fixtureCron:
+    enabled: true

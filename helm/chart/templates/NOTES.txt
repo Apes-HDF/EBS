@@ -4,11 +4,9 @@ IMPORTANT: This chart requires the CloudNativePG operator to be installed in you
   See: https://cloudnative-pg.io/documentation/current/installation_upgrade/
 {{ end }}
 1. Get the application URL by running these commands:
-{{- if .Values.ingress.enabled }}
-{{- range $host := .Values.ingress.hosts }}
-  {{- range .paths }}
-  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}{{ . }}
-  {{- end }}
+{{- if .Values.route.enabled }}
+{{- range concat (list .Values.route.host) .Values.route.extraHosts }}
+  https://{{ . }}
 {{- end }}
 {{- else if contains "NodePort" .Values.service.type }}
   export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ include "plateforme-ebs" . }})

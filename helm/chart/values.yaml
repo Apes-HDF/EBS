@@ -27,12 +27,10 @@ php:
     publicKey: ""
     passphrase: ""
   storage:
-    bucket: ""
-    endpoint: ""
-    region: ""
+    # bucket/endpoint/region/key/secret come from the "bucket-credentials" Secret,
+    # provisioned by infra (Tofu) in the release namespace -- not by this chart, see
+    # templates/deployment.yaml.
     usePathStyleEndpoint: true
-    publicKey: ""
-    secret: ""
   fixtureCron:
     enabled: false
   fixtureJob:
@@ -44,12 +42,10 @@ dailyCronjobs:
 maildev:
   enabled: false
 
-mailer:
-  # is set automaticaly if maildev is enabled
-  dsn: change_me
-
-sms:
-  dsn: "null://null"
+# MAILER_DSN, SMS_DSN, PAYUM_APIKEY and PAYUM_GATEWAY come from the "external-secrets" Secret,
+# provisioned by infra (Tofu) from Scaleway Secret Manager in the release namespace -- not by
+# this chart, see templates/deployment.yaml. MAILER_DSN is the only exception: it's overridden
+# with the bundled maildev subchart's DSN when maildev.enabled is true (local dev).
 
 consumer:
   # We don't use async for now so consumer isn't needed
@@ -62,9 +58,19 @@ caddy:
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
 
+# You may prefer using the managed version in production: https://mercure.rocks
+mercure:
+  publicUrl: https://ghcr.io/.well-known/mercure
+  # Change me!
+  jwtSecret: "!ChangeThisMercureHubJWTSecretKey!"
+  extraDirectives: cors_origins http://ghcr.io https://ghcr.io
+
 # CloudNativePG cluster configuration.
-# The CNPG operator must be pre-installed in the cluster.
+# The CNPG operator must be pre-installed in the cluster, along with the External Secrets
+# Operator (ESO): the owner role's password is generated once by ESO (templates/cnpg-app-secret.yaml)
+# and never committed to git.
 # See: https://cloudnative-pg.io/documentation/current/installation_upgrade/
+# and https://external-secrets.io/latest/introduction/getting-started/
 cnpg:
   enabled: true
   instances: 1
@@ -72,13 +78,9 @@ cnpg:
     version: "16"
   database: app
   owner: app
-  credentials:
-    # IMPORTANT: use only alphanumeric characters. Special characters (@, #, %, :)
-    # will break the DATABASE_URL parsing by PHP's parse_url().
-    password: "ChangeMe"
   storage:
     size: 1Gi
-    storageClass: standard
+    storageClass: sbs-default
   resources:
     requests:
       memory: 50Mi
@@ -88,12 +90,6 @@ cnpg:
 # url: postgresql://app:!ChangeMe!@database:5432/app?serverVersion=16&charset=utf8
 postgresql:
   url: ""
-
-payum:
-  # @see https://my.mollie.com/dashboard/org_XXXXXXXX/developers/api-keys
-  # even it's a fake key it must start with 'test_' or 'live_' and must be at least 30 characters long
-  gateway: "mollie"
-  apikey: "test_FRabcdefghijklmnopqrstuvwxyzab"
 
 external-dns:
   enabled: false
@@ -120,6 +116,8 @@ redis:
   readinessProbe:
     initialDelaySeconds: 0
   replicaCount: 1
+  persistence:
+    storageClass: 'sbs-default'
 
 # https://github.com/meilisearch/meilisearch-kubernetes/blob/main/charts/meilisearch/README.md
 meilisearch:
@@ -131,6 +129,15 @@ meilisearch:
   resources:
     requests:
       memory: 40Mi
+  persistence:
+    enabled: true
+    storageClass: 'sbs-default'
+  auth:
+    # Secret généré une fois via ESO (cf templates/meilisearch-master-key-secret.yaml) plutôt que le
+    # `lookup` par défaut du sous-chart, qui ne fonctionne pas sous ArgoCD (rendu en `helm template`
+    # pur, sans accès au cluster) : cette valeur passe par `tpl` côté sous-chart (secretMasterKeyName),
+    # d'où la syntaxe gotpl ici plutôt qu'un nom en dur.
+    existingMasterKeySecret: '{{ include "meilisearch.fullname" . }}-master-key'
 
 imagePullSecrets: []
 nameOverride: ""
@@ -162,21 +169,19 @@ service:
   type: ClusterIP
   port: 80
 
-ingress:
-  enabled: true
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: 6m
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: ebs.chart-example.local
-      paths:
-        - path: /
-          pathType: Prefix
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - ghcr.io
+route:
+  enabled: false
+  gateway:
+    # -- Name of the (pre-existing) Gateway this HTTPRoute attaches to.
+    name: traefik
+    # -- Set when the Gateway lives in a different namespace than this release.
+    namespace: infra-traefik
+    # -- Restrict attachment to one specific listener on the Gateway.
+    sectionName: https
+  annotations: {}
+  host: ""
+  # -- Additional hostnames routed to the same backend.
+  extraHosts: []
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -202,6 +207,7 @@ resources:
     requests:
       memory: 100Mi
 
+# If you use Mercure, you need the managed or the On Premise version to deploy more than one pod: https://mercure.rocks/docs/hub/cluster
 replicaCount: 1
 
 autoscaling:

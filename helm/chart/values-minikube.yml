@@ -9,15 +9,6 @@ redis:
       enabled: true
       size: "1Gi"
 
-payum:
-  enabled: true
-  gateway: 'mollie'
-  apikey: 'test'
-
-cnpg:
-  credentials:
-    password: change_me
-
 maildev:
   enabled: true
   ingress:
@@ -29,13 +20,6 @@ php:
   image:
     repository: plateforme-ebs-php
     tag: latest
-  storage:
-    bucket: "toto"
-    endpoint: "titi"
-    region: "tata"
-    usePathStyleEndpoint: true
-    key: "tonton"
-    secret: "tomtom"
 
 caddy:
   image:

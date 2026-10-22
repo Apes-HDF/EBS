@@ -1,0 +1,71 @@
+{{- if .Values.php.fixtureJob.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-app-fixtures
+  labels:
+    {{- include "plateforme-ebs.labels" . | nindent 4 }}
+spec:
+  # The fixtures Job has its own selector labels (plateforme-ebs.selectorLabelsFixtures, not
+  # plateforme-ebs.selectorLabels) so it isn't picked up as a Service endpoint. It needs its own
+  # egress rules, mirroring allow-app, since it isn't covered by that policy's podSelector.
+  podSelector:
+    matchLabels:
+      {{- include "plateforme-ebs.selectorLabelsFixtures" . | nindent 6 }}
+  policyTypes:
+    - Egress
+  egress:
+    # DNS resolution
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # This release's CNPG database (doctrine:database:drop/create/migrate)
+    - to:
+        - podSelector:
+            matchLabels:
+              cnpg.io/cluster: {{ include "plateforme-ebs.cnpgClusterName" . }}
+      ports:
+        - protocol: TCP
+          port: 5432
+    {{- if .Values.redis.enabled }}
+    # This release's Redis (messenger:setup-transports)
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: redis
+              app.kubernetes.io/instance: {{ .Release.Name }}
+      ports:
+        - protocol: TCP
+          port: 6379
+    {{- end }}
+    {{- if .Values.meilisearch.enabled }}
+    # This release's Meilisearch (app:index-products)
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: meilisearch
+              app.kubernetes.io/instance: {{ .Release.Name }}
+      ports:
+        - protocol: TCP
+          port: 7700
+    {{- end }}
+    # Mailer (MAILER_DSN), object storage (bucket-credentials), Payum, SMS -- no stable in-cluster
+    # CIDR to scope these to more tightly.
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+      ports:
+        - protocol: TCP
+          port: 443
+        - protocol: TCP
+          port: 465
+{{- end }}
