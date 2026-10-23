@@ -1,0 +1,77 @@
+name: Image scan
+
+# Analyse les images de production (php et caddy) avec Trivy. Dependabot ne met à jour que
+# les tags des images de base : il ne signale pas les failles des paquets qu'elles contiennent.
+# Workflow séparé du build : un échec ici ne bloque ni le build ni le déploiement.
+on:
+  pull_request:
+    paths:
+      - 'Dockerfile'
+      - 'docker/**'
+      - 'composer.json'
+      - 'composer.lock'
+      - 'package.json'
+      - 'yarn.lock'
+      - '.trivyignore'
+      - '.github/workflows/image-scan.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'Dockerfile'
+      - 'docker/**'
+      - 'composer.json'
+      - 'composer.lock'
+      - 'package.json'
+      - 'yarn.lock'
+      - '.trivyignore'
+      - '.github/workflows/image-scan.yml'
+  schedule:
+    # Chaque lundi à 04:00 UTC : de nouvelles failles sont publiées sans que le dépôt change
+    - cron: '0 4 * * 1'
+  workflow_dispatch: ~
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    name: Trivy scan (${{ matrix.target }})
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [app_php, app_caddy]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v4
+
+    # Même cache que build.yml : on analyse ce que le build produit.
+    - name: Build the production image
+      uses: docker/build-push-action@v7
+      with:
+        context: .
+        target: ${{ matrix.target }}
+        tags: ebs-${{ matrix.target }}:scan
+        load: true
+        cache-from: |
+          type=gha,scope=${{ github.ref }}-${{ matrix.target }}
+          type=gha,scope=refs/heads/main-${{ matrix.target }}
+
+    - name: Scan the image with Trivy
+      uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+      with:
+        image-ref: ebs-${{ matrix.target }}:scan
+        exit-code: '1'
+        ignore-unfixed: true
+        vuln-type: os,library
+        severity: CRITICAL,HIGH
+        trivyignores: .trivyignore
