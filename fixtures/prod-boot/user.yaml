@@ -2,7 +2,9 @@ App\Entity\User:
     base_user_template (template):
         enabled: true
         mainAdminAccount: false
-        password: '\$2y\$13\$LOIpgrMmOysCysIwkILTl.qD8psPxn9U9/V03p3odlqztLb7Aewze' # 35DVDj8ir3Buc7
+        # no usable password: set it after the first install with
+        # bin/console app:user:set-password <email> --env=prod (see docs/install.md)
+        password: <identity(bin2hex(random_bytes(32)))>
         emailConfirmed: true
 
     admin_template (template, extends base_user_template):
