@@ -23,7 +23,8 @@ final class UserTest extends TestCase
         self::assertNull($user->getType());
         self::assertTrue($user->setMainAdminAccount(true)->isMainAdminAccount());
         self::assertTrue($user->setDevAccount(true)->isDevAccount());
-        $user->eraseCredentials();
+        $user->setPlainPassword('plain-password-not-serialized');
+        self::assertStringNotContainsString('plain-password-not-serialized', serialize($user));
 
         $user->setType(UserType::USER);
         self::assertSame('firstname', $user->setFirstname('firstname')->getDisplayName());

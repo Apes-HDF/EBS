@@ -213,6 +213,6 @@ class UserGroup
 
         $endAt = new Carbon($this->endAt);
 
-        return $today->diffInDays($endAt);
+        return (int) $today->diffInDays($endAt);
     }
 }

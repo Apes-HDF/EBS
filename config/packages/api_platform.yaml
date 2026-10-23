@@ -22,3 +22,7 @@ api_platform:
             name: MIT
             # URL to the license used for the API. MUST be in the format of a URL.
             url: https://github.com/ApesHDF/EBS/blob/main/LICENSE
+
+    serializer:
+        # Keep the "hydra:" prefix (default changed to false in 4.0), the front reads "hydra:member"
+        hydra_prefix: true

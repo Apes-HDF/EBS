@@ -8,7 +8,6 @@ use App\Search\Document\ProductDocument;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 final class ProductDocumentNormalizer implements NormalizerInterface
 {
@@ -16,7 +15,7 @@ final class ProductDocumentNormalizer implements NormalizerInterface
      * @see https://github.com/symfony/symfony/discussions/47601
      */
     public function __construct(
-        #[Autowire(service: ObjectNormalizer::class)]
+        #[Autowire(service: 'serializer.normalizer.object')]
         private readonly NormalizerInterface $normalizer,
     ) {
     }
@@ -49,5 +48,13 @@ final class ProductDocumentNormalizer implements NormalizerInterface
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof ProductDocument;
+    }
+
+    /**
+     * @return array<class-string, bool>
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [ProductDocument::class => true];
     }
 }

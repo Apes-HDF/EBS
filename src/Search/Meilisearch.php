@@ -57,7 +57,7 @@ class Meilisearch
     /**
      * Main Meilisearch client.
      */
-    private Client $client;
+    private readonly Client $client;
 
     /**
      * Main search index (locally cached).

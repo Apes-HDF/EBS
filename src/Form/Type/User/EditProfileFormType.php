@@ -116,7 +116,7 @@ final class EditProfileFormType extends AbstractType
         $builder
             ->addEventListener(
                 FormEvents::POST_SUBMIT,
-                [$this, 'onPostSubmit']
+                $this->onPostSubmit(...)
             );
     }
 
@@ -130,7 +130,6 @@ final class EditProfileFormType extends AbstractType
         /** @var User $user */
         $user = $event->getData();
         $user->changePhoneNumber($user->phone);
-        $event->setData($user);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
