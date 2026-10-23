@@ -16,7 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
- * Route is protected at the security.yaml level.
+ * ROLE_ADMIN is required by CrudControllerSubscriber (AdminSecuredCrudControllerInterface):
+ * the security.yaml rule for ^/admin also lets group admins in.
  */
 final class ParametersController extends AbstractController implements AdminSecuredCrudControllerInterface
 {
