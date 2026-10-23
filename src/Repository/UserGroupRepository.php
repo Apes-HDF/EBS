@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Group;
+use App\Entity\User;
 use App\Entity\UserGroup;
+use App\Enum\Group\UserMembership;
 use Carbon\Carbon;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
@@ -42,6 +44,27 @@ class UserGroupRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Ids (RFC 4122) of the groups administrated by the user, read from the
+     * database: not affected by a membership being modified in the current request.
+     *
+     * @return list<string>
+     */
+    public function getAdministratedGroupIds(User $user): array
+    {
+        /** @var list<array{groupId: string}> $rows */
+        $rows = $this->createQueryBuilder('ug')
+            ->select('IDENTITY(ug.group) AS groupId')
+            ->andWhere('ug.user = :user')
+            ->andWhere('ug.membership = :admin OR ug.mainAdminAccount = true')
+            ->setParameter('user', $user->getId(), 'uuid')
+            ->setParameter('admin', UserMembership::ADMIN)
+            ->getQuery()
+            ->getScalarResult();
+
+        return array_map(static fn (array $row): string => $row['groupId'], $rows);
     }
 
     public function getGroupMembers(Group $group, ?string $memberName): Query
