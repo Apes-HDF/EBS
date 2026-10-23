@@ -53,12 +53,11 @@ class UserGroupRepository extends ServiceEntityRepository
             ->orderBy('u.firstname', 'ASC')
             ->setParameter('group', $group);
 
-        // filtered list by firstname, lastname or email member.
+        // filtered list by firstname or lastname (not the email, the list can be public)
         if ($memberName !== null) {
             $qb
                 ->andWhere(
-                    'LOWER(u.email) LIKE LOWER(:memberName)
-                     OR LOWER(u.firstname) LIKE LOWER(:memberName)
+                    'LOWER(u.firstname) LIKE LOWER(:memberName)
                      OR LOWER(u.lastname) LIKE LOWER(:memberName)'
                 )
                 ->setParameter('memberName', '%'.$memberName.'%');

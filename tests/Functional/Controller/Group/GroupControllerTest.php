@@ -98,4 +98,55 @@ final class GroupControllerTest extends WebTestCase
         $client->request('GET', self::ROUTE_LIST.'/group-1/'.TestReference::GROUP_1.'/membres');
         self::assertSame(0, $client->getCrawler()->filter('.admin-button-test')->count());
     }
+
+    /**
+     * The members of a private group are only listed to its confirmed members.
+     */
+    public function testPrivateGroupMemberListAccess(): void
+    {
+        $client = self::createClient();
+        $url = self::ROUTE_LIST.'/private/'.TestReference::GROUP_PRIVATE.'/membres';
+
+        $client->request('GET', $url);
+        self::assertResponseRedirects();
+        self::assertStringContainsString('/login', (string) $client->getResponse()->headers->get('Location'));
+
+        // not a member
+        $this->loginAsUser($client);
+        $client->request('GET', $url);
+        self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+
+        // invitation not accepted yet
+        $this->loginAsUser11($client);
+        $client->request('GET', $url);
+        self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+
+        // once the invitation is accepted, user 11 is a confirmed member
+        $membership = $this->getUserGroupRepository()->findOneBy(['user' => TestReference::USER_11, 'group' => TestReference::GROUP_PRIVATE]);
+        self::assertNotNull($membership);
+        $membership->setMember();
+        $this->getUserGroupRepository()->save($membership, true);
+        $client->request('GET', $url);
+        self::assertResponseIsSuccessful();
+
+        // platform admin, not a member of the group
+        $this->loginAsKevin($client);
+        $client->request('GET', $url);
+        self::assertResponseIsSuccessful();
+    }
+
+    /**
+     * The public member search must not be usable to test email addresses.
+     */
+    public function testSearchMemberDoesNotMatchEmail(): void
+    {
+        $client = self::createClient();
+        $client->request('GET', self::ROUTE_LIST.'/group-1/'.TestReference::GROUP_1.'/membres');
+        $form = $client->getCrawler()->selectButton('group_select_form_submit')->form();
+        $client->submit($form, [
+            $form->getName().'[q]' => 'example.com',
+        ]);
+
+        self::assertSame(0, $client->getCrawler()->filter('.group-test')->count());
+    }
 }
