@@ -1,5 +1,22 @@
 # EBS - Plateforme d'échange de Biens & Services
 
+# Build des images Docker (CD)
+
+Les images `app_php` et `app_caddy` sont construites par le workflow [CD](.github/workflows/cd.yml) (qui appelle [build.yml](.github/workflows/build.yml)) puis poussées sur le registry Scaleway. Le tag de l'image dépend de l'événement déclencheur :
+
+| Déclencheur | Tag de l'image |
+|---|---|
+| Push d'un tag git (ex. `git push origin 1.0.2`) | `prod-<sha court>` |
+| Push sur la branche `main` | `nonprod-<sha court>` |
+| Lancement manuel (`workflow_dispatch`) sur un **tag** git | `prod-<sha court>` |
+| Lancement manuel (`workflow_dispatch`) sur une **branche** | `nonprod-<sha court>` |
+| Pull request portant le label `deploy` | `sha-<sha court>` (le label est retiré automatiquement après le lancement) |
+| Pull request sans label `deploy` | pas de build |
+
+Le déploiement est ensuite géré par ArgoCD, qui surveille ces tags sur le registry.
+
+> ⚠️ Si le commit pointé par le tag git contient `[skip ci]` dans son message, GitHub ne lance pas le workflow. Il faut alors le lancer manuellement sur le tag : `gh workflow run cd.yml --ref <tag>`.
+
 
 # Contexte 
 Le logiciel est destiné aux porteurs de projets qui souhaitent développer une plateforme coopérative à une échelle territoriale locale (ville, EPCI, département, région Hauts-de-France) et ce dans une fédération d’instances de plateformes coopératives.
