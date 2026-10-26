@@ -107,6 +107,26 @@ final class GroupController extends AbstractController
         return $this->render('pages/group/show.html.twig', compact('group', 'showQuitGroupChoices'));
     }
 
+    /**
+     * Same rule as the "show members" button of the group page: the members of a
+     * private group are only listed to its confirmed members (and to platform admins,
+     * who already see them in the admin).
+     */
+    private function checkCanSeeMembers(Group $group, ?User $user): void
+    {
+        if ($group->getType()->isPublic() || $this->isGranted(User::ROLE_ADMIN)) {
+            return;
+        }
+
+        if ($user === null) {
+            throw $this->createAccessDeniedException('Login required to see the members of a private group.');
+        }
+
+        if ($user->getGroupMembership($group)?->getMembership()->isConfirmed() !== true) {
+            throw $this->createAccessDeniedException('Only the members of a private group can see its members.');
+        }
+    }
+
     private function getShowQuitGroupsChoices(Group $group, ?User $user): bool
     {
         return $this->productManager->hasProductsOnlyInGroup($group, $user);
@@ -119,9 +139,10 @@ final class GroupController extends AbstractController
         name: 'members',
         requirements: ['slug' => Requirement::ASCII_SLUG, 'id' => Requirement::UUID_V6]
     )]
-    public function showMembers(Request $request, string $id): Response
+    public function showMembers(Request $request, string $id, #[CurrentUser] ?User $user): Response
     {
         $group = $this->getGroup($id);
+        $this->checkCanSeeMembers($group, $user);
         $page = $this->getPage($request);
         $form = $this->createForm(GroupSelectFormType::class)->handleRequest($request);
 
