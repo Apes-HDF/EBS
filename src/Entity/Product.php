@@ -492,9 +492,17 @@ class Product implements \Stringable, ImagesInterface
                 && $pa->getEndAt() >= $today // passed dates are useless but the start date can be in the past
         );
 
+        // only the days that can still be booked: a stored range cannot expand
+        // beyond the booking horizon
+        $horizon = ProductAvailability::getHorizon();
         foreach ($unavailabilities as $unavailability) {
             /** @var ProductAvailability $unavailability */
-            $period = CarbonInterval::days()->toPeriod($unavailability->getStartAt(), $unavailability->getEndAt());
+            $startAt = max($unavailability->getStartAt(), $today);
+            $endAt = min($unavailability->getEndAt(), $horizon);
+            if ($startAt > $endAt) {
+                continue;
+            }
+            $period = CarbonInterval::days()->toPeriod($startAt, $endAt);
             $resultArray = array_merge($resultArray, $period->toArray());
         }
         $resultArray = array_map(static fn (CarbonInterface $date) => $date->format('Y-m-d'), $resultArray);
