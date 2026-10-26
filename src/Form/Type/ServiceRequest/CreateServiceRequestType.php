@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Form\Type\ServiceRequest;
 
 use App\Entity\ServiceRequest;
+use App\Validator\Constraints\Date\BoundedDateRange;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -63,6 +64,7 @@ final class CreateServiceRequestType extends AbstractType
         $resolver->setDefaults([
             'data_class' => ServiceRequest::class,
             'validation_groups' => self::class,
+            'constraints' => [new BoundedDateRange(groups: [self::class])],
         ]);
     }
 }

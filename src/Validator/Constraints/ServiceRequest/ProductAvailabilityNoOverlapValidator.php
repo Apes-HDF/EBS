@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Validator\Constraints\ServiceRequest;
 
 use App\Entity\Group;
+use App\Entity\ProductAvailability;
 use App\Entity\ServiceRequest;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
@@ -26,6 +27,12 @@ class ProductAvailabilityNoOverlapValidator extends ConstraintValidator
 
         if (!$value instanceof ServiceRequest) {
             throw new UnexpectedValueException($value, Group::class);
+        }
+
+        // a range beyond the booking horizon is reported by BoundedDateRange: do
+        // not expand it
+        if (!ProductAvailability::isWithinHorizon($value->getStartAt(), $value->getEndAt())) {
+            return;
         }
 
         // these dates can't be chosen for the request

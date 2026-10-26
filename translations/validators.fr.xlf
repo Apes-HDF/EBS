@@ -17,6 +17,18 @@
             <target>Chaque fichier doit faire moins de un mégaoctet.</target>
         </trans-unit>
 
+        <!-- date ranges -->
+
+        <trans-unit id="dR8nGe1" resname="validator.date_range.order">
+            <source>validator.date_range.order</source>
+            <target>La date de fin doit être postérieure ou égale à la date de début.</target>
+        </trans-unit>
+
+        <trans-unit id="dR8nGe2" resname="validator.date_range.horizon">
+            <source>validator.date_range.horizon</source>
+            <target>La date de fin doit être au plus tard le {{ max }}, et la période ne peut pas dépasser deux ans.</target>
+        </trans-unit>
+
     </body>
   </file>
 </xliff>
