@@ -7,13 +7,13 @@ namespace App\Twig;
 /**
  * Gather all extensions implementing the FlysystemImageInterface.
  */
-final class ImageExtensionCollection
+final readonly class ImageExtensionCollection
 {
     /**
      * @param iterable<FlysystemImageInterface> $extensions
      */
     public function __construct(
-        private readonly iterable $extensions,
+        private iterable $extensions,
     ) {
     }
 

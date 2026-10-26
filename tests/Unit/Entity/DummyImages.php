@@ -8,7 +8,10 @@ use App\Entity\ImagesInterface;
 
 final class DummyImages implements ImagesInterface
 {
-    public function getImages(): ?array
+    /**
+     * @return array<string>
+     */
+    public function getImages(): array
     {
         return ['foo.png'];
     }

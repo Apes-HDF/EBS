@@ -10,11 +10,11 @@ use Symfony\Component\Uid\Uuid;
  * @see UserGroupController::acceptInvitation()
  * @see AcceptGroupInvitationCommandHandler
  */
-final class AcceptGroupInvitationCommand
+final readonly class AcceptGroupInvitationCommand
 {
     public function __construct(
-        public readonly Uuid $groupId,
-        public readonly Uuid $userId,
+        public Uuid $groupId,
+        public Uuid $userId,
     ) {
     }
 }

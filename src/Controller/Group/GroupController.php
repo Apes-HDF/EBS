@@ -10,6 +10,7 @@ use App\Controller\RequestTrait;
 use App\Doctrine\Manager\ProductManager;
 use App\Entity\Group;
 use App\Entity\User;
+use App\Entity\UserGroup;
 use App\Form\Type\Product\GroupSelectFormType;
 use App\Message\Query\Group\GetGroupMembersQuery;
 use App\Message\Query\Group\GetGroupsQuery;
@@ -61,7 +62,7 @@ final class GroupController extends AbstractController
             $groupName = $form->get('q')->getData();
         }
 
-        /** @var Query $query */
+        /** @var Query<null, Group> $query */
         $query = $this->queryBus->query(new GetGroupsQuery($user, $groupName));
         $pagination = $this->paginator->paginate($query, $page, self::MAX_ELEMENT_BY_PAGE);
 
@@ -131,7 +132,7 @@ final class GroupController extends AbstractController
             $memberName = $form->get('q')->getData();
         }
 
-        /** @var Query $query */
+        /** @var Query<null, UserGroup> $query */
         $query = $this->queryBus->query(new GetGroupMembersQuery(Uuid::fromString($id), $memberName));
         $pagination = $this->paginator->paginate($query, $page, self::MAX_ELEMENT_BY_PAGE);
 

@@ -15,6 +15,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Form type for filtering users on selected groups.
+ *
+ * @extends AbstractType<mixed>
  */
 class UserType extends AbstractType
 {
@@ -37,12 +39,10 @@ class UserType extends AbstractType
             /** @var User $user */
             $user = $this->security->getUser();
 
-            $resolver->setDefault('query_builder', function (UserRepository $repo) use ($user) {
-                return $repo->createQueryBuilder('entity')
-                    ->innerJoin('entity.userGroups', 'ug')
-                    ->andWhere('ug.group IN (:groups)')
-                    ->setParameter(':groups', $user->getMyGroupsAsAdmin());
-            });
+            $resolver->setDefault('query_builder', fn (UserRepository $repo) => $repo->createQueryBuilder('entity')
+                ->innerJoin('entity.userGroups', 'ug')
+                ->andWhere('ug.group IN (:groups)')
+                ->setParameter(':groups', $user->getMyGroupsAsAdmin()));
         }
     }
 

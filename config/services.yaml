@@ -36,8 +36,14 @@ services:
 #        arguments:
 #            - '@App\Translator\NoTranslator.inner'
 
-    App\Geocoder\GeoProviderInterface: 
+    App\Geocoder\GeoProviderInterface:
         alias: App\Geocoder\GeoProvider
+
+    # Allows #[ORM\CustomIdGenerator(class: UuidGenerator::class)] to use the configured
+    # uuid.factory (see uid.yaml) instead of a "new UuidGenerator()" defaulting to UUID v7
+    Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator:
+        arguments: ['@uuid.factory']
+        tags: ['doctrine.id_generator']
 
 when@test:
     services:

@@ -14,6 +14,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * New request service for a given product/service.
+ *
+ * @extends AbstractType<ServiceRequest>
  */
 final class CreateServiceRequestType extends AbstractType
 {

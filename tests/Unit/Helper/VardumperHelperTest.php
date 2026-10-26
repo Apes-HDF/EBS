@@ -12,7 +12,7 @@ final class VardumperHelperTest extends TestCase
     public function testforceCli(): void
     {
         VarDumperHelper::forceCli();
-        self::assertSame('dd', dump('dd')); // @phpstan-ignore-line
+        self::assertSame('dd', dump('dd')); // @phpstan-ignore ekinoBannedCode.function
         ob_clean();
     }
 }

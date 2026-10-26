@@ -16,11 +16,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Group>
- *
- * @method Group|null find($id, $lockMode = null, $lockVersion = null)
- * @method Group|null findOneBy(array $criteria, array $orderBy = null)
- * @method Group[]    findAll()
- * @method Group[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 final class GroupRepository extends ServiceEntityRepository
 {
@@ -59,6 +54,8 @@ final class GroupRepository extends ServiceEntityRepository
 
     /**
      * Get visible groups for a given user.
+     *
+     * @return Query<null, Group>
      */
     public function getGroups(?string $groupName): Query
     {
@@ -77,7 +74,10 @@ final class GroupRepository extends ServiceEntityRepository
         }
 
         // alpha sort
-        return $qb->orderBy('g.name', 'ASC')->getQuery();
+        /** @var Query<null, Group> $query */
+        $query = $qb->orderBy('g.name', 'ASC')->getQuery();
+
+        return $query;
     }
 
     public function getUserGroupsWithEnabledServices(User $user): QueryBuilder

@@ -17,19 +17,19 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Event\Event;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ServiceRequestAcceptedSubscriber implements EventSubscriberInterface
+final readonly class ServiceRequestAcceptedSubscriber implements EventSubscriberInterface
 {
     use i18nTrait;
     use SmsNotifierTrait;
     final public const MESSAGE_SYSTEM_ACCEPTED = 'message.system.accepted';
 
     public function __construct(
-        private readonly MessageManager $messageManager,
-        private readonly TranslatorInterface $translator,
-        private readonly AppMailer $appMailer,
-        private readonly SmsNotifier $notifier,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private MessageManager $messageManager,
+        private TranslatorInterface $translator,
+        private AppMailer $appMailer,
+        private SmsNotifier $notifier,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 

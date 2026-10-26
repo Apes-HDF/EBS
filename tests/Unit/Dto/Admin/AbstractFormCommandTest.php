@@ -12,6 +12,6 @@ final class AbstractFormCommandTest extends TestCase
     {
         $command = new DummyFormCommand();
         $this->expectException(\UnexpectedValueException::class);
-        $command->toJsonArray();
+        $command->toJsonArray(); // @phpstan-ignore method.resultUnused
     }
 }

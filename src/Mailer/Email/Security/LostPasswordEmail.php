@@ -16,12 +16,12 @@ use Webmozart\Assert\Assert;
 /**
  * Email that is send when a user ask to reinitialize its password.
  */
-final class LostPasswordEmail implements EmailInterface
+final readonly class LostPasswordEmail implements EmailInterface
 {
     use EmailTrait;
 
     public function __construct(
-        private readonly TranslatorInterface $translator,
+        private TranslatorInterface $translator,
     ) {
     }
 

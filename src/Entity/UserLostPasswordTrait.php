@@ -27,7 +27,7 @@ trait UserLostPasswordTrait
      * @see UserManager::LOST_PASSWORD_TOKEN_EXPIRATION_TIME
      */
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    protected ?\DateTimeInterface $lostPasswordExpiresAt = null;
+    protected ?\DateTimeImmutable $lostPasswordExpiresAt = null;
 
     public function getLostPasswordToken(): ?string
     {
@@ -41,12 +41,12 @@ trait UserLostPasswordTrait
         return $this;
     }
 
-    public function getLostPasswordExpiresAt(): ?\DateTimeInterface
+    public function getLostPasswordExpiresAt(): ?\DateTimeImmutable
     {
         return $this->lostPasswordExpiresAt;
     }
 
-    public function setLostPasswordExpiresAt(?\DateTimeInterface $lostPasswordExpiresAt): self
+    public function setLostPasswordExpiresAt(?\DateTimeImmutable $lostPasswordExpiresAt): self
     {
         $this->lostPasswordExpiresAt = $lostPasswordExpiresAt;
 

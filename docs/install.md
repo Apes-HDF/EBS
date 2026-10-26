@@ -36,21 +36,20 @@ First we must update the base packages of the server:
 
 ## PHP Installation
 
-    apt install php php-cli php-common php-mbstring php-xmlrpc php-soap php-gd php-xml php-intl php-mysql php-cli php-zip php-curl php-apcu php-redis -y
+The project requires PHP 8.2 or higher. Ubuntu 22.04 ships PHP 8.1 by default,
+so we use the `ondrej/php` PPA repository, which also provides the last minor PHP version:
+
+    add-apt-repository ppa:ondrej/php -y
+    apt update
+    apt install php8.2 php8.2-cli php8.2-common php8.2-mbstring php8.2-xmlrpc php8.2-soap php8.2-gd php8.2-xml php8.2-intl php8.2-mysql php8.2-zip php8.2-curl php8.2-apcu php8.2-redis -y
 
 Verify the cli:
 
     php --version
 
-We should have the following output:
+We should have an output starting with:
 
-    PHP 8.1.2-1ubuntu2.11 (cli) (built: Feb 22 2023 22:56:18) (NTS)
-    Copyright (c) The PHP Group
-    Zend Engine v4.1.2, Copyright (c) Zend Technologies
-    with Zend OPcache v8.1.2-1ubuntu2.11, Copyright (c), by Zend Technologies
-
-Here the defautl PHP version is used but it is better to use the `ondrej/php` PPA
-repository to have the last minor PHP version.
+    PHP 8.2.x (cli)
 
 
 ## Apache installation ([source](https://petri.com/install-apache-ubuntu-linux/))
@@ -106,9 +105,7 @@ Which gives:
 Install the project dependencies:
 
     cd /var/www/plateforme-ebs
-    composer install --ignore-platform-req=php
-
-The `--ignore-platform-` options is required if you have a PHP version below `8.1.11`.
+    composer install
 
 
 ## Redis installation

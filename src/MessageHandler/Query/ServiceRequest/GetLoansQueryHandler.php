@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MessageHandler\Query\ServiceRequest;
 
+use App\Entity\ServiceRequest;
 use App\Message\Query\User\ServiceRequest\GetLoansQuery;
 use App\Repository\ServiceRequestRepository;
 use App\Repository\UserRepository;
@@ -11,14 +12,17 @@ use Doctrine\ORM\Query;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-final class GetLoansQueryHandler
+final readonly class GetLoansQueryHandler
 {
     public function __construct(
-        private readonly UserRepository $userRepository,
-        private readonly ServiceRequestRepository $serviceRequestRepository,
+        private UserRepository $userRepository,
+        private ServiceRequestRepository $serviceRequestRepository,
     ) {
     }
 
+    /**
+     * @return Query<null, ServiceRequest>
+     */
     public function __invoke(GetLoansQuery $message): Query
     {
         $user = $this->userRepository->get($message->userId);

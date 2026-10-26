@@ -13,7 +13,6 @@ use App\Enum\Product\ProductVisibility;
 use App\Form\Type\Product\ServiceFormType;
 use App\MessageBus\QueryBus;
 use App\Repository\ConfigurationRepository;
-use App\Tests\Functional\Controller\Product\ServiceControllerTest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -26,7 +25,7 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
- * @see ServiceControllerTest
+ * @see \App\Tests\Functional\Controller\Product\ServiceControllerTest
  */
 #[IsGranted(User::ROLE_USER)]
 #[Route(name: 'app_service_')]
@@ -44,6 +43,9 @@ final class ServiceController extends AbstractController
     ) {
     }
 
+    /**
+     * @return FormInterface<Product>
+     */
     private function getForm(Product $product, Request $request): FormInterface
     {
         return $this->createForm(ServiceFormType::class, $product)->handleRequest($request);

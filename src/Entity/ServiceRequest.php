@@ -110,7 +110,7 @@ class ServiceRequest implements \Stringable
         $this->messages = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->id;
     }

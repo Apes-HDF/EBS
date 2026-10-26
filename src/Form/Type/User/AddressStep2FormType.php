@@ -16,6 +16,8 @@ use Symfony\Component\Validator\Constraints\NotNull;
 
 /**
  * Allow to confirm an address from a given list.
+ *
+ * @extends AbstractType<array<string, mixed>>
  */
 final class AddressStep2FormType extends AbstractType
 {

@@ -49,7 +49,7 @@ abstract class AbstractMenuCrudController extends AbstractCrudController impleme
         private readonly FilesystemOperator $defaultStorage,
         private readonly EasyAdminHelper $easyAdminHelper,
         private readonly MediaManager $mediaManager,
-        #[Autowire('%base_path%')]
+        #[Autowire(param: 'base_path')]
         private readonly string $menuBasePath,
     ) {
     }
@@ -71,9 +71,7 @@ abstract class AbstractMenuCrudController extends AbstractCrudController impleme
     public function configureActions(Actions $actions): Actions
     {
         // Better button label for this kind of page
-        $actions->update(Crud::PAGE_EDIT, Action::SAVE_AND_CONTINUE, function (Action $action) {
-            return $action->setLabel('action.save');
-        });
+        $actions->update(Crud::PAGE_EDIT, Action::SAVE_AND_CONTINUE, fn (Action $action) => $action->setLabel('action.save'));
 
         $itemsListUrl = $this->adminUrlGenerator
             ->unsetAll()

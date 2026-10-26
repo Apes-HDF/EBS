@@ -14,22 +14,21 @@ use App\Form\Type\Product\SearchFormType;
  */
 final class Search
 {
-    public function __construct(string $q, int $page = 1, ?User $user = null)
-    {
-        $this->q = $q;
-        $this->page = $page;
-        $this->user = $user;
+    public function __construct(
+        /**
+         * Search query. Eg: "vélo".
+         */
+        public string $q,
+        /**
+         * Requested page for paginated results.
+         */
+        public int $page = 1,
+        /**
+         * Current logged user.
+         */
+        public ?User $user = null,
+    ) {
     }
-
-    /**
-     * Search query. Eg: "vélo".
-     */
-    public string $q = '';
-
-    /**
-     * Requested page for paginated results.
-     */
-    public int $page = 1;
 
     /**
      * Category filter.
@@ -40,11 +39,6 @@ final class Search
      * Place filter.
      */
     public ?User $place = null;
-
-    /**
-     * Current logged user.
-     */
-    public ?User $user = null;
 
     /**
      * City filter Eg: "Lille". The distance filter is only applied when we have

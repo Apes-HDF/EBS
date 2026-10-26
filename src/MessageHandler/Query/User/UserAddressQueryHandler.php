@@ -10,12 +10,12 @@ use Geocoder\Model\AddressCollection;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-final class UserAddressQueryHandler
+final readonly class UserAddressQueryHandler
 {
     private const WITH_LIMIT = 3;
 
     public function __construct(
-        private readonly GeoProviderInterface $geoProvider,
+        private GeoProviderInterface $geoProvider,
     ) {
     }
 

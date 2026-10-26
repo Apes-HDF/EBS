@@ -17,19 +17,19 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Event\Event;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ServiceRequestModifiedByRecipientSubscriber implements EventSubscriberInterface
+final readonly class ServiceRequestModifiedByRecipientSubscriber implements EventSubscriberInterface
 {
     use i18nTrait;
     use SmsNotifierTrait;
     public const MESSAGE_SYSTEM_MODIFIED_BY_RECIPIENT = 'message.system.modified_by_recipient';
 
     public function __construct(
-        private readonly MessageManager $messageManager,
-        private readonly AppMailer $appMailer,
-        private readonly TranslatorInterface $translator,
-        private readonly SmsNotifier $notifier,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private MessageManager $messageManager,
+        private AppMailer $appMailer,
+        private TranslatorInterface $translator,
+        private SmsNotifier $notifier,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 

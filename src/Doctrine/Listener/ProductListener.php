@@ -11,10 +11,10 @@ use Symfony\Component\Serializer\Exception\ExceptionInterface;
 /**
  * Synchronize products in Meilisearch. The logic is in the isIndexable() functions.
  */
-final class ProductListener
+final readonly class ProductListener
 {
     public function __construct(
-        private readonly Meilisearch $meilisearch,
+        private Meilisearch $meilisearch,
     ) {
     }
 

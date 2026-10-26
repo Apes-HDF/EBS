@@ -14,6 +14,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Account creation step1 (email only).
+ *
+ * @extends AbstractType<User>
  */
 final class AccountCreateStep1FormType extends AbstractType
 {
@@ -49,7 +51,7 @@ final class AccountCreateStep1FormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
             'translation_domain' => 'security',
-            'validation_groups' => $this::class,
+            'validation_groups' => self::class,
         ]);
     }
 }

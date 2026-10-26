@@ -40,7 +40,7 @@ final class GeoProviderMock implements GeoProviderInterface
     /**
      * Mock geocoder calls to make to CI more reliable.
      */
-    public function getAddress(string $text): ?Address
+    public function getAddress(string $text): Address
     {
         if (u($text)->lower()->trim()->containsAny('lille')) {
             return (new Address())

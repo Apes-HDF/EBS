@@ -10,14 +10,14 @@ use Symfony\Component\Uid\Uuid;
  * @see NewMessageType
  * @see DuplicateProductCommandHandler
  */
-final class DuplicateProductCommand
+final readonly class DuplicateProductCommand
 {
     public function __construct(
         // related product
-        public readonly Uuid $productId,
+        public Uuid $productId,
 
         // optionnal attribute to test
-        public readonly ?string $attribute,
+        public ?string $attribute,
     ) {
     }
 }

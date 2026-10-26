@@ -23,6 +23,6 @@ final class MeilisearchTest extends KernelTestCase
         $meilisearch->indexProducts([$object, $service]);
         $searchDto = new Search('vélo');
         $results = $meilisearch->search($searchDto);
-        self::assertNotEmpty($results);
+        self::assertNotEmpty($results); // @phpstan-ignore staticMethod.alreadyNarrowedType
     }
 }

@@ -10,11 +10,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<GroupOffer>
- *
- * @method GroupOffer|null find($id, $lockMode = null, $lockVersion = null)
- * @method GroupOffer|null findOneBy(array $criteria, array $orderBy = null)
- * @method GroupOffer[]    findAll()
- * @method GroupOffer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class GroupOfferRepository extends ServiceEntityRepository
 {

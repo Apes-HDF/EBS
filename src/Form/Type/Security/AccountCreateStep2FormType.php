@@ -20,6 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * Admin form for the instance parameters.
  *
  * @see AccountCreateController
+ *
+ * @extends AbstractType<User>
  */
 final class AccountCreateStep2FormType extends AbstractType
 {

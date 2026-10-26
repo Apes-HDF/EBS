@@ -17,12 +17,12 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
  * @see ConversationController
  */
 #[AsMessageHandler]
-final class TryAutoFinalizeCommandHandler
+final readonly class TryAutoFinalizeCommandHandler
 {
     public function __construct(
-        private readonly ServiceRequestRepository $serviceRequestRepository,
-        private readonly ServiceRequestManager $serviceRequestManager,
-        private readonly ServiceRequestStatusWorkflow $serviceRequestStatusWorkflow,
+        private ServiceRequestRepository $serviceRequestRepository,
+        private ServiceRequestManager $serviceRequestManager,
+        private ServiceRequestStatusWorkflow $serviceRequestStatusWorkflow,
     ) {
     }
 

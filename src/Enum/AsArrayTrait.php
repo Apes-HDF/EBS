@@ -11,10 +11,11 @@ trait AsArrayTrait
      */
     public static function getAsArray(): array
     {
-        return array_reduce(
-            self::cases(),
-            static fn (array $choices, self $type) => $choices + [$type->name => $type->value],
-            [],
-        );
+        $choices = [];
+        foreach (self::cases() as $type) {
+            $choices[$type->name] = $type->value;
+        }
+
+        return $choices;
     }
 }

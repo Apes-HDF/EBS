@@ -10,11 +10,11 @@ use Symfony\Component\Uid\Uuid;
  * @see UserGroupController
  * @see JoinGroupCommandHandler
  */
-final class JoinGroupCommand
+final readonly class JoinGroupCommand
 {
     public function __construct(
-        public readonly Uuid $groupId,
-        public readonly Uuid $userId,
+        public Uuid $groupId,
+        public Uuid $userId,
     ) {
     }
 }

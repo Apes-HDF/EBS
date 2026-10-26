@@ -21,13 +21,13 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
  * @todo date format must be translated
  */
 #[AsMessageHandler]
-final class CreateMessageCommandHandler
+final readonly class CreateMessageCommandHandler
 {
     public function __construct(
-        private readonly ServiceRequestRepository $serviceRequestRepository,
-        private readonly UserRepository $userRepository,
-        private readonly MessageManager $messageManager,
-        private readonly AppMailer $appMailer,
+        private ServiceRequestRepository $serviceRequestRepository,
+        private UserRepository $userRepository,
+        private MessageManager $messageManager,
+        private AppMailer $appMailer,
     ) {
     }
 

@@ -18,12 +18,12 @@ use Webmozart\Assert\Assert;
  * This allows to refresh the confirmation token of a user if he tries to confirm
  * its email and its confirmation token is already expired.
  */
-final class AccountCreateStep2RefreshCommandHandler
+final readonly class AccountCreateStep2RefreshCommandHandler
 {
     public function __construct(
-        private readonly UserManager $userManager,
-        private readonly UserRepository $userRepository,
-        private readonly AppMailer $appMailer,
+        private UserManager $userManager,
+        private UserRepository $userRepository,
+        private AppMailer $appMailer,
     ) {
     }
 

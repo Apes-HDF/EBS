@@ -9,13 +9,13 @@ use App\Mailer\Email\EmailInterface;
 /**
  * Gather all emails into an iterable.
  */
-final class EmailCollection
+final readonly class EmailCollection
 {
     /**
      * @param iterable<EmailInterface> $emails
      */
     public function __construct(
-        private readonly iterable $emails,
+        private iterable $emails,
     ) {
     }
 

@@ -67,7 +67,7 @@ final class UserGroupCrudController extends AbstractCrudController implements Gr
         private readonly AppMailer $mailer,
         private readonly TranslatorInterface $translator,
         private readonly SmsNotifier $notifier,
-        #[Autowire('%brand%')]
+        #[Autowire(param: 'brand')]
         private readonly string $brand,
     ) {
     }
@@ -100,9 +100,7 @@ final class UserGroupCrudController extends AbstractCrudController implements Gr
     public function configureActions(Actions $actions): Actions
     {
         $currentUser = $this->security->getUser();
-        $actions->update(Crud::PAGE_INDEX, 'delete', function (Action $action) use ($currentUser) {
-            return $action->displayIf(fn (UserGroup $usergroup) => $currentUser !== $usergroup->getUser() && !$usergroup->isMainAdminAccount());
-        });
+        $actions->update(Crud::PAGE_INDEX, 'delete', fn (Action $action) => $action->displayIf(fn (UserGroup $usergroup) => $currentUser !== $usergroup->getUser() && !$usergroup->isMainAdminAccount()));
 
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
@@ -178,9 +176,7 @@ final class UserGroupCrudController extends AbstractCrudController implements Gr
         $startAt = DateField::new('startAt');
         $endAt = DateField::new('endAt');
         $expiresInField = IntegerField::new('expiresIn')
-            ->formatValue(function ($value) {
-                return $value !== null ? $this->translator->trans($this->getI18nPrefix().'.expires_in.formatted_value', ['%days%' => $value], 'admin') : '';
-            })
+            ->formatValue(fn ($value) => $value !== null ? $this->translator->trans($this->getI18nPrefix().'.expires_in.formatted_value', ['%days%' => $value], 'admin') : '')
         ;
         $payedAt = DateTimeField::new('payedAt');
 
@@ -228,6 +224,9 @@ final class UserGroupCrudController extends AbstractCrudController implements Gr
         ];
     }
 
+    /**
+     * @return FormInterface<mixed>
+     */
     public function createEditForm(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormInterface
     {
         /** @var UserGroup $userGroup */

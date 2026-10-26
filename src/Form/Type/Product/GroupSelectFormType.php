@@ -9,11 +9,17 @@ use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @extends AbstractType<array<string, mixed>>
+ */
 final class GroupSelectFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): FormBuilderInterface
+    /**
+     * @param FormBuilderInterface<array<string, mixed>|null> $builder
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        return $builder
+        $builder
             ->setMethod('GET')
             ->add('q', SearchType::class, [
                 'label' => false,

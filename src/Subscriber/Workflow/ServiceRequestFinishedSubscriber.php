@@ -11,13 +11,13 @@ use App\Workflow\ServiceRequestStatusWorkflow;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Event\Event;
 
-final class ServiceRequestFinishedSubscriber implements EventSubscriberInterface
+final readonly class ServiceRequestFinishedSubscriber implements EventSubscriberInterface
 {
     final public const MESSAGE_SYSTEM_FINALIZED = 'message.system.finalized';
 
     public function __construct(
-        private readonly MessageManager $messageManager,
-        private readonly ServiceRequestManager $serviceRequestManager,
+        private MessageManager $messageManager,
+        private ServiceRequestManager $serviceRequestManager,
     ) {
     }
 

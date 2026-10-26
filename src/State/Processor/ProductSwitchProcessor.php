@@ -14,10 +14,10 @@ use App\Repository\ProductRepository;
  *
  * @implements ProcessorInterface<Product,Product>
  */
-final class ProductSwitchProcessor implements ProcessorInterface
+final readonly class ProductSwitchProcessor implements ProcessorInterface
 {
     public function __construct(
-        private readonly ProductRepository $productRepository,
+        private ProductRepository $productRepository,
     ) {
     }
 

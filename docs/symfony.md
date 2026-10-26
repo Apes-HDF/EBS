@@ -54,7 +54,7 @@ because they only need to access their data.
 ## Api Platform
 
 API Platform is used for some methods in the user connected space.
-It's more to showcase the use of API Platform 3 along with Symfony 6, UX and Stimulus.
+It's more to showcase the use of API Platform 4 along with Symfony 7, UX and Stimulus.
 
  
 ## Tests

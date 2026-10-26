@@ -26,7 +26,7 @@ trait ServiceRequestTrait
         } catch (HandlerFailedException $e) {
             /** @var \Exception $previous */
             $previous = $e->getPrevious();
-            throw match (\get_class($previous)) {
+            throw match ($previous::class) {
                 AccessDeniedException::class => $this->createAccessDeniedException($previous->getMessage()),
                 default => $this->createNotFoundException($previous->getMessage()),
             };

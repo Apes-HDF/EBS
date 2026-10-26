@@ -13,11 +13,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<UserGroup>
- *
- * @method UserGroup|null find($id, $lockMode = null, $lockVersion = null)
- * @method UserGroup|null findOneBy(array $criteria, array $orderBy = null)
- * @method UserGroup[]    findAll()
- * @method UserGroup[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class UserGroupRepository extends ServiceEntityRepository
 {
@@ -44,6 +39,9 @@ class UserGroupRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Query<null, UserGroup>
+     */
     public function getGroupMembers(Group $group, ?string $memberName): Query
     {
         $qb = $this
@@ -64,9 +62,15 @@ class UserGroupRepository extends ServiceEntityRepository
                 ->setParameter('memberName', '%'.$memberName.'%');
         }
 
-        return $qb->getQuery();
+        /** @var Query<null, UserGroup> $query */
+        $query = $qb->getQuery();
+
+        return $query;
     }
 
+    /**
+     * @return Query<null, UserGroup>
+     */
     public function getExpired(): Query
     {
         $today = Carbon::today();
@@ -78,11 +82,16 @@ class UserGroupRepository extends ServiceEntityRepository
             ->setParameter('date', $today->format('Y-m-d'))
         ;
 
-        return $qb->getQuery();
+        /** @var Query<null, UserGroup> $query */
+        $query = $qb->getQuery();
+
+        return $query;
     }
 
     /**
      * Get all membership expiring in exactly x days.
+     *
+     * @return Query<null, UserGroup>
      */
     public function getExpiring(int $days): Query
     {
@@ -99,6 +108,9 @@ class UserGroupRepository extends ServiceEntityRepository
             ->setParameter('to', $to->format('Y-m-d'))
         ;
 
-        return $qb->getQuery();
+        /** @var Query<null, UserGroup> $query */
+        $query = $qb->getQuery();
+
+        return $query;
     }
 }

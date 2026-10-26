@@ -13,10 +13,10 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 /**
  * This subscriber checks for specific roles in the admin section.
  */
-final class CrudControllerSubscriber implements EventSubscriberInterface
+final readonly class CrudControllerSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly AuthorizationChecker $authorizationChecker,
+        private AuthorizationChecker $authorizationChecker,
     ) {
     }
 
@@ -31,11 +31,11 @@ final class CrudControllerSubscriber implements EventSubscriberInterface
     {
         $controller = $event->getController();
         if (\is_array($controller)) {
-            $ctrl = $controller[0] ?? null;
-            if (is_a($ctrl, AdminSecuredCrudControllerInterface::class)) {
+            $ctrl = $controller[0];
+            if ($ctrl instanceof AdminSecuredCrudControllerInterface) {
                 $this->authorizationChecker->checkAdminRole();
             }
-            if (is_a($ctrl, GroupAdminSecuredCrudControllerInterface::class)) {
+            if ($ctrl instanceof GroupAdminSecuredCrudControllerInterface) {
                 $this->authorizationChecker->isGroupAdmin();
             }
         }

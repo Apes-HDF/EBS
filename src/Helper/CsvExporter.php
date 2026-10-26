@@ -20,11 +20,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *
  * @see https://symfonycasts.com/screencast/easyadminbundle/global-action
  */
-final class CsvExporter
+final readonly class CsvExporter
 {
     public function __construct(
-        public readonly TranslatorInterface $translator,
-        public readonly StringHelper $stringHelper,
+        public TranslatorInterface $translator,
+        public StringHelper $stringHelper,
     ) {
     }
 

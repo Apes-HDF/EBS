@@ -12,6 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Form type for the OfferType enumeration.
+ *
+ * @extends AbstractType<mixed>
  */
 class OfferTypeType extends AbstractType
 {

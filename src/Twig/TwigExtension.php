@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
+use Twig\Attribute\AsTwigFilter;
 
 use function Symfony\Component\String\u;
 
-class TwigExtension extends AbstractExtension
+class TwigExtension
 {
     public function __construct(
         public readonly ImageExtensionCollection $imageExtensionCollection,
@@ -17,16 +16,7 @@ class TwigExtension extends AbstractExtension
     ) {
     }
 
-    /**
-     * @return array<TwigFilter>
-     */
-    public function getFilters(): array
-    {
-        return [
-            new TwigFilter('snake', $this->snake(...)),
-        ];
-    }
-
+    #[AsTwigFilter(name: 'snake')]
     public function snake(?string $sring): string
     {
         return u($sring)->snake()->toString();

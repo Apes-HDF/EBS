@@ -12,12 +12,12 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-final class JoinGroupCommandHandler
+final readonly class JoinGroupCommandHandler
 {
     public function __construct(
-        private readonly GroupRepository $groupRepository,
-        private readonly UserRepository $userRepository,
-        private readonly UserManager $userManager,
+        private GroupRepository $groupRepository,
+        private UserRepository $userRepository,
+        private UserManager $userManager,
     ) {
     }
 

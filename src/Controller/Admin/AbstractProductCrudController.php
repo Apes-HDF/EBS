@@ -75,7 +75,7 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
         private readonly FilesystemOperator $productStorage,
         private readonly EasyAdminHelper $easyAdminHelper,
         private readonly MediaManager $mediaManager,
-        #[Autowire('%product_base_path%')]
+        #[Autowire(param: 'product_base_path')]
         private readonly string $productBasePath,
         private readonly CsvExporter $csvExporter,
         private readonly TranslatorInterface $translator,
@@ -119,15 +119,11 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
     {
         $onBreak = Action::new('onBreak', 'action.onBreak')
             ->linkToCrudAction('changeStatus')
-            ->displayIf(static function (Product $product) {
-                return $product->isActive();
-            });
+            ->displayIf(static fn (Product $product) => $product->isActive());
 
         $activate = Action::new('activate', 'action.activate')
             ->linkToCrudAction('changeStatus')
-            ->displayIf(static function (Product $product) {
-                return $product->isPaused();
-            });
+            ->displayIf(static fn (Product $product) => $product->isPaused());
 
         $availability = Action::new('availability', 'action.availability')
             ->linkToCrudAction('linkToProductAvailabilityPage');
@@ -267,9 +263,7 @@ abstract class AbstractProductCrudController extends AbstractCrudController impl
             ])
             ->addWebpackEncoreEntries('admin');
         $categoryField = AssociationField::new('category')
-            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
-                return $this->categoryRepository->addTypeFilter($queryBuilder, $this->getProductType());
-            })
+            ->setQueryBuilder(fn (QueryBuilder $queryBuilder) => $this->categoryRepository->addTypeFilter($queryBuilder, $this->getProductType()))
         ;
 
         $nameField = TextField::new('name');

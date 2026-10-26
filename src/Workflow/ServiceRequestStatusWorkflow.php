@@ -8,7 +8,7 @@ use App\Entity\ServiceRequest;
 use App\Enum\ServiceRequest\ServiceRequestStatusTransition;
 use Symfony\Component\Workflow\WorkflowInterface;
 
-final class ServiceRequestStatusWorkflow
+final readonly class ServiceRequestStatusWorkflow
 {
     private const EXCEPTION_MESSAGE = 'Cannot apply the "%s" transition on service request n°%s, current status: "%s"';
 
@@ -31,7 +31,7 @@ final class ServiceRequestStatusWorkflow
     public const WORKFLOW_SERVICE_REQUEST_COMPLETED_AUTO_FINALIZE_EVENT = 'workflow.service_request_status.completed.autoFinalize';
 
     public function __construct(
-        private readonly WorkflowInterface $serviceRequestStatusStateMachine,
+        private WorkflowInterface $serviceRequestStatusStateMachine,
     ) {
     }
 

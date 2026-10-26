@@ -71,8 +71,6 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
     use FieldTrait;
     use i18nTrait;
 
-    public AppMailer $mailer;
-
     private const SWITCH_USER_PARAMETER = '_switch_user'; // @see security.yaml
 
     abstract public function getUserType(): UserType;
@@ -92,12 +90,11 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
         private readonly FilesystemOperator $userStorage,
         private readonly EasyAdminHelper $easyAdminHelper,
         private readonly MediaManager $mediaManager,
-        #[Autowire('%user_base_path%')]
+        #[Autowire(param: 'user_base_path')]
         private readonly string $userBasePath,
-        AppMailer $mailer,
+        public AppMailer $mailer,
         private readonly ConfigurationRepository $configurationRepository,
     ) {
-        $this->mailer = $mailer;
     }
 
     public function configureCrud(Crud $crud): Crud
@@ -147,9 +144,7 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
         $actions
             ->add(Crud::PAGE_INDEX, $promoteToAdmin);
 
-        $deleteCallback = function (Action $action) use ($currentUser) {
-            return $action->displayIf(fn (User $user) => $currentUser !== $user && !$user->isMainAdminAccount());
-        };
+        $deleteCallback = (fn (Action $action) => $action->displayIf(fn (User $user) => $currentUser !== $user && !$user->isMainAdminAccount()));
         $actions->update(Crud::PAGE_INDEX, 'delete', $deleteCallback);
         $actions->update(Crud::PAGE_DETAIL, 'delete', $deleteCallback);
 
@@ -356,9 +351,7 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
 
         $scheduleField = TextField::new('schedule');
         $categoryField = AssociationField::new('category')
-            ->setFormTypeOption('choice_label', function (Category $category) {
-                return $this->translator->trans($category->getType()->name, [], 'admin').' / '.$category->getName();
-            })
+            ->setFormTypeOption('choice_label', fn (Category $category) => $this->translator->trans($category->getType()->name, [], 'admin').' / '.$category->getName())
             ->setRequired(false)
         ;
         $descriptionField = TextareaField::new('description');
@@ -370,9 +363,7 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
         $startAt = DateField::new('startAt');
         $endAt = DateField::new('endAt');
         $expiresInField = IntegerField::new('expiresIn')
-            ->formatValue(function ($value) {
-                return $value !== null ? $this->translator->trans($this->getI18nPrefix().'.expires_in.formatted_value', ['%days%' => $value], 'admin') : '';
-            })
+            ->formatValue(fn ($value) => $value !== null ? $this->translator->trans($this->getI18nPrefix().'.expires_in.formatted_value', ['%days%' => $value], 'admin') : '')
             ->setFormTypeOptions([
                 'attr' => ['readonly' => 'readonly'],
                 'required' => false,
@@ -462,6 +453,8 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
 
     /**
      * We need to normalize the email to make work the unique entity properly.
+     *
+     * @return FormBuilderInterface<mixed>
      */
     public function createNewFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface
     {
@@ -471,6 +464,9 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
         return $builder;
     }
 
+    /**
+     * @return FormBuilderInterface<mixed>
+     */
     public function createEditFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface
     {
         $builder = $this->container->get(FormFactory::class)->createEditFormBuilder($entityDto, $formOptions, $context);

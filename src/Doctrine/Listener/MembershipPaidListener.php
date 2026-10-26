@@ -13,12 +13,12 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\Routing\RouterInterface;
 
 #[AsEventListener(event: ExceptionEvent::class, method: 'onKernelException')]
-final class MembershipPaidListener
+final readonly class MembershipPaidListener
 {
     public function __construct(
-        private readonly ConfigurationRepository $configurationRepository,
-        private readonly Security $security,
-        private readonly RouterInterface $router,
+        private ConfigurationRepository $configurationRepository,
+        private Security $security,
+        private RouterInterface $router,
     ) {
     }
 

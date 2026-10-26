@@ -99,16 +99,12 @@ abstract class AbstractMenuItemCrudController extends AbstractCrudController imp
 
         $moveUpPosition = Action::new('up', 'menu.action.up_item', 'fa-sharp fa-solid fa-arrow-up')
             ->linkToCrudAction('moveUpPosition')
-            ->displayIf(static function (MenuItem $item) {
-                return !$item->isFirst();
-            });
+            ->displayIf(static fn (MenuItem $item) => !$item->isFirst());
 
         // don't display the delete link if the item has children
         $deleteAction = Action::new('delete', 'menu.action.delete')
             ->linkToCrudAction('delete')
-            ->displayIf(static function (MenuItem $item) {
-                return !$item->hasChildren();
-            })
+            ->displayIf(static fn (MenuItem $item) => !$item->hasChildren())
             ->setCssClass('dropdown-item action-delete text-danger');
 
         $newMenuItemLinkUrl = $this->adminUrlGenerator
@@ -240,9 +236,7 @@ abstract class AbstractMenuItemCrudController extends AbstractCrudController imp
             ->setRequired(true);
 
         $parentField = AssociationField::new('parent')
-            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
-                return $this->menuItemRepository->getLinksByCode($queryBuilder, $this->getCode());
-            })
+            ->setQueryBuilder(fn (QueryBuilder $queryBuilder) => $this->menuItemRepository->getLinksByCode($queryBuilder, $this->getCode()))
             ->setRequired(false);
         $menuField = AssociationField::new('menu');
         $positionField = IntegerField::new('position');

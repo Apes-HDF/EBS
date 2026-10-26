@@ -21,7 +21,7 @@ class PromoteToAdminEmail implements EmailInterface
 
     public function __construct(
         private readonly TranslatorInterface $translator,
-        #[Autowire('%brand%')]
+        #[Autowire(param: 'brand')]
         private readonly string $brand,
     ) {
     }

@@ -11,10 +11,10 @@ use App\Repository\GroupRepository;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-final class GetGroupByIdQueryHandler
+final readonly class GetGroupByIdQueryHandler
 {
     public function __construct(
-        private readonly GroupRepository $groupRepository,
+        private GroupRepository $groupRepository,
     ) {
     }
 

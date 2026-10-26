@@ -9,11 +9,11 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @see GetUserServicesQueryHandler
  */
-final class GetUserServicesQuery
+final readonly class GetUserServicesQuery
 {
     public function __construct(
-        public readonly Uuid $id,
-        public readonly ?Uuid $categoryId,
+        public Uuid $id,
+        public ?Uuid $categoryId,
     ) {
     }
 }

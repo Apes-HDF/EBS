@@ -11,11 +11,11 @@ use App\Repository\ProductRepository;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-final class GetProductUnavailabilitiesQueryHandler
+final readonly class GetProductUnavailabilitiesQueryHandler
 {
     public function __construct(
-        public readonly ProductAvailabilityRepository $productAvailabilityRepository,
-        private readonly ProductRepository $productRepository,
+        public ProductAvailabilityRepository $productAvailabilityRepository,
+        private ProductRepository $productRepository,
     ) {
     }
 

@@ -13,18 +13,18 @@ use Psr\Clock\ClockInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-final class ResetPasswordQueryHandler
+final readonly class ResetPasswordQueryHandler
 {
     public function __construct(
-        private readonly UserRepository $userRepository,
-        private readonly ClockInterface $clock,
+        private UserRepository $userRepository,
+        private ClockInterface $clock,
     ) {
     }
 
     /**
      * Try to find the user from the repository and check the validity of the token.
      */
-    public function __invoke(ResetPasswordQuery $message): ?User
+    public function __invoke(ResetPasswordQuery $message): User
     {
         $user = $this->userRepository->findOneByLostPasswordToken($message->token);
 

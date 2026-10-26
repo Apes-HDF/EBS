@@ -12,6 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Form type for the GroupType enumeration.
+ *
+ * @extends AbstractType<mixed>
  */
 class GroupTypeType extends AbstractType
 {

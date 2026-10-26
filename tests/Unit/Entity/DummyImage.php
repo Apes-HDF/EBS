@@ -8,7 +8,7 @@ use App\Entity\ImageInterface;
 
 final class DummyImage implements ImageInterface
 {
-    public function getImage(): ?string
+    public function getImage(): string
     {
         return 'dummy';
     }

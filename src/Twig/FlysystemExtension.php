@@ -6,10 +6,9 @@ namespace App\Twig;
 
 use App\Entity\ImageInterface;
 use App\Entity\ImagesInterface;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
+use Twig\Attribute\AsTwigFilter;
 
-class FlysystemExtension extends AbstractExtension
+class FlysystemExtension
 {
     public function __construct(
         public readonly ImageExtensionCollection $imageExtensionCollection,
@@ -18,19 +17,9 @@ class FlysystemExtension extends AbstractExtension
     }
 
     /**
-     * @return array<TwigFilter>
-     */
-    public function getFilters(): array
-    {
-        return [
-            new TwigFilter('public_url', $this->getPublicUrl(...)),
-            new TwigFilter('public_url_image', $this->getPublicUrlImage(...)),
-        ];
-    }
-
-    /**
      * Loop through all extensions implementing the Flysystem publicUrl() function.
      */
+    #[AsTwigFilter(name: 'public_url')]
     public function getPublicUrl(ImageInterface $entity): ?string
     {
         foreach ($this->imageExtensionCollection->getExtensions() as $extension) {
@@ -45,6 +34,7 @@ class FlysystemExtension extends AbstractExtension
     /**
      * Same as getPublicUrl() but for entities having multiple images associated.
      */
+    #[AsTwigFilter(name: 'public_url_image')]
     public function getPublicUrlImage(ImagesInterface $entity, string $image): ?string
     {
         foreach ($this->imagesExtensionCollection->getExtensions() as $extension) {

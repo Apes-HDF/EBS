@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Search\Document;
 
-use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\User;
 use Webmozart\Assert\Assert;
@@ -13,7 +12,7 @@ use Webmozart\Assert\Assert;
  * DTO that represents a stored product document stored in Meilisearch. We use
  * a simple DTO to index only what we really need.
  */
-final class ProductDocument
+final readonly class ProductDocument
 {
     public function __construct(
         /**
@@ -21,33 +20,33 @@ final class ProductDocument
          *
          * @see Product::$id
          */
-        public readonly string $id,
+        public string $id,
 
         /**
          * User uuid as a string.
          *
          * @see User::$id
          */
-        public readonly string $ownerId,
+        public string $ownerId,
 
         /**
          * Type of product, service or object. Not searchable.
          *
          * @see Product::$type
          */
-        public readonly string $type,
+        public string $type,
 
         /**
          * If the product is public or restricted to some groups.
          *
          * @see Product::$visibility
          */
-        public readonly string $visibility,
+        public string $visibility,
 
         /**
          * @see Product::$name
          */
-        public readonly string $name,
+        public string $name,
 
         /**
          * Categories' labels.
@@ -56,7 +55,7 @@ final class ProductDocument
          *
          * @var array<string>
          */
-        public readonly array $categories,
+        public array $categories,
 
         /**
          * Categories' IDs.
@@ -65,7 +64,7 @@ final class ProductDocument
          *
          * @var array<string>
          */
-        public readonly array $categoriesIds,
+        public array $categoriesIds,
 
         /**
          * Groups where the product is visible.
@@ -74,26 +73,26 @@ final class ProductDocument
          *
          * @var array<string>
          */
-        public readonly array $groupsIds,
+        public array $groupsIds,
 
         /**
          * Optional description.
          *
          * @see Product::$description
          */
-        public readonly ?string $description,
+        public ?string $description,
 
         /**
          * Optional lat/long coordinates.
          *
          * @@see Product::$owner
          */
-        public readonly ?GeoDocument $_geo,
+        public ?GeoDocument $_geo,
 
         /**
          * When the document was indexed.
          */
-        public readonly \DateTimeImmutable $indexedAt,
+        public \DateTimeImmutable $indexedAt,
     ) {
     }
 

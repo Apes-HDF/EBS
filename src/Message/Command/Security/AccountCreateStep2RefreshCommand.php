@@ -8,10 +8,7 @@ use Symfony\Component\Uid\Uuid;
 
 final class AccountCreateStep2RefreshCommand
 {
-    public Uuid $id;
-
-    public function __construct(Uuid $id)
+    public function __construct(public Uuid $id)
     {
-        $this->id = $id;
     }
 }

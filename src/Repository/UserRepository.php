@@ -20,13 +20,9 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 /**
  * @extends ServiceEntityRepository<User>
  *
- * @method User|null find($id, $lockMode = null, $lockVersion = null)
- * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User|null findOneByEmail(string $email)
  * @method User|null findOneByConfirmationToken(string $token)
  * @method User|null findOneByLostPasswordToken(string $token)
- * @method User[]    findAll()
- * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
@@ -73,7 +69,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if (!$user instanceof User) {
-            throw new UnsupportedUserException(\sprintf('Instances of "%s" are not supported.', \get_class($user)));
+            throw new UnsupportedUserException(\sprintf('Instances of "%s" are not supported.', $user::class));
         }
 
         $user->setPassword($newHashedPassword);
@@ -150,6 +146,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getSingleScalarResult();
     }
 
+    /**
+     * @return Query<null, User>
+     */
     public function getExpiredMembership(): Query
     {
         $today = Carbon::today();
@@ -159,9 +158,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->setParameter('date', $today->format('Y-m-d'))
         ;
 
-        return $qb->getQuery();
+        /** @var Query<null, User> $query */
+        $query = $qb->getQuery();
+
+        return $query;
     }
 
+    /**
+     * @return Query<null, User>
+     */
     public function getExpiring(int $days): Query
     {
         $from = new \DateTimeImmutable(\sprintf('+%d days midnight', $days));
@@ -175,6 +180,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->setParameter('to', $to->format('Y-m-d'))
         ;
 
-        return $qb->getQuery();
+        /** @var Query<null, User> $query */
+        $query = $qb->getQuery();
+
+        return $query;
     }
 }

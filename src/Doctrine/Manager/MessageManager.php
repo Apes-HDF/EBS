@@ -11,15 +11,15 @@ use App\Enum\Message\MessageType;
 use App\Repository\MessageRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class MessageManager
+final readonly class MessageManager
 {
     use i18nTrait;
 
     public const DOMAIN = 'messages_system';
 
     public function __construct(
-        private readonly MessageRepository $messageRepository,
-        private readonly TranslatorInterface $translator,
+        private MessageRepository $messageRepository,
+        private TranslatorInterface $translator,
     ) {
     }
 

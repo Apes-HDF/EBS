@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Integration\Flysystem;
 
 use App\Flysystem\EasyAdminHelper;
-use League\Flysystem\FilesystemOperator;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -14,7 +13,6 @@ final class EasyAdminHelperTest extends KernelTestCase
     public function testEasyAdminHelper(): void
     {
         self::bootKernel();
-        /** @var FilesystemOperator $storage */
         $storage = self::getContainer()->get('category.storage');
         $helper = new EasyAdminHelper();
         $imageName = 'apes.png';

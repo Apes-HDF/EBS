@@ -12,14 +12,14 @@ use Symfony\Component\Uid\Uuid;
  * @see ObjectController::edit()
  * @see GetProductByIdQueryHandler
  */
-final class GetProductByIdQuery
+final readonly class GetProductByIdQuery
 {
     public function __construct(
         // the product uuid
-        public readonly Uuid $id,
+        public Uuid $id,
 
         // optionnal attribute to check on the object
-        public readonly ?string $attribute = null,
+        public ?string $attribute = null,
     ) {
     }
 }

@@ -11,11 +11,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<PlatformOffer>
- *
- * @method PlatformOffer|null find($id, $lockMode = null, $lockVersion = null)
- * @method PlatformOffer|null findOneBy(array $criteria, array $orderBy = null)
- * @method PlatformOffer[]    findAll()
- * @method PlatformOffer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class PlatformOfferRepository extends ServiceEntityRepository
 {

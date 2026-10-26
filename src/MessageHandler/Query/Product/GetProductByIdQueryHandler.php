@@ -13,11 +13,11 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-final class GetProductByIdQueryHandler
+final readonly class GetProductByIdQueryHandler
 {
     public function __construct(
-        private readonly ProductRepository $productRepository,
-        private readonly Security $security,
+        private ProductRepository $productRepository,
+        private Security $security,
     ) {
     }
 

@@ -20,15 +20,15 @@ use Webmozart\Assert\Assert;
  * Message sent when a user was removed for a group when the endDate of his membership
  * is passed.
  */
-final class EndMembershipEmail implements EmailInterface
+final readonly class EndMembershipEmail implements EmailInterface
 {
     use EmailTrait;
     use i18nTrait;
 
     public function __construct(
-        private readonly TranslatorInterface $translator,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private TranslatorInterface $translator,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 

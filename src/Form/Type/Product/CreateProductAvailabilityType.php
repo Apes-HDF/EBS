@@ -10,6 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @extends AbstractType<array<string, mixed>>
+ */
 final class CreateProductAvailabilityType extends AbstractType
 {
     use i18nTrait;

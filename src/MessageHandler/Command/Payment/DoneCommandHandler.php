@@ -16,13 +16,13 @@ use Payum\Core\Request\GetHumanStatus;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-final class DoneCommandHandler
+final readonly class DoneCommandHandler
 {
     public function __construct(
-        private readonly Payum $payum,
-        private readonly GroupOfferRepository $groupOfferRepository,
-        private readonly UserRepository $userRepository,
-        private readonly UserManager $userManager,
+        private Payum $payum,
+        private GroupOfferRepository $groupOfferRepository,
+        private UserRepository $userRepository,
+        private UserManager $userManager,
     ) {
     }
 

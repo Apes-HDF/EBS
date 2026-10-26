@@ -7,8 +7,12 @@ namespace App\Security\Voter\ServiceRequest;
 use App\Entity\ServiceRequest;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
+/**
+ * @extends Voter<string, ServiceRequest>
+ */
 class ServiceRequestVoter extends Voter
 {
     final public const VIEW = 'view'; // test if a given user can view a service request (including conversation)
@@ -25,7 +29,7 @@ class ServiceRequestVoter extends Voter
         return true;
     }
 
-    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         $user = $token->getUser();
 

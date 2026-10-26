@@ -28,22 +28,22 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * @see ServiceRequestController
  */
 #[AsMessageHandler]
-final class CreateServiceRequestCommandHandler
+final readonly class CreateServiceRequestCommandHandler
 {
     use i18nTrait;
     public const MESSAGE_SYSTEM_NEW = 'message.system.new';
 
     public function __construct(
-        private readonly UserRepository $userRepository,
-        private readonly ProductRepository $productRepository,
-        private readonly ServiceRequestManager $serviceRequestManager,
-        private readonly MessageManager $messageManager,
-        private readonly ProductAvailabilityManager $productAvailabilityManager,
-        private readonly AppMailer $appMailer,
-        private readonly SmsNotifier $notifier,
-        private readonly TranslatorInterface $translator,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private UserRepository $userRepository,
+        private ProductRepository $productRepository,
+        private ServiceRequestManager $serviceRequestManager,
+        private MessageManager $messageManager,
+        private ProductAvailabilityManager $productAvailabilityManager,
+        private AppMailer $appMailer,
+        private SmsNotifier $notifier,
+        private TranslatorInterface $translator,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 

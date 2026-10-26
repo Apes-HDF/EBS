@@ -23,6 +23,9 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @extends AbstractType<User>
+ */
 final class EditProfileFormType extends AbstractType
 {
     public function __construct(
@@ -116,7 +119,7 @@ final class EditProfileFormType extends AbstractType
         $builder
             ->addEventListener(
                 FormEvents::POST_SUBMIT,
-                [$this, 'onPostSubmit']
+                $this->onPostSubmit(...)
             );
     }
 
@@ -130,7 +133,6 @@ final class EditProfileFormType extends AbstractType
         /** @var User $user */
         $user = $event->getData();
         $user->changePhoneNumber($user->phone);
-        $event->setData($user);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

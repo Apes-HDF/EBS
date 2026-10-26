@@ -41,9 +41,9 @@ final class EndMembershipCommand extends Command
         private readonly TranslatorInterface $translator,
         private readonly AppMailer $appMailer,
         private readonly SmsNotifier $notifier,
-        #[Autowire('%kernel.environment%')]
+        #[Autowire(param: 'kernel.environment')]
         private readonly string $environment,
-        #[Autowire('%brand%')]
+        #[Autowire(param: 'brand')]
         private readonly string $brand,
     ) {
         parent::__construct();

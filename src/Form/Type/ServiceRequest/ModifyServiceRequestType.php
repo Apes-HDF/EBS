@@ -12,6 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Form allowing the users to modify the dates of the service request.
+ *
+ * @extends AbstractType<ServiceRequest>
  */
 final class ModifyServiceRequestType extends AbstractType
 {

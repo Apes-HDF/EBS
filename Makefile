@@ -13,8 +13,8 @@ REDIS       = redis-cli
 # Docker containers
 PHP_CONT  = $(DOCKER_COMP) exec php
 
-# see https://hub.docker.com/r/gmolaire/yarn
-YARN_CONT = $(DOCKER) run -it --rm -w "/usr/app" -v "${PWD}":/usr/app gmolaire/yarn yarn
+# same Node version as the yarn_build stage of the Dockerfile
+YARN_CONT = $(DOCKER) run -it --rm -w "/usr/app" -v "${PWD}":/usr/app node:22 yarn
 
 # Main executables
 PHP          = $(PHP_CONT) php
@@ -113,6 +113,15 @@ fix-php: ## Fix files with php-cs-fixer
 
 rector: ## Run rector with current rules in rector.php
 	@$(RECTOR) process src/
+
+rector-dry: ## Show the changes rector would make, without applying them
+	@$(RECTOR) process src/ --dry-run
+
+full-lint: ## Run all linters, applying rector and php-cs-fixer fixes
+full-lint: rector fix-php stan lint-twig lint-twigcs lint-yaml lint-container yarn-lint
+
+full-lint-dry: ## Run all linters without modifying any file
+full-lint-dry: rector-dry lint-php stan lint-twig lint-twigcs lint-yaml lint-container yarn-lint
 
 ci: ## Run pre-commit checks to ensure the CI will be green
 ci: cs lint-yaml lint-container lint-twig lint-twigcs yarn-lint doctrine-validate test-complete

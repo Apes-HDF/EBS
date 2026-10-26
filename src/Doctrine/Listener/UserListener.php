@@ -16,10 +16,10 @@ use function Symfony\Component\String\u;
  *
  * https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#entity-listeners-class
  */
-final class UserListener
+final readonly class UserListener
 {
     public function __construct(
-        private readonly UserManager $userManager,
+        private UserManager $userManager,
     ) {
     }
 

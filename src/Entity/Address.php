@@ -8,7 +8,6 @@ use App\Doctrine\Behavior\TimestampableEntity;
 use App\Repository\AddressRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Geocoder\Model\Address as GeocoderAddress;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;

@@ -24,6 +24,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function Symfony\Component\String\u;
 
+/**
+ * @extends AbstractType<Search>
+ */
 final class SearchFormType extends AbstractType
 {
     use i18nTrait;
@@ -87,9 +90,7 @@ final class SearchFormType extends AbstractType
 
         $builder->get('city')
             ->addModelTransformer(new CallbackTransformer(
-                function ($city): string {
-                    return '';
-                },
+                fn ($city): string => '',
                 function ($city): ?Address {
                     // transform the string back to an address
                     /** @var string $city */

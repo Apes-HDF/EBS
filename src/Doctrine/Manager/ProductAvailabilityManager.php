@@ -10,10 +10,10 @@ use App\Enum\Product\ProductAvailabilityMode;
 use App\Enum\Product\ProductAvailabilityType;
 use App\Repository\ProductAvailabilityRepository;
 
-final class ProductAvailabilityManager
+final readonly class ProductAvailabilityManager
 {
     public function __construct(
-        private readonly ProductAvailabilityRepository $productAvailabilityRepository,
+        private ProductAvailabilityRepository $productAvailabilityRepository,
     ) {
     }
 

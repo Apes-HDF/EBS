@@ -15,11 +15,11 @@ use Webmozart\Assert\Assert;
  * @see ChangeLoginAction
  */
 #[AsMessageHandler]
-final class ChangeLoginCommandHandler
+final readonly class ChangeLoginCommandHandler
 {
     public function __construct(
-        private readonly UserManager $userManager,
-        private readonly UserRepository $userRepository,
+        private UserManager $userManager,
+        private UserRepository $userRepository,
     ) {
     }
 

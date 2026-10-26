@@ -19,15 +19,15 @@ use Webmozart\Assert\Assert;
  * Email that is send to the owner/provider of an object/service when a new request
  * is made. The user is invited to check the request and to accept or refuse it.
  */
-final class NewServiceRequest implements EmailInterface
+final readonly class NewServiceRequest implements EmailInterface
 {
     use EmailTrait;
     use i18nTrait;
 
     public function __construct(
-        private readonly TranslatorInterface $translator,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private TranslatorInterface $translator,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 

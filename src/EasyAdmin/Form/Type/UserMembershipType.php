@@ -12,6 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Form type for the UserMembership enumeration.
+ *
+ * @extends AbstractType<mixed>
  */
 class UserMembershipType extends AbstractType
 {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MessageHandler\Query\User;
 
+use App\Entity\Product;
 use App\Entity\User;
 use App\Enum\Product\ProductType;
 use App\Message\Query\User\GetUserObjectsQuery;
@@ -22,6 +23,9 @@ class GetUserObjectsQueryHandler
     ) {
     }
 
+    /**
+     * @return Query<null, Product>
+     */
     public function __invoke(GetUserObjectsQuery $message): Query
     {
         $user = $this->userRepository->find($message->id);

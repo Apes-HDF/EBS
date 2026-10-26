@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MessageHandler\Query\User;
 
+use App\Entity\Product;
 use App\Entity\User;
 use App\Enum\Product\ProductType;
 use App\Message\Query\User\GetUserServicesQuery;
@@ -14,14 +15,17 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Webmozart\Assert\Assert;
 
 #[AsMessageHandler]
-final class GetUserServicesQueryHandler
+final readonly class GetUserServicesQueryHandler
 {
     public function __construct(
-        private readonly ProductRepository $productRepository,
-        private readonly UserRepository $userRepository,
+        private ProductRepository $productRepository,
+        private UserRepository $userRepository,
     ) {
     }
 
+    /**
+     * @return Query<null, Product>
+     */
     public function __invoke(GetUserServicesQuery $message): Query
     {
         $user = $this->userRepository->find($message->id);

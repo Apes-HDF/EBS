@@ -90,17 +90,14 @@ final class ServiceCrudController extends AbstractProductCrudController
             $product = $this->getContext()?->getEntity()?->getInstance();
             $owner = $product?->getOwner();
             if (null !== $owner && !$owner->getUserGroupsConfirmedWithServices()->isEmpty()) {
-                $groupsField->setQueryBuilder(function (QueryBuilder $queryBuilder) use ($owner) {
-                    return $queryBuilder
-                        ->join('entity.userGroups', 'ug')
-                        ->andWhere('ug.membership != :membership')
-                        ->andWhere('ug.user = :user')
-                        ->andWhere('entity.servicesEnabled = :true')
-                        ->setParameter('user', $owner)
-                        ->setParameter('membership', UserMembership::INVITATION)
-                        ->setParameter('true', true)
-                    ;
-                });
+                $groupsField->setQueryBuilder(fn (QueryBuilder $queryBuilder) => $queryBuilder
+                    ->join('entity.userGroups', 'ug')
+                    ->andWhere('ug.membership != :membership')
+                    ->andWhere('ug.user = :user')
+                    ->andWhere('entity.servicesEnabled = :true')
+                    ->setParameter('user', $owner)
+                    ->setParameter('membership', UserMembership::INVITATION)
+                    ->setParameter('true', true));
             } else {
                 $groupsField->setDisabled();
             }

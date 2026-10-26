@@ -19,20 +19,20 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Event\Event;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ServiceRequestRefusedSubscriber implements EventSubscriberInterface
+final readonly class ServiceRequestRefusedSubscriber implements EventSubscriberInterface
 {
     use SmsNotifierTrait;
     final public const MESSAGE_SYSTEM_REFUSED = 'message.system.refused';
 
     public function __construct(
-        private readonly MessageManager $messageManager,
-        private readonly AppMailer $appMailer,
-        private readonly Security $security,
-        private readonly ServiceRequestManager $serviceRequestManager,
-        private readonly TranslatorInterface $translator,
-        private readonly SmsNotifier $notifier,
-        #[Autowire('%brand%')]
-        private readonly string $brand,
+        private MessageManager $messageManager,
+        private AppMailer $appMailer,
+        private Security $security,
+        private ServiceRequestManager $serviceRequestManager,
+        private TranslatorInterface $translator,
+        private SmsNotifier $notifier,
+        #[Autowire(param: 'brand')]
+        private string $brand,
     ) {
     }
 
