@@ -7,6 +7,9 @@ route:
 
 # Matches create_cnpg_backup = true on the "plateforme-ebs" namespace in opentofu-scaleway-infra-mut.
 cnpg:
+  monitoring:
+    podMonitor:
+      enabled: true
   backup:
     enabled: true
     workspace: nonprod

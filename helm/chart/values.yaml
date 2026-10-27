@@ -88,6 +88,10 @@ cnpg:
   # Backups + WAL archiving via the barman-cloud CNPG plugin (must be installed in the cluster).
   # Relies on the "cnpg-backup-credentials" Secret and S3 bucket provisioned by infra (Tofu,
   # create_cnpg_backup = true in opentofu-scaleway-infra-mut/2_environments/3_k8s_objects).
+  # PodMonitor scraping the CNPG metrics (requires the Prometheus Operator CRDs).
+  monitoring:
+    podMonitor:
+      enabled: false
   backup:
     enabled: false
     # Bucket name convention from Tofu: lt-mut-{workspace}-scw-{release name}-cnpg-backup.

@@ -40,6 +40,14 @@ spec:
       ports:
         - protocol: TCP
           port: 8000
+    # Metrics (postgres exporter + barman-cloud plugin), scraped by Prometheus (cnpg-podmonitor.yaml)
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: infra-prometheus
+      ports:
+        - protocol: TCP
+          port: 9187
     # postgres-exporter, scraped by Prometheus (kube-prometheus-stack PodMonitor)
     - from:
         - namespaceSelector:
