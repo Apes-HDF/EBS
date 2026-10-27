@@ -85,6 +85,18 @@ cnpg:
     requests:
       memory: 50Mi
       cpu: 1m
+  # Backups + WAL archiving via the barman-cloud CNPG plugin (must be installed in the cluster).
+  # Relies on the "cnpg-backup-credentials" Secret and S3 bucket provisioned by infra (Tofu,
+  # create_cnpg_backup = true in opentofu-scaleway-infra-mut/2_environments/3_k8s_objects).
+  backup:
+    enabled: false
+    # Bucket name convention from Tofu: lt-mut-{workspace}-scw-{release name}-cnpg-backup.
+    # Must match terraform.workspace (nonprod/prod).
+    workspace: nonprod
+    isWALArchiver: true
+    retentionPolicy: "30d"
+    # CNPG cron format: 6 fields, seconds first.
+    schedule: "0 0 2 * * *"
 
 # External PostgreSQL URL, used when cnpg.enabled is false.
 # url: postgresql://app:!ChangeMe!@database:5432/app?serverVersion=16&charset=utf8

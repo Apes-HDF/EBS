@@ -24,4 +24,12 @@ spec:
   resources:
     {{- toYaml . | nindent 4 }}
   {{- end }}
+  {{- if .Values.cnpg.backup.enabled }}
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      enabled: true
+      isWALArchiver: {{ .Values.cnpg.backup.isWALArchiver }}
+      parameters:
+        barmanObjectName: {{ include "plateforme-ebs.cnpgClusterName" . }}-object-store
+  {{- end }}
 {{- end }}

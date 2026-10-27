@@ -5,6 +5,12 @@ route:
   enabled: true
   host: plateforme-ebs.lt-mut-nonprod-scw.les-tilleuls.solutions
 
+# Matches create_cnpg_backup = true on the "plateforme-ebs" namespace in opentofu-scaleway-infra-mut.
+cnpg:
+  backup:
+    enabled: true
+    workspace: nonprod
+
 meilisearch:
   persistence:
     enabled: true

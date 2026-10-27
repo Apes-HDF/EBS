@@ -1,0 +1,16 @@
+{{- if and .Values.cnpg.enabled .Values.cnpg.backup.enabled }}
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: {{ include "plateforme-ebs.cnpgClusterName" . }}-backup
+  labels:
+    {{- include "plateforme-ebs.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.cnpg.backup.schedule | quote }}
+  backupOwnerReference: self
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
+  cluster:
+    name: {{ include "plateforme-ebs.cnpgClusterName" . }}
+{{- end }}

@@ -1,0 +1,30 @@
+{{- if and .Values.cnpg.enabled .Values.cnpg.backup.enabled }}
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: {{ include "plateforme-ebs.cnpgClusterName" . }}-object-store
+  labels:
+    {{- include "plateforme-ebs.labels" . | nindent 4 }}
+spec:
+  configuration:
+    # Bucket naming convention from opentofu-scaleway-infra-mut's
+    # 2_environments/3_k8s_objects/cnpg_backup.tf (module.cnpg_backup_bucket). Not read back from
+    # the cnpg-backup-credentials Secret via `lookup`: ArgoCD renders with plain `helm template`,
+    # where `lookup` always returns nil.
+    destinationPath: "s3://lt-mut-{{ .Values.cnpg.backup.workspace }}-scw-{{ .Release.Name }}-cnpg-backup/"
+    endpointURL: "https://s3.fr-par.scw.cloud"
+    s3Credentials:
+      accessKeyId:
+        name: cnpg-backup-credentials
+        key: ACCESS_KEY_ID
+      secretAccessKey:
+        name: cnpg-backup-credentials
+        key: ACCESS_SECRET_KEY
+  retentionPolicy: {{ .Values.cnpg.backup.retentionPolicy | quote }}
+  instanceSidecarConfiguration:
+    env:
+      # boto3 >= 1.36 sends CRC32 checksum trailers by default, rejected by Scaleway S3
+      # (SignatureDoesNotMatch).
+      - name: AWS_REQUEST_CHECKSUM_CALCULATION
+        value: when_required
+{{- end }}
