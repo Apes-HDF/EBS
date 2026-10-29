@@ -22,9 +22,14 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           serviceAccountName: {{ include "plateforme-ebs.serviceAccountName" . }}
+          automountServiceAccountToken: {{ .Values.serviceAccount.automountServiceAccountToken }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
           restartPolicy: Never
           containers:
             - name: {{ .Chart.Name }}-cronjob-notify-pms-e-1
+              securityContext:
+                {{- toYaml .Values.securityContext | nindent 16 }}
               image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag | default .Chart.AppVersion }}"
               imagePullPolicy: {{ .Values.php.image.pullPolicy }}
               command: ['/bin/sh', '-c']

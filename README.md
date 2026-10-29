@@ -2,20 +2,41 @@
 
 # Build des images Docker (CD)
 
-Les images `app_php` et `app_caddy` sont construites par le workflow [CD](.github/workflows/cd.yml) (qui appelle [build.yml](.github/workflows/build.yml)) puis poussées sur le registry Scaleway. Le tag de l'image dépend de l'événement déclencheur :
+## Branches et environnements
+
+| Branche | Environnement | Comment y arriver |
+|---|---|---|
+| `staging` (branche par défaut) | nonprod | PR depuis une branche de travail |
+| `main` | prod | PR `staging` → `main` uniquement |
+
+`main` est protégée : pas de push direct (admins compris), PR obligatoire, et le check `Source branch` ([main-source-branch.yml](.github/workflows/main-source-branch.yml)) refuse toute PR vers `main` qui ne vient pas de `staging`. Une mise en production consiste donc à ouvrir puis merger une PR `staging` → `main` sur GitHub.
+
+## Tags des images
+
+Les images `app_php` et `app_caddy` sont construites par le workflow [CD](.github/workflows/cd.yml) (qui appelle [build.yml](.github/workflows/build.yml)) puis poussées sur le registry Scaleway (`rg.fr-par.scw.cloud/infra-mut-cr-scw/ebs-php` et `ebs-caddy`). Le tag de l'image dépend de l'événement déclencheur :
 
 | Déclencheur | Tag de l'image |
 |---|---|
-| Push d'un tag git (ex. `git push origin 1.0.2`) | `prod-<sha court>` |
-| Push sur la branche `main` | `nonprod-<sha court>` |
-| Lancement manuel (`workflow_dispatch`) sur un **tag** git | `prod-<sha court>` |
-| Lancement manuel (`workflow_dispatch`) sur une **branche** | `nonprod-<sha court>` |
+| Push sur la branche `staging` (merge d'une PR) | `nonprod-<sha court>` |
+| Push sur la branche `main` (merge de la PR `staging` → `main`) | `prod-<sha court>` |
+| Lancement manuel (`workflow_dispatch`) sur `staging` ou `main` | même tag que le push sur cette branche |
+| Lancement manuel (`workflow_dispatch`) sur une autre branche | aucun tag : le push d'image échoue |
 | Pull request portant le label `deploy` | `sha-<sha court>` (le label est retiré automatiquement après le lancement) |
 | Pull request sans label `deploy` | pas de build |
 
-Le déploiement est ensuite géré par ArgoCD, qui surveille ces tags sur le registry.
+Les tags git ne déclenchent plus de build.
 
-> ⚠️ Si le commit pointé par le tag git contient `[skip ci]` dans son message, GitHub ne lance pas le workflow. Il faut alors le lancer manuellement sur le tag : `gh workflow run cd.yml --ref <tag>`.
+## Déploiement (ArgoCD)
+
+Le déploiement est géré par ArgoCD, configuré dans `opentofu-scaleway-infra-mut` (`2_environments/3_k8s_objects`, `argocd_sites.tf` et `vars/{nonprod,prod}.tfvars`) :
+
+- **Images** : ArgoCD Image Updater déploie le build le plus récent dont le tag commence par `nonprod-` ou `prod-`, selon l'environnement.
+- **Chart** : le chart Helm [helm/chart](helm/chart) est lu sur la branche indiquée par `chart_revision`, `main` pour la prod et `staging` pour la nonprod, et synchronisé automatiquement.
+- **Review apps** : les PR portant le label `deploy` sont déployées avec leur image `sha-<sha court>` (`argocd_pr_sites.tf`).
+
+> ⚠️ Le chart est synchronisé dès le merge, alors que l'image n'arrive qu'à la fin du build, quelques minutes plus tard. Si un changement du chart dépend d'un changement d'image (par exemple Caddy en non-root : binaire en `chmod 555` dans le `Dockerfile`, port 8080 dans le chart), livrer d'abord l'image, puis le chart, en deux PR et deux mises en production.
+
+> ⚠️ Si le dernier commit poussé contient `[skip ci]` dans son message, GitHub ne lance pas le workflow. Il faut alors le lancer manuellement sur la branche : `gh workflow run cd.yml --ref staging` (ou `--ref main`).
 
 
 # Contexte 

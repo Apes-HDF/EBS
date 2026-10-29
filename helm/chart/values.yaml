@@ -167,19 +167,31 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
+  # The app doesn't call the Kubernetes API: no token is mounted, neither on the
+  # ServiceAccount nor on the pods using it.
+  automountServiceAccountToken: false
 
 podAnnotations: {}
 
-podSecurityContext: {}
-  # fsGroup: 2000
+# Applied to every app pod (Deployment, CronJobs, fixtures Job).
+# 82 is www-data in the Alpine-based php image (USER www-data, by name: runAsNonRoot
+# needs a numeric UID to check it). The caddy container runs with the same UID.
+# fsGroup makes the emptyDir volumes (storage, php socket, caddy data/config) writable.
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 82
+  runAsGroup: 82
+  fsGroup: 82
+  seccompProfile:
+    type: RuntimeDefault
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
+# Applied to every app container.
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
   # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
 
 service:
   type: ClusterIP
