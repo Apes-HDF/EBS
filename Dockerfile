@@ -212,7 +212,8 @@ FROM caddy:${CADDY_VERSION} AS app_caddy
 
 WORKDIR /srv/app
 
-COPY --from=app_caddy_builder --chmod=500 /usr/bin/caddy /usr/bin/caddy
+# 555: the container runs as non-root (helm chart podSecurityContext)
+COPY --from=app_caddy_builder --chmod=555 /usr/bin/caddy /usr/bin/caddy
 
 COPY --from=app_php /srv/app/public public/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
