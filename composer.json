@@ -19,7 +19,7 @@
         "ext-intl": "*",
         "ext-xsl": "*",
         "ext-zip": "*",
-        "api-platform/core": "^3.1",
+        "api-platform/core": "^4.1",
         "craue/formflow-bundle": "^3.6",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.7",
