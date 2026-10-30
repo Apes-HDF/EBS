@@ -7,7 +7,7 @@
     <body>
         <trans-unit id="v8br545" resname="app.controller.user.account.change_login_action.flash.success">
             <source>app.controller.user.account.change_login_action.flash.success</source>
-            <target>Votre email a bien été modifié.</target>
+            <target>Un lien de confirmation a été envoyé à la nouvelle adresse e-mail. Votre adresse ne sera modifiée qu'après avoir cliqué sur ce lien.</target>
         </trans-unit>
     </body>
   </file>
