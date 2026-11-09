@@ -17,7 +17,4 @@ data:
   {{- if .Values.meilisearch.enabled }}
   meilisearch-url: "http://{{ include "meilisearch.fullname" .Subcharts.meilisearch }}:7700"
   {{- end }}
-  {{- if .Values.redis.enabled }}
-  redis-url: "redis://{{ printf "%s" (include "common.fullname" .Subcharts.redis) }}"
-  {{- end }}
   php-storage-use-path-style-endpoint: {{ .Values.php.storage.usePathStyleEndpoint | quote }}
