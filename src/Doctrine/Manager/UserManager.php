@@ -34,6 +34,9 @@ final class UserManager
     private const LOST_PASSWORD_TOKEN_LENGTH = 50;
     private const LOST_PASSWORD_TOKEN_EXPIRATION_TIME = '+1 hour';
 
+    private const PENDING_EMAIL_TOKEN_LENGTH = 50;
+    private const PENDING_EMAIL_TOKEN_EXPIRATION_TIME = '+24 hours';
+
     public function __construct(
         private readonly UserPasswordHasherInterface $userPasswordHasher,
         private readonly UserRepository $userRepository,
@@ -146,6 +149,31 @@ final class UserManager
     {
         $user->confirmEmail();
         $user->resetConfirmation();
+    }
+
+    /**
+     * Store the new email requested by the user with a token to confirm it. The
+     * email of the account is not modified until this token is used.
+     *
+     * @see self::confirmChangeLogin()
+     */
+    public function requestChangeLogin(User $user, string $email): void
+    {
+        $user->setPendingEmail($this->stringHelper->normalizeEmail($email));
+        $token = ByteString::fromRandom(self::PENDING_EMAIL_TOKEN_LENGTH);
+        $user->setPendingEmailToken($token->toString());
+        $user->setPendingEmailExpiresAt($this->clock->now()->modify(self::PENDING_EMAIL_TOKEN_EXPIRATION_TIME));
+    }
+
+    /**
+     * Apply the confirmed pending email and cleanup.
+     */
+    public function confirmChangeLogin(User $user): void
+    {
+        $pendingEmail = $user->getPendingEmail();
+        Assert::stringNotEmpty($pendingEmail, 'The pendingEmail property should be set and not empty.');
+        $this->changeLogin($user, $pendingEmail);
+        $user->resetPendingEmail();
     }
 
     /**

@@ -14,7 +14,7 @@ final class ChangeLoginCommand
     public function __construct(
         // the user id
         public readonly Uuid $id,
-        // the new email to save
+        // the new email, stored as pending until it is confirmed
         public string $email,
     ) {
     }

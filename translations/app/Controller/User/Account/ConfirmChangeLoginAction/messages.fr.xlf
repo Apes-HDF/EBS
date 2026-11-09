@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="kHEiKQw" resname="app.controller.user.account.confirm_change_login_action.flash.success">
+            <source>app.controller.user.account.confirm_change_login_action.flash.success</source>
+            <target>Votre adresse e-mail a bien été modifiée.</target>
+        </trans-unit>
+
+        <trans-unit id="UXgd2vk" resname="app.controller.user.account.confirm_change_login_action.flash.token_invalid">
+            <source>app.controller.user.account.confirm_change_login_action.flash.token_invalid</source>
+            <target>Ce lien de confirmation est invalide. Faites une nouvelle demande de changement d'adresse e-mail.</target>
+        </trans-unit>
+
+        <trans-unit id="maDOgMY" resname="app.controller.user.account.confirm_change_login_action.flash.token_expired">
+            <source>app.controller.user.account.confirm_change_login_action.flash.token_expired</source>
+            <target>Ce lien de confirmation a expiré. Faites une nouvelle demande de changement d'adresse e-mail.</target>
+        </trans-unit>
+
+        <trans-unit id="Ha5LBJ5" resname="app.controller.user.account.confirm_change_login_action.flash.email_already_used">
+            <source>app.controller.user.account.confirm_change_login_action.flash.email_already_used</source>
+            <target>Cette adresse e-mail est déjà utilisée par un autre compte : votre adresse n'a pas été modifiée.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>
