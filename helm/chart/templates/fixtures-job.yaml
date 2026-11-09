@@ -129,8 +129,8 @@ spec:
             {{- if .Values.redis.enabled }}
             - name: REDIS_URL
               valueFrom:
-                configMapKeyRef:
-                  name: {{ include "plateforme-ebs" . }}
+                secretKeyRef:
+                  name: {{ .Release.Name }}-redis-auth
                   key: redis-url
             {{- end }}
             - name: PAYUM_APIKEY

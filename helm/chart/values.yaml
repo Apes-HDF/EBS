@@ -121,7 +121,12 @@ external-dns:
 redis:
   enabled: true
   auth:
-    enabled: false
+    enabled: true
+    # Mot de passe généré une fois via ESO (cf templates/redis-auth-secret.yaml), même pattern que
+    # Meilisearch et CNPG : le sous-chart ne génère pas le sien (pas de `lookup` sous ArgoCD).
+    # Valeur passée par `tpl` côté sous-chart, d'où la syntaxe gotpl.
+    existingSecret: '{{ .Release.Name }}-redis-auth'
+    existingSecretPasswordKey: redis-password
   # master:
   #   startupProbe:
   #     enabled: true
