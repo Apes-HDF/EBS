@@ -55,15 +55,27 @@ final class IndexProductsCommand extends Command
         $io->title(self::DESCRIPTION.' ('.$this->environment.' env)');
         $this->memoryReport($io);
 
-        $io->section('Resetting swap index...');
+        // Every step waits for its Meilisearch tasks and throws if one of them failed:
+        // the main index is only swapped when the swap index is complete.
+        $io->section('Creating indexes if needed...');
+        $this->meilisearch->ensureIndex(Meilisearch::PRODUCTS_INDEX);
+        $this->meilisearch->ensureIndex(Meilisearch::PRODUCTS_SWAP_INDEX);
+        $io->note('  -> DONE');
+        $io->newLine();
+
+        $io->section('Resetting swap index and applying settings...');
         $swapIndex = $this->meilisearch->getSwapIndex();
-        $swapIndex->deleteAllDocuments();
+        $this->meilisearch->waitForTasks([
+            $swapIndex->deleteAllDocuments()['taskUid'],
+            $this->meilisearch->setSettings($swapIndex),
+        ]);
         $io->note('  -> DONE');
         $io->newLine();
 
         $io->section('Indexing products in swap...');
         $count = 0;
         $toIndex = [];
+        $taskUids = [];
         // simple trick for code coverage as we don't have 500 products in the fixtures
         $batchSize = $this->environment === 'test' ? 10 : self::BACTH_SIZE;
         $query = $this->productRepository->getIndexable();
@@ -73,32 +85,28 @@ final class IndexProductsCommand extends Command
             $io->comment(\sprintf('  > adding product %s to batch', $product->getId()));
             $toIndex[] = $product;
             if ((\count($toIndex) % $batchSize) === 0) {
-                $this->meilisearch->indexProducts($toIndex, $swapIndex);
+                $taskUids[] = $this->meilisearch->indexProducts($toIndex, $swapIndex);
                 $io->note(\sprintf('  > indexing %d product(s) from batch', \count($toIndex)));
                 $toIndex = [];
             }
             ++$count;
         }
 
-        $this->meilisearch->indexProducts($toIndex, $swapIndex);
+        $taskUids[] = $this->meilisearch->indexProducts($toIndex, $swapIndex);
         $io->note(\sprintf('  > indexing %d remaining product(s) from batch', \count($toIndex)));
 
+        $this->meilisearch->waitForTasks($taskUids);
         $io->note(\sprintf(' -> %d product(s) indexed.', $count));
         $io->note('  -> DONE');
         $io->newLine();
 
         $io->section('Swapping indexes...');
-        $this->meilisearch->swapIndexes();
+        $this->meilisearch->waitForTasks([$this->meilisearch->swapIndexes()]);
         $io->note('  -> DONE');
         $io->newLine();
 
-        $io->section('Applying settings...');
-        $this->meilisearch->setSettings();
-        $io->note('  -> DONE');
-
         $io->section('Resetting swap index...');
-        $swapIndex = $this->meilisearch->getSwapIndex();
-        $swapIndex->deleteAllDocuments();
+        $this->meilisearch->waitForTasks([$swapIndex->deleteAllDocuments()['taskUid']]);
         $io->note('  -> DONE');
         $io->newLine();
 

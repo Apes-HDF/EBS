@@ -55,6 +55,12 @@ class Meilisearch
     ];
 
     /**
+     * Maximum time to wait for Meilisearch tasks when (re)building the index. The
+     * default timeout of the client (5s) is too short for a full indexation.
+     */
+    final public const TASK_TIMEOUT_MS = 300_000;
+
+    /**
      * Main Meilisearch client.
      */
     private Client $client;
@@ -99,29 +105,50 @@ class Meilisearch
         return $this->client->index(self::PRODUCTS_SWAP_INDEX);
     }
 
-    public function setSearchableAtttributes(): void
+    /**
+     * Creates the index if it doesn't exist yet. Swapping indexes requires both
+     * indexes to exist: on an empty Meilisearch instance the swap would fail.
+     */
+    public function ensureIndex(string $uid): void
     {
-        $this->getIndex()->updateSearchableAttributes(self::SEARCHABLE_ATTRIBUTES);
-    }
-
-    public function setFiltrableAttributes(): void
-    {
-        $this->getIndex()->updateFilterableAttributes(self::FILTRABLE_ATTRIBUTES);
-    }
-
-    public function setSortableAttributes(): void
-    {
-        $this->getIndex()->updateSortableAttributes(self::SORTABLE_ATTRIBUTES);
+        $task = $this->client->createIndex($uid, ['primaryKey' => self::PRIMARY_KEY]);
+        $this->waitForTasks([$task['taskUid']], ['index_already_exists']);
     }
 
     /**
-     * Aplly all settings at once.
+     * Apply all settings at once.
+     *
+     * @return int the uid of the Meilisearch task
      */
-    public function setSettings(): void
+    public function setSettings(?Indexes $index = null): int
     {
-        $this->setSearchableAtttributes();
-        $this->setFiltrableAttributes();
-        $this->setSortableAttributes();
+        $index = $index ?? $this->getIndex();
+        $task = $index->updateSettings([
+            'searchableAttributes' => self::SEARCHABLE_ATTRIBUTES,
+            'filterableAttributes' => self::FILTRABLE_ATTRIBUTES,
+            'sortableAttributes' => self::SORTABLE_ATTRIBUTES,
+        ]);
+
+        return $task['taskUid'];
+    }
+
+    /**
+     * Meilisearch tasks are asynchronous: an error is not raised when the task is
+     * created but when it is processed. Waits for the tasks and throws if one of
+     * them did not succeed, except for the given expected error codes.
+     *
+     * @param array<int>    $taskUids
+     * @param array<string> $allowedErrorCodes
+     */
+    public function waitForTasks(array $taskUids, array $allowedErrorCodes = []): void
+    {
+        $tasks = $this->client->waitForTasks($taskUids, self::TASK_TIMEOUT_MS);
+        foreach ($tasks as $task) {
+            $errorCode = $task['error']['code'] ?? null;
+            if ($task['status'] !== 'succeeded' && !\in_array($errorCode, $allowedErrorCodes, true)) {
+                throw new \RuntimeException(\sprintf('Meilisearch task %d (%s) failed with status "%s": %s', $task['uid'], $task['type'], $task['status'], $task['error']['message'] ?? 'no error message'));
+            }
+        }
     }
 
     /**
@@ -160,21 +187,29 @@ class Meilisearch
     /**
      * @param array<Product> $products
      *
+     * @return int the uid of the Meilisearch task
+     *
      * @throws ExceptionInterface
      */
-    public function indexProducts(array $products, ?Indexes $index = null): void
+    public function indexProducts(array $products, ?Indexes $index = null): int
     {
         $index = $index ?? $this->getIndex();
         $documents = array_map(fn (Product $product) => $this->normalizeProduct($product), $products);
-        $index->addDocuments($documents, self::PRIMARY_KEY);
+        $task = $index->addDocuments($documents, self::PRIMARY_KEY);
+
+        return $task['taskUid'];
     }
 
     /**
      * Swap indexes to avoid downtime.
+     *
+     * @return int the uid of the Meilisearch task
      */
-    public function swapIndexes(): void
+    public function swapIndexes(): int
     {
-        $this->getClient()->swapIndexes([[self::PRODUCTS_INDEX, self::PRODUCTS_SWAP_INDEX]]);
+        $task = $this->getClient()->swapIndexes([[self::PRODUCTS_INDEX, self::PRODUCTS_SWAP_INDEX]]);
+
+        return $task['taskUid'];
     }
 
     public function searchObjects(Search $searchDto): SearchResult

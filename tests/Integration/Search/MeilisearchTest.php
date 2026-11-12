@@ -25,4 +25,16 @@ final class MeilisearchTest extends KernelTestCase
         $results = $meilisearch->search($searchDto);
         self::assertNotEmpty($results);
     }
+
+    public function testWaitForTasksThrowsOnFailedTask(): void
+    {
+        /** @var Meilisearch $meilisearch */
+        $meilisearch = self::getContainer()->get(Meilisearch::class);
+        // a task on a missing index fails when it is processed, not when it is created
+        $task = $meilisearch->getClient()->index('missing_index')->deleteAllDocuments();
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessageMatches('/Meilisearch task \d+ \(documentDeletion\) failed with status "failed"/');
+        $meilisearch->waitForTasks([$task['taskUid']]);
+    }
 }

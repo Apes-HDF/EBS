@@ -17,6 +17,36 @@ final class IndexProductsCommandTest extends KernelTestCase
 {
     use ContainerRepositoryTrait;
 
+    /**
+     * After a Meilisearch upgrade, the instance is empty: a single run must fill the
+     * main index (the swap fails when one of the indexes doesn't exist).
+     */
+    public function testExecuteOnEmptyInstance(): void
+    {
+        $kernel = self::bootKernel();
+        /** @var Meilisearch $meilisearch */
+        $meilisearch = self::getContainer()->get(Meilisearch::class);
+        $client = $meilisearch->getClient();
+        $client->waitForTasks([
+            $client->deleteIndex(Meilisearch::PRODUCTS_INDEX)['taskUid'],
+            $client->deleteIndex(Meilisearch::PRODUCTS_SWAP_INDEX)['taskUid'],
+        ]);
+
+        $application = new Application($kernel);
+        $commandTester = new CommandTester($application->find(IndexProductsCommand::CMD));
+        $commandTester->execute([]);
+        $commandTester->assertCommandIsSuccessful();
+
+        $indexableCount = \count($this->getProductRepository()->getIndexable()->getResult());
+        self::assertGreaterThan(0, $indexableCount);
+        self::assertSame($indexableCount, $meilisearch->getIndex()->stats()['numberOfDocuments']);
+        self::assertSame(0, $meilisearch->getSwapIndex()->stats()['numberOfDocuments']);
+
+        // the settings are applied: filters and sorts used by the search don't raise errors
+        self::assertEqualsCanonicalizing(Meilisearch::FILTRABLE_ATTRIBUTES, $meilisearch->getIndex()->getFilterableAttributes());
+        self::assertGreaterThan(0, $meilisearch->search(new Search(''))->getHitsCount());
+    }
+
     public function testExecute(): void
     {
         $kernel = self::bootKernel();
