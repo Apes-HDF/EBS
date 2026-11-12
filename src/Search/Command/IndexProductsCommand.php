@@ -54,6 +54,8 @@ final class IndexProductsCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->title(self::DESCRIPTION.' ('.$this->environment.' env)');
         $this->memoryReport($io);
+        // margin for a clock skew between the servers updating the products and this one
+        $startedAt = new \DateTimeImmutable('-1 minute');
 
         // Every step waits for its Meilisearch tasks and throws if one of them failed:
         // the main index is only swapped when the swap index is complete.
@@ -96,12 +98,27 @@ final class IndexProductsCommand extends Command
         $io->note(\sprintf('  > indexing %d remaining product(s) from batch', \count($toIndex)));
 
         $this->meilisearch->waitForTasks($taskUids);
+        $this->meilisearch->assertDocumentCount($swapIndex, $count);
         $io->note(\sprintf(' -> %d product(s) indexed.', $count));
         $io->note('  -> DONE');
         $io->newLine();
 
         $io->section('Swapping indexes...');
         $this->meilisearch->waitForTasks([$this->meilisearch->swapIndexes()]);
+        $io->note('  -> DONE');
+        $io->newLine();
+
+        // ProductListener wrote the changes made during the indexation into the previous
+        // main index, which is now the swap one: apply them again to the new main index.
+        $io->section('Catching up the products updated during the indexation...');
+        // same rules as the full indexation (getIndexable)
+        /** @var array<Product> $updatedProducts */
+        $updatedProducts = $this->productRepository->getUpdatedSince($startedAt)->getResult();
+        /** @var array<Product> $indexable */
+        $indexable = $this->productRepository->getIndexable(null, $startedAt)->getResult();
+        $removed = array_filter($updatedProducts, static fn (Product $product) => !\in_array($product, $indexable, true));
+        $this->meilisearch->waitForTasks($this->meilisearch->syncProducts($indexable, $removed));
+        $io->note(\sprintf(' -> %d product(s) updated.', \count($updatedProducts)));
         $io->note('  -> DONE');
         $io->newLine();
 

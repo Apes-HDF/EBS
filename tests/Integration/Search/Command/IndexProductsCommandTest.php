@@ -36,6 +36,7 @@ final class IndexProductsCommandTest extends KernelTestCase
         $commandTester = new CommandTester($application->find(IndexProductsCommand::CMD));
         $commandTester->execute([]);
         $commandTester->assertCommandIsSuccessful();
+        self::assertStringContainsString('product(s) updated', $commandTester->getDisplay());
 
         $indexableCount = \count($this->getProductRepository()->getIndexable()->getResult());
         self::assertGreaterThan(0, $indexableCount);

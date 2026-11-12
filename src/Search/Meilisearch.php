@@ -55,8 +55,9 @@ class Meilisearch
     ];
 
     /**
-     * Maximum time to wait for Meilisearch tasks when (re)building the index. The
-     * default timeout of the client (5s) is too short for a full indexation.
+     * Maximum time to wait for each Meilisearch task when (re)building the index
+     * (polling time, per task, not a global limit). The default timeout of the client
+     * (5s) is too short for a full indexation.
      */
     final public const TASK_TIMEOUT_MS = 300_000;
 
@@ -169,19 +170,60 @@ class Meilisearch
         return $normalized;
     }
 
-    public function deleteProduct(Product $product, ?Indexes $index = null): void
+    /**
+     * @return int the uid of the Meilisearch task
+     */
+    public function deleteProduct(Product $product, ?Indexes $index = null): int
     {
         $index = $index ?? $this->getIndex();
-        $index->deleteDocument((string) $product->getId());
+        $task = $index->deleteDocument((string) $product->getId());
+
+        return $task['taskUid'];
     }
 
     /**
+     * @return int the uid of the Meilisearch task
+     *
      * @throws ExceptionInterface
      */
-    public function indexProduct(Product $product, ?Indexes $index = null): void
+    public function indexProduct(Product $product, ?Indexes $index = null): int
     {
         $index = $index ?? $this->getIndex();
-        $index->addDocuments([$this->normalizeProduct($product)], self::PRIMARY_KEY);
+        $task = $index->addDocuments([$this->normalizeProduct($product)], self::PRIMARY_KEY);
+
+        return $task['taskUid'];
+    }
+
+    /**
+     * Updates the main index with the given products.
+     *
+     * @param array<Product> $indexable products to (re)index
+     * @param array<Product> $removed   products to remove from the index
+     *
+     * @return array<int> the uids of the Meilisearch tasks
+     *
+     * @throws ExceptionInterface
+     */
+    public function syncProducts(array $indexable, array $removed): array
+    {
+        $taskUids = [$this->indexProducts($indexable)];
+        foreach ($removed as $product) {
+            $taskUids[] = $this->deleteProduct($product);
+        }
+
+        return $taskUids;
+    }
+
+    /**
+     * Guard before a swap: another indexation running at the same time (manual run)
+     * would reset the swap index and leave it incomplete without any failed task.
+     */
+    public function assertDocumentCount(Indexes $index, int $expected): void
+    {
+        $count = $index->stats()['numberOfDocuments'];
+        if ($count !== $expected) {
+            throw new \RuntimeException(\sprintf('The "%s" index contains %d document(s) instead of %d.', $index->getUid(), $count, $expected));
+        }
     }
 
     /**
