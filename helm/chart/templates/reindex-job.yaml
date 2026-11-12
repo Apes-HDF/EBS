@@ -14,6 +14,8 @@ metadata:
     "helm.sh/hook-delete-policy": "before-hook-creation"
 spec:
   backoffLimit: 3
+  # A stuck run would keep the ArgoCD sync operation running and block the next syncs.
+  activeDeadlineSeconds: 1800
   template:
     metadata:
       annotations:
