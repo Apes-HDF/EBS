@@ -88,7 +88,7 @@ services:
 ###< meilisearch/meilisearch-php ###
   # https://docs.meilisearch.com/learn/cookbooks/docker.html#download-meilisearch-with-docker
   meilisearch:
-    image: getmeili/meilisearch:v1.1
+    image: getmeili/meilisearch:v1.56.2
     volumes:
       - ./data.ms:/data.ms
     ports:
