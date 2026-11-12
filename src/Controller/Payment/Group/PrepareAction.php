@@ -11,6 +11,7 @@ use App\Repository\GroupOfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
@@ -50,6 +51,10 @@ final class PrepareAction extends AbstractController
         $token = $request->request->get('token');
         if (!$this->isCsrfTokenValid('payment_prepare', $token)) {
             throw new UnprocessableEntityHttpException('Invalid CSRF token');
+        }
+
+        if (!$groupOffer->getGroup()->canBePaidBy($user)) {
+            throw new AccessDeniedHttpException('Group is not public and can only be joined with an invitation link.');
         }
 
         // create and save the payment main reference

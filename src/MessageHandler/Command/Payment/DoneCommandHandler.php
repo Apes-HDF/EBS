@@ -13,6 +13,8 @@ use App\Repository\UserRepository;
 use Carbon\CarbonImmutable;
 use Payum\Core\Payum;
 use Payum\Core\Request\GetHumanStatus;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
@@ -23,6 +25,7 @@ final class DoneCommandHandler
         private readonly GroupOfferRepository $groupOfferRepository,
         private readonly UserRepository $userRepository,
         private readonly UserManager $userManager,
+        private readonly LoggerInterface $logger,
     ) {
     }
 
@@ -42,6 +45,20 @@ final class DoneCommandHandler
         // Not captured
         if (!$status->isCaptured()) {
             return $status;
+        }
+
+        // Already checked by PrepareAction: only reached if the situation changed during
+        // the payment (invitation removed, membership ended, group switched to private).
+        if (!$group->canBePaidBy($user)) {
+            $this->logger->error('Group offer paid without a link to the private group, the payment must be refunded.', [
+                'group' => (string) $group->getId(),
+                'group_offer' => (string) $groupOffer->getId(),
+                'user' => (string) $user->getId(),
+            ]);
+            // the payment is processed: don't process it again if the done page is reloaded
+            $this->payum->getHttpRequestVerifier()->invalidate($message->paymentToken);
+
+            throw new AccessDeniedHttpException('Group is not public and can only be joined with an invitation link.');
         }
 
         // user has an invitation for this group
