@@ -1,0 +1,174 @@
+{{- if include "plateforme-ebs.reindexJobEnabled" . }}
+# Rebuilds the Meilisearch index from the database after each sync (ArgoCD runs Helm post-install
+# and post-upgrade hooks as PostSync hooks, once every resource is healthy). The database is the
+# source of truth: this fills an empty Meilisearch after an upgrade, and the swap index keeps the
+# current index searchable during the indexation. When it fails, the current index is kept.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "plateforme-ebs" . }}-reindex
+  labels:
+    {{- include "plateforme-ebs.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "post-install,post-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation"
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+      labels:
+        {{- include "plateforme-ebs.selectorLabelsReindex" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "plateforme-ebs.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.serviceAccount.automountServiceAccountToken }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      restartPolicy: Never
+      containers:
+        - name: {{ .Chart.Name }}-reindex
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.php.image.pullPolicy }}
+          # Overrides the image entrypoint, which would also run the Doctrine migrations.
+          command: ['/bin/sh', '-c']
+          args: ['bin/console app:index-products --no-interaction']
+          env:
+            - name: API_ENTRYPOINT_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateforme-ebs" . }}
+                  key: php-host
+            - name: JWT_PASSPHRASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plateforme-ebs" . }}
+                  key: php-jwt-passphrase
+            - name: JWT_PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plateforme-ebs" . }}
+                  key: php-jwt-public-key
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plateforme-ebs" . }}
+                  key: php-jwt-secret-key
+            - name: TRUSTED_HOSTS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateforme-ebs" . }}
+                  key: php-trusted-hosts
+            - name: TRUSTED_PROXIES
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateforme-ebs" . }}
+                  key: php-trusted-proxies
+            - name: APP_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateforme-ebs" . }}
+                  key: php-app-env
+            - name: APP_DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateforme-ebs" . }}
+                  key: php-app-debug
+            - name: APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plateforme-ebs" . }}
+                  key: php-app-secret
+            - name: CORS_ALLOW_ORIGIN
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateforme-ebs" . }}
+                  key: php-cors-allow-origin
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plateforme-ebs.databaseSecretName" . }}
+                  key: database-url
+            {{- if .Values.meilisearch.enabled }}
+            - name: MEILISEARCH_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ printf "%s-%s" (include "meilisearch.fullname" .Subcharts.meilisearch ) "master-key" }}
+                  key: MEILI_MASTER_KEY
+            - name: MEILISEARCH_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateforme-ebs" . }}
+                  key: meilisearch-url
+            {{- end }}
+            {{- if .Values.redis.enabled }}
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-redis-auth
+                  key: redis-url
+            {{- end }}
+            - name: PAYUM_APIKEY
+              valueFrom:
+                secretKeyRef:
+                  name: external-secrets
+                  key: PAYUM_APIKEY
+            - name: PAYUM_GATEWAY
+              valueFrom:
+                secretKeyRef:
+                  name: external-secrets
+                  key: PAYUM_GATEWAY
+            # bucket-credentials : provisionné côté infra (Tofu, opentofu-scaleway-infra-mut,
+            # app_bucket.tf), pas par ce chart -- convention de nommage fixe partagée par tous les
+            # sites ArgoCD avec create_bucket = true.
+            - name: STORAGE_BUCKET
+              valueFrom:
+                secretKeyRef:
+                  name: bucket-credentials
+                  key: BUCKET_APP
+            - name: STORAGE_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: bucket-credentials
+                  key: AWS_ENDPOINT_URL
+            - name: STORAGE_REGION
+              valueFrom:
+                secretKeyRef:
+                  name: bucket-credentials
+                  key: AWS_DEFAULT_REGION
+            - name: STORAGE_USE_PATH_STYLE_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "plateforme-ebs" . }}
+                  key: php-storage-use-path-style-endpoint
+            - name: STORAGE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: bucket-credentials
+                  key: AWS_ACCESS_KEY_ID
+            - name: STORAGE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: bucket-credentials
+                  key: AWS_SECRET_ACCESS_KEY
+          resources:
+            {{- toYaml .Values.resources.reindex | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

@@ -81,6 +81,22 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Selector labels Meilisearch reindex job (own labels so it isn't picked up as a Service endpoint)
+*/}}
+{{- define "plateforme-ebs.selectorLabelsReindex" -}}
+app.kubernetes.io/name: {{ include "plateforme-ebs.name" . }}-reindex
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+The reindex Job only runs when the fixtures Job doesn't: the latter already indexes the products,
+and two concurrent indexations would conflict on the swap index.
+*/}}
+{{- define "plateforme-ebs.reindexJobEnabled" -}}
+{{- if and .Values.meilisearch.enabled .Values.php.reindexJob.enabled (not .Values.php.fixtureJob.enabled) }}true{{ end }}
+{{- end }}
+
+{{/*
 CNPG cluster name
 */}}
 {{- define "plateforme-ebs.cnpgClusterName" -}}

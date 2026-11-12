@@ -35,6 +35,10 @@ php:
     enabled: false
   fixtureJob:
     enabled: false
+  # Rebuilds the Meilisearch index from the database after each sync (app:index-products, see
+  # templates/reindex-job.yaml). Skipped when fixtureJob is enabled, which already does it.
+  reindexJob:
+    enabled: true
 
 dailyCronjobs:
   enabled: true
@@ -230,6 +234,9 @@ resources:
     requests:
       memory: 100Mi
   fixtures:
+    requests:
+      memory: 100Mi
+  reindex:
     requests:
       memory: 100Mi
 
