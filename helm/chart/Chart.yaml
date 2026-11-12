@@ -34,7 +34,7 @@ dependencies:
     repository: oci://registry-1.docker.io/cloudpirates
     condition: redis.enabled
   - name: meilisearch
-    version: ~0.1.46
+    version: ~0.42.0
     repository: https://meilisearch.github.io/meilisearch-kubernetes
     condition: meilisearch.enabled
   - name: maildev

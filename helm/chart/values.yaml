@@ -35,6 +35,10 @@ php:
     enabled: false
   fixtureJob:
     enabled: false
+  # Rebuilds the Meilisearch index from the database after each sync (app:index-products, see
+  # templates/reindex-job.yaml). Skipped when fixtureJob is enabled, which already does it.
+  reindexJob:
+    enabled: true
 
 dailyCronjobs:
   enabled: true
@@ -137,9 +141,16 @@ redis:
 meilisearch:
   enabled: true
   image:
-    tag: v0.30.0
+    tag: v1.56.2
   environment:
     MEILI_ENV: 'production'
+    # The v0.30 database (/meili_data/data.ms) can't be opened by Meilisearch 1.x: 1.x starts on a
+    # new, empty database in another directory of the same volume, filled by the reindex Job
+    # (templates/reindex-job.yaml). The old directory stays on the volume for a rollback and can be
+    # deleted once the upgrade is validated in production. A rollback reverts the image tag AND
+    # this path together (v0.30 can't open a 1.x database either), then needs a manual
+    # app:index-products: the old database is as old as the upgrade.
+    MEILI_DB_PATH: '/meili_data/data.ms-v1'
   resources:
     requests:
       memory: 40Mi
@@ -230,6 +241,9 @@ resources:
     requests:
       memory: 100Mi
   fixtures:
+    requests:
+      memory: 100Mi
+  reindex:
     requests:
       memory: 100Mi
 

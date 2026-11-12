@@ -24,6 +24,11 @@ spec:
             matchLabels:
               {{- include "plateforme-ebs.selectorLabelsFixtures" . | nindent 14 }}
         {{- end }}
+        {{- if include "plateforme-ebs.reindexJobEnabled" . }}
+        - podSelector:
+            matchLabels:
+              {{- include "plateforme-ebs.selectorLabelsReindex" . | nindent 14 }}
+        {{- end }}
       ports:
         - protocol: TCP
           port: 6379
