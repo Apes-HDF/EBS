@@ -141,9 +141,14 @@ redis:
 meilisearch:
   enabled: true
   image:
-    tag: v0.30.0
+    tag: v1.56.2
   environment:
     MEILI_ENV: 'production'
+    # The v0.30 database (/meili_data/data.ms) can't be opened by Meilisearch 1.x: 1.x starts on a
+    # new, empty database in another directory of the same volume, filled by the reindex Job
+    # (templates/reindex-job.yaml). The old directory stays on the volume for a rollback and can be
+    # deleted once the upgrade is validated in production.
+    MEILI_DB_PATH: '/meili_data/data.ms-v1'
   resources:
     requests:
       memory: 40Mi
