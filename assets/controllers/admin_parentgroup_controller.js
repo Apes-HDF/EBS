@@ -48,7 +48,7 @@ export default class extends Controller {
       return
     }
     const data = await response.json()
-    const groups = data.member
+    const groups = data['hydra:member']
 
     // Remove options
     parentField.tomselect.clearOptions()
@@ -152,7 +152,7 @@ export default class extends Controller {
       return
     }
     const data = await response.json()
-    const groups = data.member
+    const groups = data['hydra:member']
 
     const parentDiv = groupsField.parentElement
     const smallElement = parentDiv.querySelector('small')
