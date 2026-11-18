@@ -7,7 +7,6 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Patch;
-use ApiPlatform\OpenApi\Model\Operation;
 use App\Controller\i18nTrait;
 use App\Doctrine\Behavior\TimestampableEntity;
 use App\Doctrine\Listener\ProductListener;
@@ -40,7 +39,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Patch(
             uriTemplate: '/product/{id}/switchStatus',
-            openapi: new Operation(summary: 'Switch the status of the product'),
+            openapiContext: ['summary' => 'Switch the status of the product'],
             normalizationContext: ['groups' => [ProductSwitchProcessor::class]],
             security: "is_granted('".ProductVoter::EDIT."', object)",
             input: false,

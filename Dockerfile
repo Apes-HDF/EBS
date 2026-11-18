@@ -5,13 +5,12 @@
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=8.2.35
-ARG CADDY_VERSION=2.11.8
+ARG CADDY_VERSION=2.11.4
 # Caddy binary version, can be ahead of the base image (CADDY_VERSION)
-ARG CADDY_BUILD_VERSION=2.11.8
+ARG CADDY_BUILD_VERSION=2.11.6
 ARG VULCAIN_VERSION=1.4.2
 ARG KIN_OPENAPI_VERSION=0.149.0
-ARG X_NET_VERSION=0.62.0
-ARG GO_JOSE_VERSION=4.1.6
+ARG X_NET_VERSION=0.60.0
 ARG GO_VERSION=1.26
 
 # yarn build
@@ -199,8 +198,6 @@ ARG VULCAIN_VERSION
 ARG KIN_OPENAPI_VERSION
 # Pulled by caddy, pinned for CVE-2026-78669 until a caddy release bumps it
 ARG X_NET_VERSION
-# Pulled by caddy, pinned for CVE-2026-116587 until a caddy release bumps it
-ARG GO_JOSE_VERSION
 
 RUN go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
 
@@ -208,8 +205,7 @@ RUN xcaddy build v${CADDY_BUILD_VERSION} \
 	--output /usr/bin/caddy \
 	--with github.com/dunglas/vulcain/caddy@v${VULCAIN_VERSION} \
 	--with github.com/getkin/kin-openapi/openapi3@v${KIN_OPENAPI_VERSION} \
-	--with golang.org/x/net/http2@v${X_NET_VERSION} \
-	--with github.com/go-jose/go-jose/v4@v${GO_JOSE_VERSION}
+	--with golang.org/x/net/http2@v${X_NET_VERSION}
 
 # Caddy image
 FROM caddy:${CADDY_VERSION} AS app_caddy
