@@ -20,7 +20,7 @@ export default class extends Controller {
       return
     }
     const data = await response.json()
-    const groups = data['hydra:member']
+    const groups = data.member
 
     // Remove options and set a default value
     Array.from(this.parentFieldTarget.options).map((group) => {
