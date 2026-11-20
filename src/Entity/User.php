@@ -52,6 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ImageIn
 {
     use UserConfirmationTrait;
     use UserLostPasswordTrait;
+    use UserPendingEmailTrait;
     use TimestampableEntity;
 
     final public const ROLE_USER = 'ROLE_USER';
