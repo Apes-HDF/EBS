@@ -31,7 +31,7 @@ RUN yarn build
 FROM php:${PHP_VERSION}-fpm-alpine AS app_php
 
 # needed for security update until base image is updated
-RUN apk upgrade --no-cache libcurl curl openssl openssl-dev libressl libcrypto3 libssl3 nghttp2-libs
+RUN apk upgrade --no-cache libcurl curl openssl openssl-dev libressl libcrypto3 libssl3 nghttp2-libs brotli-libs
 
 # Allow to use development versions of Symfony
 ARG STABILITY="stable"
@@ -219,6 +219,6 @@ COPY --from=app_php /srv/app/public public/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
 
 # needed for security update until base image is updated
-RUN apk upgrade --no-cache libcurl curl openssl openssl-dev libcrypto3 libssl3 nghttp2-libs
+RUN apk upgrade --no-cache libcurl curl openssl openssl-dev libcrypto3 libssl3 nghttp2-libs brotli-libs
 
 WORKDIR /srv/app
