@@ -16,6 +16,11 @@ spec:
         {{- include "plateforme-ebs.selectorLabels" . | nindent 8 }}
     spec:
       template:
+        metadata:
+          # Labels portés par le pod (et non par le Job) : c'est eux que sélectionne la
+          # NetworkPolicy allow-app-jobs. Sans eux, le pod tombe sous default-deny.
+          labels:
+            {{- include "plateforme-ebs.selectorLabelsJobs" . | nindent 12 }}
         spec:
           {{- with .Values.imagePullSecrets }}
           imagePullSecrets:
@@ -111,6 +116,23 @@ spec:
                     secretKeyRef:
                       name: external-secrets
                       key: SMS_DSN
+                {{- if .Values.redis.enabled }}
+                - name: REDIS_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Release.Name }}-redis-auth
+                      key: redis-url
+                {{- end }}
+                - name: PAYUM_APIKEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: external-secrets
+                      key: PAYUM_APIKEY
+                - name: PAYUM_GATEWAY
+                  valueFrom:
+                    secretKeyRef:
+                      name: external-secrets
+                      key: PAYUM_GATEWAY
                 # bucket-credentials : provisionné côté infra (Tofu, opentofu-scaleway-infra-mut,
                 # app_bucket.tf), pas par ce chart -- convention de nommage fixe partagée par tous les
                 # sites ArgoCD avec create_bucket = true.
@@ -144,26 +166,6 @@ spec:
                     secretKeyRef:
                       name: bucket-credentials
                       key: AWS_SECRET_ACCESS_KEY
-              lifecycle:
-                preStop:
-                  exec:
-                    command: ["/bin/sh", "-c", "/bin/sleep 1; kill -QUIT 1"]
-              startupProbe:
-                exec:
-                  command:
-                    - docker-healthcheck
-                failureThreshold: 40
-                periodSeconds: 3
-              readinessProbe:
-                exec:
-                  command:
-                    - docker-healthcheck
-                periodSeconds: 3
-              livenessProbe:
-                exec:
-                  command:
-                    - docker-healthcheck
-                periodSeconds: 3
               resources:
                 {{- toYaml .Values.resources.fixtures | nindent 16 }}
 {{- end }}
