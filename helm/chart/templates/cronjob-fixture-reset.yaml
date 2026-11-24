@@ -16,6 +16,11 @@ spec:
         {{- include "plateforme-ebs.selectorLabels" . | nindent 8 }}
     spec:
       template:
+        metadata:
+          # Labels portés par le pod (et non par le Job) : c'est eux que sélectionne la
+          # NetworkPolicy allow-app-jobs. Sans eux, le pod tombe sous default-deny.
+          labels:
+            {{- include "plateforme-ebs.selectorLabelsJobs" . | nindent 12 }}
         spec:
           {{- with .Values.imagePullSecrets }}
           imagePullSecrets:
