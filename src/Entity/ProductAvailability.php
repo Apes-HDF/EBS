@@ -8,6 +8,7 @@ use App\Doctrine\Behavior\TimestampableEntity;
 use App\Enum\Product\ProductAvailabilityMode;
 use App\Enum\Product\ProductAvailabilityType;
 use App\Repository\ProductAvailabilityRepository;
+use Carbon\CarbonImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
@@ -19,6 +20,21 @@ use Symfony\Component\Uid\Uuid;
 class ProductAvailability implements \Stringable
 {
     use TimestampableEntity;
+    /**
+     * Booking horizon: the dates entered by users must be within this number of
+     * days from today, and the calendars never expand a range beyond it.
+     */
+    final public const MAX_DAYS = 731;
+
+    public static function getHorizon(): \DateTimeImmutable
+    {
+        return CarbonImmutable::today()->addDays(self::MAX_DAYS);
+    }
+
+    public static function isWithinHorizon(\DateTimeInterface $startAt, \DateTimeInterface $endAt): bool
+    {
+        return $endAt <= self::getHorizon() && CarbonImmutable::instance($startAt)->diffInDays($endAt) <= self::MAX_DAYS;
+    }
 
     /**
      * Generates a V6 uuid.

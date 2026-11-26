@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use App\Test\ContainerRepositoryTrait;
 use App\Test\KernelTrait;
 use App\Tests\TestReference;
+use Doctrine\ORM\EntityManagerInterface;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -104,5 +105,52 @@ final class EditProfileActionTest extends WebTestCase
         ]);
         self::assertResponseIsUnprocessable();
         self::assertSelectorTextContains('body', 'account_create.name.empty.error');
+    }
+
+    /**
+     * @return iterable<string, array{string}>
+     */
+    public static function provideScriptNames(): iterable
+    {
+        yield 'renamed in .png' => ['avatar.png'];
+        yield 'php extension' => ['avatar.php'];
+    }
+
+    /**
+     * The avatar must be an image: a script is refused, whatever its name, and
+     * the current avatar is kept.
+     *
+     * @dataProvider provideScriptNames
+     */
+    public function testAvatarMustBeAnImage(string $clientName): void
+    {
+        $client = self::createClient();
+        $this->loginAsUser16($client);
+        /** @var User $user */
+        $user = $this->getUserRepository()->find(TestReference::USER_16);
+        $avatar = $user->getAvatar();
+
+        $script = tempnam(sys_get_temp_dir(), 'avatar');
+        file_put_contents((string) $script, '<?php echo "test";');
+        $uploadedFile = new UploadedFile((string) $script, $clientName);
+
+        $client->request('GET', self::ROUTE);
+        $form = $client->getCrawler()->selectButton('templates.pages.user.account.edit_profile.submit')->form();
+        $client->submit($form, [
+            $form->getName().'[avatar]' => $uploadedFile,
+            $form->getName().'[category]' => TestReference::CATEGORY_OBJECT_1,
+            $form->getName().'[phone][country]' => 'FR',
+            $form->getName().'[phone][number]' => '634563424',
+        ]);
+        self::assertResponseIsUnprocessable();
+        self::assertSelectorTextContains('body', 'validator.extensions_message');
+
+        /** @var EntityManagerInterface $entityManager */
+        $entityManager = self::getContainer()->get(EntityManagerInterface::class);
+        $entityManager->clear();
+        /** @var User $user */
+        $user = $this->getUserRepository()->find(TestReference::USER_16);
+        self::assertSame($avatar, $user->getAvatar());
+        @unlink((string) $script);
     }
 }

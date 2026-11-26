@@ -1,0 +1,25 @@
+name: Main source branch
+
+# Seule staging peut être mergée dans main (mise en production) : ce job est un check requis
+# par la protection de branche de main.
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  source-branch:
+    name: Source branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check that the pull request comes from staging
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+        run: |
+          if [ "$HEAD_REF" != "staging" ] || [ "$HEAD_REPO" != "${{ github.repository }}" ]; then
+            echo "::error::Only ${{ github.repository }}:staging can be merged into main (got $HEAD_REPO:$HEAD_REF)."
+            exit 1
+          fi

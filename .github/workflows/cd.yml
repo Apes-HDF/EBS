@@ -2,11 +2,11 @@ name: CD
 
 
 on:
+  # staging -> nonprod, main -> prod (cf build.yml)
   push:
     branches:
+      - staging
       - main
-    tags:
-      - '*'
   pull_request:
     types: [ opened, reopened, synchronize, labeled ]
   workflow_dispatch: ~

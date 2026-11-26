@@ -58,13 +58,6 @@ caddy:
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
 
-# You may prefer using the managed version in production: https://mercure.rocks
-mercure:
-  publicUrl: https://ghcr.io/.well-known/mercure
-  # Change me!
-  jwtSecret: "!ChangeThisMercureHubJWTSecretKey!"
-  extraDirectives: cors_origins http://ghcr.io https://ghcr.io
-
 # CloudNativePG cluster configuration.
 # The CNPG operator must be pre-installed in the cluster, along with the External Secrets
 # Operator (ESO): the owner role's password is generated once by ESO (templates/cnpg-app-secret.yaml)
@@ -85,6 +78,22 @@ cnpg:
     requests:
       memory: 50Mi
       cpu: 1m
+  # Backups + WAL archiving via the barman-cloud CNPG plugin (must be installed in the cluster).
+  # Relies on the "cnpg-backup-credentials" Secret and S3 bucket provisioned by infra (Tofu,
+  # create_cnpg_backup = true in opentofu-scaleway-infra-mut/2_environments/3_k8s_objects).
+  # PodMonitor scraping the CNPG metrics (requires the Prometheus Operator CRDs).
+  monitoring:
+    podMonitor:
+      enabled: false
+  backup:
+    enabled: false
+    # Bucket name convention from Tofu: lt-mut-{workspace}-scw-{release name}-cnpg-backup.
+    # Must match terraform.workspace (nonprod/prod).
+    workspace: nonprod
+    isWALArchiver: true
+    retentionPolicy: "30d"
+    # CNPG cron format: 6 fields, seconds first.
+    schedule: "0 0 2 * * *"
 
 # External PostgreSQL URL, used when cnpg.enabled is false.
 # url: postgresql://app:!ChangeMe!@database:5432/app?serverVersion=16&charset=utf8
@@ -105,7 +114,12 @@ external-dns:
 redis:
   enabled: true
   auth:
-    enabled: false
+    enabled: true
+    # Mot de passe généré une fois via ESO (cf templates/redis-auth-secret.yaml), même pattern que
+    # Meilisearch et CNPG : le sous-chart ne génère pas le sien (pas de `lookup` sous ArgoCD).
+    # Valeur passée par `tpl` côté sous-chart, d'où la syntaxe gotpl.
+    existingSecret: '{{ .Release.Name }}-redis-auth'
+    existingSecretPasswordKey: redis-password
   # master:
   #   startupProbe:
   #     enabled: true
@@ -123,7 +137,7 @@ redis:
 meilisearch:
   enabled: true
   image:
-    tag: v0.30.0
+    tag: v1.9.1
   environment:
     MEILI_ENV: 'production'
   resources:
@@ -151,19 +165,31 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
+  # The app doesn't call the Kubernetes API: no token is mounted, neither on the
+  # ServiceAccount nor on the pods using it.
+  automountServiceAccountToken: false
 
 podAnnotations: {}
 
-podSecurityContext: {}
-  # fsGroup: 2000
+# Applied to every app pod (Deployment, CronJobs, fixtures Job).
+# 82 is www-data in the Alpine-based php image (USER www-data, by name: runAsNonRoot
+# needs a numeric UID to check it). The caddy container runs with the same UID.
+# fsGroup makes the emptyDir volumes (storage, php socket, caddy data/config) writable.
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 82
+  runAsGroup: 82
+  fsGroup: 82
+  seccompProfile:
+    type: RuntimeDefault
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
+# Applied to every app container.
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
   # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
 
 service:
   type: ClusterIP
@@ -207,7 +233,6 @@ resources:
     requests:
       memory: 100Mi
 
-# If you use Mercure, you need the managed or the On Premise version to deploy more than one pod: https://mercure.rocks/docs/hub/cluster
 replicaCount: 1
 
 autoscaling:

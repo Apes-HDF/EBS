@@ -151,6 +151,12 @@ You have to use them for the `MEILISEARCH_URL` and `MEILISEARCH_API_KEY` variabl
     bin/console messenger:setup-transports --env=prod
     bin/console hautelook:fixtures:load --no-interaction -vv --no-bundles --env=prod
 
+The main admin account (`plateforme-ebs@apes-hdf.org`, see `fixtures/prod/user.yaml`)
+is created without a usable password. Set it right away, the password is asked
+interactively:
+
+    bin/console app:user:set-password plateforme-ebs@apes-hdf.org --env=prod
+
 ##  Apache configuration
 
 Here is a simple vhost:

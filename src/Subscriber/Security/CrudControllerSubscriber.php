@@ -30,14 +30,17 @@ final class CrudControllerSubscriber implements EventSubscriberInterface
     public function onController(ControllerEvent $event): void
     {
         $controller = $event->getController();
-        if (\is_array($controller)) {
-            $ctrl = $controller[0] ?? null;
-            if (is_a($ctrl, AdminSecuredCrudControllerInterface::class)) {
-                $this->authorizationChecker->checkAdminRole();
-            }
-            if (is_a($ctrl, GroupAdminSecuredCrudControllerInterface::class)) {
-                $this->authorizationChecker->isGroupAdmin();
-            }
+        // [object, method] for CRUD controllers, object for invokable controllers
+        $ctrl = \is_array($controller) ? ($controller[0] ?? null) : $controller;
+        if (!\is_object($ctrl)) {
+            return;
+        }
+
+        if ($ctrl instanceof AdminSecuredCrudControllerInterface) {
+            $this->authorizationChecker->checkAdminRole();
+        }
+        if ($ctrl instanceof GroupAdminSecuredCrudControllerInterface) {
+            $this->authorizationChecker->isGroupAdmin();
         }
     }
 }

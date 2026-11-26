@@ -6,6 +6,7 @@ namespace App\Form\Type\User;
 
 use App\Entity\Category;
 use App\Entity\User;
+use App\Flysystem\MediaManager;
 use App\Repository\CategoryRepository;
 use libphonenumber\PhoneNumberFormat;
 use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
@@ -28,6 +29,7 @@ final class EditProfileFormType extends AbstractType
     public function __construct(
         private readonly Security $security,
         private readonly TranslatorInterface $translator,
+        private readonly MediaManager $mediaManager,
     ) {
     }
 
@@ -43,6 +45,9 @@ final class EditProfileFormType extends AbstractType
                 'label' => self::I18N_PREFIX.'.image',
                 'mapped' => false,
                 'required' => false,
+                // same rules as the product images: allowed image extensions with
+                // a matching MIME type, maximum size
+                'constraints' => [$this->mediaManager->getFileConstraints(self::class)],
                 'help' => 'product.form.upload_infos',
             ])
             ->add('phone', PhoneNumberType::class, [

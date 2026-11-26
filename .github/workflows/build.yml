@@ -6,7 +6,8 @@ on:
 jobs:
   # Push vers le registry Scaleway. Le déploiement est ensuite géré par ArgoCD (cf ApplicationSet,
   # opentofu-scaleway-infra-mut/2_environments/3_k8s_objects/argocd_pr_sites.tf, qui lit les tags
-  # "sha-xxxxxxx" sur ce registry).
+  # "sha-xxxxxxx" sur ce registry). Environnements permanents (ArgoCD Image Updater, argocd_sites.tf,
+  # tags "{workspace}-xxxxxxx") : push sur staging -> nonprod, push sur main -> prod.
   build-push-scaleway:
     strategy:
       matrix:
@@ -36,8 +37,8 @@ jobs:
       with:
         images: ${{vars.REGISTRY_NAME}}/${{ matrix.image_name }}
         tags: |
-          type=raw,value=prod-{{sha}},enable=${{ github.ref_type == 'tag' }}
-          type=raw,value=nonprod-{{sha}},enable=${{ github.event_name != 'pull_request' && github.ref_type != 'tag' }}
+          type=raw,value=prod-{{sha}},enable=${{ github.ref == 'refs/heads/main' }}
+          type=raw,value=nonprod-{{sha}},enable=${{ github.ref == 'refs/heads/staging' }}
           type=sha,enable=${{ github.event_name == 'pull_request' }}
 
     - name: Build/Push
@@ -49,6 +50,7 @@ jobs:
         push: true
         cache-from: |
           type=gha,scope=${{ github.ref }}-${{ matrix.target }}
+          type=gha,scope=refs/heads/staging-${{ matrix.target }}
           type=gha,scope=refs/heads/main-${{ matrix.target }}
         cache-to: |
           type=gha,scope=${{ github.ref }}-${{ matrix.target }},mode=max

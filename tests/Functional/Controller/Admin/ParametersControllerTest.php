@@ -9,6 +9,7 @@ use App\Test\KernelTrait;
 use App\Tests\Functional\ChoiceFormFieldTrait;
 use App\Tests\TestReference;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Field\FormField;
 
@@ -75,5 +76,44 @@ final class ParametersControllerTest extends WebTestCase
         /** @var FormField $groupsCreationModeField */
         $groupsCreationModeField = $form->get('parameters_form[groupsCreationMode]');
         self::assertSame('only_admin', $groupsCreationModeField->getValue());
+    }
+
+    /**
+     * A group admin (any account that created a group) must not access the
+     * platform parameters.
+     *
+     * @see CrudControllerSubscriber
+     */
+    public function testGroupAdminAccessIsDenied(): void
+    {
+        $client = self::createClient();
+        $before = $this->getGroupsCreationMode($client);
+
+        // user 16 is admin of group 1, not a platform admin
+        $this->loginAsUser16($client);
+
+        $client->request('GET', '/admin/parameters');
+        self::assertResponseStatusCodeSame(403);
+        $client->request('GET', \sprintf(TestReference::ADMIN_URL_CUSTOM_CONTROLLER, 'admin_parameters'));
+        self::assertResponseStatusCodeSame(403);
+        $client->request('POST', '/admin/parameters', ['parameters_form' => ['groupsCreationMode' => 'only_admin']]);
+        self::assertResponseStatusCodeSame(403);
+
+        // nothing was changed
+        self::assertSame($before, $this->getGroupsCreationMode($client));
+    }
+
+    private function getGroupsCreationMode(KernelBrowser $client): string
+    {
+        $this->loginAsAdmin($client);
+        $crawler = $client->request('GET', \sprintf(TestReference::ADMIN_URL_CUSTOM_CONTROLLER, 'admin_parameters'));
+        self::assertResponseIsSuccessful();
+        /** @var FormField $field */
+        $field = $crawler->selectButton('parameters_form_submit')->form()->get('parameters_form[groupsCreationMode]');
+
+        $value = $field->getValue();
+        self::assertIsString($value);
+
+        return $value;
     }
 }

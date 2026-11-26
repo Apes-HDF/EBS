@@ -100,6 +100,10 @@ class ServiceRequestStatusWorkflowController extends AbstractController
             return $this->applyAndRedirect($id, $serviceRequest, $transition);
         }
 
+        // the refused dates were written in the entity by the form: reload it, so
+        // that the conversation page, which flushes, does not save them
+        $this->doctrine->refresh($serviceRequest);
+
         return $this->forward(ConversationController::class, compact('id'));
     }
 

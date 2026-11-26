@@ -21,6 +21,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "plateforme-ebs.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.serviceAccount.automountServiceAccountToken }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       restartPolicy: Never
@@ -98,21 +99,6 @@ spec:
                 secretKeyRef:
                   name: {{ include "plateforme-ebs.databaseSecretName" . }}
                   key: database-url
-            - name: MERCURE_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "plateforme-ebs" . }}
-                  key: mercure-url
-            - name: MERCURE_PUBLIC_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "plateforme-ebs" . }}
-                  key: mercure-public-url
-            - name: MERCURE_JWT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "plateforme-ebs" . }}
-                  key: mercure-jwt-secret
             {{- if .Values.meilisearch.enabled }}
             - name: MEILISEARCH_API_KEY
               valueFrom:
@@ -128,8 +114,8 @@ spec:
             {{- if .Values.redis.enabled }}
             - name: REDIS_URL
               valueFrom:
-                configMapKeyRef:
-                  name: {{ include "plateforme-ebs" . }}
+                secretKeyRef:
+                  name: {{ .Release.Name }}-redis-auth
                   key: redis-url
             {{- end }}
             - name: PAYUM_APIKEY

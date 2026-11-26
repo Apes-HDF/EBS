@@ -4,7 +4,7 @@
 
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
-ARG PHP_VERSION=8.2.35
+ARG PHP_VERSION=8.2.36
 ARG CADDY_VERSION=2.11.4
 # Caddy binary version, can be ahead of the base image (CADDY_VERSION)
 ARG CADDY_BUILD_VERSION=2.11.6
@@ -31,7 +31,7 @@ RUN yarn build
 FROM php:${PHP_VERSION}-fpm-alpine AS app_php
 
 # needed for security update until base image is updated
-RUN apk upgrade --no-cache libcurl curl openssl openssl-dev libressl libcrypto3 libssl3 nghttp2-libs
+RUN apk upgrade --no-cache libcurl curl openssl openssl-dev libressl libcrypto3 libssl3 nghttp2-libs brotli-libs
 
 # Allow to use development versions of Symfony
 ARG STABILITY="stable"
@@ -212,12 +212,13 @@ FROM caddy:${CADDY_VERSION} AS app_caddy
 
 WORKDIR /srv/app
 
-COPY --from=app_caddy_builder --chmod=500 /usr/bin/caddy /usr/bin/caddy
+# 555: the container runs as non-root (helm chart podSecurityContext)
+COPY --from=app_caddy_builder --chmod=555 /usr/bin/caddy /usr/bin/caddy
 
 COPY --from=app_php /srv/app/public public/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
 
 # needed for security update until base image is updated
-RUN apk upgrade --no-cache libcurl curl openssl openssl-dev libcrypto3 libssl3 nghttp2-libs
+RUN apk upgrade --no-cache libcurl curl openssl openssl-dev libcrypto3 libssl3 nghttp2-libs brotli-libs
 
 WORKDIR /srv/app

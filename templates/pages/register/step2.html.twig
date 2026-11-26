@@ -19,7 +19,7 @@
     {% set info = '' %}
     {% if not groups_invited.isEmpty %}
         {% set info = (i18n_prefix ~ '.group_invitations')|trans({
-            '%groups%': groups_invited|map(p => p.name)|join(', ')
+            '%groups%': groups_invited|map(p => p.name|e)|join(', ')
         }) ~ '<br/>' %}
     {% endif %}
     {% set info = info ~ (i18n_prefix ~ '.info')|trans %}

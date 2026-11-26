@@ -16,14 +16,14 @@ spec:
     - Ingress
     - Egress
   ingress:
-    # HTTP traffic from the shared Traefik Gateway (httproute.yaml).
+    # HTTP traffic from the shared Traefik Gateway (httproute.yaml), on the caddy container port.
     - from:
         - namespaceSelector:
             matchLabels:
               service: ingress
       ports:
         - protocol: TCP
-          port: 80
+          port: 8080
   egress:
     # DNS resolution
     - to:

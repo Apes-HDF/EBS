@@ -20,7 +20,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
+use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
@@ -90,7 +92,13 @@ final class UserGroupController extends AbstractController
     {
         $group = $this->getGroupAndCheckToken($request, $id, 'accept_invitation');
         $command = new AcceptGroupInvitationCommand($group->getId(), $user->getId());
-        $this->commandBus->dispatch($command);
+        try {
+            $this->commandBus->dispatch($command);
+        } catch (HandlerFailedException $e) {
+            // no pending invitation (422) or charged group to pay (403)
+            $previous = $e->getPrevious();
+            throw $previous instanceof HttpExceptionInterface ? $previous : $e;
+        }
         $this->addFlashSuccess($this->getI18nPrefix().'.accept_invitation.flash.success');
 
         return $this->redirectToGroup($group);
