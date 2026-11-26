@@ -81,6 +81,24 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Selector labels CronJobs (pods bin/console) : distincts de plateforme-ebs.selectorLabels pour
+ne pas devenir endpoints du Service ni recevoir le trafic entrant de allow-app ; leur trafic
+sortant est ouvert par networkpolicy-app-jobs.yaml.
+*/}}
+{{- define "plateforme-ebs.selectorLabelsJobs" -}}
+app.kubernetes.io/name: {{ include "plateforme-ebs.name" . }}-jobs
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/part-of: {{ include "plateforme-ebs.name" . }}
+{{- end }}
+
+{{/*
+Vrai si au moins un CronJob applicatif est rendu (cronjobs/*.yaml, cronjob-fixture-reset.yaml).
+*/}}
+{{- define "plateforme-ebs.jobsEnabled" -}}
+{{- if or .Values.dailyCronjobs.enabled .Values.php.fixtureCron.enabled }}true{{- end }}
+{{- end }}
+
+{{/*
 CNPG cluster name
 */}}
 {{- define "plateforme-ebs.cnpgClusterName" -}}

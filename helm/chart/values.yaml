@@ -137,7 +137,7 @@ redis:
 meilisearch:
   enabled: true
   image:
-    tag: v0.30.0
+    tag: v1.9.1
   environment:
     MEILI_ENV: 'production'
   resources:
