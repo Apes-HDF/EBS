@@ -10,6 +10,11 @@
             <target>Paiement réussi. Vous êtes désormais membre du groupe %group%.</target>
         </trans-unit>
 
+        <trans-unit id="mRfsdPv" resname="app.controller.payment.group.done_action.flash.membership_refused">
+            <source>app.controller.payment.group.done_action.flash.membership_refused</source>
+            <target>Votre paiement a été reçu, mais le groupe privé %group% n'est accessible que sur invitation. Contactez son administrateur pour être remboursé·e ou invité·e.</target>
+        </trans-unit>
+
         <trans-unit id="ipYvZb8" resname="app.controller.payment.group.done_action.status.new">
             <source>app.controller.payment.group.done_action.status.new</source>
             <target>Le paiement est en cours mais n'a pas encore abouti.</target>

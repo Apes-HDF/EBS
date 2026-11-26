@@ -17,7 +17,9 @@ use Payum\Core\Request\GetHumanStatus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
+use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
@@ -61,8 +63,22 @@ final class DoneAction extends AbstractController
             throw new UnprocessableEntityHttpException('Cannot verify Payum token.');
         }
 
-        /** @var GetHumanStatus $status */
-        $status = $this->commandBus->dispatch(new DoneCommand($groupOffer->getId(), $user->getId(), $token));
+        try {
+            /** @var GetHumanStatus $status */
+            $status = $this->commandBus->dispatch(new DoneCommand($groupOffer->getId(), $user->getId(), $token));
+        } catch (HandlerFailedException $e) {
+            // paid but the user can no longer join the private group (the payment must be refunded)
+            if (!$e->getPrevious() instanceof AccessDeniedHttpException) {
+                throw $e;
+            }
+            $this->addFlashWarning($this->translator->trans($this->getI18nPrefix().'.flash.membership_refused', [
+                '%group%' => $groupOffer->getGroup()->getName()],
+            ));
+            $request->getSession()->remove('payment_in_progress');
+
+            return $this->redirectToRoute('app_group_show', $groupOffer->getGroup()->getRoutingParameters());
+        }
+
         if ($status->isCaptured()) {
             $this->addFlashSuccess($this->translator->trans($this->getI18nPrefix().'.flash.success', [
                 '%group%' => $groupOffer->getGroup()->getName()],

@@ -120,6 +120,11 @@
             <target>Aucune offre pour ce groupe.</target>
         </trans-unit>
 
+        <trans-unit id="pIvInvO" resname="templates.pages.group.show.private_invitation_only">
+            <source>templates.pages.group.show.private_invitation_only</source>
+            <target>Ce groupe privé est accessible uniquement sur invitation.</target>
+        </trans-unit>
+
         <trans-unit id="1w4Jeyy" resname="templates.pages.group.show.membership">
             <source>templates.pages.group.show.membership</source>
             <target>Adhésion: </target>
