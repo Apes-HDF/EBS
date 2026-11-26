@@ -80,3 +80,7 @@ Run the tests and generate the code coverage report:
 Run all checks like the Github CI:
 
     make ci
+
+## Suivi des erreurs
+
+Sentry (back et front) est inactif tant que `SENTRY_DSN` / `SENTRY_JS_DSN` sont vides. Variables et déploiement : [sentry.md](sentry.md).
