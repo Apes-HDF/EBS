@@ -6,6 +6,13 @@
 #    would be grouped and delayed instead of landing as individual, immediate
 #    pull requests — the opposite of the intended behavior.
 #  - `cooldown` only applies to version updates, it never delays security ones.
+#
+# Patch updates are grouped in one `<ecosystem>-patch` pull request per ecosystem,
+# merged automatically once the CI is green (dependabot-auto-merge.yml). The
+# `*-patch` group must stay first: a dependency goes to the first group it matches.
+# Minor and major updates stay in their own pull requests, reviewed by a human
+# (except the symfony/doctrine and development minors, grouped to keep the
+# number of pull requests reasonable).
 version: 2
 updates:
   - package-ecosystem: composer
@@ -13,65 +20,100 @@ updates:
     schedule:
       interval: weekly
       day: monday
-    open-pull-requests-limit: 5
+      timezone: Europe/Paris
+    open-pull-requests-limit: 10
+    labels: ["dependencies"]
     commit-message:
       prefix: "chore(deps)"
     cooldown:
       default-days: 7
       semver-major-days: 30
     groups:
+      composer-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["patch"]
       symfony:
         applies-to: version-updates
         patterns: ["symfony/*", "doctrine/*"]
-        update-types: ["minor", "patch"]
+        update-types: ["minor"]
       dev:
         applies-to: version-updates
         dependency-type: development
         patterns: ["*"]
-      prod-minor-patch:
-        applies-to: version-updates
-        dependency-type: production
-        update-types: ["minor", "patch"]
+        update-types: ["minor"]
 
   - package-ecosystem: npm
     directory: /
-    schedule: { interval: weekly, day: monday }
-    open-pull-requests-limit: 3
+    schedule: { interval: weekly, day: monday, timezone: Europe/Paris }
+    open-pull-requests-limit: 10
+    labels: ["dependencies"]
     commit-message:
       prefix: "chore(deps)"
     cooldown: { default-days: 7, semver-major-days: 30 }
     groups:
+      npm-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["patch"]
       npm-dev:
         applies-to: version-updates
         dependency-type: development
         patterns: ["*"]
-      npm-prod:
-        applies-to: version-updates
-        dependency-type: production
-        update-types: ["minor", "patch"]
+        update-types: ["minor"]
 
   - package-ecosystem: helm
     directory: /helm/chart
-    schedule: { interval: weekly, day: monday }
+    schedule: { interval: weekly, day: monday, timezone: Europe/Paris }
+    open-pull-requests-limit: 10
+    labels: ["dependencies"]
     commit-message:
       prefix: "chore(deps)"
     cooldown: { default-days: 7, semver-major-days: 30 }
     groups:
-      helm:
+      helm-patch:
         applies-to: version-updates
         patterns: ["*"]
+        update-types: ["patch"]
 
   - package-ecosystem: github-actions
     directory: /
-    schedule: { interval: monthly }
+    schedule: { interval: weekly, day: monday, timezone: Europe/Paris }
+    open-pull-requests-limit: 10
+    labels: ["dependencies"]
     commit-message:
       prefix: "chore(deps)"
     groups:
-      actions: { patterns: ["*"] }
+      github-actions-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["patch"]
 
   - package-ecosystem: docker
     directory: /
-    schedule: { interval: weekly, day: monday }
+    schedule: { interval: weekly, day: monday, timezone: Europe/Paris }
+    open-pull-requests-limit: 10
+    labels: ["dependencies"]
     commit-message:
       prefix: "chore(deps)"
     cooldown: { default-days: 7, semver-major-days: 30 }
+    groups:
+      docker-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["patch"]
+
+  # Third-party images of the local stack (postgres, redis, meilisearch...).
+  - package-ecosystem: docker-compose
+    directory: /
+    schedule: { interval: weekly, day: monday, timezone: Europe/Paris }
+    open-pull-requests-limit: 10
+    labels: ["dependencies"]
+    commit-message:
+      prefix: "chore(deps)"
+    cooldown: { default-days: 7, semver-major-days: 30 }
+    groups:
+      docker-compose-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["patch"]
