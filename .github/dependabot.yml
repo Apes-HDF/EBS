@@ -6,6 +6,11 @@
 #    would be grouped and delayed instead of landing as individual, immediate
 #    pull requests — the opposite of the intended behavior.
 #  - `cooldown` only applies to version updates, it never delays security ones.
+#
+# Each ecosystem starts with an `<ecosystem>-patch` group (patch updates only),
+# merged automatically once the CI is green (dependabot-auto-merge.yml). It must
+# stay first: a dependency goes to the first group it matches. The other groups
+# are unchanged and now collect the minor updates, reviewed by a human.
 version: 2
 updates:
   - package-ecosystem: composer
@@ -20,6 +25,10 @@ updates:
       default-days: 7
       semver-major-days: 30
     groups:
+      composer-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["patch"]
       symfony:
         applies-to: version-updates
         patterns: ["symfony/*", "doctrine/*"]
@@ -41,6 +50,10 @@ updates:
       prefix: "chore(deps)"
     cooldown: { default-days: 7, semver-major-days: 30 }
     groups:
+      npm-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["patch"]
       npm-dev:
         applies-to: version-updates
         dependency-type: development
@@ -57,6 +70,10 @@ updates:
       prefix: "chore(deps)"
     cooldown: { default-days: 7, semver-major-days: 30 }
     groups:
+      helm-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["patch"]
       helm:
         applies-to: version-updates
         patterns: ["*"]
@@ -67,6 +84,10 @@ updates:
     commit-message:
       prefix: "chore(deps)"
     groups:
+      github-actions-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["patch"]
       actions: { patterns: ["*"] }
 
   - package-ecosystem: docker
@@ -75,3 +96,8 @@ updates:
     commit-message:
       prefix: "chore(deps)"
     cooldown: { default-days: 7, semver-major-days: 30 }
+    groups:
+      docker-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["patch"]

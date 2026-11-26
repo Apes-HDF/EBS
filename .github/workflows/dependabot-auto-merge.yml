@@ -1,0 +1,48 @@
+# Auto-merge of Dependabot patch updates, standalone equivalent of the shared
+# coopTilleuls/TMA-utils workflow (private, not callable from this organization).
+#
+# - Runs only for pull requests opened by Dependabot AND triggered by Dependabot,
+#   from this repository (no fork), not draft: a human closing, reopening or
+#   labelling a Dependabot pull request skips the job.
+# - Patch updates only (version-update:semver-patch): `gh pr merge --auto` waits
+#   for the required checks of the branch, so nothing is merged with a red CI.
+# - Minor updates stay for a human review; major updates get the `needs-human` label.
+# - Switch: repository variable DEPENDABOT_AUTOMERGE (`patch` = enabled, any
+#   other value or unset = disabled). Labelling majors does not depend on it.
+name: dependabot-auto-merge
+
+on: pull_request
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  automerge:
+    if: |
+      github.event.pull_request.user.login == 'dependabot[bot]' &&
+      github.actor == 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.event.pull_request.base.repo.full_name &&
+      !github.event.pull_request.draft
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dependabot/fetch-metadata@21025c705c08248db411dc16f3619e6b5f9ea21a # v2.5.0
+        id: meta
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: auto-merge
+        if: |
+          vars.DEPENDABOT_AUTOMERGE == 'patch' &&
+          steps.meta.outputs.update-type == 'version-update:semver-patch'
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: flag major
+        if: steps.meta.outputs.update-type == 'version-update:semver-major'
+        run: gh pr edit "$PR_URL" --add-label "needs-human"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
