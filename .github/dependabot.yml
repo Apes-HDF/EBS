@@ -8,9 +8,13 @@
 #  - `cooldown` only applies to version updates, it never delays security ones.
 #
 # Each ecosystem starts with an `<ecosystem>-patch` group (patch updates only),
-# merged automatically once the CI is green (dependabot-auto-merge.yml). It must
-# stay first: a dependency goes to the first group it matches. The other groups
-# are unchanged and now collect the minor updates, reviewed by a human.
+# merged automatically once the CI is green (dependabot-auto-merge.yml).
+# Dependabot puts a dependency in the most specific matching group, not the first
+# one: the other groups therefore explicitly exclude patch updates, otherwise they
+# would capture them and the mixed minor+patch pull request would not be merged.
+# They keep collecting the minor (and, where they did, major) updates for review.
+# `allow: dependency-type: all` on composer and npm also updates indirect
+# dependencies in the lockfile (e.g. Symfony components pulled in by a bundle).
 version: 2
 updates:
   - package-ecosystem: composer
@@ -24,6 +28,8 @@ updates:
     cooldown:
       default-days: 7
       semver-major-days: 30
+    allow:
+      - dependency-type: all
     groups:
       composer-patch:
         applies-to: version-updates
@@ -32,15 +38,16 @@ updates:
       symfony:
         applies-to: version-updates
         patterns: ["symfony/*", "doctrine/*"]
-        update-types: ["minor", "patch"]
+        update-types: ["minor"]
       dev:
         applies-to: version-updates
         dependency-type: development
         patterns: ["*"]
+        update-types: ["minor", "major"]
       prod-minor-patch:
         applies-to: version-updates
         dependency-type: production
-        update-types: ["minor", "patch"]
+        update-types: ["minor"]
 
   - package-ecosystem: npm
     directory: /
@@ -49,6 +56,8 @@ updates:
     commit-message:
       prefix: "chore(deps)"
     cooldown: { default-days: 7, semver-major-days: 30 }
+    allow:
+      - dependency-type: all
     groups:
       npm-patch:
         applies-to: version-updates
@@ -58,10 +67,11 @@ updates:
         applies-to: version-updates
         dependency-type: development
         patterns: ["*"]
+        update-types: ["minor", "major"]
       npm-prod:
         applies-to: version-updates
         dependency-type: production
-        update-types: ["minor", "patch"]
+        update-types: ["minor"]
 
   - package-ecosystem: helm
     directory: /helm/chart
@@ -77,6 +87,7 @@ updates:
       helm:
         applies-to: version-updates
         patterns: ["*"]
+        update-types: ["minor", "major"]
 
   - package-ecosystem: github-actions
     directory: /
@@ -88,7 +99,9 @@ updates:
         applies-to: version-updates
         patterns: ["*"]
         update-types: ["patch"]
-      actions: { patterns: ["*"] }
+      actions:
+        patterns: ["*"]
+        update-types: ["minor", "major"]
 
   - package-ecosystem: docker
     directory: /
