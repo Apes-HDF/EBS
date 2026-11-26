@@ -9,6 +9,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    {% if sentry_js_dsn %}
+        <meta name="sentry-dsn" content="{{ sentry_js_dsn }}">
+        <meta name="sentry-environment" content="{{ sentry_js_environment }}">
+        {% if sentry_js_release %}<meta name="sentry-release" content="{{ sentry_js_release }}">{% endif %}
+    {% endif %}
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}

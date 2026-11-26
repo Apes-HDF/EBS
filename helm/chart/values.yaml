@@ -10,6 +10,9 @@ php:
     tag: ""
   appEnv: prod
   appDebug: "0"
+  # Sent to Sentry as the environment (back and front). The DSNs come from the "external-secrets"
+  # Secret (keys SENTRY_DSN and SENTRY_JS_DSN, optional: Sentry stays off when they are missing).
+  sentryEnvironment: ""
   appSecret: ""
   corsAllowOrigin: "^https?://.*?\\.chart-example\\.local$"
   trustedHosts: 
@@ -42,7 +45,8 @@ dailyCronjobs:
 maildev:
   enabled: false
 
-# MAILER_DSN, SMS_DSN, PAYUM_APIKEY and PAYUM_GATEWAY come from the "external-secrets" Secret,
+# MAILER_DSN, SMS_DSN, PAYUM_APIKEY, PAYUM_GATEWAY and the optional SENTRY_DSN / SENTRY_JS_DSN
+# come from the "external-secrets" Secret,
 # provisioned by infra (Tofu) from Scaleway Secret Manager in the release namespace -- not by
 # this chart, see templates/deployment.yaml. MAILER_DSN is the only exception: it's overridden
 # with the bundled maildev subchart's DSN when maildev.enabled is true (local dev).

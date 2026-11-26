@@ -188,6 +188,28 @@ spec:
                 secretKeyRef:
                   name: external-secrets
                   key: PAYUM_GATEWAY
+            # Sentry : optionnel. Sans clé SENTRY_DSN / SENTRY_JS_DSN dans le Secret external-secrets,
+            # les variables restent absentes et Sentry est inactif.
+            - name: SENTRY_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: external-secrets
+                  key: SENTRY_DSN
+                  optional: true
+            - name: SENTRY_JS_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: external-secrets
+                  key: SENTRY_JS_DSN
+                  optional: true
+            {{- with .Values.php.sentryEnvironment }}
+            - name: SENTRY_ENVIRONMENT
+              value: {{ . | quote }}
+            - name: SENTRY_JS_ENVIRONMENT
+              value: {{ . | quote }}
+            {{- end }}
+            - name: SENTRY_RELEASE
+              value: {{ .Values.php.image.tag | default .Chart.AppVersion | quote }}
             # bucket-credentials : provisionné côté infra (Tofu, opentofu-scaleway-infra-mut,
             # app_bucket.tf), pas par ce chart -- convention de nommage fixe partagée par tous les
             # sites ArgoCD avec create_bucket = true.

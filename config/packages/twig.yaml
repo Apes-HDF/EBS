@@ -8,6 +8,10 @@ twig:
         upload_maxsize_total: '%upload_maxsize_total%' 
         upload_max_images: '%upload_max_images%'
         brand: '%brand%' 
+        # DSN et environnement Sentry front, lus au runtime (vides = Sentry inactif), voir assets/sentry.js
+        sentry_js_dsn: '%env(default::SENTRY_JS_DSN)%'
+        sentry_js_environment: '%env(default:kernel.environment:SENTRY_JS_ENVIRONMENT)%'
+        sentry_js_release: '%env(default::SENTRY_RELEASE)%'
         role_user: !php/const App\Entity\User::ROLE_USER 
         role_admin: !php/const App\Entity\User::ROLE_ADMIN 
  

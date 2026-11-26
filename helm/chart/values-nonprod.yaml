@@ -27,6 +27,7 @@ redis:
     size: "1Gi"
 
 php:
+  sentryEnvironment: nonprod
   fixtureJob:
     enabled: true
   fixtureCron:
