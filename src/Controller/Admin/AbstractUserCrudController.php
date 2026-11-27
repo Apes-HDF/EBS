@@ -27,6 +27,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Option\EA;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -57,8 +58,12 @@ use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -74,6 +79,9 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
     public AppMailer $mailer;
 
     private const SWITCH_USER_PARAMETER = '_switch_user'; // @see security.yaml
+
+    public const PROMOTE_TO_ADMIN_CSRF_TOKEN_ID = 'promote_to_admin';
+    public const PROMOTE_TO_ADMIN_CSRF_PARAMETER = 'csrfToken';
 
     abstract public function getUserType(): UserType;
 
@@ -141,8 +149,23 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
         $actions
             ->add(Crud::PAGE_INDEX, $connectAs);
 
+        // POST form whose URL carries a CSRF token (the dropdown renders an empty form, like the EasyAdmin toggle)
         $promoteToAdmin = Action::new('promoteToAdmin', 'action.promoteToAdmin')
-            ->linkToCrudAction('promoteToAdmin')
+            ->linkToUrl(function (User $user): string {
+                /** @var CsrfTokenManagerInterface $csrfTokenManager */
+                $csrfTokenManager = $this->container->get('security.csrf.token_manager');
+                $url = $this->adminUrlGenerator
+                    ->unsetAllExcept(EA::FILTERS, EA::QUERY, EA::SORT, EA::PAGE)
+                    ->setController(static::class)
+                    ->setAction('promoteToAdmin')
+                    ->setEntityId($user->getId())
+                    ->set(self::PROMOTE_TO_ADMIN_CSRF_PARAMETER, $csrfTokenManager->getToken(self::PROMOTE_TO_ADMIN_CSRF_TOKEN_ID)->getValue())
+                    ->generateUrl();
+                $this->adminUrlGenerator->unset(self::PROMOTE_TO_ADMIN_CSRF_PARAMETER); // the generator is shared
+
+                return $url;
+            })
+            ->renderAsForm()
             ->displayIf(fn (User $user) => !$user->isAdmin() && !$user->isMainAdminAccount());
         $actions
             ->add(Crud::PAGE_INDEX, $promoteToAdmin);
@@ -226,6 +249,17 @@ abstract class AbstractUserCrudController extends AbstractCrudController impleme
      */
     public function promoteToAdmin(AdminContext $context): Response
     {
+        $request = $context->getRequest();
+        if (!$request->isMethod(Request::METHOD_POST)) {
+            throw new MethodNotAllowedHttpException([Request::METHOD_POST]);
+        }
+
+        /** @var ?string $token */
+        $token = $request->query->get(self::PROMOTE_TO_ADMIN_CSRF_PARAMETER);
+        if (!$this->isCsrfTokenValid(self::PROMOTE_TO_ADMIN_CSRF_TOKEN_ID, $token)) {
+            throw new UnprocessableEntityHttpException('Invalid CSRF token');
+        }
+
         /** @var User $targetUser */
         $targetUser = $context->getEntity()->getInstance();
         $targetUser->setType(UserType::ADMIN)->promoteToAdmin();
