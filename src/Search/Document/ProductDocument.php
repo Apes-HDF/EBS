@@ -112,11 +112,11 @@ final class ProductDocument
             $categoriesIds[] = (string) $category->getParent()->getId();
         }
 
-        // add geoloc
+        // add geoloc, only a place has a public address: the location of other owners is blurred
         $owner = $product->getOwner();
         if ($owner->hasAddress()) {
             Assert::notNull($owner->getAddress());
-            $geo = GeoDocument::fromAddress($owner->getAddress());
+            $geo = GeoDocument::fromAddress($owner->getAddress(), $owner->isPlace() ? null : GeoDocument::PRIVATE_PRECISION);
         }
 
         return new self(

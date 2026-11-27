@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony" />
+    </header>
+    <body>
+        <trans-unit id="EXAyUYd" resname="templates.email.security.change_login.hi">
+            <source>templates.email.security.change_login.hi</source>
+            <target>Bonjour !</target>
+        </trans-unit>
+
+        <trans-unit id="QO9Raqv" resname="templates.email.security.change_login.p1">
+            <source>templates.email.security.change_login.p1</source>
+            <target>Vous avez demandé à utiliser cette adresse e-mail pour vous connecter à votre compte. Cliquez sur le lien suivant pour la confirmer (vous devrez être connecté·e à votre compte) :</target>
+        </trans-unit>
+
+        <trans-unit id="Eq0qLPU" resname="templates.email.security.change_login.cta">
+            <source>templates.email.security.change_login.cta</source>
+            <target>Confirmer ma nouvelle adresse e-mail</target>
+        </trans-unit>
+
+        <trans-unit id="ykfSCsM" resname="templates.email.security.change_login.cta2">
+            <source>templates.email.security.change_login.cta2</source>
+            <target>Ou copiez-collez le lien ci-dessous dans votre navigateur :</target>
+        </trans-unit>
+
+        <trans-unit id="2YU6Egw" resname="templates.email.security.change_login.p2">
+            <source>templates.email.security.change_login.p2</source>
+            <target>Ce lien est valable 24 heures. Si vous n'êtes pas à l'origine de cette demande, ignorez ce message : aucun compte ne sera rattaché à cette adresse.</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

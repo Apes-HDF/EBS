@@ -48,6 +48,9 @@ final class ChangeLoginAction extends AbstractController
             $this->addFlashSuccess($this->getI18nPrefix().'.flash.success');
             /** @var string $email */
             $email = $form->get('email')->getData();
+            // the form is mapped on the user: reload the current email, the new one
+            // is only applied once confirmed with the link sent to this new address
+            $this->entityManager->refresh($user);
             $command = new ChangeLoginCommand($user->getId(), $email);
             $this->commandBus->dispatch($command);
 

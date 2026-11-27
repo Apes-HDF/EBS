@@ -1,0 +1,28 @@
+# Suivi des erreurs avec Sentry (back).
+# Totalement inerte tant que SENTRY_DSN est vide ou absent (dev local, CI, tests).
+# Les valeurs viennent de l'environnement, jamais du dépôt : voir docs/sentry.md.
+parameters:
+    env(SENTRY_DSN): ''
+    env(SENTRY_ENVIRONMENT): ''
+    env(SENTRY_RELEASE): ''
+    env(SENTRY_JS_DSN): ''
+    env(SENTRY_JS_ENVIRONMENT): ''
+    env(SENTRY_TRACES_SAMPLE_RATE): '0'
+
+sentry:
+    dsn: '%env(default::SENTRY_DSN)%'
+    options:
+        environment: '%env(default:kernel.environment:SENTRY_ENVIRONMENT)%'
+        release: '%env(default::SENTRY_RELEASE)%'
+        send_default_pii: false
+        traces_sample_rate: '%env(float:SENTRY_TRACES_SAMPLE_RATE)%'
+        before_send: 'App\Sentry\BeforeSendCallback'
+    # Les logs Monolog ne sont pas envoyés : les exceptions non gérées suffisent.
+    register_error_listener: true
+    register_error_handler: true
+
+when@test:
+    sentry:
+        dsn: null
+        register_error_listener: false
+        register_error_handler: false
