@@ -93,7 +93,7 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * Business rules for searchable/indexable products.
      */
-    public function getIndexable(?ProductType $type = null): Query
+    public function getIndexable(?ProductType $type = null, ?\DateTimeImmutable $updatedSince = null): Query
     {
         $qb = $this
             ->createQueryBuilder('p')
@@ -122,7 +122,24 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter(':type', $type);
         }
 
+        if ($updatedSince !== null) {
+            $qb->andWhere('p.updatedAt >= :updatedSince')
+                ->setParameter(':updatedSince', $updatedSince);
+        }
+
         return $qb->getQuery();
+    }
+
+    /**
+     * Products created or modified since the given date, whatever their status.
+     */
+    public function getUpdatedSince(\DateTimeImmutable $since): Query
+    {
+        return $this
+            ->createQueryBuilder('p')
+            ->andWhere('p.updatedAt >= :since')
+            ->setParameter(':since', $since)
+            ->getQuery();
     }
 
     public function getObjects(): Query
