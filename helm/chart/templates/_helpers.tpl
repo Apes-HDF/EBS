@@ -81,6 +81,22 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Selector labels Meilisearch reindex job (own labels so it isn't picked up as a Service endpoint)
+*/}}
+{{- define "plateforme-ebs.selectorLabelsReindex" -}}
+app.kubernetes.io/name: {{ include "plateforme-ebs.name" . }}-reindex
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+The reindex Job only runs when the fixtures Job doesn't: the latter already indexes the products,
+and two concurrent indexations would conflict on the swap index.
+*/}}
+{{- define "plateforme-ebs.reindexJobEnabled" -}}
+{{- if and .Values.meilisearch.enabled .Values.php.reindexJob.enabled (not .Values.php.fixtureJob.enabled) }}true{{ end }}
+{{- end }}
+
+{{/*
 Selector labels CronJobs (pods bin/console) : distincts de plateforme-ebs.selectorLabels pour
 ne pas devenir endpoints du Service ni recevoir le trafic entrant de allow-app ; leur trafic
 sortant est ouvert par networkpolicy-app-jobs.yaml.
